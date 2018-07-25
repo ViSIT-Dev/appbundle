@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="de" datatype="plaintext" original="messages" date="2018-06-27T09:45:11Z" product-name="visit_tablets">
+		<header/>
+		<body>
+			<trans-unit id="tx_visit_tablets_domain_model_glossarfe">
+				<source>Glossar</source>
+			</trans-unit>
+			<trans-unit id="tx_visit_tablets_domain_model_glossarfe.description">
+				<source></source>
+			</trans-unit>
+			<trans-unit id="tx_visit_tablets_domain_model_galeriefe">
+				<source>Galerie</source>
+			</trans-unit>
+			<trans-unit id="tx_visit_tablets_domain_model_galeriefe.description">
+				<source></source>
+			</trans-unit>
+			<trans-unit id="tx_visit_tablets_domain_model_kartefe">
+				<source>Karte</source>
+			</trans-unit>
+			<trans-unit id="tx_visit_tablets_domain_model_kartefe.description">
+				<source></source>
+			</trans-unit>
+			<trans-unit id="title.description">
+				<source>title</source>
+			</trans-unit>
+			<trans-unit id="longitude.description">
+				<source>longitude</source>
+			</trans-unit>
+			<trans-unit id="latitude.description">
+				<source>latitude</source>
+			</trans-unit>
+			<trans-unit id="flag_text.description">
+				<source>flagText</source>
+			</trans-unit>
+			<trans-unit id="sub_title.description">
+				<source>subTitle</source>
+			</trans-unit>
+			<trans-unit id="image.description">
+				<source>image</source>
+			</trans-unit>
+			<trans-unit id="description.description">
+				<source>description</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
