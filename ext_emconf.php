@@ -11,7 +11,7 @@
  ***************************************************************/
 
 $EM_CONF[$_EXTKEY] = [
-    'title' => 'tablets',
+    'title' => 'Visit App',
     'description' => '',
     'category' => 'plugin',
     'author' => 'Kris Raich',

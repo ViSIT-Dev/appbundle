@@ -1,107 +1,116 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="de" datatype="plaintext" original="messages" date="2018-06-27T09:45:11Z" product-name="visit_tablets">
-		<header/>
-		<body>
-			<trans-unit id="tx_visit_tablets_domain_model_glossarfe">
-				<source>Glossar</source>
-			</trans-unit>
-			<trans-unit id="tx_visit_tablets_domain_model_glossarfe.description">
-				<source></source>
-			</trans-unit>
-			<trans-unit id="tx_visit_tablets_domain_model_galeriefe">
-				<source>Galerie</source>
-			</trans-unit>
-			<trans-unit id="tx_visit_tablets_domain_model_galeriefe.description">
-				<source></source>
-			</trans-unit>
-			<trans-unit id="tx_visit_tablets_domain_model_kartefe">
-				<source>Karte</source>
-			</trans-unit>
-			<trans-unit id="tx_visit_tablets_domain_model_kartefe.description">
-				<source></source>
-			</trans-unit>
-			<trans-unit id="tx_visittablets_domain_model_inmate">
-				<source>Inmate</source>
-			</trans-unit>
-			<trans-unit id="tx_visittablets_domain_model_inmate.first_name">
-				<source>First Name</source>
-			</trans-unit>
-			<trans-unit id="tx_visittablets_domain_model_inmate.last_name">
-				<source>Last Name</source>
-			</trans-unit>
-			<trans-unit id="tx_visittablets_domain_model_inmate.date_of_birth">
-				<source>Date Of Birth</source>
-			</trans-unit>
-			<trans-unit id="tx_visittablets_domain_model_inmate.place_of_birth">
-				<source>Place Of Birth</source>
-			</trans-unit>
-			<trans-unit id="tx_visittablets_domain_model_inmate.nationality">
-				<source>Nationality</source>
-			</trans-unit>
-			<trans-unit id="tx_visittablets_domain_model_inmate.day_of_passing">
-				<source>Day Of Passing</source>
-			</trans-unit>
-			<trans-unit id="tx_visittablets_domain_model_inmate.profession">
-				<source>Profession</source>
-			</trans-unit>
-			<trans-unit id="tx_visittablets_domain_model_inmate.prison_start">
-				<source>Prison Start</source>
-			</trans-unit>
-			<trans-unit id="tx_visittablets_domain_model_inmate.prison_end">
-				<source>Prison End</source>
-			</trans-unit>
-			<trans-unit id="tx_visittablets_domain_model_inmate.subtitle">
-				<source>Subtitle</source>
-			</trans-unit>
-			<trans-unit id="tx_visittablets_domain_model_inmate.teasertext">
-				<source>Teasertext</source>
-			</trans-unit>
-			<trans-unit id="tx_visittablets_domain_model_inmate.text">
-				<source>Text</source>
-			</trans-unit>
-			<trans-unit id="tx_visittablets_domain_model_inmate.image">
-				<source>Image</source>
-			</trans-unit>
-			<trans-unit id="tx_visittablets_domain_model_inmate.vip">
-				<source>Vip</source>
-			</trans-unit>
-			<trans-unit id="tx_visittablets_domain_model_inmate.prison_cell">
-				<source>Prison Cell</source>
-			</trans-unit>
-			<trans-unit id="tx_visittablets_domain_model_cardpoi">
-				<source>Card Poi</source>
-			</trans-unit>
-			<trans-unit id="tx_visittablets_domain_model_cardpoi.title">
-				<source>Title</source>
-			</trans-unit>
-			<trans-unit id="tx_visittablets_domain_model_cardpoi.longitude">
-				<source>Longitude</source>
-			</trans-unit>
-			<trans-unit id="tx_visittablets_domain_model_cardpoi.latitude">
-				<source>Latitude</source>
-			</trans-unit>
-			<trans-unit id="tx_visittablets_domain_model_cardpoi.flag_text">
-				<source>Flag Text</source>
-			</trans-unit>
-			<trans-unit id="tx_visittablets_domain_model_cardpoi.sub_title">
-				<source>Sub Title</source>
-			</trans-unit>
-			<trans-unit id="tx_visittablets_domain_model_cardpoi.image">
-				<source>Image</source>
-			</trans-unit>
-			<trans-unit id="tx_visittablets_domain_model_cardpoi.description">
-				<source>Description</source>
-			</trans-unit>
-			<trans-unit id="tx_visittablets_domain_model_prisoncell">
-				<source>Prison Cell</source>
-			</trans-unit>
-			<trans-unit id="tx_visittablets_domain_model_prisoncell.name">
-				<source>Name</source>
-			</trans-unit>
-			<trans-unit id="tx_visittablets_domain_model_prisoncell.imates">
-				<source>Imates</source>
-			</trans-unit>
-		</body>
-	</file>
+    <file source-language="de" datatype="plaintext" original="messages" date="2018-06-27T09:45:11Z" product-name="visit_tablets">
+        <header/>
+        <body>
+                    
+            <!-- used for plugin description -->
+                    
+            <trans-unit id="tx_visit_tablets_domain_model_glossarfe">
+                <source>Glossar</source>
+            </trans-unit>
+            <trans-unit id="tx_visit_tablets_domain_model_glossarfe.description">
+                <source>Dieses Plugin einfügen um eine Glossar anzuzeigen</source>
+            </trans-unit>
+            <trans-unit id="tx_visit_tablets_domain_model_galeriefe">
+                <source>Galerie</source>
+            </trans-unit>
+            <trans-unit id="tx_visit_tablets_domain_model_galeriefe.description">
+                <source>Dieses Plugin einfügen um die Startseite der Galerie anzuzeigen</source>
+            </trans-unit>
+            <trans-unit id="tx_visit_tablets_domain_model_kartefe">
+                <source>Karte</source>
+            </trans-unit>
+            <trans-unit id="tx_visit_tablets_domain_model_kartefe.description">
+                <source>Dieses Plugin einfügen um eine Karte anzuzeigen</source>
+            </trans-unit>
+            
+            
+            <trans-unit id="tx_visittablets_domain_model_inmate">
+                <source>Häftling</source>
+            </trans-unit>
+            <trans-unit id="tx_visittablets_domain_model_inmate.first_name">
+                <source>Vorname</source>
+            </trans-unit>
+            <trans-unit id="tx_visittablets_domain_model_inmate.last_name">
+                <source>Nachname</source>
+            </trans-unit>
+            <trans-unit id="tx_visittablets_domain_model_inmate.date_of_birth">
+                <source>Geburtsdatum</source>
+            </trans-unit>
+            <trans-unit id="tx_visittablets_domain_model_inmate.place_of_birth">
+                <source>Geburtsort</source>
+            </trans-unit>
+            <trans-unit id="tx_visittablets_domain_model_inmate.nationality">
+                <source>Nationalität</source>
+            </trans-unit>
+            <trans-unit id="tx_visittablets_domain_model_inmate.day_of_passing">
+                <source>Todestag</source>
+            </trans-unit>
+            <trans-unit id="tx_visittablets_domain_model_inmate.profession">
+                <source>Beruf</source>
+            </trans-unit>
+            <trans-unit id="tx_visittablets_domain_model_inmate.prison_start">
+                <source>Haftbeginn</source>
+            </trans-unit>
+            <trans-unit id="tx_visittablets_domain_model_inmate.prison_end">
+                <source>Haftende</source>
+            </trans-unit>
+            <trans-unit id="tx_visittablets_domain_model_inmate.subtitle">
+                <source>Unterüberschrift</source>
+            </trans-unit>
+            <trans-unit id="tx_visittablets_domain_model_inmate.teasertext">
+                <source>Teaser</source>
+            </trans-unit>
+            <trans-unit id="tx_visittablets_domain_model_inmate.text">
+                <source>Beschreibung</source>
+            </trans-unit>
+            <trans-unit id="tx_visittablets_domain_model_inmate.image">
+                <source>Bild</source>
+            </trans-unit>
+            <trans-unit id="tx_visittablets_domain_model_inmate.vip">
+                <source>Vip</source>
+            </trans-unit>
+            <trans-unit id="tx_visittablets_domain_model_inmate.prison_cell">
+                <source>Gefängniszelle</source>
+            </trans-unit>
+            
+            
+            <trans-unit id="tx_visittablets_domain_model_cardpoi">
+                <source>Punkt auf Karte</source>
+            </trans-unit>
+            <trans-unit id="tx_visittablets_domain_model_cardpoi.title">
+                <source>Titel</source>
+            </trans-unit>
+            <trans-unit id="tx_visittablets_domain_model_cardpoi.longitude">
+                <source>Längengrad</source>
+            </trans-unit>
+            <trans-unit id="tx_visittablets_domain_model_cardpoi.latitude">
+                <source>Breitengrad</source>
+            </trans-unit>
+            <trans-unit id="tx_visittablets_domain_model_cardpoi.flag_text">
+                <source>Text auf Falgge</source>
+            </trans-unit>
+            <trans-unit id="tx_visittablets_domain_model_cardpoi.sub_title">
+                <source>Unterüberschrift</source>
+            </trans-unit>
+            <trans-unit id="tx_visittablets_domain_model_cardpoi.image">
+                <source>Bild im Text</source>
+            </trans-unit>
+            <trans-unit id="tx_visittablets_domain_model_cardpoi.description">
+                <source>Beschreibung</source>
+            </trans-unit>
+            
+            
+            <trans-unit id="tx_visittablets_domain_model_prisoncell">
+                <source>Gefängniszelle</source>
+            </trans-unit>
+            <trans-unit id="tx_visittablets_domain_model_prisoncell.name">
+                <source>Name</source>
+            </trans-unit>
+            <trans-unit id="tx_visittablets_domain_model_prisoncell.imates">
+                <source>Häftlinge</source>
+            </trans-unit>
+        </body>
+    </file>
 </xliff>

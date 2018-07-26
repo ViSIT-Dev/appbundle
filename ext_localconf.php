@@ -47,41 +47,84 @@ call_user_func(
             ]
         );
 
+        
+        
+        $icons = [
+            'ext-visit-galerie' => 'galerie.svg',
+            'ext-visit-glossar' => 'glossar.svg',
+            'ext-visit-karte' => 'karte.svg',
+        ];
+        $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
+        foreach ($icons as $identifier => $path) {
+            $iconRegistry->registerIcon(
+                $identifier,
+                \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+                ['source' => 'EXT:visit_tablets/Resources/Public/Icons/' . $path]
+            );
+        }
+        
 	// wizards
 	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
-		'mod {
-			wizards.newContentElement.wizardItems.plugins {
-				elements {
-					glossarfe {
-						icon = ' . \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($extKey) . 'Resources/Public/Icons/user_plugin_glossarfe.svg
-						title = LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visit_tablets_domain_model_glossarfe
-						description = LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visit_tablets_domain_model_glossarfe.description
-						tt_content_defValues {
-							CType = list
-							list_type = visittablets_glossarfe
-						}
-					}
-					galeriefe {
-						icon = ' . \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($extKey) . 'Resources/Public/Icons/user_plugin_galeriefe.svg
-						title = LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visit_tablets_domain_model_galeriefe
-						description = LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visit_tablets_domain_model_galeriefe.description
-						tt_content_defValues {
-							CType = list
-							list_type = visittablets_galeriefe
-						}
-					}
-					kartefe {
-						icon = ' . \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($extKey) . 'Resources/Public/Icons/user_plugin_kartefe.svg
-						title = LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visit_tablets_domain_model_kartefe
-						description = LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visit_tablets_domain_model_kartefe.description
-						tt_content_defValues {
-							CType = list
-							list_type = visittablets_kartefe
-						}
-					}
-				}
-				show = *
-			}
+            'mod {
+                web_layout {
+                    BackendLayouts {
+                        default{
+                            title = Standard
+                            config {
+                                colCount = 1
+                                rowCount = 1
+                                rows {
+                                    1 {
+                                        columns {
+                                            1 {
+                                                name = Inhalt
+                                                colPos = 10
+                                                colspan = 1
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            icon = EXT:visit_tablets/Resources/Public/Icons/backendLayoutClean.svg
+                        }
+                        0 >
+                        1 >
+                        2 >
+                        3 >
+                    }
+                }
+                wizards.newContentElement.wizardItems.plugins {
+                    elements {
+                        glossarfe {
+                            iconIdentifier = ext-visit-glossar
+                            title = LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visit_tablets_domain_model_glossarfe
+                            description = LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visit_tablets_domain_model_glossarfe.description
+                            tt_content_defValues {
+                                CType = list
+                                list_type = visittablets_glossarfe
+                            }
+                        }
+                        galeriefe {
+                            iconIdentifier = ext-visit-galerie
+                            title = LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visit_tablets_domain_model_galeriefe
+                            description = LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visit_tablets_domain_model_galeriefe.description
+                            tt_content_defValues {
+                                CType = list
+                                list_type = visittablets_galeriefe
+                            }
+                        }
+                        kartefe {
+                            iconIdentifier = ext-visit-karte
+                            title = LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visit_tablets_domain_model_kartefe
+                            description = LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visit_tablets_domain_model_kartefe.description
+                            tt_content_defValues {
+                                CType = list
+                                list_type = visittablets_kartefe
+                            }
+                        }
+                    }
+                    show = *
+                }
 	   }'
 	);
     },

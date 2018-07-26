@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="de" datatype="plaintext" original="messages" date="2018-06-27T09:45:11Z" product-name="visit_tablets">
+        <header/>
+        <body>
+            <trans-unit id="tx_visit_tablets_domain_model_glossarfe">
+                <source>Glossar</source>
+            </trans-unit>
+            <trans-unit id="tx_visit_tablets_domain_model_glossarfe.description">
+                <source></source>
+            </trans-unit>
+            <trans-unit id="tx_visit_tablets_domain_model_galeriefe">
+                <source>Galerie</source>
+            </trans-unit>
+            <trans-unit id="tx_visit_tablets_domain_model_galeriefe.description">
+                <source></source>
+            </trans-unit>
+            <trans-unit id="tx_visit_tablets_domain_model_kartefe">
+                <source>Karte</source>
+            </trans-unit>
+            <trans-unit id="tx_visit_tablets_domain_model_kartefe.description">
+                <source></source>
+            </trans-unit>
+            <trans-unit id="first_name.description">
+                <source>firstName</source>
+            </trans-unit>
+            <trans-unit id="last_name.description">
+                <source>lastName</source>
+            </trans-unit>
+            <trans-unit id="date_of_birth.description">
+                <source>dateOfBirth</source>
+            </trans-unit>
+            <trans-unit id="place_of_birth.description">
+                <source>placeOfBirth</source>
+            </trans-unit>
+            <trans-unit id="nationality.description">
+                <source>nationality</source>
+            </trans-unit>
+            <trans-unit id="day_of_passing.description">
+                <source>dayOfPassing</source>
+            </trans-unit>
+            <trans-unit id="profession.description">
+                <source>profession</source>
+            </trans-unit>
+            <trans-unit id="prison_start.description">
+                <source>prisonStart</source>
+            </trans-unit>
+            <trans-unit id="prison_end.description">
+                <source>prisonEnd</source>
+            </trans-unit>
+            <trans-unit id="subtitle.description">
+                <source>subtitle</source>
+            </trans-unit>
+            <trans-unit id="teasertext.description">
+                <source>teasertext</source>
+            </trans-unit>
+            <trans-unit id="text.description">
+                <source>text</source>
+            </trans-unit>
+            <trans-unit id="image.description">
+                <source>image</source>
+            </trans-unit>
+            <trans-unit id="vip.description">
+                <source>vip</source>
+            </trans-unit>
+            <trans-unit id="prison_cell.description">
+                <source>prisonCell</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
