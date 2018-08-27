@@ -50,6 +50,7 @@ call_user_func(
         
         
         $icons = [
+            'ext-visit-backend' => 'galerie.svg',
             'ext-visit-galerie' => 'galerie.svg',
             'ext-visit-glossar' => 'glossar.svg',
             'ext-visit-karte' => 'karte.svg',
@@ -130,3 +131,20 @@ call_user_func(
     },
     $_EXTKEY
 );
+    
+    
+if(TYPO3_MODE === 'BE') {
+
+    // Constants
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScript(
+            $_EXTKEY,'constants',' <INCLUDE_TYPOSCRIPT: source="FILE:EXT:'. $_EXTKEY .'/Configuration/TypoScript/constants.ts">'
+            );
+
+    // Setup     
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScript(
+            $_EXTKEY,'setup',' <INCLUDE_TYPOSCRIPT: source="FILE:EXT:'. $_EXTKEY .'/Configuration/TypoScript/setup.ts">'
+            );
+
+
+}
+

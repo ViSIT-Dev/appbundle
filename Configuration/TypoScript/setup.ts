@@ -24,6 +24,30 @@ plugin.tx_visittablets_galeriefe <. plugin.tx_visittablets
 plugin.tx_visittablets_kartefe <. plugin.tx_visittablets
 
 
+# Module configuration
+module.tx_visittablets {
+    settings{
+       backendPath = /typo3conf/ext/visit_tablets/Resources/Public/Backend/
+    }
+    persistence {
+        storagePid = {$plugin.tx_visittablets.persistence.storagePid}
+    }
+    view {
+        templateRootPaths.0 = EXT:visit_tablets/Resources/Private/Backend/Templates/
+        partialRootPaths.0 = EXT:visit_tablets/Resources/Private/Backend/Partials/
+        layoutRootPaths.0 = EXT:visit_tablets/Resources/Private/Backend/Layouts/
+    }
+}
+
+# Module glossar configuration
+module.tx_visittablets_visit_visittabletsglossarbe <. module.tx_visittablets
+
+# Module karte configuration
+module.tx_visittablets_visit_visittabletskartebe <. module.tx_visittablets 
+
+# Module galerie configuration
+#module.tx_visittablets_visit_visittabletsgalerie <. module.tx_visittablets_visit 
+
 
 ##############
 #### PAGE ####
