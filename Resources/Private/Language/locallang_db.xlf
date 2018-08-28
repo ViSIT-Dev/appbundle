@@ -88,6 +88,9 @@
             <trans-unit id="tx_visittablets_domain_model_cardpoi.latitude">
                 <source>Breitengrad</source>
             </trans-unit>
+            <trans-unit id="tx_visittablets_domain_model_cardpoi.action_radius">
+                <source>Aktions Radius</source>
+            </trans-unit>
             <trans-unit id="tx_visittablets_domain_model_cardpoi.flag_text">
                 <source>Text auf Falgge</source>
             </trans-unit>

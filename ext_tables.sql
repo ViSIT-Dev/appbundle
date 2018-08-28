@@ -18,7 +18,7 @@ CREATE TABLE tx_visittablets_domain_model_inmate (
 	subtitle varchar(255) DEFAULT '' NOT NULL,
 	teasertext text NOT NULL,
 	text text NOT NULL,
-	image int(11) unsigned NOT NULL default '0',
+	media int(11) unsigned NOT NULL default '0',
 	vip tinyint(1) unsigned DEFAULT '0' NOT NULL,
 	prison_cell int(11) unsigned DEFAULT '0' NOT NULL,
 
@@ -49,9 +49,10 @@ CREATE TABLE tx_visittablets_domain_model_cardpoi (
 	title varchar(255) DEFAULT '' NOT NULL,
 	longitude double(11,2) DEFAULT '0.00' NOT NULL,
 	latitude double(11,2) DEFAULT '0.00' NOT NULL,
+	action_radius double(11,2) DEFAULT '0.00' NOT NULL,
 	flag_text varchar(255) DEFAULT '' NOT NULL,
 	sub_title varchar(255) DEFAULT '' NOT NULL,
-	image int(11) unsigned NOT NULL default '0',
+	media int(11) unsigned NOT NULL default '0',
 	description text NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,

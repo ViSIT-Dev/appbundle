@@ -43,9 +43,9 @@
 
         <!-- Dropzone.js -->
         <link href="vendors/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
-        
+
         <!-- Custom Theme Style -->
-        <link href="build/css/custom.css" rel="stylesheet">
+        <link href="css/custom.css" rel="stylesheet">
     </head>
 
     <body class="nav-sm">
@@ -62,7 +62,26 @@
 
                     <div class="right_col" role="main">
 
-                        <f:render section="main" />
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="x_panel">
+                                    <div class="x_title">
+                                        <f:render section="title" />
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content">
+                                        <br>
+
+                                        <f:flashMessages /> 
+
+                                        <f:render partial="FormErrors" />
+
+                                        <f:render section="main" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
 
                     </div>
                     <!-- /page content -->
@@ -126,13 +145,13 @@
         <script src="vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
         <script src="vendors/jszip/dist/jszip.min.js"></script>
         <script src="vendors/pdfmake/build/pdfmake.min.js"></script>
-        
+
         <script src="vendors/ckeditor5/ckeditor.js"></script>
         <script src="vendors/ckeditor5/translations/de.js"></script>
 
         <!-- Dropzone.js -->
         <script src="vendors/dropzone/dist/min/dropzone.min.js"></script>
-        
+
         <!-- Ion.RangeSlider -->
         <script src="vendors/ion.rangeSlider/js/ion.rangeSlider.min.js"></script>
 
@@ -341,42 +360,43 @@
 
                 }
             }
-            
-            ClassicEditor.create( document.querySelector( '#description' ),{
-                    language: 'de',
-                    toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],
-                    heading: {
-                        options: [
-                            { model: 'teaser',  view: 'p', title: 'Teaser', class: 'ck-teaser' },
-                            { model: 'paragraph', view: 'p', title: 'Text', class: 'ck-text' },
-                        ]
-                    }
-                })
-                .catch( error => {
-                    console.error( error );
-                } );
-            
-            $(".dropzone").dropzone({ 
+
+            ClassicEditor.create(document.querySelector('#description'), {
+                language: 'de',
+                removePlugins: ['Link'],
+                toolbar: ['heading', '|', 'bold', 'italic', 'bulletedList', 'numberedList', 'blockQuote'],
+                heading: {
+                    options: [
+                        {model: 'heading2', view: 'h3', title: 'Teaser', class: 'ck-heading_heading3'},
+                        {model: 'paragraph', title: 'Text', class: 'ck-heading_paragraph'}
+                    ]
+                }
+            })
+                    .catch(error => {
+                        console.error(error);
+                    });
+
+            $(".dropzone").dropzone({
                 url: "/file/post",
-                init: function() {
-                    this.on("addedfile", function() {
-                        if (this.files[1]!=null){
-                                this.removeFile(this.files[0]);
-                            }
-                        });
-                    },
-                    dictDefaultMessage: "Datei hier ablegen oder Klicken",
-                    dictFallbackMessage: "Ihr Browser unterstützt kein Drag & Drop Dateiuploads",
-                    dictFallbackText: "Bitte verwenden Sie das unten stehende Fallback-Formular, um Ihre Dateien wie in den alten Tagen hochzuladen.",
-                    dictFileTooBig: "Datei ist zu groß ({{filesize}}MiB). Maximale größe: {{maxFilesize}}MiB.",
-                    dictInvalidFileType: "Dieser Dateityp ist nicht erlaubt",
-                    dictResponseError: "Etwas ist schiefgelaufen: Server code {{statusCode}}",
-                    dictCancelUpload: "Upload abbrechen",
-                    dictCancelUploadConfirmation: "Wollen Sie den Upload wirklich abbrechen?",
-                    dictRemoveFile: "Datei entfernen",
-                    dictRemoveFileConfirmation: null,
-                    dictMaxFilesExceeded: "Sie können keine weitere Dateien hochladen",
-                });
+                init: function () {
+                    this.on("addedfile", function () {
+                        if (this.files[1] != null) {
+                            this.removeFile(this.files[0]);
+                        }
+                    });
+                },
+                dictDefaultMessage: "Datei hier ablegen oder Klicken",
+                dictFallbackMessage: "Ihr Browser unterstützt kein Drag & Drop Dateiuploads",
+                dictFallbackText: "Bitte verwenden Sie das unten stehende Fallback-Formular, um Ihre Dateien wie in den alten Tagen hochzuladen.",
+                dictFileTooBig: "Datei ist zu groß ({{filesize}}MiB). Maximale größe: {{maxFilesize}}MiB.",
+                dictInvalidFileType: "Dieser Dateityp ist nicht erlaubt",
+                dictResponseError: "Etwas ist schiefgelaufen: Server code {{statusCode}}",
+                dictCancelUpload: "Upload abbrechen",
+                dictCancelUploadConfirmation: "Wollen Sie den Upload wirklich abbrechen?",
+                dictRemoveFile: "Datei entfernen",
+                dictRemoveFileConfirmation: null,
+                dictMaxFilesExceeded: "Sie können keine weitere Dateien hochladen",
+            });
 
         </script>
 

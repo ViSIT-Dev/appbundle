@@ -53,4 +53,29 @@ abstract class AbstractVisitController extends \TYPO3\CMS\Extbase\Mvc\Controller
         \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($key, 'visit_tablets');
     }
     
+      /**
+     * Use for Classes with \TYPO3\CMS\Core\SingletonInterface 
+     * Does not inject dependencies
+     * 
+     * @param type $className
+     * @return type
+     */
+    public static function makeInstance($className) {
+        return \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance($className);
+    }
+
+    /**
+     * Use for other stuff like Repositories (injects dependencies)
+     * @param type $className
+     * @return type
+     */
+    public static function getInstance($className) {
+        $objectManager = self::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
+        return $objectManager->get($className);
+    }
+
+    public static function debug($var) {
+        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($var);
+    }
+    
 }

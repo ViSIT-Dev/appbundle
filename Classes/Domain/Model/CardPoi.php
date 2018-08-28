@@ -221,4 +221,15 @@ class CardPoi extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->description = $description;
     }
+    
+    function getActionRadius() {
+        return $this->actionRadius;
+    }
+
+    function setActionRadius($actionRadius) {
+        $this->actionRadius = $actionRadius;
+    }
+
+
+    
 }

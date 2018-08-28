@@ -84,6 +84,15 @@ return [
 			    'eval' => 'double2'
 			]
 	    ],
+	    'action_radius' => [
+	        'exclude' => false,
+	        'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_cardpoi.action_radius',
+	        'config' => [
+			    'type' => 'input',
+			    'size' => 30,
+			    'eval' => 'double2'
+			]
+	    ],
 	    'flag_text' => [
 	        'exclude' => false,
 	        'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_cardpoi.flag_text',

@@ -12,14 +12,14 @@ return [
         'transOrigDiffSourceField' => 'l10n_diffsource',
 		'enablecolumns' => [
         ],
-		'searchFields' => 'first_name,last_name,date_of_birth,place_of_birth,nationality,day_of_passing,profession,prison_start,prison_end,subtitle,teasertext,text,image,vip,prison_cell',
+		'searchFields' => 'first_name,last_name,date_of_birth,place_of_birth,nationality,day_of_passing,profession,prison_start,prison_end,subtitle,teasertext,text,media,vip,prison_cell',
         'iconfile' => 'EXT:visit_tablets/Resources/Public/Icons/tx_visittablets_domain_model_inmate.gif'
     ],
     'interface' => [
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, first_name, last_name, date_of_birth, place_of_birth, nationality, day_of_passing, profession, prison_start, prison_end, subtitle, teasertext, text, image, vip, prison_cell',
+		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, first_name, last_name, date_of_birth, place_of_birth, nationality, day_of_passing, profession, prison_start, prison_end, subtitle, teasertext, text, media, vip, prison_cell',
     ],
     'types' => [
-		'1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, first_name, last_name, date_of_birth, place_of_birth, nationality, day_of_passing, profession, prison_start, prison_end, subtitle, teasertext, text, image, vip, prison_cell'],
+		'1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, first_name, last_name, date_of_birth, place_of_birth, nationality, day_of_passing, profession, prison_start, prison_end, subtitle, teasertext, text, media, vip, prison_cell'],
     ],
     'columns' => [
 		'sys_language_uid' => [
@@ -175,11 +175,11 @@ return [
 			],
 	        'defaultExtras' => 'richtext:rte_transform[mode=ts_css]'
 	    ],
-	    'image' => [
+	    'media' => [
 	        'exclude' => false,
-	        'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_inmate.image',
+	        'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_inmate.media',
 	        'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
-			    'image',
+			    'media',
 			    [
 			        'appearance' => [
 			            'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference'
