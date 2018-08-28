@@ -28,6 +28,7 @@ plugin.tx_visittablets_kartefe <. plugin.tx_visittablets
 module.tx_visittablets {
     settings{
        backendPath = /typo3conf/ext/visit_tablets/Resources/Public/Backend/
+       googleMapsApiKey = {$plugin.tx_visittablets.application.googleMapsApiKey}
     }
     persistence {
         storagePid = {$plugin.tx_visittablets.persistence.storagePid}

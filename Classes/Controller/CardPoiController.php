@@ -15,8 +15,7 @@ namespace Visit\VisitTablets\Controller;
 /**
  * CardPoiController
  */
-class CardPoiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
-{
+class CardPoiController extends AbstractVisitController {
     /**
      * cardPoiRepository
      *
@@ -26,12 +25,20 @@ class CardPoiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     protected $cardPoiRepository = null;
 
     /**
+     * action showOnCard
+     *
+     * @return void
+     */
+    public function showOnCardAction(){
+        $this->view->assign('cardPois', $this->cardPoiRepository->findAll());
+    }
+
+    /**
      * action list
      *
      * @return void
      */
-    public function listAction()
-    {
+    public function listAction(){
         $cardPois = $this->cardPoiRepository->findAll();
         $this->view->assign('cardPois', $cardPois);
     }

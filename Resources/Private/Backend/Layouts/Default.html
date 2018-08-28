@@ -28,13 +28,21 @@
         <!-- bootstrap-daterangepicker -->
         <link href="vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 
-        
+
         <!-- Datatables -->
         <link href="vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
         <link href="vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
         <link href="vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
         <link href="vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
         <link href="vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+
+        <!-- Ion.RangeSlider -->
+        <link href="vendors/normalize-css/normalize.css" rel="stylesheet">
+        <link href="vendors/ion.rangeSlider/css/ion.rangeSlider.css" rel="stylesheet">
+        <link href="vendors/ion.rangeSlider/css/ion.rangeSlider.skinFlat.css" rel="stylesheet">
+
+        <!-- Dropzone.js -->
+        <link href="vendors/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
         
         <!-- Custom Theme Style -->
         <link href="build/css/custom.css" rel="stylesheet">
@@ -48,10 +56,10 @@
                 </div>
 
                 <!-- page content -->
-                <div  class="outer-scroll" style=" height: 100%;  position: absolute;  overflow: auto; width: 100%; width: calc(100% - 4px);">
+                <div  class="outer-scroll" style=" height: 100%;  position: absolute;  overflow: auto; width: 100%;">
 
                     <f:render partial="Header" />
-                
+
                     <div class="right_col" role="main">
 
                         <f:render section="main" />
@@ -119,36 +127,48 @@
         <script src="vendors/jszip/dist/jszip.min.js"></script>
         <script src="vendors/pdfmake/build/pdfmake.min.js"></script>
         
+        <script src="vendors/ckeditor5/ckeditor.js"></script>
+        <script src="vendors/ckeditor5/translations/de.js"></script>
+
+        <!-- Dropzone.js -->
+        <script src="vendors/dropzone/dist/min/dropzone.min.js"></script>
+        
+        <!-- Ion.RangeSlider -->
+        <script src="vendors/ion.rangeSlider/js/ion.rangeSlider.min.js"></script>
+
+
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key={settings.googleMapsApiKey}&callback=initMap" type="text/javascript"></script>
+
         <!-- Custom Theme Scripts initializes all plugins, not needed-->
         <!--<script src="build/js/custom.min.js"></script>-->
 
         <script>
-            
+
             var CURRENT_URL = window.location.href.split("#")[0].split("?")[0]
-                , $BODY = $("body")
-                , $MENU_TOGGLE = $("#menu_toggle")
-                , $SIDEBAR_MENU = $("#sidebar-menu")
-                , $SIDEBAR_FOOTER = $(".sidebar-footer")
-                , $LEFT_COL = $(".left_col")
-                , $RIGHT_COL = $(".right_col")
-                , $NAV_MENU = $(".nav_menu")
-                , $FOOTER = $("footer")
-                , randNum = function() {
-                  return Math.floor(21 * Math.random()) + 20
-                };
-                
-            (function($,sr){
+                    , $BODY = $("body")
+                    , $MENU_TOGGLE = $("#menu_toggle")
+                    , $SIDEBAR_MENU = $("#sidebar-menu")
+                    , $SIDEBAR_FOOTER = $(".sidebar-footer")
+                    , $LEFT_COL = $(".left_col")
+                    , $RIGHT_COL = $(".right_col")
+                    , $NAV_MENU = $(".nav_menu")
+                    , $FOOTER = $("footer")
+                    , randNum = function () {
+                        return Math.floor(21 * Math.random()) + 20
+                    };
+
+            (function ($, sr) {
                 // debouncing function from John Hann
                 // http://unscriptable.com/index.php/2009/03/20/debouncing-javascript-methods/
                 var debounce = function (func, threshold, execAsap) {
-                  var timeout;
+                    var timeout;
 
-                    return function debounced () {
+                    return function debounced() {
                         var obj = this, args = arguments;
-                        function delayed () {
+                        function delayed() {
                             if (!execAsap)
-                                func.apply(obj, args); 
-                            timeout = null; 
+                                func.apply(obj, args);
+                            timeout = null;
                         }
 
                         if (timeout)
@@ -156,77 +176,132 @@
                         else if (execAsap)
                             func.apply(obj, args);
 
-                        timeout = setTimeout(delayed, threshold || 100); 
+                        timeout = setTimeout(delayed, threshold || 100);
                     };
                 };
 
                 // smartresize 
-                jQuery.fn[sr] = function(fn){  return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr); };
-
-            })(jQuery,'smartresize');
-            
-            function init_sidebar() {
-                var a = function() {
-                    $RIGHT_COL.css("min-height", $(window).height());
-                    var a = $BODY.outerHeight()
-                      , b = $BODY.hasClass("footer_fixed") ? -10 : $FOOTER.height()
-                      , c = $LEFT_COL.eq(1).height() + $SIDEBAR_FOOTER.height()
-                      , d = a < c ? c : a;
-                    d -= $NAV_MENU.height() + b,
-                    $RIGHT_COL.css("min-height", d)
+                jQuery.fn[sr] = function (fn) {
+                    return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr);
                 };
-                $SIDEBAR_MENU.find("a").on("click", function(b) {
-                    var c = $(this).parent();
-                    c.is(".active") ? (c.removeClass("active active-sm"),
-                    $("ul:first", c).slideUp(function() {
-                        a()
-                    })) : (c.parent().is(".child_menu") ? $BODY.is(".nav-sm") && ($SIDEBAR_MENU.find("li").removeClass("active active-sm"),
-                    $SIDEBAR_MENU.find("li ul").slideUp()) : ($SIDEBAR_MENU.find("li").removeClass("active active-sm"),
-                    $SIDEBAR_MENU.find("li ul").slideUp()),
-                    c.addClass("active"),
-                    $("ul:first", c).slideDown(function() {
-                        a()
-                    }))
-                }),
-                $MENU_TOGGLE.on("click", function() {
-                    $BODY.hasClass("nav-md") ? ($SIDEBAR_MENU.find("li.active ul").hide(),
-                    $SIDEBAR_MENU.find("li.active").addClass("active-sm").removeClass("active")) : ($SIDEBAR_MENU.find("li.active-sm ul").show(),
-                    $SIDEBAR_MENU.find("li.active-sm").addClass("active").removeClass("active-sm")),
-                    $BODY.toggleClass("nav-md nav-sm"),
-                    a()
-                }),
-                $SIDEBAR_MENU.find('a[href="' + CURRENT_URL + '"]').parent("li").addClass("current-page"),
-                $SIDEBAR_MENU.find("a").filter(function() {
-                    return this.href == CURRENT_URL
-                }).parent("li").addClass("current-page").parents("ul").slideDown(function() {
-                    a()
-                }).parent().addClass("active"),
-                $(window).smartresize(function() {
-                    a()
-                }),
-                a(),
-                $.fn.mCustomScrollbar && $(".menu_fixed").mCustomScrollbar({
-                    autoHideScrollbar: !0,
-                    theme: "minimal",
-                    mouseWheel: {
-                        preventDefault: !0
+
+            })(jQuery, 'smartresize');
+
+            function init_sidebar() {
+                var setContentHeight = function () {
+                    // reset height
+                    $RIGHT_COL.css('min-height', $(window).height());
+
+                    var bodyHeight = $BODY.outerHeight(),
+                            footerHeight = $BODY.hasClass('footer_fixed') ? -10 : $FOOTER.height(),
+                            leftColHeight = $LEFT_COL.eq(1).height() + $SIDEBAR_FOOTER.height(),
+                            contentHeight = bodyHeight < leftColHeight ? leftColHeight : bodyHeight;
+
+                    // normalize content
+//                        contentHeight -= $NAV_MENU.height() + footerHeight;
+//                        contentHeight -= $NAV_MENU.height();
+
+                    $RIGHT_COL.css('min-height', bodyHeight - $FOOTER.outerHeight() - 6);
+                };
+
+                $SIDEBAR_MENU.find('a').on('click', function (ev) {
+                    var $li = $(this).parent();
+
+                    if ($li.is('.active')) {
+                        $li.removeClass('active active-sm');
+                        $('ul:first', $li).slideUp(function () {
+                            setContentHeight();
+                        });
+                    } else {
+                        // prevent closing menu if we are on child menu
+                        if (!$li.parent().is('.child_menu')) {
+                            $SIDEBAR_MENU.find('li').removeClass('active active-sm');
+                            $SIDEBAR_MENU.find('li ul').slideUp();
+                        } else
+                        {
+                            if ($BODY.is(".nav-sm"))
+                            {
+                                $li.parent().find("li").removeClass("active active-sm");
+                                $li.parent().find("li ul").slideUp();
+                            }
+                        }
+                        $li.addClass('active');
+
+                        $('ul:first', $li).slideDown(function () {
+                            setContentHeight();
+                        });
                     }
-                })
+                });
+
+                // toggle small or large menu 
+                $MENU_TOGGLE.on('click', function () {
+                    console.log('clicked - menu toggle');
+
+                    if ($BODY.hasClass('nav-md')) {
+                        $SIDEBAR_MENU.find('li.active ul').hide();
+                        $SIDEBAR_MENU.find('li.active').addClass('active-sm').removeClass('active');
+                    } else {
+                        $SIDEBAR_MENU.find('li.active-sm ul').show();
+                        $SIDEBAR_MENU.find('li.active-sm').addClass('active').removeClass('active-sm');
+                    }
+
+                    $BODY.toggleClass('nav-md nav-sm');
+
+                    setContentHeight();
+
+                    $('.dataTable').each(function () {
+                        $(this).dataTable().fnDraw();
+                    });
+                });
+
+                // check active menu
+                $SIDEBAR_MENU.find('a[href="' + CURRENT_URL + '"]').parent('li').addClass('current-page');
+
+                $SIDEBAR_MENU.find('a').filter(function () {
+                    return this.href == CURRENT_URL;
+                }).parent('li').addClass('current-page').parents('ul').slideDown(function () {
+                    setContentHeight();
+                }).parent().addClass('active');
+
+                // recompute content when resizing
+                $(window).smartresize(function () {
+                    setContentHeight();
+                });
+
+                setContentHeight();
+
+                // fixed sidebar
+                if ($.fn.mCustomScrollbar) {
+                    $('.menu_fixed').mCustomScrollbar({
+                        autoHideScrollbar: true,
+                        theme: 'minimal',
+                        mouseWheel: {preventDefault: true}
+                    });
+                }
             }
+            ;
             init_sidebar();
-            
-            
+
+            $("#actionRadius").ionRangeSlider({
+                min: 1,
+                max: 100,
+                from: 30,
+            });
+
+
+
+
             var datatableDefaultOptions = {
-                "language" : {
+                "language": {
                     "search": "Datensätze durchsuchen: ",
                     "lengthMenu": "Zeige _MENU_ Zeilen pro Seite",
                     "zeroRecords": "Keine Daten gefunden",
                     "info": "Zeige Seite _PAGE_ von _PAGES_",
                     "infoEmpty": "Keine Daten vorhanden",
                     "infoFiltered": "(gefilterte Daten von _MAX_ Einträgen)",
-                    "oPaginate" : {
-                        "sFirst" : "Erste",
-                        "sLast" : "Letzte",
+                    "oPaginate": {
+                        "sFirst": "Erste",
+                        "sLast": "Letzte",
                         "sNext": "Weiter",
                         "sPrevious": "Zurück"
                     },
@@ -237,84 +312,148 @@
                 "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Alle"]]
             };
             $("#datatable").dataTable(datatableDefaultOptions);
-            
 
+
+            function initMap() {
+                if ($("#cardPoiMap").length === 1) {
+                    var currentPos;
+                    var map = new google.maps.Map(document.getElementById('cardPoiMap'), {zoom: 7, center: {lat: 47.9, lng: 11.3}});
+                    var marker = new google.maps.Marker({
+                        map: map
+                    });
+
+                    map.addListener('click', function (event) {
+                        currentPos = event.latLng;
+                        $("#longitude").val(currentPos.lng);
+                        $("#latitude").val(currentPos.lat);
+                        marker.setPosition(currentPos);
+                    });
+                    $("#longitude").change(function () {
+                        var oldPosition = marker.getPosition();
+                        var newPosition = new google.maps.LatLng(oldPosition.lat(), $("#longitude").val());
+                        marker.setPosition(newPosition);
+                    });
+                    $("#latitude").change(function () {
+                        var oldPosition = marker.getPosition();
+                        var newPosition = new google.maps.LatLng($("#latitude").val(), oldPosition.lng());
+                        marker.setPosition(newPosition);
+                    });
+
+                }
+            }
             
+            ClassicEditor.create( document.querySelector( '#description' ),{
+                    language: 'de',
+                    toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],
+                    heading: {
+                        options: [
+                            { model: 'teaser',  view: 'p', title: 'Teaser', class: 'ck-teaser' },
+                            { model: 'paragraph', view: 'p', title: 'Text', class: 'ck-text' },
+                        ]
+                    }
+                })
+                .catch( error => {
+                    console.error( error );
+                } );
+            
+            $(".dropzone").dropzone({ 
+                url: "/file/post",
+                init: function() {
+                    this.on("addedfile", function() {
+                        if (this.files[1]!=null){
+                                this.removeFile(this.files[0]);
+                            }
+                        });
+                    },
+                    dictDefaultMessage: "Datei hier ablegen oder Klicken",
+                    dictFallbackMessage: "Ihr Browser unterstützt kein Drag & Drop Dateiuploads",
+                    dictFallbackText: "Bitte verwenden Sie das unten stehende Fallback-Formular, um Ihre Dateien wie in den alten Tagen hochzuladen.",
+                    dictFileTooBig: "Datei ist zu groß ({{filesize}}MiB). Maximale größe: {{maxFilesize}}MiB.",
+                    dictInvalidFileType: "Dieser Dateityp ist nicht erlaubt",
+                    dictResponseError: "Etwas ist schiefgelaufen: Server code {{statusCode}}",
+                    dictCancelUpload: "Upload abbrechen",
+                    dictCancelUploadConfirmation: "Wollen Sie den Upload wirklich abbrechen?",
+                    dictRemoveFile: "Datei entfernen",
+                    dictRemoveFileConfirmation: null,
+                    dictMaxFilesExceeded: "Sie können keine weitere Dateien hochladen",
+                });
+
         </script>
 
-            
-    </body>
+    <f:render section="footer" optional="true" />
+
+</body>
 </html>
 
 
 
 <f:comment>
-    
-                
-            function init_DataTables() {
-                var a = function() {
-                    $("#datatable-buttons").length && $("#datatable-buttons").DataTable({
-                        dom: "Blfrtip",
-                        buttons: [{
-                            extend: "copy",
-                            className: "btn-sm"
-                        }, {
-                            extend: "csv",
-                            className: "btn-sm"
-                        }, {
-                            extend: "excel",
-                            className: "btn-sm"
-                        }, {
-                            extend: "pdfHtml5",
-                            className: "btn-sm"
-                        }, {
-                            extend: "print",
-                            className: "btn-sm"
-                        }],
-                        responsive: !0
-                    })
-                };
-                TableManageButtons = function() {
-                    "use strict";
-                    return {
-                        init: function() {
-                            a()
-                        }
-                    }
-                }(),
-                
-                $("#datatable-keytable").DataTable({
-                    keys: !0
-                }),
-                $("#datatable-responsive").DataTable(),
-                $("#datatable-scroller").DataTable({
-                    ajax: "js/datatables/json/scroller-demo.json",
-                    deferRender: !0,
-                    scrollY: 380,
-                    scrollCollapse: !0,
-                    scroller: !0
-                }),
-                $("#datatable-fixed-header").DataTable({
-                    fixedHeader: !0
-                });
-                var b = $("#datatable-checkbox");
-                b.dataTable({
-                    order: [[1, "asc"]],
-                    columnDefs: [{
-                        orderable: !1,
-                        targets: [0]
-                    }]
-                }),
-                b.on("draw.dt", function() {
-                    $("checkbox input").iCheck({
-                        checkboxClass: "icheckbox_flat-green"
-                    })
-                }),
-                TableManageButtons.init()
-            }
-            init_DataTables();
-    
-    
+
+
+    function init_DataTables() {
+    var a = function() {
+    $("#datatable-buttons").length && $("#datatable-buttons").DataTable({
+    dom: "Blfrtip",
+    buttons: [{
+    extend: "copy",
+    className: "btn-sm"
+    }, {
+    extend: "csv",
+    className: "btn-sm"
+    }, {
+    extend: "excel",
+    className: "btn-sm"
+    }, {
+    extend: "pdfHtml5",
+    className: "btn-sm"
+    }, {
+    extend: "print",
+    className: "btn-sm"
+    }],
+    responsive: !0
+    })
+    };
+    TableManageButtons = function() {
+    "use strict";
+    return {
+    init: function() {
+    a()
+    }
+    }
+    }(),
+
+    $("#datatable-keytable").DataTable({
+    keys: !0
+    }),
+    $("#datatable-responsive").DataTable(),
+    $("#datatable-scroller").DataTable({
+    ajax: "js/datatables/json/scroller-demo.json",
+    deferRender: !0,
+    scrollY: 380,
+    scrollCollapse: !0,
+    scroller: !0
+    }),
+    $("#datatable-fixed-header").DataTable({
+    fixedHeader: !0
+    });
+    var b = $("#datatable-checkbox");
+    b.dataTable({
+    order: [[1, "asc"]],
+    columnDefs: [{
+    orderable: !1,
+    targets: [0]
+    }]
+    }),
+    b.on("draw.dt", function() {
+    $("checkbox input").iCheck({
+    checkboxClass: "icheckbox_flat-green"
+    })
+    }),
+    TableManageButtons.init()
+    }
+    init_DataTables();
+
+
     <f:be.container>
         <div class="typo3-fullDoc">
             <div id="typo3-docheader">

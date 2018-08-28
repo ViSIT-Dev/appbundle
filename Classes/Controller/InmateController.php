@@ -15,8 +15,7 @@ namespace Visit\VisitTablets\Controller;
 /**
  * InmateController
  */
-class InmateController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
-{
+class InmateController extends AbstractVisitController {
     /**
      * inmateRepository
      *

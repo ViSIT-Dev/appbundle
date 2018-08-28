@@ -15,8 +15,7 @@ namespace Visit\VisitTablets\Controller;
 /**
  * PrisonCellController
  */
-class PrisonCellController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
-{
+class PrisonCellController extends AbstractVisitController {
     /**
      * prisonCellRepository
      *

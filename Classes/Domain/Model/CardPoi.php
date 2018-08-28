@@ -19,38 +19,10 @@ class CardPoi extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
     /**
      * title
-     *
+     * @validate NotEmpty
      * @var string
      */
     protected $title = '';
-
-    /**
-     * longitude
-     *
-     * @var float
-     */
-    protected $longitude = 0.0;
-
-    /**
-     * latitude
-     *
-     * @var float
-     */
-    protected $latitude = 0.0;
-
-    /**
-     * actionRadius
-     *
-     * @var float
-     */
-    protected $actionRadius = 0.0;
-
-    /**
-     * flagText
-     *
-     * @var string
-     */
-    protected $flagText = '';
 
     /**
      * subTitle
@@ -58,6 +30,35 @@ class CardPoi extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var string
      */
     protected $subTitle = '';
+
+    /**
+     * flagText
+     * @validate NotEmpty
+     * @var string
+     */
+    protected $flagText = '';
+
+
+    /**
+     * actionRadius
+     * @validate NotEmpty
+     * @var float
+     */
+    protected $actionRadius = 0.0;
+    
+    /**
+     * longitude
+     * @validate NotEmpty
+     * @var float
+     */
+    protected $longitude = 0.0;
+
+    /**
+     * latitude
+     * @validate NotEmpty
+     * @var float
+     */
+    protected $latitude = 0.0;
 
     /**
      * media
@@ -69,7 +70,7 @@ class CardPoi extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * description
-     *
+     * @validate NotEmpty
      * @var string
      */
     protected $description = '';
