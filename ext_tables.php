@@ -30,22 +30,6 @@ call_user_func(
             'iconIdentifier' => 'ext-visit-backend',
         ];
 
-        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-            'Visit.VisitTablets', 
-            'visitbe', 
-            'glossarbe', // Submodule key
-            '', // Position
-            [
-                'Inmate' => 'list, new, create, edit, update, delete',
-                'PrisonCell' => 'list, show, new, create, edit, update, delete',
-            ], 
-            [
-                'access' => 'user,group',
-                'icon' => 'EXT:' . $extKey . '/Resources/Public/Icons/glossar.svg',
-                'labels' => 'LLL:EXT:' . $extKey . '/Resources/Private/Language/locallang_glossar.xlf',
-            ]
-        );
-
         
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
             'Visit.VisitTablets', 
@@ -59,6 +43,22 @@ call_user_func(
                 'access' => 'user,group',
                 'icon' => 'EXT:' . $extKey . '/Resources/Public/Icons/karte.svg',
                 'labels' => 'LLL:EXT:' . $extKey . '/Resources/Private/Language/locallang_karte.xlf',
+            ]
+        );
+
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
+            'Visit.VisitTablets', 
+            'visitbe', 
+            'glossarbe', // Submodule key
+            '', // Position
+            [
+                'Inmate' => 'list, new, create, edit, update, delete',
+                'PrisonCell' => 'list, show, new, create, edit, update, delete',
+            ], 
+            [
+                'access' => 'user,group',
+                'icon' => 'EXT:' . $extKey . '/Resources/Public/Icons/glossar.svg',
+                'labels' => 'LLL:EXT:' . $extKey . '/Resources/Private/Language/locallang_glossar.xlf',
             ]
         );
         

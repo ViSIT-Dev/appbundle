@@ -65,7 +65,7 @@
             <trans-unit id="tx_visittablets_domain_model_inmate.text">
                 <source>Beschreibung</source>
             </trans-unit>
-            <trans-unit id="tx_visittablets_domain_model_inmate.image">
+            <trans-unit id="tx_visittablets_domain_model_inmate.media">
                 <source>Bild</source>
             </trans-unit>
             <trans-unit id="tx_visittablets_domain_model_inmate.vip">
@@ -94,8 +94,8 @@
             <trans-unit id="tx_visittablets_domain_model_cardpoi.sub_title">
                 <source>Unterüberschrift</source>
             </trans-unit>
-            <trans-unit id="tx_visittablets_domain_model_cardpoi.image">
-                <source>Bild im Text</source>
+            <trans-unit id="tx_visittablets_domain_model_cardpoi.media">
+                <source>Multimedia Element im Text</source>
             </trans-unit>
             <trans-unit id="tx_visittablets_domain_model_cardpoi.description">
                 <source>Beschreibung</source>

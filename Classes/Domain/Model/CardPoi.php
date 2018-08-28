@@ -28,7 +28,6 @@ class CardPoi extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * longitude
      *
      * @var float
-     * @validate NotEmpty
      */
     protected $longitude = 0.0;
 
@@ -38,6 +37,13 @@ class CardPoi extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var float
      */
     protected $latitude = 0.0;
+
+    /**
+     * actionRadius
+     *
+     * @var float
+     */
+    protected $actionRadius = 0.0;
 
     /**
      * flagText
@@ -54,12 +60,12 @@ class CardPoi extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $subTitle = '';
 
     /**
-     * image
+     * media
      *
      * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
      * @cascade remove
      */
-    protected $image = null;
+    protected $media = null;
 
     /**
      * description
@@ -174,24 +180,24 @@ class CardPoi extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Returns the image
+     * Returns the media
      *
-     * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference $image
+     * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference $media
      */
-    public function getImage()
+    public function getMedia()
     {
-        return $this->image;
+        return $this->media;
     }
 
     /**
-     * Sets the image
+     * Sets the media
      *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $image
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $media
      * @return void
      */
-    public function setImage(\TYPO3\CMS\Extbase\Domain\Model\FileReference $image)
+    public function setMedia(\TYPO3\CMS\Extbase\Domain\Model\FileReference $media)
     {
-        $this->image = $image;
+        $this->media = $media;
     }
 
     /**

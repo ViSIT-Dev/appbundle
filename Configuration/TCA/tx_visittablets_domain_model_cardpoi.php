@@ -11,14 +11,14 @@ return [
         'transOrigDiffSourceField' => 'l10n_diffsource',
 		'enablecolumns' => [
         ],
-		'searchFields' => 'title,longitude,latitude,flag_text,sub_title,image,description',
+		'searchFields' => 'title,longitude,latitude,flag_text,sub_title,media,description',
         'iconfile' => 'EXT:visit_tablets/Resources/Public/Icons/tx_visittablets_domain_model_cardpoi.gif'
     ],
     'interface' => [
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, title, longitude, latitude, flag_text, sub_title, image, description',
+		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, title, longitude, latitude, flag_text, sub_title, media, description',
     ],
     'types' => [
-		'1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, title, longitude, latitude, flag_text, sub_title, image, description'],
+		'1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, title, longitude, latitude, flag_text, sub_title, media, description'],
     ],
     'columns' => [
 		'sys_language_uid' => [
@@ -102,11 +102,11 @@ return [
 			    'eval' => 'trim'
 			],
 	    ],
-	    'image' => [
+	    'media' => [
 	        'exclude' => false,
-	        'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_cardpoi.image',
+	        'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_cardpoi.media',
 	        'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
-			    'image',
+			    'media',
 			    [
 			        'appearance' => [
 			            'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference'

@@ -50,7 +50,7 @@ call_user_func(
         
         
         $icons = [
-            'ext-visit-backend' => 'galerie.svg',
+            'ext-visit-backend' => 'visitbe.svg',
             'ext-visit-galerie' => 'galerie.svg',
             'ext-visit-glossar' => 'glossar.svg',
             'ext-visit-karte' => 'karte.svg',
