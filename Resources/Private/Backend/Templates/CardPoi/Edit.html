@@ -7,9 +7,19 @@
 
 <f:section name="main">
 
-    <f:form class="form-horizontal form-label-left" action="update"  name="cardPoi"  object="{cardPoi}" >>
+    <f:form class="form-horizontal form-label-left" action="update"  name="cardPoi"  object="{cardPoi}" >
 
         <f:render partial="CardPoiFormFields" />
+        
+        
+        <f:if condition="{cardPoi.media}">
+            <div class="ln_solid"></div>
+            
+            <f:for each="{cardPoi.media}" as="currentMedia">
+                <f:render partial="RenderMedia" arguments="{media: currentMedia}"/>
+            </f:for>
+            
+        </f:if>
 
         <div class="ln_solid"></div>
         <div class="form-group">
@@ -20,4 +30,8 @@
 
     </f:form>
 
+</f:section>
+
+<f:section name="footer">
+    <f:render partial="CardPoiFormFields" />
 </f:section>

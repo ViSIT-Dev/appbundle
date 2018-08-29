@@ -30,7 +30,23 @@ class CardPoiController extends AbstractVisitController {
      * @return void
      */
     public function showOnCardAction(){
-        $this->view->assign('cardPois', $this->cardPoiRepository->findAll());
+        $out = array();
+        
+        /* @var $cardPoi \Visit\VisitTablets\Domain\Model\CardPoi */
+        foreach ($this->cardPoiRepository->findAll() as $cardPoi) {
+            $out[$cardPoi->getUid()] = [
+                "title" => $cardPoi->getTitle(),
+                "subTitle" => $cardPoi->getSubTitle(),
+                "actionRadius" => $cardPoi->getActionRadius(),
+                "flagText" => $cardPoi->getFlagText(),
+                "description" => $cardPoi->getDescription(),
+                "latlng" => [
+                    "lat" => $cardPoi->getLatitude(), 
+                    "lng" => $cardPoi->getLongitude()]
+            ];
+        }
+        
+        $this->view->assign('cardPois', \json_encode($out));
     }
 
     /**

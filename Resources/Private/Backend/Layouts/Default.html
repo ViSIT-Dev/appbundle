@@ -54,8 +54,8 @@
     </head>
 
     <f:comment>
-    </f:comment>
         <f:debug>{_all}</f:debug>
+    </f:comment>
     
     <body class="nav-sm">
         <div class="container body">
@@ -318,17 +318,8 @@
             }
             ;
             init_sidebar();
-
-            $("#actionRadius").ionRangeSlider({
-                min: 1,
-                max: 100,
-                from: 30,
-            });
-
-
-
-
-            var datatableDefaultOptions = {
+          
+            $("#datatable").dataTable({
                 "language": {
                     "search": "Datensätze durchsuchen: ",
                     "lengthMenu": "Zeige _MENU_ Zeilen pro Seite",
@@ -347,207 +338,11 @@
                     "sLoadingRecords": "Lade Datensätze"
                 },
                 "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Alle"]]
-            };
-            $("#datatable").dataTable(datatableDefaultOptions);
-
-            if ($("#cardPoiMap").length === 1) {
-                var marker = false;
-                var mymap = L.map('cardPoiMap').setView([ 47.76, 12.73], 8);
-                L.tileLayer('https://a.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>',
-                    maxZoom: 18,
-//                    id: 'mapbox.streets',
-//                    accessToken: 'your.mapbox.access.token'
-                }).addTo(mymap);
-
-                mymap.on('click', function onMapClick(e) {
-                    if(marker === false){
-                        marker = L.marker(e.latlng).addTo(mymap);
-                    }else{
-                        marker.setLatLng(e.latlng); 
-                    }
-                    $("#longitude").val(e.latlng.lng);
-                    $("#latitude").val(e.latlng.lat);
-                });
-                
-                $("#longitude").change(function () {
-                    if(marker !== false){
-                        marker.setLatLng({
-                            lat: marker._latlng.lat,
-                            lng: $("#longitude").val()
-                        });
-                    }
-                });
-
-                $("#latitude").change(function () {
-                    if(marker !== false){
-                        marker.setLatLng({
-                            lat: $("#latitude").val(),
-                            lng: marker._latlng.lng
-                        });
-                    }
-                });
-                
-            }
-
-            ClassicEditor.create(document.querySelector('#description'), {
-                language: 'de',
-                removePlugins: ['Link'],
-                toolbar: ['heading', '|', 'bold', 'italic', 'bulletedList', 'numberedList', 'blockQuote'],
-                heading: {
-                    options: [
-                        {model: 'heading2', view: 'h3', title: 'Teaser', class: 'ck-heading_heading3'},
-                        {model: 'paragraph', title: 'Text', class: 'ck-heading_paragraph'}
-                    ]
-                }
-            }).catch(error => {
-                console.error(error);
-            });
-
-            $(".dropzone").dropzone({
-                url: parent.TYPO3.settings.ajaxUrls["fileUpload"],
-                init: function () {
-                    this.on("addedfile", function () {
-                        if (this.files[1] != null) {
-                            this.removeFile(this.files[0]);
-                        }
-                    });
-                },
-                success: function(file) {
-                    console.log(file.xhr.response);
-                    var response = JSON.parse(file.xhr.response);
-                    console.log(response);
-                    $("#fileTempPath").val(response.tempPath); 
-                },
-//                complete: function(e) { console.log(3) },
-                dictDefaultMessage: "Datei hier ablegen oder Klicken",
-                dictFallbackMessage: "Ihr Browser unterstützt kein Drag & Drop Dateiuploads",
-                dictFallbackText: "Bitte verwenden Sie das unten stehende Fallback-Formular, um Ihre Dateien wie in den alten Tagen hochzuladen.",
-                dictFileTooBig: "Datei ist zu groß ({{filesize}}MiB). Maximale größe: {{maxFilesize}}MiB.",
-                dictInvalidFileType: "Dieser Dateityp ist nicht erlaubt",
-                dictResponseError: "Etwas ist schiefgelaufen: Server code {{statusCode}}",
-                dictCancelUpload: "Upload abbrechen",
-                dictCancelUploadConfirmation: "Wollen Sie den Upload wirklich abbrechen?",
-                dictRemoveFile: "Datei entfernen",
-                dictRemoveFileConfirmation: null,
-                dictMaxFilesExceeded: "Sie können keine weitere Dateien hochladen",
             });
 
         </script>
 
-    <f:render section="footer" optional="true" />
+        <f:render section="footer" optional="true" />
 
-</body>
+    </body>
 </html>
-
-
-
-<f:comment>
-
-
-    function init_DataTables() {
-    var a = function() {
-    $("#datatable-buttons").length && $("#datatable-buttons").DataTable({
-    dom: "Blfrtip",
-    buttons: [{
-    extend: "copy",
-    className: "btn-sm"
-    }, {
-    extend: "csv",
-    className: "btn-sm"
-    }, {
-    extend: "excel",
-    className: "btn-sm"
-    }, {
-    extend: "pdfHtml5",
-    className: "btn-sm"
-    }, {
-    extend: "print",
-    className: "btn-sm"
-    }],
-    responsive: !0
-    })
-    };
-    TableManageButtons = function() {
-    "use strict";
-    return {
-    init: function() {
-    a()
-    }
-    }
-    }(),
-
-    $("#datatable-keytable").DataTable({
-    keys: !0
-    }),
-    $("#datatable-responsive").DataTable(),
-    $("#datatable-scroller").DataTable({
-    ajax: "js/datatables/json/scroller-demo.json",
-    deferRender: !0,
-    scrollY: 380,
-    scrollCollapse: !0,
-    scroller: !0
-    }),
-    $("#datatable-fixed-header").DataTable({
-    fixedHeader: !0
-    });
-    var b = $("#datatable-checkbox");
-    b.dataTable({
-    order: [[1, "asc"]],
-    columnDefs: [{
-    orderable: !1,
-    targets: [0]
-    }]
-    }),
-    b.on("draw.dt", function() {
-    $("checkbox input").iCheck({
-    checkboxClass: "icheckbox_flat-green"
-    })
-    }),
-    TableManageButtons.init()
-    }
-    init_DataTables();
-
-
-    <f:be.container>
-        <div class="typo3-fullDoc">
-            <div id="typo3-docheader">
-                <div class="typo3-docheader-functions">
-                    <div class="left">
-                        <f:be.buttons.csh />
-                        <f:be.menus.actionMenu>
-                            <f:be.menus.actionMenuItem label="Optionen" controller="" action="list" />
-                            <f:be.menus.actionMenuItem label="Liste" controller="" action="list" />
-                            <f:be.menus.actionMenuItem label="Neuen Eintrag" controller="" action="new" />
-                        </f:be.menus.actionMenu>
-                    </div>
-                    <div class="right">
-                        <f:be.pagePath />
-                        <f:be.pageInfo />
-                        <f:be.buttons.shortcut />
-                    </div>
-                </div>
-
-
-            </div>
-
-
-            <div id="typo3-docbody" style="top: 0;">
-                <div id="typo3-inner-docbody" style="padding: 0;">
-
-                    <f:be.infobox title="Message title"
-                                  message="your box content"
-                                  state="-2"
-                                  iconName="check"
-                                  disableIcon="true"
-                                  />
-                    <div style="background-color: #000; height: 1000px"></div>
-
-                    <f:flashMessages />
-                    <f:render section="main" />
-                </div>
-            </div>
-        </div>
-    </f:be.container>
-
-</f:comment>

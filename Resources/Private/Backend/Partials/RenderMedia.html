@@ -1,0 +1,19 @@
+<f:comment>
+    <f:debug>{media.originalResource.originalFile}</f:debug>
+    <f:debug>{media.originalResource.originalFile.identifier}</f:debug>
+</f:comment>
+
+<figure>
+    
+    <f:switch expression="{media.originalResource.originalFile.properties.mime_type}">
+        
+        <f:case value="image/jpeg">
+            <f:image src="{media.uid}" treatIdAsReference="1" maxHeight="300" />
+        </f:case>
+        
+        <f:defaultCase>
+            Dateiformat ({media.originalResource.originalFile.properties.mime_type}) von Datei ({media.originalResource.originalFile.identifier}) wird nicht unterstüzt
+        </f:defaultCase>
+    </f:switch>
+
+</figure>
