@@ -133,6 +133,15 @@ call_user_func(
 );
     
     
+    
+//scheduler tasks
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Visit\VisitTablets\SchedulerTasks\ClearAjaxUploadTempFolderTask'] = array(
+    'extension'        => $_EXTKEY,
+    'title'            => 'Löscht nicht verwendete Uploads',
+    'description'      => 'Löscht alle Dateien in /typo3temp/ajax_upload'
+);
+    
+    
 if(TYPO3_MODE === 'BE') {
 
     // Constants

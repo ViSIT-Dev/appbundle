@@ -44,10 +44,18 @@
         <!-- Dropzone.js -->
         <link href="vendors/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
 
+        <!-- leaflet -->
+        <link href="vendors/leaflet/leaflet.css" rel="stylesheet">
+        
+        
+
         <!-- Custom Theme Style -->
         <link href="css/custom.css" rel="stylesheet">
     </head>
 
+    
+    <f:debug>{_all}</f:debug>
+    
     <body class="nav-sm">
         <div class="container body">
             <div class="main_container">
@@ -155,8 +163,11 @@
         <!-- Ion.RangeSlider -->
         <script src="vendors/ion.rangeSlider/js/ion.rangeSlider.min.js"></script>
 
+        
+        <!-- leaflet -->
+        <script src="vendors/leaflet/leaflet.js"></script>
 
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key={settings.googleMapsApiKey}&callback=initMap" type="text/javascript"></script>
+        <!--<script async defer src="https://maps.googleapis.com/maps/api/js?key={settings.googleMapsApiKey}&callback=initMap" type="text/javascript"></script>-->
 
         <!-- Custom Theme Scripts initializes all plugins, not needed-->
         <!--<script src="build/js/custom.min.js"></script>-->
@@ -332,33 +343,44 @@
             };
             $("#datatable").dataTable(datatableDefaultOptions);
 
+            if ($("#cardPoiMap").length === 1) {
+                var marker = false;
+                var mymap = L.map('cardPoiMap').setView([ 47.76, 12.73], 8);
+                L.tileLayer('https://a.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>',
+                    maxZoom: 18,
+//                    id: 'mapbox.streets',
+//                    accessToken: 'your.mapbox.access.token'
+                }).addTo(mymap);
 
-            function initMap() {
-                if ($("#cardPoiMap").length === 1) {
-                    var currentPos;
-                    var map = new google.maps.Map(document.getElementById('cardPoiMap'), {zoom: 7, center: {lat: 47.9, lng: 11.3}});
-                    var marker = new google.maps.Marker({
-                        map: map
-                    });
+                mymap.on('click', function onMapClick(e) {
+                    if(marker === false){
+                        marker = L.marker(e.latlng).addTo(mymap);
+                    }else{
+                        marker.setLatLng(e.latlng); 
+                    }
+                    $("#longitude").val(e.latlng.lng);
+                    $("#latitude").val(e.latlng.lat);
+                });
+                
+                $("#longitude").change(function () {
+                    if(marker !== false){
+                        marker.setLatLng({
+                            lat: marker._latlng.lat,
+                            lng: $("#longitude").val()
+                        });
+                    }
+                });
 
-                    map.addListener('click', function (event) {
-                        currentPos = event.latLng;
-                        $("#longitude").val(currentPos.lng);
-                        $("#latitude").val(currentPos.lat);
-                        marker.setPosition(currentPos);
-                    });
-                    $("#longitude").change(function () {
-                        var oldPosition = marker.getPosition();
-                        var newPosition = new google.maps.LatLng(oldPosition.lat(), $("#longitude").val());
-                        marker.setPosition(newPosition);
-                    });
-                    $("#latitude").change(function () {
-                        var oldPosition = marker.getPosition();
-                        var newPosition = new google.maps.LatLng($("#latitude").val(), oldPosition.lng());
-                        marker.setPosition(newPosition);
-                    });
-
-                }
+                $("#latitude").change(function () {
+                    if(marker !== false){
+                        marker.setLatLng({
+                            lat: $("#latitude").val(),
+                            lng: marker._latlng.lng
+                        });
+                    }
+                });
+                
             }
 
             ClassicEditor.create(document.querySelector('#description'), {
@@ -371,13 +393,12 @@
                         {model: 'paragraph', title: 'Text', class: 'ck-heading_paragraph'}
                     ]
                 }
-            })
-                    .catch(error => {
-                        console.error(error);
-                    });
+            }).catch(error => {
+                console.error(error);
+            });
 
             $(".dropzone").dropzone({
-                url: "/file/post",
+                url: parent.TYPO3.settings.ajaxUrls["fileUpload"],
                 init: function () {
                     this.on("addedfile", function () {
                         if (this.files[1] != null) {
@@ -385,6 +406,13 @@
                         }
                     });
                 },
+                success: function(file) {
+                    console.log(file.xhr.response);
+                    var response = JSON.parse(file.xhr.response);
+                    console.log(response);
+                    $("#fileTempPath").val(response.tempPath); 
+                },
+//                complete: function(e) { console.log(3) },
                 dictDefaultMessage: "Datei hier ablegen oder Klicken",
                 dictFallbackMessage: "Ihr Browser unterstützt kein Drag & Drop Dateiuploads",
                 dictFallbackText: "Bitte verwenden Sie das unten stehende Fallback-Formular, um Ihre Dateien wie in den alten Tagen hochzuladen.",

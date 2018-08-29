@@ -78,4 +78,9 @@ abstract class AbstractVisitController extends \TYPO3\CMS\Extbase\Mvc\Controller
         \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($var);
     }
     
+    
+    protected function addImageFromTempToModel(\Visit\VisitTablets\Domain\Model\AbstractEntityWithMedia $entityWithMedia){
+        
+    }
+    
 }

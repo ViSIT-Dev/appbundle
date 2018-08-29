@@ -1,4 +1,5 @@
 <?php
+
 namespace Visit\VisitTablets\Domain\Model;
 
 /***
@@ -15,8 +16,8 @@ namespace Visit\VisitTablets\Domain\Model;
 /**
  * CardPoi
  */
-class CardPoi extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
-{
+class CardPoi extends AbstractEntityWithMedia {
+    
     /**
      * title
      * @validate NotEmpty
@@ -59,14 +60,6 @@ class CardPoi extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var float
      */
     protected $latitude = 0.0;
-
-    /**
-     * media
-     *
-     * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
-     * @cascade remove
-     */
-    protected $media = null;
 
     /**
      * description
@@ -181,27 +174,6 @@ class CardPoi extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Returns the media
-     *
-     * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference $media
-     */
-    public function getMedia()
-    {
-        return $this->media;
-    }
-
-    /**
-     * Sets the media
-     *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $media
-     * @return void
-     */
-    public function setMedia(\TYPO3\CMS\Extbase\Domain\Model\FileReference $media)
-    {
-        $this->media = $media;
-    }
-
-    /**
      * Returns the description
      *
      * @return string $description
@@ -222,10 +194,22 @@ class CardPoi extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         $this->description = $description;
     }
     
+    /**
+     * Returns the actionRadius
+     *
+     * @return string $actionRadius
+     */
     function getActionRadius() {
         return $this->actionRadius;
     }
 
+    
+    /**
+     * Sets the actionRadius
+     *
+     * @param string $actionRadius
+     * @return void
+     */
     function setActionRadius($actionRadius) {
         $this->actionRadius = $actionRadius;
     }

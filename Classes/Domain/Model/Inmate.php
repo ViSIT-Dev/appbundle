@@ -15,8 +15,8 @@ namespace Visit\VisitTablets\Domain\Model;
 /**
  * Inmate
  */
-class Inmate extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
-{
+class Inmate extends AbstractEntityWithMedia {
+    
     /**
      * firstName
      *
@@ -100,14 +100,6 @@ class Inmate extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var string
      */
     protected $text = '';
-
-    /**
-     * image
-     *
-     * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
-     * @cascade remove
-     */
-    protected $image = null;
 
     /**
      * vip
@@ -396,27 +388,6 @@ class Inmate extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setText($text)
     {
         $this->text = $text;
-    }
-
-    /**
-     * Returns the image
-     *
-     * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference $image
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    /**
-     * Sets the image
-     *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $image
-     * @return void
-     */
-    public function setImage(\TYPO3\CMS\Extbase\Domain\Model\FileReference $image)
-    {
-        $this->image = $image;
     }
 
     /**

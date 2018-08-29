@@ -67,6 +67,9 @@ class CardPoiController extends AbstractVisitController {
      */
     public function createAction(\Visit\VisitTablets\Domain\Model\CardPoi $newCardPoi)
     {
+        
+        $this->addImageFromTempToModel($newCardPoi);
+        
         $this->addFlashMessage('Karten Element angelegt', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
         $this->cardPoiRepository->add($newCardPoi);
         $this->redirect('list');
