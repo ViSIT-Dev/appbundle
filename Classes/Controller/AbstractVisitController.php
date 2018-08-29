@@ -79,7 +79,39 @@ abstract class AbstractVisitController extends \TYPO3\CMS\Extbase\Mvc\Controller
     }
     
     
-    protected function addImageFromTempToModel(\Visit\VisitTablets\Domain\Model\AbstractEntityWithMedia $entityWithMedia){
+    protected function addImageFromTempToModel(\Visit\VisitTablets\Domain\Model\AbstractEntityWithMedia $entityWithMedia, $inputName = "fileTempPath"){
+        if(
+                $this->request->hasArgument($inputName) 
+                && \strlen(($path = $this->request->getArgument($inputName))) > 0
+                && \file_exists($path)
+        ){
+             
+            $resourceFactory = \TYPO3\CMS\Core\Resource\ResourceFactory::getInstance();
+            $targetFolder = $this->settings["uploadDir"] ;
+            $storage = $resourceFactory->getDefaultStorage();
+            $rootFolder = $storage->getRootLevelFolder();
+
+            if (!$rootFolder->hasFolder($targetFolder)) {
+                $rootFolder->createFolder($targetFolder);
+            }
+
+            $uploadedFilePath = $path . ".info";
+            
+            //TYPO3\CMS\Core\Http\UploadedFile
+            $uploadedFile = \unserialize(
+                    \file_get_contents($uploadedFilePath)
+                );
+
+            $mediaFile = $storage->addFile($path, $rootFolder->getSubFolder($targetFolder), $uploadedFile->getClientFilename());
+
+            $newFileReference = new \Visit\VisitTablets\Domain\Model\FileReference();
+            $newFileReference->setFile($mediaFile);
+            $entityWithMedia->addMedia($newFileReference);
+            
+            \unlink($path);
+            \unlink($uploadedFilePath);
+
+        }
         
     }
     

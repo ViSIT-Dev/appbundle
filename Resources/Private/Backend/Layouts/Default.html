@@ -53,8 +53,9 @@
         <link href="css/custom.css" rel="stylesheet">
     </head>
 
-    
-    <f:debug>{_all}</f:debug>
+    <f:comment>
+    </f:comment>
+        <f:debug>{_all}</f:debug>
     
     <body class="nav-sm">
         <div class="container body">
@@ -173,6 +174,12 @@
         <!--<script src="build/js/custom.min.js"></script>-->
 
         <script>
+            
+            $(".askbeforedelete").click(function (e) {
+                if (!confirm("Objekt wirklich löschen?")) {
+                    e.preventDefault();
+                }
+            });
 
             var CURRENT_URL = window.location.href.split("#")[0].split("?")[0]
                     , $BODY = $("body")

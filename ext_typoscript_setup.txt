@@ -1,0 +1,51 @@
+
+# ==============================================
+# Persistence object mapping configuration
+# https://docs.typo3.org/typo3cms/ExtbaseFluidBook/6-Persistence/5-modeling-the-class-hierarchy.html
+# ==============================================
+
+config.tx_extbase.persistence{
+
+    classes{
+
+        //vererbung AbstractEntityWithAdditionalValue
+        Visit\VisitTablets\Domain\Model\AbstractEntityWithMedia {
+            subclasses {
+                Visit\VisitTablets\Domain\Model\Inmate = Visit\VisitTablets\Domain\Model\Inmate
+                Visit\VisitTablets\Domain\Model\CardPoi = Visit\VisitTablets\Domain\Model\CardPoi
+            }
+        }
+
+        Visit\VisitTablets\Domain\Model\Inmate {
+            mapping {
+                tableName = tx_visittablets_domain_model_inmate
+                recordType = Visit\VisitTablets\Domain\Model\Inmate
+            }
+        }
+
+        Visit\VisitTablets\Domain\Model\CardPoi {
+            mapping {
+                tableName = tx_visittablets_domain_model_cardpoi
+                recordType = Visit\VisitTablets\Domain\Model\CardPoi
+            }
+        }
+     
+
+        //File Ref for Products
+        Visit\VisitTablets\Domain\Model\FileReference {
+            mapping {
+                tableName = sys_file_reference
+                columns {
+                    uid_local.mapOnProperty = originalFileIdentifier
+                }
+            }
+        }
+
+    }
+
+    objects {
+        TYPO3\CMS\Extbase\Domain\Model\FileReference.className = Visit\VisitTablets\Domain\Model\FileReference
+    }
+    updateReferenceIndex = 1
+
+}

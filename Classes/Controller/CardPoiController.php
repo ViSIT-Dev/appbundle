@@ -53,11 +53,6 @@ class CardPoiController extends AbstractVisitController {
 
     }
     
-  
-//    public function initializeCreateAction(){
-//        self::debug($this->request->getArguments());
-////        die();
-//    }
 
     /**
      * action create
@@ -67,9 +62,7 @@ class CardPoiController extends AbstractVisitController {
      */
     public function createAction(\Visit\VisitTablets\Domain\Model\CardPoi $newCardPoi)
     {
-        
         $this->addImageFromTempToModel($newCardPoi);
-        
         $this->addFlashMessage('Karten Element angelegt', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
         $this->cardPoiRepository->add($newCardPoi);
         $this->redirect('list');
@@ -95,7 +88,8 @@ class CardPoiController extends AbstractVisitController {
      */
     public function updateAction(\Visit\VisitTablets\Domain\Model\CardPoi $cardPoi)
     {
-        $this->addFlashMessage('The object was updated. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
+        $this->addImageFromTempToModel($cardPoi);
+        $this->addFlashMessage('Änderungen wurden gespeichert', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
         $this->cardPoiRepository->update($cardPoi);
         $this->redirect('list');
     }
@@ -108,7 +102,7 @@ class CardPoiController extends AbstractVisitController {
      */
     public function deleteAction(\Visit\VisitTablets\Domain\Model\CardPoi $cardPoi)
     {
-        $this->addFlashMessage('The object was deleted. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
+        $this->addFlashMessage('Eintrag wurde gelöscht', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
         $this->cardPoiRepository->remove($cardPoi);
         $this->redirect('list');
     }
