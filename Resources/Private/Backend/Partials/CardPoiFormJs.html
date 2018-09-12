@@ -62,7 +62,7 @@
     });
 
     $(".dropzone").dropzone({
-        url: parent.TYPO3.settings.ajaxUrls["fileUpload"],
+        url: parent.TYPO3.settings.ajaxUrls["fileUpload"], 
         init: function () {
             this.on("addedfile", function () {
                 if (this.files[1] != null) {

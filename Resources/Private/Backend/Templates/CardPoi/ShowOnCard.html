@@ -1,6 +1,5 @@
 <f:layout name="Default" />
 
-
 <f:section name="title">
     <h2>Karten Element bearbeiten</h2>
 </f:section>
@@ -14,9 +13,6 @@
 <f:section name="footer">
     <script>
         var pois = <f:format.raw>{cardPois}</f:format.raw>;
-
-        
-
         
         if ($("#cardPoiMap").length === 1) {
       
@@ -24,17 +20,12 @@
             L.tileLayer('https://a.tile.openstreetmap.org/{' + 'z}/{' + 'x}/{' + 'y}.png', {
                 attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>',
                 maxZoom: 18,
-//                    id: 'mapbox.streets',
-//                    accessToken: 'your.mapbox.access.token'
             }).addTo(mymap);
 
             $.each(pois, function( index, value ) {
                 console.log(value.latlng)
                 L.marker(value.latlng).addTo(mymap).bindPopup(value.title);
             });
-
-          
-
         }
 
     </script>

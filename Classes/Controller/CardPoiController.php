@@ -12,6 +12,8 @@ namespace Visit\VisitTablets\Controller;
  *
  ***/
 
+use \Visit\VisitTablets\Domain\Model\CardPoi;
+
 /**
  * CardPoiController
  */
@@ -37,7 +39,6 @@ class CardPoiController extends AbstractVisitController {
             $out[$cardPoi->getUid()] = [
                 "title" => $cardPoi->getTitle(),
                 "subTitle" => $cardPoi->getSubTitle(),
-                "actionRadius" => $cardPoi->getActionRadius(),
                 "flagText" => $cardPoi->getFlagText(),
                 "description" => $cardPoi->getDescription(),
                 "latlng" => [
@@ -76,12 +77,12 @@ class CardPoiController extends AbstractVisitController {
      * @param \Visit\VisitTablets\Domain\Model\CardPoi $newCardPoi
      * @return void
      */
-    public function createAction(\Visit\VisitTablets\Domain\Model\CardPoi $newCardPoi)
+    public function createAction(CardPoi $newCardPoi)
     {
         $this->addImageFromTempToModel($newCardPoi);
         $this->addFlashMessage('Karten Element angelegt', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
         $this->cardPoiRepository->add($newCardPoi);
-        $this->redirect('list');
+        $this->redirect("edit", null, null, array("cardPoi" => $newCardPoi));
     }
 
     /**
@@ -91,7 +92,7 @@ class CardPoiController extends AbstractVisitController {
      * @ignorevalidation $cardPoi
      * @return void
      */
-    public function editAction(\Visit\VisitTablets\Domain\Model\CardPoi $cardPoi)
+    public function editAction(CardPoi $cardPoi)
     {
         $this->view->assign('cardPoi', $cardPoi);
     }
@@ -102,12 +103,12 @@ class CardPoiController extends AbstractVisitController {
      * @param \Visit\VisitTablets\Domain\Model\CardPoi $cardPoi
      * @return void
      */
-    public function updateAction(\Visit\VisitTablets\Domain\Model\CardPoi $cardPoi)
+    public function updateAction(CardPoi $cardPoi)
     {
         $this->addImageFromTempToModel($cardPoi);
         $this->addFlashMessage('Änderungen wurden gespeichert', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
         $this->cardPoiRepository->update($cardPoi);
-        $this->redirect('list');
+        $this->redirect("edit", null, null, array("cardPoi" => $cardPoi));
     }
 
     /**
@@ -116,10 +117,24 @@ class CardPoiController extends AbstractVisitController {
      * @param \Visit\VisitTablets\Domain\Model\CardPoi $cardPoi
      * @return void
      */
-    public function deleteAction(\Visit\VisitTablets\Domain\Model\CardPoi $cardPoi)
+    public function deleteAction(CardPoi $cardPoi)
     {
         $this->addFlashMessage('Eintrag wurde gelöscht', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
         $this->cardPoiRepository->remove($cardPoi);
         $this->redirect('list');
+    }
+
+    /**
+     * action deleteImage
+     *
+     * @param \Visit\VisitTablets\Domain\Model\CardPoi $cardPoi,  \TYPO3\CMS\Extbase\Domain\Model\FileReference $media
+     * @return void
+     */
+    public function deleteImageAction(CardPoi $cardPoi, \TYPO3\CMS\Extbase\Domain\Model\FileReference $media)
+    {
+        $this->addFlashMessage('Media wurde entfernt', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+        $this->removeImageFromModel($cardPoi, $media);
+        $this->cardPoiRepository->update($cardPoi);
+        $this->redirect("edit", null, null, array("cardPoi" => $cardPoi));
     }
 }

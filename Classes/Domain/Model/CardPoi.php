@@ -38,14 +38,6 @@ class CardPoi extends AbstractEntityWithMedia {
      * @var string
      */
     protected $flagText = '';
-
-
-    /**
-     * actionRadius
-     * @validate NotEmpty
-     * @var float
-     */
-    protected $actionRadius = 0.0;
     
     /**
      * longitude
@@ -194,26 +186,5 @@ class CardPoi extends AbstractEntityWithMedia {
         $this->description = $description;
     }
     
-    /**
-     * Returns the actionRadius
-     *
-     * @return string $actionRadius
-     */
-    function getActionRadius() {
-        return $this->actionRadius;
-    }
-
-    
-    /**
-     * Sets the actionRadius
-     *
-     * @param string $actionRadius
-     * @return void
-     */
-    function setActionRadius($actionRadius) {
-        $this->actionRadius = $actionRadius;
-    }
-
-
     
 }

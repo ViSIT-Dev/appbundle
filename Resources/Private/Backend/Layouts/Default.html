@@ -65,32 +65,27 @@
                 </div>
 
                 <!-- page content -->
-                <div  class="outer-scroll" style=" height: 100%;  position: absolute;  overflow: auto; width: 100%;">
+                <div  class="outer-scroll">
 
                     <f:render partial="Header" />
 
                     <div class="right_col" role="main">
 
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <div class="x_panel">
-                                    <div class="x_title">
-                                        <f:render section="title" />
-                                        <div class="clearfix"></div>
-                                    </div>
-                                    <div class="x_content">
-                                        <br>
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <f:render section="title" />
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <br>
 
-                                        <f:flashMessages /> 
+                                <f:flashMessages /> 
 
-                                        <f:render partial="FormErrors" />
+                                <f:render partial="FormErrors" />
 
-                                        <f:render section="main" />
-                                    </div>
-                                </div>
+                                <f:render section="main" />
                             </div>
                         </div>
-
 
                     </div>
                     <!-- /page content -->

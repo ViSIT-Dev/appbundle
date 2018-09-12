@@ -49,7 +49,6 @@ CREATE TABLE tx_visittablets_domain_model_cardpoi (
 	title varchar(255) DEFAULT '' NOT NULL,
 	longitude double(11,2) DEFAULT '0.00' NOT NULL,
 	latitude double(11,2) DEFAULT '0.00' NOT NULL,
-	action_radius double(11,2) DEFAULT '0.00' NOT NULL,
 	flag_text varchar(255) DEFAULT '' NOT NULL,
 	sub_title varchar(255) DEFAULT '' NOT NULL,
 	media int(11) unsigned NOT NULL default '0',

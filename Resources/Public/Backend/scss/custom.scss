@@ -4371,6 +4371,31 @@ ul.notifications {
     line-height: 11px;
     margin-top: 4px;
 }
+
+.figure-action-wrapper{
+    position: relative;
+    margin-bottom: 10px;
+        
+    .action-wrapper{
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        a{ 
+            
+        }
+    }
+    figure{
+        margin: 0;
+    }
+}
+
+.outer-scroll{
+    height: 100%;  
+    position: absolute;  
+    overflow: auto; 
+    width: 100%;
+}
+
 @media (max-width: 460px) {
     .dataTables_wrapper .col-sm-6 {
         width: 100%;

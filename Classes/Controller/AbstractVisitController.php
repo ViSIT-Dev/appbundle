@@ -12,6 +12,8 @@ namespace Visit\VisitTablets\Controller;
  *
  ***/
 
+use \Visit\VisitTablets\Domain\Model\AbstractEntityWithMedia;
+
 /**
  * AbstractVisitController
  */
@@ -78,8 +80,12 @@ abstract class AbstractVisitController extends \TYPO3\CMS\Extbase\Mvc\Controller
         \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($var);
     }
     
+     protected function removeImageFromModel(AbstractEntityWithMedia $entityWithMedia, \TYPO3\CMS\Extbase\Domain\Model\FileReference $media){
+         $entityWithMedia->removeMedia($media);
+         //unlink media?
+     }
     
-    protected function addImageFromTempToModel(\Visit\VisitTablets\Domain\Model\AbstractEntityWithMedia $entityWithMedia, $inputName = "fileTempPath"){
+    protected function addImageFromTempToModel(AbstractEntityWithMedia $entityWithMedia, $inputName = "fileTempPath"){
         if(
                 $this->request->hasArgument($inputName) 
                 && \strlen(($path = $this->request->getArgument($inputName))) > 0

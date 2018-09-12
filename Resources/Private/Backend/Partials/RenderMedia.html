@@ -8,7 +8,7 @@
     <f:switch expression="{media.originalResource.originalFile.properties.mime_type}">
         
         <f:case value="image/jpeg">
-            <f:image src="{media.uid}" treatIdAsReference="1" maxHeight="300" />
+            <f:image src="{media.uid}" treatIdAsReference="1" maxHeight="300" class="img-fluid" />
         </f:case>
         
         <f:defaultCase>
