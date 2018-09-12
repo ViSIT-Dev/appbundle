@@ -50,6 +50,10 @@ module.tx_visittablets_visit_visittabletskartebe <. module.tx_visittablets
 #module.tx_visittablets_visit_visittabletsgalerie <. module.tx_visittablets_visit 
 
 
+config {
+    no_cache = 1
+}
+
 ##############
 #### PAGE ####
 ##############
@@ -111,14 +115,11 @@ page {
 
     meta {
 
-        viewport = {$page.meta.viewport}
-        robots = {$page.meta.robots}
-        apple-mobile-web-app-capable = {$page.meta.apple-mobile-web-app-capable}
+        viewport = width=device-width, initial-scale=1, maximum-scale=1    
+        apple-mobile-web-app-capable = yes
 
-        X-UA-Compatible = {$page.meta.compatible}
-        X-UA-Compatible {
-            attribute = http-equiv
-        }
+        X-UA-Compatible = http-equiv
+
 
     }
 

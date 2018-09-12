@@ -141,6 +141,8 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Visit\VisitTabl
     'description'      => 'Löscht alle Dateien in /typo3temp/ajax_upload'
 );
     
+$GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['map_server'] = 'EXT:visit_tablets/Classes/Eid/MapServer.php';
+
     
 if(TYPO3_MODE === 'BE') {
 

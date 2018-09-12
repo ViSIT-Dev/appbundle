@@ -9,13 +9,20 @@
 
     if ($("#cardPoiMap").length === 1) {
         var marker = false;
-        var mymap = L.map('cardPoiMap').setView([47.76, 12.73], 8);
-        L.tileLayer('https://a.tile.openstreetmap.org/{' + 'z}/{' + 'x}/{' + 'y}.png', {
-            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>',
-            maxZoom: 18,
-//                    id: 'mapbox.streets',
-//                    accessToken: 'your.mapbox.access.token'
-        }).addTo(mymap);
+//        var mymap = L.map('cardPoiMap').setView([47.76, 12.73], 8);
+//        L.tileLayer('https://a.tile.openstreetmap.org/{' + 'z}/{' + 'x}/{' + 'y}.png', {
+//            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>',
+//            maxZoom: 18,
+////                    id: 'mapbox.streets',
+////                    accessToken: 'your.mapbox.access.token'
+//        }).addTo(mymap);
+
+        var mymap = L.map('cardPoiMap', { 
+            zoomControl:false,
+            minZoom: 15,
+            maxZoom: 15
+        }).setView([47.76, 12.73], 15);
+        L.tileLayer('/index.php?eID=map_server&x={' + 'x}&y={' + 'y}&z={' + 'z}').addTo(mymap);
 
         mymap.on('click', function onMapClick(e) {
             if (marker === false) {
