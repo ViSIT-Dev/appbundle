@@ -2,4 +2,22 @@
     <f:debug>{_all}</f:debug>
 </f:if>
 
-<f:render section="main" />
+ <div class="titleBar">
+    <nav>
+        <div class="left">
+            <i class="mdi mdi-home"></i> <h1 class="spacer-left">Titel Sektion</h1>
+        </div>
+        <div class="right">
+            <i class="mdi mdi-message-text"></i> <span class="spacer-left spacer-right"><i class="mdi mdi-menu-down" style="font-size: 13px;"></i> English</span>
+            <i class="mdi mdi-help-circle"></i> 
+
+            <span class="spacer-left "><f:render section="title" /></span>
+
+        </div>
+
+    </nav>
+</div>
+<main>
+    <f:render section="main" />
+    
+</main>

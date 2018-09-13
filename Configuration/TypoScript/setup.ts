@@ -224,6 +224,8 @@ page {
 
     includeCSS {
 
+#        font-awesome = EXT:visit_tablets/Resources/Public/vendor/font-awesome/css/all.css
+        material-design = EXT:visit_tablets/Resources/Public/vendor/material-design/css/materialdesignicons.css
         main = EXT:visit_tablets/Resources/Public/css/main.css
 
     }
