@@ -37,13 +37,10 @@ call_user_func(
             'Visit.VisitTablets',
             'Kartefe',
             [
-                'Karte' => 'show'
+                'CardPoi' => 'renderFrontend',
             ],
             // non-cacheable actions
             [
-                'Inmate' => 'create, update, delete',
-                'CardPoi' => 'create, update, delete',
-                'PrisonCell' => 'create, update, delete'
             ]
         );
 

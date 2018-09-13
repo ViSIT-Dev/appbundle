@@ -1,0 +1,73 @@
+
+/* 
+    Created on : 13.09.2018, 10:50:43
+    Author     : RaichKrispin
+*/
+
+
+
+
+@at-root {
+  @-ms-viewport { width: device-width; } // stylelint-disable-line at-rule-no-vendor-prefix
+}
+
+html {
+  box-sizing: border-box;
+  -ms-overflow-style: scrollbar;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+//get bootstrap + reboot
+
+@import "../vendor/bootstrap/scss/functions";
+@import "../vendor/bootstrap/scss/variables";
+@import "../vendor/bootstrap/scss/mixins";
+@import "../vendor/bootstrap/scss/reboot";
+@import "../vendor/bootstrap/scss/grid";
+@import "../vendor/bootstrap/scss/utilities/display";
+@import "../vendor/bootstrap/scss/utilities/flex";
+
+//init fonts
+@font-face {
+  font-family: "Rum Sans";
+  src: local("Rum Sans Medium"), url("../fonts/RumSans-Medium.ttf") format("truetype");
+  font-weight: 500; }
+@font-face {
+  font-family: "Rum Sans";
+  src: local("Rum Sans Semibold"), url("../fonts/RumSans-Semibold.ttf") format("truetype");
+  font-weight: 600; }
+@font-face {
+  font-family: "Rum Sans";
+  src: local("Rum Sans Light"), url("../fonts/RumSans-Light.ttf") format("truetype");
+  font-weight: 300; }
+@font-face {
+  font-family: "Rum Serif";
+  src: local("Rum Serif Semibold"), url("../fonts/RumSerif-Semibold.ttf") format("truetype");
+  font-weight: 600; }
+@font-face {
+  font-family: "Rum Serif";
+  src: local("Rum Serif Bold"), url("../fonts/RumSerif-Bold.ttf") format("truetype");
+  font-weight: 700; }
+
+.extbase-debugger{
+    position: fixed;
+    min-width: 33%;
+    opacity: .6;
+    bottom: 0;
+}
+
+html, body{
+    margin: 0;
+    overflow: hidden;
+    font-family: "Rum Sans";
+}
+body > .frame {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}

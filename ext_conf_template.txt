@@ -1,0 +1,9 @@
+############
+### Main ###
+############
+
+# cat=Main; type=boolean; label=Debugging
+debugging = 0
+
+# cat=Main; type=boolean; label=Var Dump All
+varDump = 0

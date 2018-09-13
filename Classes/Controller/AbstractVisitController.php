@@ -35,11 +35,20 @@ abstract class AbstractVisitController extends \TYPO3\CMS\Extbase\Mvc\Controller
      * @api
      */
     protected function initializeAction(){
-              
+        
+        $configs = $this->makeInstance("Visit\VisitTablets\Helper\ConfigurationHelper")->getConfiguration();
+        if($this->settings == null){
+            $this->settings = $configs;
+        }else{
+            $this->settings = \array_merge_recursive($this->settings, $configs);
+        }
+ 
+        $this->response->addAdditionalHeaderData("<!-- ViSIT APP: {$this->request->getControllerObjectName()} -->");
+        
         if(isset($GLOBALS["BE_USER"]) && $GLOBALS["BE_USER"]->isAdmin()){
             return;
         }
-         
+        
         //get Action annotation
         $reflector = new \ReflectionClass($this->request->getControllerObjectName());
         $methodAnnotation = $reflector->getMethod($this->request->getControllerActionName()."Action")->getDocComment();

@@ -137,4 +137,18 @@ class CardPoiController extends AbstractVisitController {
         $this->cardPoiRepository->update($cardPoi);
         $this->redirect("edit", null, null, array("cardPoi" => $cardPoi));
     }
+    
+    
+    
+    /**
+     * action renderFronten
+     * @allowAllUsers
+     * 
+     * @return void
+     */
+    public function renderFrontendAction()
+    {
+        $this->view->assign("test", true);
+    }
+    
 }
