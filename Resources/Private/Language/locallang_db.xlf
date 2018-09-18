@@ -24,6 +24,12 @@
             <trans-unit id="tx_visit_tablets_domain_model_kartefe.description">
                 <source>Dieses Plugin einfügen um eine Karte anzuzeigen</source>
             </trans-unit>
+            <trans-unit id="tx_visit_tablets_domain_model_fernrohrfe">
+                <source>Fernrohr</source>
+            </trans-unit>
+            <trans-unit id="tx_visit_tablets_domain_model_fernrohrfe.description">
+                <source>Dieses Plugin einfügen um das Fernrohr zu aktivieren.</source>
+            </trans-unit>
             
             
             <trans-unit id="tx_visittablets_domain_model_inmate">
