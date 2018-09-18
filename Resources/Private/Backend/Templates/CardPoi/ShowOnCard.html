@@ -16,11 +16,18 @@
         
         if ($("#cardPoiMap").length === 1) {
       
-            var mymap = L.map('cardPoiMap').setView([47.76, 12.73], 8);
-            L.tileLayer('https://a.tile.openstreetmap.org/{' + 'z}/{' + 'x}/{' + 'y}.png', {
-                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>',
-                maxZoom: 18,
-            }).addTo(mymap);
+//            var mymap = L.map('cardPoiMap').setView([47.76, 12.73], 8);
+//            L.tileLayer('https://a.tile.openstreetmap.org/{' + 'z}/{' + 'x}/{' + 'y}.png', {
+//                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>',
+//                maxZoom: 18,
+//            }).addTo(mymap);
+
+            var mymap = L.map('cardPoiMap', { 
+                zoomControl:false,
+                minZoom: 9,
+                maxZoom: 8
+            }).setView([47.76, 12.73], 8);
+            L.tileLayer('/index.php?eID=map_server&x={' + 'x}&y={' + 'y}&z={' + 'z}').addTo(mymap);
 
             $.each(pois, function( index, value ) {
                 console.log(value.latlng)

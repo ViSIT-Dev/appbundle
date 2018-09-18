@@ -12,7 +12,7 @@ $x = intval($_GET["x"]);
 $y = intval($_GET["y"]);
 $z = intval($_GET["z"]);
 
-$file = "typo3conf/ext/visit_tablets/Resources/Public/MapTiles/$z/$x/$y.jpg";
+$file = "typo3conf/ext/visit_tablets/Resources/Public/MapTiles/$z/$x/$y.png";
 
 if (file_exists($file)) {
     header('Access-Control-Allow-Origin: *');  
