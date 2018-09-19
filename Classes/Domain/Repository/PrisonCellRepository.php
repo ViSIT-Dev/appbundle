@@ -15,12 +15,7 @@ namespace Visit\VisitTablets\Domain\Repository;
 /**
  * The repository for PrisonCells
  */
-class PrisonCellRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
-{
-    /**
-     * @var array
-     */
-    protected $defaultOrderings = array(
-        'sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
-    );
+class PrisonCellRepository extends AbstractVisitRepository{
+
+    
 }
