@@ -15,7 +15,7 @@ namespace Visit\VisitTablets\Domain\Repository;
 /**
  * The AbstractVisitRepository for AbstractVisitRepository
  */
-abstract class AbstractVisitRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+abstract class AbstractVisitRepository extends \TYPO3\CMS\Extbase\Persistence\Repository 
 {
     /**
      * @var array
@@ -24,15 +24,4 @@ abstract class AbstractVisitRepository extends \TYPO3\CMS\Extbase\Persistence\Re
         'sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
     );
     
-    public function __construct() {
-        parent::__construct();
-         /** @var $querySettings \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings */
-        $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-
-        $querySettings->setStoragePageIds(array(
-            //set pid
-        ));
-        $this->setDefaultQuerySettings($querySettings);
-        
-    }
 }
