@@ -1,0 +1,63 @@
+<f:layout name="Default" />
+
+
+<f:section name="title">
+    <h2>Karten Element bearbeiten</h2>
+</f:section>
+
+<f:section name="main">
+
+    <div class="row row-eq-height">
+        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+            <f:form class="form-horizontal form-label-left" action="update"  name="cardPoi"  object="{cardPoi}" >
+
+                <f:render partial="CardPoiFormFields" />
+
+
+                <f:if condition="{cardPoi.media}">
+                    
+                    <div class="ln_solid"></div>
+                    
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Media</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <f:for each="{cardPoi.media}" as="currentMedia">
+                                <div class="figure-action-wrapper">
+                                    <div class="action-wrapper">
+                                        <f:link.action action="deleteImage" arguments="{cardPoi : cardPoi, media: currentMedia}" class="askbeforedelete  btn btn-danger btn-xs">
+                                            <i class="fa fa-trash-o fa-2x" aria-hidden="true"></i>
+                                        </f:link.action>
+                                    </div>
+                                    <f:render partial="RenderMedia" arguments="{media: currentMedia}"/>
+                                </div>
+                            </f:for>
+                        </div>
+                    </div>
+                </f:if>
+
+                <div class="ln_solid"></div>
+                <div class="form-group">
+                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                        <button type="submit" class="btn btn-success">Speichern</button>
+                    </div>
+                </div>
+
+            </f:form>
+        </div>
+        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+            
+            <iframe class="warenkorb" src="https://www.fh-kufstein.ac.at/" border="0" style="border: 0; width: 100%; min-height: 969px;">
+                Ihr Browser mag keine iFrames :( 
+            </iframe>
+            
+        </div>
+    </div>
+
+
+
+
+</f:section>
+
+<f:section name="footer">
+    <f:render partial="CardPoiFormJs" />
+</f:section>

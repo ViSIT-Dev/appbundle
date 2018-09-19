@@ -13,11 +13,67 @@ namespace Visit\VisitTablets\Controller;
  ***/
 
 use \Visit\VisitTablets\Domain\Model\CardPoi;
+use \TYPO3\CMS\Backend\View\BackendTemplateView;
+use \TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
+use \TYPO3\CMS\Backend\Template\Components\Menu\Menu;
+use \TYPO3\CMS\Backend\Template\Components\Menu\MenuItem;
 
 /**
  * CardPoiController
  */
 class ScopeController extends AbstractVisitController {
+    
+    /**
+     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
+     * @inject 
+     */
+    protected $configurationManager;
+    
+
+    
+    /**
+     * Displays a page tree
+     *
+     * @return void
+     */
+    public function treeAction() {
+        // Get page record for tree starting point. May be passed as an argument.
+        try {
+            $startingPoint = $this->request->getArgument('page');
+        } catch (\Exception $e) {
+            $startingPoint = 1;
+        }
+        $pageRecord = \TYPO3\CMS\Backend\Utility\BackendUtility::getRecord(
+                        'pages', $startingPoint
+        );
+        // Create and initialize the tree object
+        /** @var $tree \TYPO3\CMS\Backend\Tree\View\PageTreeView */
+        $tree = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Backend\\Tree\\View\\PageTreeView');
+        $tree->init('AND ' . $GLOBALS['BE_USER']->getPagePermsClause(1));
+        // Creating the icon for the current page and add it to the tree
+        $html = \TYPO3\CMS\Backend\Utility\IconUtility::getSpriteIconForRecord(
+                        'pages', $pageRecord, array(
+                    'title' => $pageRecord['title']
+                        )
+        );
+        $tree->tree[] = array(
+            'row' => $pageRecord,
+            'HTML' => $html
+        );
+        // Create the page tree, from the starting point, 2 levels deep
+        $depth = 2;
+        $tree->getTree(
+                $startingPoint, $depth, ''
+        );
+        \TYPO3\CMS\Core\Utility\GeneralUtility::devLog('page tree', 'examples', 0, $tree->tree);
+        // Pass the tree to the view
+        $this->view->assign(
+                'tree', $tree->tree
+        );
+    }
+
+   
+    
     /**
      * cardPoiRepository
      *
@@ -26,6 +82,8 @@ class ScopeController extends AbstractVisitController {
      */
     protected $cardPoiRepository = null;
 
+    
+    
     /**
      * action showOnCard
      *
@@ -52,12 +110,14 @@ class ScopeController extends AbstractVisitController {
 
     /**
      * action list
-     *
+     * @isFrontendAction
      * @return void
      */
     public function listAction(){
         $cardPois = $this->cardPoiRepository->findAll();
         $this->view->assign('cardPois', $cardPois);
+        var_dump($this->pageUid);
+        
     }
 
     /**
@@ -79,10 +139,10 @@ class ScopeController extends AbstractVisitController {
      */
     public function createAction(CardPoi $newCardPoi)
     {
-        $this->addImageFromTempToModel($newCardPoi);
+//        $this->addImageFromTempToModel($newCardPoi);
         $this->addFlashMessage('Karten Element angelegt', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
         $this->cardPoiRepository->add($newCardPoi);
-        $this->redirect("edit", null, null, array("cardPoi" => $newCardPoi));
+        $this->redirect("list", null, null, array());
     }
 
     /**

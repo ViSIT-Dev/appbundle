@@ -1,0 +1,44 @@
+<f:layout name="DefaultWithPageTree" />
+
+<f:section name="title">
+    <h2>Karten Übersicht</h2>
+</f:section>
+
+<f:section name="main">
+
+    <table id="datatable" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Text auf Flagge</th>
+                <th>Überschrift</th>
+                <th>Längengrad</th>
+                <th>Breitengrad</th>
+                <th>Beschreibung</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <f:for each="{cardPois}" as="cardPoi">
+                <tr>
+                    <td>{cardPoi.flagText}</td>
+                    <td>{cardPoi.title}</td>
+                    <td>{cardPoi.longitude}</td>
+                    <td>{cardPoi.latitude}</td>
+                    <td>                            
+                        <f:format.crop maxCharacters="35"><f:format.stripTags>{cardPoi.description}</f:format.stripTags></f:format.crop>
+                    </td>
+                    <td>
+                        <f:link.action action="edit" arguments="{cardPoi : cardPoi}" class="btn btn-primary btn-xs">
+                            <i class="fa fa-pencil fa-2x" aria-hidden="true"></i>
+                        </f:link.action>
+                        <f:link.action action="delete" arguments="{cardPoi : cardPoi}" class="askbeforedelete btn btn-warning btn-xs">
+                            <i class="fa fa-trash-o fa-2x" aria-hidden="true"></i>
+                        </f:link.action>
+                    </td>
+                </tr>
+            </f:for>
+        </tbody>
+    </table>
+
+</f:section>

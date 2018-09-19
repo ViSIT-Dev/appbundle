@@ -146,7 +146,7 @@ module.tx_visittablets_visit_visittabletsglossarbe <. module.tx_visittablets
 module.tx_visittablets_visit_visittabletskartebe <. module.tx_visittablets 
 
 # Module galerie configuration
-#module.tx_visittablets_visit_visittabletsgalerie <. module.tx_visittablets_visit 
+module.tx_visittablets_visit_visitfernrohr <. module.tx_visittablets 
 
 
 config {

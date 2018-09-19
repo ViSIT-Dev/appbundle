@@ -13,13 +13,17 @@ namespace Visit\VisitTablets\Controller;
  ***/
 
 use \Visit\VisitTablets\Domain\Model\AbstractEntityWithMedia;
-
+use \Visit\VisitTablets\Domain\Model\CardPoi;
+use \TYPO3\CMS\Backend\View\BackendTemplateView;
+use \TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
+use \TYPO3\CMS\Backend\Template\Components\Menu\Menu;
+use \TYPO3\CMS\Backend\Template\Components\Menu\MenuItem;
 /**
  * AbstractVisitController
  */
 abstract class AbstractVisitController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController{
    
-    
+    protected $pageUid = 0;
     /**
      * Check Access Rights
      * 
@@ -35,6 +39,14 @@ abstract class AbstractVisitController extends \TYPO3\CMS\Extbase\Mvc\Controller
      * @api
      */
     protected function initializeAction(){
+        // set p uid
+        $this->pageUid = (int)\TYPO3\CMS\Core\Utility\GeneralUtility::_GET('id');
+        
+        // set storage PID
+        $configurationManager = $this->getInstance('TYPO3\CMS\Extbase\Configuration\ConfigurationManager');
+        $frameworkConfiguration = $this->getInstance('TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface')->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
+        $persistenceConfiguration = array('persistence' => array('storagePid' => $this->pageUid));
+        $configurationManager->setConfiguration(\array_merge($frameworkConfiguration, $persistenceConfiguration));
         
         $configs = $this->makeInstance("Visit\VisitTablets\Helper\ConfigurationHelper")->getConfiguration();
         if($this->settings == null){
@@ -45,19 +57,71 @@ abstract class AbstractVisitController extends \TYPO3\CMS\Extbase\Mvc\Controller
  
         $this->response->addAdditionalHeaderData("<!-- ViSIT APP: {$this->request->getControllerObjectName()} -->");
         
+        //get Action annotation
+        $reflector = new \ReflectionClass($this->request->getControllerObjectName());
+        $methodAnnotation = $reflector->getMethod($this->request->getControllerActionName()."Action")->getDocComment();
+        
+        //methods call is allowed by everyone
+        if(\strpos($methodAnnotation, "@isFrontendAction") === FALSE){
+            //load be template
+            $this->defaultViewObjectName = \TYPO3\CMS\Backend\View\BackendTemplateView::class;
+        }else{
+            
+        }
+        
         if(isset($GLOBALS["BE_USER"]) && $GLOBALS["BE_USER"]->isAdmin()){
             return;
         }
         
-        //get Action annotation
-        $reflector = new \ReflectionClass($this->request->getControllerObjectName());
-        $methodAnnotation = $reflector->getMethod($this->request->getControllerActionName()."Action")->getDocComment();
         
         //methods call is allowed by everyone
         if(\strpos($methodAnnotation, "@allowAllUsers") === FALSE){
             throw new \Visit\VisitTablets\Exceptions\PermissionDeniedException('Current user has no permission to perform this action.', 1511424014);
         }
         
+    }
+    
+    
+     /**
+    * Initializes the view before invoking an action method.
+    *
+    * @param ViewInterface $view The view to be initialized
+    * @return void
+    * @api
+    */
+    protected function initializeView(ViewInterface $view)
+    {
+        parent::initializeView($view);
+        if ($view instanceof BackendTemplateView) {
+            $pageRenderer = $view->getModuleTemplate()->getPageRenderer();
+            $pageRenderer->loadRequireJsModule('TYPO3/CMS/Examples/Application');
+//            $pageRenderer->addHeaderData("<!-- asdasdaadsd -->");
+            // Make localized labels available in JavaScript context
+//            $pageRenderer->addInlineLanguageLabelFile('EXT:examples/Resources/Private/Language/locallang.xlf');
+            // Add action menu
+            /** @var Menu $menu */
+//            $menu = $this->makeInstance(Menu::class);
+//            $menu->setIdentifier('_examplesMenu');
+//            /** @var UriBuilder $uriBuilder */
+//            $uriBuilder = $this->getUriBuilder();
+//            $uriBuilder->setRequest($this->request);
+            // Add menu items
+            /** @var MenuItem $menuItem */
+//            $menuItem = $this->makeInstance(MenuItem::class);
+//            $items = ['flash', 'log', 'tree', 'clipboard', 'links', 'fileReference'];
+//            foreach ($items as $item) {
+//                $isActive = $this->actionMethodName === $item . 'Action';
+//                $menuItem->setTitle($item);
+//                $uri = $uriBuilder->reset()->uriFor(
+//                    $item,
+//                    [],
+//                    'Scope'
+//                );
+//                $menuItem->setActive($isActive)->setHref($uri);
+//                $menu->addMenuItem($menuItem);
+//            }
+//            $this->view->getModuleTemplate()->getDocHeaderComponent()->getMenuRegistry()->addMenu($menu);
+        }
     }
     
     public static function translate($key){
@@ -74,7 +138,11 @@ abstract class AbstractVisitController extends \TYPO3\CMS\Extbase\Mvc\Controller
     public static function makeInstance($className) {
         return \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance($className);
     }
-
+    
+    public static function getUriBuilder(){
+        return self::getInstance('TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder');
+    }
+    
     /**
      * Use for other stuff like Repositories (injects dependencies)
      * @param type $className

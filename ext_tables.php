@@ -77,13 +77,21 @@ call_user_func(
                 'fernrohr', // Submodule key
                 '', // Position
                 [
-                    'Inmate' => 'list, new, create, edit, update, delete','CardPoi' => 'list, new, create, edit, update, delete','PrisonCell' => 'list, show, new, create, edit, update, delete',
+                    'Scope' => 'list, new, create, edit, update, delete',
                 ],
                 [
                     'access' => 'user,group',
                     'icon'   => 'EXT:' . $extKey . '/Resources/Public/Icons/galerie.svg',
                     'labels' => 'LLL:EXT:' . $extKey . '/Resources/Private/Language/locallang_galerie.xlf',
+                    'navigationComponentId' => 'typo3-pagetree',
                 ]
+            );
+            
+            // Register the navigation component
+            \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addNavigationComponent(
+                'tools_VisitFernrohr',
+                'typo3-pagetree',
+                'fernrohr'
             );
 
     }
