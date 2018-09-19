@@ -12,24 +12,12 @@ namespace Visit\VisitTablets\Controller;
  *
  ***/
 
-use \Visit\VisitTablets\Domain\Model\CardPoi;
-use \TYPO3\CMS\Backend\View\BackendTemplateView;
-use \TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
-use \TYPO3\CMS\Backend\Template\Components\Menu\Menu;
-use \TYPO3\CMS\Backend\Template\Components\Menu\MenuItem;
+use \Visit\VisitTablets\Domain\Model\ScopePoi;
 
 /**
  * CardPoiController
  */
 class ScopeController extends AbstractVisitController {
-    
-    /**
-     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
-     * @inject 
-     */
-    protected $configurationManager;
-    
-
     
     /**
      * Displays a page tree
@@ -77,10 +65,10 @@ class ScopeController extends AbstractVisitController {
     /**
      * cardPoiRepository
      *
-     * @var \Visit\VisitTablets\Domain\Repository\CardPoiRepository
+     * @var \Visit\VisitTablets\Domain\Repository\ScopePoiRepository
      * @inject
      */
-    protected $cardPoiRepository = null;
+    protected $scopePoiRepository = null;
 
     
     
@@ -92,16 +80,15 @@ class ScopeController extends AbstractVisitController {
     public function showOnCardAction(){
         $out = array();
         
-        /* @var $cardPoi \Visit\VisitTablets\Domain\Model\CardPoi */
-        foreach ($this->cardPoiRepository->findAll() as $cardPoi) {
-            $out[$cardPoi->getUid()] = [
-                "title" => $cardPoi->getTitle(),
-                "subTitle" => $cardPoi->getSubTitle(),
-                "flagText" => $cardPoi->getFlagText(),
-                "description" => $cardPoi->getDescription(),
-                "latlng" => [
-                    "lat" => $cardPoi->getLatitude(), 
-                    "lng" => $cardPoi->getLongitude()]
+        /* @var $scopePoi \Visit\VisitTablets\Domain\Model\ScopePoi */
+        foreach ($this->scopePoiRepository->findAll() as $scopePoi) {
+            $out[$scopePoi->getUid()] = [
+                "title" => $scopePoi->getTitle(),
+                "subTitle" => $scopePoi->getSubTitle(),
+                "description" => $scopePoi->getDescription(),
+                "x" => $scopePoi->getX(), 
+                "y" => $scopePoi->getY(),
+                "radius" => $scopePoi->getRadius(),
             ];
         }
         
@@ -114,8 +101,8 @@ class ScopeController extends AbstractVisitController {
      * @return void
      */
     public function listAction(){
-        $cardPois = $this->cardPoiRepository->findAll();
-        $this->view->assign('cardPois', $cardPois);
+        $cardPois = $this->scopePoiRepository->findAll();
+        $this->view->assign('scopePois', $cardPois);
     }
 
     /**
@@ -132,68 +119,68 @@ class ScopeController extends AbstractVisitController {
     /**
      * action create
      *
-     * @param \Visit\VisitTablets\Domain\Model\CardPoi $newCardPoi
+     * @param \Visit\VisitTablets\Domain\Model\ScopePoi $newScopePoi
      * @return void
      */
-    public function createAction(CardPoi $newCardPoi)
+    public function createAction(ScopePoi $newScopePoi)
     {
-//        $this->addImageFromTempToModel($newCardPoi);
-        $this->addFlashMessage('Karten Element angelegt', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
-        $this->cardPoiRepository->add($newCardPoi);
+        $this->addImageFromTempToModel($newScopePoi);
+        $this->addFlashMessage('Fernrohr POI Element angelegt', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+        $this->scopePoiRepository->add($newScopePoi);
         $this->redirect("list", null, null, array());
     }
 
     /**
      * action edit
      *
-     * @param \Visit\VisitTablets\Domain\Model\CardPoi $cardPoi
-     * @ignorevalidation $cardPoi
+     * @param \Visit\VisitTablets\Domain\Model\ScopePoi $scopePoi
+     * @ignorevalidation $scopePoi
      * @return void
      */
-    public function editAction(CardPoi $cardPoi)
+    public function editAction(ScopePoi $scopePoi)
     {
-        $this->view->assign('cardPoi', $cardPoi);
+        $this->view->assign('scopePoi', $scopePoi);
     }
 
     /**
      * action update
      *
-     * @param \Visit\VisitTablets\Domain\Model\CardPoi $cardPoi
+     * @param \Visit\VisitTablets\Domain\Model\ScopePoi $scopePoi
      * @return void
      */
-    public function updateAction(CardPoi $cardPoi)
+    public function updateAction(ScopePoi $scopePoi)
     {
-        $this->addImageFromTempToModel($cardPoi);
+        $this->addImageFromTempToModel($scopePoi);
         $this->addFlashMessage('Änderungen wurden gespeichert', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
-        $this->cardPoiRepository->update($cardPoi);
-        $this->redirect("edit", null, null, array("cardPoi" => $cardPoi));
+        $this->scopePoiRepository->update($scopePoi);
+        $this->redirect("edit", null, null, array("cardPoi" => $scopePoi));
     }
 
     /**
      * action delete
      *
-     * @param \Visit\VisitTablets\Domain\Model\CardPoi $cardPoi
+     * @param \Visit\VisitTablets\Domain\Model\ScopePoi $scopePoi
      * @return void
      */
-    public function deleteAction(CardPoi $cardPoi)
+    public function deleteAction(ScopePoi $scopePoi)
     {
         $this->addFlashMessage('Eintrag wurde gelöscht', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
-        $this->cardPoiRepository->remove($cardPoi);
+        $this->scopePoiRepository->remove($scopePoi);
         $this->redirect('list');
     }
 
     /**
      * action deleteImage
      *
-     * @param \Visit\VisitTablets\Domain\Model\CardPoi $cardPoi,  \TYPO3\CMS\Extbase\Domain\Model\FileReference $media
+     * @param \Visit\VisitTablets\Domain\Model\ScopePoi $cardPoi,  \TYPO3\CMS\Extbase\Domain\Model\FileReference $media
      * @return void
      */
-    public function deleteImageAction(CardPoi $cardPoi, \TYPO3\CMS\Extbase\Domain\Model\FileReference $media)
+    public function deleteImageAction(ScopePoi $scopePoi, \TYPO3\CMS\Extbase\Domain\Model\FileReference $media)
     {
         $this->addFlashMessage('Media wurde entfernt', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
-        $this->removeImageFromModel($cardPoi, $media);
-        $this->cardPoiRepository->update($cardPoi);
-        $this->redirect("edit", null, null, array("cardPoi" => $cardPoi));
+        $this->removeImageFromModel($scopePoi, $media);
+        $this->scopePoiRepository->update($scopePoi);
+        $this->redirect("edit", null, null, array("cardPoi" => $scopePoi));
     }
     
     

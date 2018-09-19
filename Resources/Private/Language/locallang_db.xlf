@@ -120,6 +120,32 @@
             <trans-unit id="tx_visittablets_domain_model_prisoncell.imates">
                 <source>Häftlinge</source>
             </trans-unit>
+            
+            <!-- Scope -->
+            <trans-unit id="tx_visittablets_domain_model_scopepoi">
+                <source>Fernrohr POI</source>
+            </trans-unit>
+            <trans-unit id="tx_visittablets_domain_model_scopepoi.title">
+                <source>Überschrift</source>
+            </trans-unit>
+            <trans-unit id="tx_visittablets_domain_model_scopepoi.sub_title">
+                <source>Überschrift 2</source>
+            </trans-unit>
+            <trans-unit id="tx_visittablets_domain_model_scopepoi.x">
+                <source>X</source>
+            </trans-unit>
+            <trans-unit id="tx_visittablets_domain_model_scopepoi.y">
+                <source>Y</source>
+            </trans-unit>
+            <trans-unit id="tx_visittablets_domain_model_scopepoi.radius">
+                <source>Radius</source>
+            </trans-unit>
+            <trans-unit id="tx_visittablets_domain_model_scopepoi.media">
+                <source>Medien</source>
+            </trans-unit>
+            <trans-unit id="tx_visittablets_domain_model_scopepoi.description">
+                <source>Beschreibung</source>
+            </trans-unit>
         </body>
     </file>
 </xliff>
