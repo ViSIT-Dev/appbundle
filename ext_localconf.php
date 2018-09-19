@@ -43,6 +43,17 @@ call_user_func(
             [
             ]
         );
+        
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+            'Visit.VisitTablets',
+            'Fernrohrfe',
+            [
+                'Scope' => 'renderFrontend',
+            ],
+            // non-cacheable actions
+            [
+            ]
+        );
 
         
         
@@ -118,6 +129,15 @@ call_user_func(
                             tt_content_defValues {
                                 CType = list
                                 list_type = visittablets_kartefe
+                            }
+                        }
+                        fernrohrfe {
+                            iconIdentifier = ext-visit-karte
+                            title = LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visit_tablets_domain_model_fernrohrfe
+                            description = LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visit_tablets_domain_model_fernrohrfe.description
+                            tt_content_defValues {
+                                CType = list
+                                list_type = visittablets_fernrohrfe
                             }
                         }
                     }

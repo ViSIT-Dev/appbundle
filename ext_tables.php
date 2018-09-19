@@ -18,22 +18,31 @@ call_user_func(
         'Visit.VisitTablets', 'Kartefe', 'Karte'
     );
 
+    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+        'Visit.VisitFernrohr', 'Fernrohrfe', 'Fernrohr - POIs'
+    );
+
 
     if (TYPO3_MODE === 'BE') {
 
         //prepare backend menu fuer modules
-        $GLOBALS['TBE_MODULES'] = array_merge(array('visitbe' => ''), $GLOBALS['TBE_MODULES']);
+        $GLOBALS['TBE_MODULES'] = array_merge(array('tabletbe' => '', 'fernrohrbe' => ''), $GLOBALS['TBE_MODULES']);
 
-        $GLOBALS['TBE_MODULES']['_configuration']['visitbe'] = [
+        $GLOBALS['TBE_MODULES']['_configuration']['tabletbe'] = [
             'labels' => 'LLL:EXT:' . $extKey . '/Resources/Private/Language/locallang_tabbe.xlf',
-            'name' => 'visitbe',
+            'name' => 'tabletbe',
+            'iconIdentifier' => 'ext-visit-backend',
+        ];
+        $GLOBALS['TBE_MODULES']['_configuration']['fernrohrbe'] = [
+            'labels' => 'LLL:EXT:' . $extKey . '/Resources/Private/Language/locallang_fernbe.xlf',
+            'name' => 'fernrohrbe',
             'iconIdentifier' => 'ext-visit-backend',
         ];
 
         
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
             'Visit.VisitTablets', 
-            'visitbe', // Make module a submodule of 'web'
+            'tabletbe', // Make module a submodule of 'web'
             'kartebe', // Submodule key
             '', // Position
             [
@@ -48,7 +57,7 @@ call_user_func(
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
             'Visit.VisitTablets', 
-            'visitbe', 
+            'tabletbe', 
             'glossarbe', // Submodule key
             '', // Position
             [
@@ -62,20 +71,20 @@ call_user_func(
             ]
         );
         
-//            \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-//                'Visit.VisitTablets',
-//                'visitbe', 
-//                'galerie', // Submodule key
-//                '', // Position
-//                [
-//                    'Inmate' => 'list, new, create, edit, update, delete','CardPoi' => 'list, new, create, edit, update, delete','PrisonCell' => 'list, show, new, create, edit, update, delete',
-//                ],
-//                [
-//                    'access' => 'user,group',
-//                    'icon'   => 'EXT:' . $extKey . '/Resources/Public/Icons/galerie.svg',
-//                    'labels' => 'LLL:EXT:' . $extKey . '/Resources/Private/Language/locallang_galerie.xlf',
-//                ]
-//            );
+            \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
+                'Visit.VisitTablets',
+                'fernrohrbe', 
+                'fernrohr', // Submodule key
+                '', // Position
+                [
+                    'Inmate' => 'list, new, create, edit, update, delete','CardPoi' => 'list, new, create, edit, update, delete','PrisonCell' => 'list, show, new, create, edit, update, delete',
+                ],
+                [
+                    'access' => 'user,group',
+                    'icon'   => 'EXT:' . $extKey . '/Resources/Public/Icons/galerie.svg',
+                    'labels' => 'LLL:EXT:' . $extKey . '/Resources/Private/Language/locallang_galerie.xlf',
+                ]
+            );
 
     }
 
