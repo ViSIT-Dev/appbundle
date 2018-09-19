@@ -15,6 +15,6 @@ namespace Visit\VisitTablets\Domain\Repository;
 /**
  * The repository for CardPois
  */
-class CardPoiRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
-{
-    }
+class CardPoiRepository extends AbstractVisitRepository{
+   
+}    
