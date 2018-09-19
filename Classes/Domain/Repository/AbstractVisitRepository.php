@@ -21,13 +21,15 @@ abstract class AbstractVisitRepository extends \TYPO3\CMS\Extbase\Persistence\Re
     public function  __construct(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager){
         parent::__construct($objectManager);
         
-         /** @var $querySettings \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings */
-        $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-
-        $querySettings->setStoragePageIds(array(
-            (int)\TYPO3\CMS\Core\Utility\GeneralUtility::_GET('id')//set pid
-        ));
-        $this->setDefaultQuerySettings($querySettings);
+//        //Force sotrage pid
+//        
+//         /** @var $querySettings \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings */
+//        $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+//        $querySettings->setStoragePageIds(array(
+//            (int)\TYPO3\CMS\Core\Utility\GeneralUtility::_GET('id')//set pid
+//        ));
+//        $this->setDefaultQuerySettings($querySettings);
+        
         
     }
 }
