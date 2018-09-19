@@ -62,6 +62,7 @@ call_user_func(
             'ext-visit-galerie' => 'galerie.svg',
             'ext-visit-glossar' => 'glossar.svg',
             'ext-visit-karte' => 'karte.svg',
+            'ext-visit-fernrohr' => 'scope.svg',
         ];
         $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
         foreach ($icons as $identifier => $path) {
@@ -132,7 +133,7 @@ call_user_func(
                             }
                         }
                         fernrohrfe {
-                            iconIdentifier = ext-visit-karte
+                            iconIdentifier = ext-visit-fernrohr
                             title = LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visit_tablets_domain_model_fernrohrfe
                             description = LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visit_tablets_domain_model_fernrohrfe.description
                             tt_content_defValues {

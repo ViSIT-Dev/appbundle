@@ -116,8 +116,6 @@ class ScopeController extends AbstractVisitController {
     public function listAction(){
         $cardPois = $this->cardPoiRepository->findAll();
         $this->view->assign('cardPois', $cardPois);
-        var_dump($this->pageUid);
-        
     }
 
     /**

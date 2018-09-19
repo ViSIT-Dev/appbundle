@@ -81,8 +81,8 @@ call_user_func(
                 ],
                 [
                     'access' => 'user,group',
-                    'icon'   => 'EXT:' . $extKey . '/Resources/Public/Icons/galerie.svg',
-                    'labels' => 'LLL:EXT:' . $extKey . '/Resources/Private/Language/locallang_galerie.xlf',
+                    'icon'   => 'EXT:' . $extKey . '/Resources/Public/Icons/scope.svg',
+                    'labels' => 'LLL:EXT:' . $extKey . '/Resources/Private/Language/locallang_fernrohr.xlf',
                     'navigationComponentId' => 'typo3-pagetree',
                 ]
             );
