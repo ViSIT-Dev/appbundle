@@ -29,6 +29,13 @@ config.tx_extbase.persistence{
                 recordType = Visit\VisitTablets\Domain\Model\CardPoi
             }
         }
+
+        Visit\VisitTablets\Domain\Model\ScopePoi {
+            mapping {
+                tableName = tx_visittablets_domain_model_scopepoi
+                recordType = Visit\VisitTablets\Domain\Model\ScopePoi
+            }
+        }
      
 
         //File Ref for Products

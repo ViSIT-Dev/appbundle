@@ -1,4 +1,4 @@
-<f:layout name="Default" />
+<f:layout name="DefaultWithPageTree" />
 
 <f:section name="title">
     <h2>Karten Element hinzufügen</h2>
@@ -6,9 +6,9 @@
 
 <f:section name="main">
 
-    <f:form class="form-horizontal form-label-left" action="create"  name="newCardPoi">
+    <f:form class="form-horizontal form-label-left" action="create" name="newScopePoi">
 
-        <f:render partial="CardPoiFormFields" />
+        <f:render partial="ScopePoiFormFields" />
 
         <div class="ln_solid"></div>
         <div class="form-group">
@@ -22,5 +22,5 @@
 </f:section>
 
 <f:section name="footer">
-    <f:render partial="CardPoiFormJs" />
+    
 </f:section>

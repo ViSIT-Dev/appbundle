@@ -124,7 +124,7 @@ module.tx_visittablets_visit_visittabletsglossarbe <. module.tx_visittablets
 # Module karte configuration
 module.tx_visittablets_visit_visittabletskartebe <. module.tx_visittablets 
 
-# Module galerie configuration
+# Module fernrohr configuration
 module.tx_visittablets_visit_visitfernrohr <. module.tx_visittablets 
 
 

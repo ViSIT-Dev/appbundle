@@ -81,8 +81,8 @@ call_user_func(
                 ],
                 [
                     'access' => 'user,group',
-                    'icon'   => 'EXT:' . $extKey . '/Resources/Public/Icons/galerie.svg',
-                    'labels' => 'LLL:EXT:' . $extKey . '/Resources/Private/Language/locallang_galerie.xlf',
+                    'icon'   => 'EXT:' . $extKey . '/Resources/Public/Icons/scope.svg',
+                    'labels' => 'LLL:EXT:' . $extKey . '/Resources/Private/Language/locallang_fernrohr.xlf',
                     'navigationComponentId' => 'typo3-pagetree',
                 ]
             );
@@ -102,6 +102,9 @@ call_user_func(
 
 //        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_visittablets_domain_model_inmate', 'EXT:visit_tablets/Resources/Private/Language/locallang_csh_tx_visittablets_domain_model_inmate.xlf');
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_visittablets_domain_model_inmate');
+    
+//        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_visittablets_domain_model_inmate', 'EXT:visit_tablets/Resources/Private/Language/locallang_csh_tx_visittablets_domain_model_inmate.xlf');
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_visittablets_domain_model_scopepoi');
 
 //        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_visittablets_domain_model_cardpoi', 'EXT:visit_tablets/Resources/Private/Language/locallang_csh_tx_visittablets_domain_model_cardpoi.xlf');
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_visittablets_domain_model_cardpoi');
