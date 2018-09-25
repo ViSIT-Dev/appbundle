@@ -4,8 +4,33 @@
 
     <f:section name="title">Titel Sektion</f:section>
     <f:section name="main">
-        map and stuff
-       
-        
+        <div id="cardPoiMap" style="
+             height: 100%
+             ">
+
+        </div>
+
+        <!-- leaflet -->
+        <script src="typo3conf/ext/visit_tablets/Resources/Public/Backend/vendors/leaflet/leaflet.js"></script> 
+        <script>
+            var poiData = <f:format.raw>{poiData}</f:format.raw>;
+            document.addEventListener('DOMContentLoaded', function(){
+                
+                var marker = false;
+                var bounds = new L.LatLngBounds(new L.LatLng(46.186, 13.881), new L.LatLng(49.7209, 8.686));
+                var mymap = L.map('cardPoiMap', {
+                    zoomControl: false,
+                    minZoom: 9,
+                    maxZoom: 10,
+                    maxBounds: bounds,
+                }).setView([47.5793, 12.1687], 8);
+                L.tileLayer('/index.php?eID=map_server&x={' + 'x}&y={' + 'y}&z={' + 'z}').addTo(mymap);
+
+                mymap.on('click', function onMapClick(e) {
+                   console.log(e);
+                });
+
+            });
+        </script>
     </f:section>
 </html>
