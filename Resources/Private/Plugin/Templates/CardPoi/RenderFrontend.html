@@ -16,7 +16,6 @@
             var poiData = <f:format.raw>{poiData}</f:format.raw>;
             document.addEventListener('DOMContentLoaded', function(){
                 
-                var marker = false;
                 var bounds = new L.LatLngBounds(new L.LatLng(46.186, 13.881), new L.LatLng(49.7209, 8.686));
                 var mymap = L.map('cardPoiMap', {
                     zoomControl: false,
@@ -28,6 +27,12 @@
 
                 mymap.on('click', function onMapClick(e) {
                    console.log(e);
+                });
+                $.each(poiData, function(key, item) {
+//                    console.log(key);
+                    console.log(item);
+                    L.marker(item.latlng).addTo(mymap).bindPopup(item.de.title);
+                    
                 });
 
             });

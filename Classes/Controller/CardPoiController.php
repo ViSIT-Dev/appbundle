@@ -152,16 +152,15 @@ class CardPoiController extends AbstractVisitController {
         foreach ($this->cardPoiRepository->findAll() as $cardPoi) {
             $out[$cardPoi->getUid()] = [
                 "uid" => $cardPoi->getUid(),
-//                "img" => $cardPoi->getMedia(),
-                "lng" => $cardPoi->getLongitude(),
-                "lat" => $cardPoi->getLatitude(),
-                ["de"] => [
+                "img" => $cardPoi->getMedia(),
+                "latlng" => [$cardPoi->getLatitude(), $cardPoi->getLongitude()],
+                "de" => [
                     "title" => $cardPoi->getTitle(),
                     "subTitle" => $cardPoi->getSubTitle(),
                     "flagText" => $cardPoi->getFlagText(),
                     "description" => $cardPoi->getDescription(),
                 ],
-                ["en"] => [
+                "en" => [
                     "title" => "en: " . $cardPoi->getTitle(),
                     "subTitle" => "en: " . $cardPoi->getSubTitle(),
                     "flagText" => "en: " . $cardPoi->getFlagText(),

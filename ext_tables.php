@@ -52,6 +52,7 @@ call_user_func(
                 'access' => 'user,group',
                 'icon' => 'EXT:' . $extKey . '/Resources/Public/Icons/karte.svg',
                 'labels' => 'LLL:EXT:' . $extKey . '/Resources/Private/Language/locallang_karte.xlf',
+                'navigationComponentId' => 'typo3-pagetree',
             ]
         );
 
@@ -93,7 +94,6 @@ call_user_func(
                 'typo3-pagetree',
                 'fernrohr'
             );
-
     }
 
 
