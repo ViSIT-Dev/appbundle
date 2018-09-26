@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="163" height="109" viewBox="0 0 163 109">
+    <defs>
+        <linearGradient id="bgCol1">
+            <stop offset="0" stop-color="#4A4A4A" />
+        </linearGradient>
+        <filter id="a" width="104.9%" height="116.3%" x="-2.5%" y="-8.1%" filterUnits="objectBoundingBox">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="1.309"/>
+        </filter>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <path fill="black" fill-opacity=".3" d="M46.98 60.273h112L133.15 86.64h-112L2 106.187H0L47.207 58h2z" filter="url(#a)" transform="translate(2)"/>
+        <path fill="url(#bgCol1)" d="M2 5h114v58H2z"/>
+        <text fill="#FFF" font-family="RumSans-Semibold, Rum Sans" font-size="16" font-weight="500" transform="translate(2)">
+            <tspan x="13" y="30" id="line1">{{line1}}</tspan>
+            <tspan x="13" y="50" id="line2">{{line2}}</tspan>
+        </text>
+        <path fill="url(#bgCol1)" d="M2 0h2v106H2z"/>
+    </g>
+</svg>
