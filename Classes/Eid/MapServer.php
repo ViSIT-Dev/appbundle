@@ -19,6 +19,7 @@ if (file_exists($file)) {
     header('Access-Control-Allow-Origin: *');  
     header('Content-Type: image/jpg');
     header('Server: Kris ultra speed Map Webserver'); 
+    header('Cache-Control: max-age=290304000, public'); 
 //    header('Content-Disposition: attachment; filename="'.basename($file).'"');
 //    header('Expires: 0');
 //    header('Cache-Control: must-revalidate');

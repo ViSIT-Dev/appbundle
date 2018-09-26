@@ -1807,6 +1807,7 @@ main {
   #mapAppWrapper, #mapAppWrapper > div {
     height: 100%; }
   #mapAppWrapper #cardPoiContent {
+    cursor: pointer;
     position: absolute;
     top: 0;
     right: 0;
