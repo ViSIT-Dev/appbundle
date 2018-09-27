@@ -5,7 +5,10 @@
 </f:section>
 
 <f:section name="main">
-
+    <div class="card">
+        <h3>Language Select</h3>
+        {test.render}
+    </div>
     <table id="datatable" class="table table-striped table-bordered">
         <thead>
             <tr>
@@ -17,7 +20,6 @@
                 <th></th>
             </tr>
         </thead>
-        <f:debug>{scopePois}</f:debug>
         <tbody>
             <f:for each="{scopePois}" as="scopePoi">
                 <tr>
