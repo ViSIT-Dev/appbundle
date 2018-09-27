@@ -1,11 +1,261 @@
 <html  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 
-    <f:layout name="Tablets" />
+    <f:layout name="Fernrohr" />
 
     <f:section name="title">Titel Sektion</f:section>
     <f:section name="main">
-        map and stuff
-       
-        
+        <style type="text/css">
+            .full, #scopeContainer{
+                width: 100%;
+                height: 100%;
+            }
+            #scopeContainer{
+                position: relative;
+                overflow: hidden;
+            }
+            #camrtc{
+                object-fit: cover;
+            }
+            .debug{
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                padding: 10px;
+                background: rgba(255,255,255,0.5);
+            }
+            .poi{
+                position: absolute;
+                border-radius: 50%;
+                background-color: rgba(100,100,100,0.3);
+            }
+        </style>
+        <f:comment>WHAT?! For some reason we need to address config via this to access it afterwards?</f:comment>
+        <f:for each="{config}" as="conf" key="k"></f:for>
+        <div class="full">
+            <div id="scopeContainer">
+                <video autoplay="true" id="camrtc" class="full"></video>
+                <div id="overlay" style="position: absolute;top:0;left:0;width:{config.maxypx};height:{config.maxxpx}">
+                    <f:for each="{pois}" as="poi">
+                        <div class="poi" style="left:{poi.x};top:{poi.y}">{poi.title}</div>
+                    </f:for>
+                </div>
+                <div class="debug">
+                    <p>
+                        maxx: {config.maxx}
+                        <br />maxy: {config.maxy}
+                        <br />maxxpx: {config.maxxpx}
+                        <br />maxypx: {config.maxypx}
+                    </p>
+                    <h3>POIs</h3>
+                    <table>
+                        <tr>
+                            <th>UID</th>
+                            <th>Title</th>
+                            <th>Radius</th>
+                            <th>X</th>
+                            <th>Y</th>
+                        </tr>
+                        <f:for each="{pois}" as="poi">
+                            <tr>
+                                <td>{poi.uid}</td>
+                                <td>{poi.title}</td>
+                                <td>{poi.radius}</td>
+                                <td>{poi.x}</td>
+                                <td>{poi.y}</td>
+                            </tr>
+                        </f:for>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+        <script src="typo3conf/ext/visit_tablets/Resources/Public/Backend/vendors/encoder/jquery-2.1.4.min.js"></script> 
+        <script src="typo3conf/ext/visit_tablets/Resources/Public/Backend/vendors/encoder/sha256.min.js"></script> 
+        <script src="typo3conf/ext/visit_tablets/Resources/Public/Backend/vendors/encoder/phidget22.min.js"></script> 
+        <script>
+            var video = document.querySelector("#camrtc");
+
+            if (navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({video: true})
+                        .then(function (stream) {
+                            video.srcObject = stream;
+                        })
+                        .catch(function (err0r) {
+                            console.log("Something went wrong!\n" + err0r);
+//                        alert("No Webcam Detected!")
+                        });
+            }
+
+            xMax = <f:format.raw>{config.maxx}</f:format.raw>;
+            yMax = <f:format.raw>{config.maxy}</f:format.raw>;
+
+            currentX = 0;
+            currentY = 0;
+
+            var phid;
+
+            $(document).ready(function () {
+                var conn = new phidget22.Connection(<f:format.raw>{config.sensorport}</f:format.raw>, '<f:format.raw>{config.sensorhost}</f:format.raw>');
+
+                var encoderX = new phidget22.Encoder();
+                encoderX.onError = onError;
+                encoderX.name = "X-Channel";
+                encoderX.onStateChange = posXChange;
+                encoderX.onPropertyChange = posXChange;
+                encoderX.onPositionChange = posXChange;
+                encoderX.onAttach = onEncoderAttach;
+
+                var encoderY = new phidget22.Encoder();
+                encoderY.onError = onError;
+                encoderY.name = "Y-Channel";
+                encoderY.onStateChange = posYChange;
+                encoderY.onPropertyChange = posYChange;
+                encoderY.onPositionChange = posYChange;
+                encoderY.onAttach = onEncoderAttach;
+
+                var endXTop = new phidget22.DigitalInput();
+                endXTop.onError = onError;
+                endXTop.name = "X Endstop Top";
+                endXTop.onStateChange = endXTopReached;
+                endXTop.onPropertyChange = endXTopReached;
+                endXTop.onAttach = onButtonAttach;
+
+                var endXBottom = new phidget22.DigitalInput();
+                endXBottom.onError = onError;
+                endXBottom.name = "X Endstop Bottom";
+                endXBottom.onStateChange = endXBottomReached;
+                endXBottom.onPropertyChange = endXBottomReached;
+                endXBottom.onAttach = onButtonAttach;
+
+                var endYTop = new phidget22.DigitalInput();
+                endYTop.onError = onError;
+                endYTop.name = "Y Endstop Top";
+                endYTop.onStateChange = endYTopReached;
+                endYTop.onPropertyChange = endYTopReached;
+                endYTop.onAttach = onButtonAttach;
+
+                var endYBottom = new phidget22.DigitalInput();
+                endYBottom.onError = onError;
+                endYBottom.name = "X Endstop Bottom";
+                endYBottom.onStateChange = endYBottomReached;
+                endYBottom.onPropertyChange = endYBottomReached;
+                endYBottom.onAttach = onButtonAttach;
+
+                encoderX.onDetach = function (ch) {
+                    console.log("detached - " + ch)
+                }
+
+                conn.connect().then(function () {
+                    console.log('connected');
+                    encoderX.open().then(function (encoderX) {
+                        console.log('channel X open');
+                    }).catch(function (err) {
+                        console.log('failed to open the channel:' + err);
+                    });
+                    encoderY.open().then(function (encoderY) {
+                        console.log('channel Y open');
+                    }).catch(function (err) {
+                        console.log('failed to open the channel:' + err);
+                    });
+                    endXTop.open().then(function (endXTop) {
+                        console.log('endstop x + open');
+                    }).catch(function (err) {
+                        console.log('failed to open the channel:' + err);
+                    });
+                    endXBottom.open().then(function (endXBottom) {
+                        console.log('endstop x - open');
+                    }).catch(function (err) {
+                        console.log('failed to open the channel:' + err);
+                    });
+                    endYTop.open().then(function (endYTop) {
+                        console.log('endstop y + open');
+                    }).catch(function (err) {
+                        console.log('failed to open the channel:' + err);
+                    });
+                    endYBottom.open().then(function (endYBottom) {
+                        console.log('endstop y - open');
+                    }).catch(function (err) {
+                        console.log('failed to open the channel:' + err);
+                    });
+                }).catch(function (err) {
+                    alert('failed to connect to server:' + err);
+                });
+                ;
+            });
+
+            function onEncoderAttach(ch) {
+                console.log(ch.name + ' attached');
+
+                ch.data.elapsedTime = 0;
+                ch.setDataInterval(10);
+                ch.setEnabled(true);
+                ch.onError = onError;
+            }
+            function onButtonAttach(ch) {
+                console.log(ch.name + ' attached');
+                ch.onError = onError;
+            }
+
+            function stateChange(state) {
+                console.log(state);
+            }
+
+            function valYChange(prop) {
+                console.log(prop);
+            }
+            function valXChange(prop) {
+                console.log(prop);
+            }
+            function posXChange(posChange, timeChange, indexTriggered) {
+                currentX = Math.min(Math.max(currentX + posChange, 0), xMax);
+                gotoPosition();
+            }
+            function posYChange(posChange, timeChange, indexTriggered) {
+                currentY = Math.min(Math.max(currentY + posChange, 0), yMax);
+                gotoPosition();
+            }
+            function endXTopReached(prop) {
+                if (prop === true) {
+                    currentX = 0;
+                    gotoPosition();
+                }
+            }
+            function endYTopReached(prop) {
+                if (prop === true) {
+                    currentY = 0;
+                    gotoPosition();
+                }
+            }
+            function endXBottomReached(prop) {
+                if (prop === true) {
+                    currentX = xMax;
+                    gotoPosition();
+                }
+            }
+            function endYBottomReached(prop) {
+                if (prop === true) {
+                    currentY = yMax;
+                    gotoPosition();
+                }
+            }
+
+            function gotoPosition() {
+                console.log("To Position: X-" + currentX / xMax + "  Y-" + currentY / yMax);
+
+                mapXmax = $("#overlay").height() - $("#scopeContainer").height() * 1;
+                mapYmax = $("#overlay").width() - $("#scopeContainer").width() * 1;
+
+                $("#overlay").css({
+                    'top': currentX / xMax * mapXmax * -1,
+                    'left': currentY / yMax * mapYmax * -1
+                });
+
+            }
+
+            function onError(arg0, arg1) {
+                console.log("ERROR: " + arg0 + " - " + arg1);
+            }
+
+        </script>
     </f:section>
 </html>

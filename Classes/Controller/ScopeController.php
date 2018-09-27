@@ -143,6 +143,7 @@ class ScopeController extends AbstractVisitController {
      * action update
      *
      * @param \Visit\VisitTablets\Domain\Model\ScopePoi $scopePoi
+     * @ignorevalidation $scopePoi
      * @return void
      */
     public function updateAction(ScopePoi $scopePoi)
@@ -150,7 +151,7 @@ class ScopeController extends AbstractVisitController {
         $this->addImageFromTempToModel($scopePoi);
         $this->addFlashMessage('Änderungen wurden gespeichert', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
         $this->scopePoiRepository->update($scopePoi);
-        $this->redirect("edit", null, null, array("cardPoi" => $scopePoi));
+        $this->redirect("edit", null, null, array("scopePoi" => $scopePoi));
     }
 
     /**
@@ -183,14 +184,25 @@ class ScopeController extends AbstractVisitController {
     
     
     /**
-     * action renderFronten
+     * action renderFrontend
      * @allowAllUsers
+     * @isFrontendAction
      * 
      * @return void
      */
     public function renderFrontendAction()
     {
-        $this->view->assign("test", true);
+        // Get the data object (contains the tt_content fields)
+        $data = $this->configurationManager->getContentObject()->data;
+        // Append flexform values
+        $this->configurationManager->getContentObject()->readFlexformIntoConf($data['pi_flexform'], $data);
+        
+        $pois = $this->scopePoiRepository->findAll();
+        
+        // Assign to template
+        $this->view->assign("config", $data);
+        $this->view->assign("pois", $pois);
+        $this->view->assign("test", $data["maxx"]);
     }
     
 }
