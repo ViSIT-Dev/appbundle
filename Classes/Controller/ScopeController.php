@@ -60,7 +60,6 @@ class ScopeController extends AbstractVisitController {
         );
     }
 
-   
     
     /**
      * cardPoiRepository
@@ -70,8 +69,6 @@ class ScopeController extends AbstractVisitController {
      */
     protected $scopePoiRepository = null;
 
-    
-    
     /**
      * action showOnCard
      *

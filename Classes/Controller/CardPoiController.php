@@ -65,8 +65,7 @@ class CardPoiController extends AbstractVisitController {
      *
      * @return void
      */
-    public function newAction()
-    {
+    public function newAction(){
 
     }
     
@@ -148,7 +147,29 @@ class CardPoiController extends AbstractVisitController {
      */
     public function renderFrontendAction()
     {
-        $this->view->assign("test", true);
+        $out = array();
+        /* @var $cardPoi CardPoi */
+        foreach ($this->cardPoiRepository->findAll() as $cardPoi) {
+            $out[$cardPoi->getUid()] = [
+                "uid" => $cardPoi->getUid(),
+                "img" => $cardPoi->getMedia(),
+                "latlng" => [$cardPoi->getLatitude(), $cardPoi->getLongitude()],
+                "de" => [
+                    "title" => $cardPoi->getTitle(),
+                    "subTitle" => $cardPoi->getSubTitle(),
+                    "flagText" => $cardPoi->getFlagText(),
+                    "description" => $cardPoi->getDescription(),
+                ],
+                "en" => [
+                    "title" => "en: " . $cardPoi->getTitle(),
+                    "subTitle" => "en: " . $cardPoi->getSubTitle(),
+                    "flagText" => "en: " . $cardPoi->getFlagText(),
+                    "description" => "en: " . $cardPoi->getDescription(),
+                ]
+            ];
+        }
+        
+        $this->view->assign("poiData", \json_encode($out));
     }
     
 }

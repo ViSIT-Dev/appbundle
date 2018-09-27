@@ -18,18 +18,17 @@ namespace Visit\VisitTablets\Domain\Repository;
 abstract class AbstractVisitRepository extends \TYPO3\CMS\Extbase\Persistence\Repository 
 {
     
-    public function  __construct(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager){
-        parent::__construct($objectManager);
-        
-//        //Force sotrage pid
+//     public function initializeObject() {
+//        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump(isset($_GET["L"]) ? intval($_GET["L"]) : 0);
 //        
 //         /** @var $querySettings \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings */
-//        $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-//        $querySettings->setStoragePageIds(array(
-//            (int)\TYPO3\CMS\Core\Utility\GeneralUtility::_GET('id')//set pid
-//        ));
-//        $this->setDefaultQuerySettings($querySettings);
-        
-        
-    }
+//        $defaultQuerySettings = $this->createQuery()->getQuerySettings();
+//        // don't add sys_language_uid constraint
+//        $defaultQuerySettings->setRespectSysLanguage(true);
+//
+//        // perform translation to dedicated language
+//        $defaultQuerySettings->setLanguageUid(isset($_GET["L"]) ? intval($_GET["L"]) : 0);
+//        
+//        $this->setDefaultQuerySettings($defaultQuerySettings);
+//    }
 }

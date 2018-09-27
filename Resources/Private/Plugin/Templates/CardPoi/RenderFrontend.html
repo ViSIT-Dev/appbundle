@@ -2,10 +2,96 @@
 
     <f:layout name="Tablets" />
 
-    <f:section name="title">Titel Sektion</f:section>
+    <f:section name="title">Titel Sektion1</f:section>
     <f:section name="main">
-        map and stuff
-       
-        
+        <div id="mapAppWrapper">
+            <div id="cardPoiMap"></div>
+            <div id="cardPoiContent" class="hidden">
+                <div class="closeBtn mdi mdi-arrow-right" onclick="$('#cardPoiContent').addClass('hidden')">
+                </div>
+                <div class="content-holder">
+                    <div class="scroller">
+                        <h1></h1>
+                        <h2></h2>
+                        <figure>
+                            <img src="https://via.placeholder.com/350x150">
+                        </figure>
+                        <div id="desc-text">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- leaflet -->
+        <script src="typo3conf/ext/visit_tablets/Resources/Public/Backend/vendors/leaflet/leaflet.js"></script> 
+        <script>
+            
+            var iconScale = 0.9;
+            var currentLang = "de";
+            
+            
+            var iconHeight = 163 * iconScale;
+            var iconWidth = 109 * iconScale;
+            var poiData = <f:format.raw>{poiData}</f:format.raw>;
+            
+            var markerSVGtemplate;
+            {
+                var xmlHttp = new XMLHttpRequest();
+                xmlHttp.open( "GET", "typo3conf/ext/visit_tablets/Resources/Public/Icons/map_marker.svg", false ); // false for synchronous request
+                xmlHttp.send( null );
+                markerSVGtemplate =  xmlHttp.responseText;
+            }
+    
+            function markerOnClick(e, item){
+                console.log(this);
+                console.log(e);
+                console.log(item);
+                $("#cardPoiContent .content-holder h1").text(item[currentLang].title);
+                $("#cardPoiContent .content-holder h2").text(item[currentLang].subTitle);
+//                $("#cardPoiContent .content-holder figure").text(item[currentLang].title);
+                $("#desc-text").html(item[currentLang].description);
+                $("#cardPoiContent").removeClass("hidden");
+            }
+    
+    
+            document.addEventListener('DOMContentLoaded', function(){
+                
+                var bounds = new L.LatLngBounds(new L.LatLng(46.186, 13.881), new L.LatLng(49.7209, 8.686));
+                var mymap = L.map('cardPoiMap', {
+                    zoomControl: false,
+                    minZoom: 9,
+                    maxZoom: 10,
+                    maxBounds: bounds,
+                }).setView([47.5793, 12.1687], 8);
+                L.tileLayer('/index.php?eID=map_server&x={' + 'x}&y={' + 'y}&z={' + 'z}').addTo(mymap);
+
+                mymap.on('click', function onMapClick(e) {
+                   console.log(e);
+                });
+                $.each(poiData, function(key, item) {
+//                    console.log(key);
+//                    console.log(item);
+                    var parts = item[currentLang].flagText.split("//")
+                    var svg = markerSVGtemplate.replace("{{line1}}", parts[0]).replace("{{line2}}", parts[1] ? parts[1] : "" ); // insert your own svg
+                    
+                    console.log(item.de.title)
+                    
+                    var icon = L.icon( {
+//                        iconUrl: 'data:image/svg+xml;base64,' + btoa(svg),
+                        iconUrl: 'data:image/svg+xml;utf8,' + svg,
+                        iconAnchor:   [0, iconWidth], // point of the icon which will correspond to marker's location
+                        iconSize:     [iconHeight, iconWidth], // size of the icon
+                    } );
+                    L.marker(item.latlng, {icon: icon}).on('click', function(e){
+                        markerOnClick(e, item);
+                    }).addTo(mymap);
+//                            .bindPopup(item.de.title);
+                    
+                });
+
+            });
+        </script>
     </f:section>
 </html>

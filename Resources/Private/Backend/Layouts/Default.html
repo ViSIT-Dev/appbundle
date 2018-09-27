@@ -334,6 +334,31 @@
                 },
                 "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Alle"]]
             });
+            
+            $("#customeLanguageSelect option[value='" + readGetParam("L") + "']").attr("selected", "selected");
+
+            function readGetParam(name){
+                var url_string = window.location.href
+                var url = new URL(url_string);
+                return url.searchParams.get("L");
+            }
+
+            function changeLang(lang){
+                console.log(lang);
+                var url =  window.location.href;
+                console.log(url);
+                if(readGetParam("L")){
+                    url = url.substring(0, url.length-4);
+                    console.log(url);
+                }
+//                console.log(url);
+//                console.log( url + "&L=" + lang);
+                
+                    console.log(url + "&L=" + lang);
+                window.location.href =  url + "&L=" + lang
+                
+            }
+
 
         </script>
 

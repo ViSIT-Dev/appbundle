@@ -17,6 +17,12 @@ $titleBarSeparatorColor: #6a6a6a;
 @at-root {
   @-ms-viewport { width: device-width; } // stylelint-disable-line at-rule-no-vendor-prefix
 }
+@mixin smoothen($seconds, $target: all, $transition: ease-in-out){
+    -webkit-transition: $target $transition $seconds;
+    -moz-transition: $target $transition $seconds;;
+    -o-transition: $target $transition $seconds;;
+    transition: $target $transition $seconds;;
+}
 
 html {
   box-sizing: border-box;
@@ -112,6 +118,14 @@ h1, h2, h3{
     font-family: "Rum Serif";
     font-weight: 600;
 }
+a{
+    color: inherit;
+    
+    &:hover {
+        color: inherit;
+        text-decoration: underline;
+    }
+}
 
 .titleBar{
     background-color: $titleBarBackgroundColor;
@@ -160,4 +174,72 @@ h1, h2, h3{
 main{
     height: calc(100% - 60px);
     background-color: aqua;
+}
+
+
+#mapAppWrapper{
+    
+    position: relative;
+    overflow: hidden;
+    
+    &,
+    & > div{
+        height: 100%;
+    }
+    #cardPoiContent{
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 99999;
+        width: 350px;
+        /*background-color: rgba(#303030, .9);*/
+        background-color: #303030;
+        color: white;
+        
+        @include smoothen(0.5s);
+        
+        &.hidden{
+            right: -400px;
+        }
+        
+        .closeBtn{
+            width: 50px;
+            height: 50px;
+            font-size: 31px;
+            left: -25px;
+            top: 63px;
+            padding: 0px 9px;
+            position: absolute;
+            background-color: #303030;
+            border: solid 1px #6a6a6a;
+            border-radius: 50%;
+        }
+        .content-holder{
+            padding: 50px 30px 30px;
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+            max-height: 100%;
+            
+            h1{
+                font-size: 35px;
+                line-height: 1.09;
+            }
+            h2{
+                font-size: 22px;
+                font-weight: 600;
+            }
+            figure{
+                > * {
+                    max-width: 100%;
+                    height: auto;
+                }
+                
+            }
+            p{
+                font-size: 16px;
+                line-height: 22px;
+            }
+        }
+    }
 }

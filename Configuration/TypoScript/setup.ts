@@ -130,6 +130,30 @@ module.tx_visittablets_visit_visitfernrohr <. module.tx_visittablets
 
 config {
     no_cache = 1
+
+    # Localization:
+    #default-Konfiguration
+    sys_language_uid = 0
+    language = de
+    locale_all = de_DE
+    htmlTag_langKey = de
+
+    [globalVar = GP:L = 0]
+    # Configuration if &L=0
+    sys_language_uid = 0
+    language = de
+    locale_all = de_DE
+    htmlTag_langKey = de
+    [global]
+
+    [globalVar = GP:L = 1]
+    # Configuration if &L=1
+    sys_language_uid = 1
+    language = en
+    locale_all = en_EN
+    htmlTag_langKey = en
+    [global]
+
 }
 
 ##############
@@ -205,6 +229,7 @@ page {
 
 #        font-awesome = EXT:visit_tablets/Resources/Public/vendor/font-awesome/css/all.css
         material-design = EXT:visit_tablets/Resources/Public/vendor/material-design/css/materialdesignicons.css
+        leaflet = EXT:visit_tablets/Resources/Public/Backend/vendors/leaflet/leaflet.css
         main = EXT:visit_tablets/Resources/Public/css/main.css
 
     }

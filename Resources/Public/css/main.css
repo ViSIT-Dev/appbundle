@@ -1759,6 +1759,12 @@ h1, h2, h3 {
   font-family: "Rum Serif";
   font-weight: 600; }
 
+a {
+  color: inherit; }
+  a:hover {
+    color: inherit;
+    text-decoration: underline; }
+
 .titleBar {
   background-color: #4a4a4a;
   color: #fff;
@@ -1794,5 +1800,55 @@ h1, h2, h3 {
 main {
   height: calc(100% - 60px);
   background-color: aqua; }
+
+#mapAppWrapper {
+  position: relative;
+  overflow: hidden; }
+  #mapAppWrapper, #mapAppWrapper > div {
+    height: 100%; }
+  #mapAppWrapper #cardPoiContent {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 99999;
+    width: 350px;
+    /*background-color: rgba(#303030, .9);*/
+    background-color: #303030;
+    color: white;
+    -webkit-transition: all ease-in-out 0.5s;
+    -moz-transition: all ease-in-out 0.5s;
+    -o-transition: all ease-in-out 0.5s;
+    transition: all ease-in-out 0.5s; }
+    #mapAppWrapper #cardPoiContent.hidden {
+      right: -400px; }
+    #mapAppWrapper #cardPoiContent .closeBtn {
+      width: 50px;
+      height: 50px;
+      font-size: 31px;
+      left: -25px;
+      top: 63px;
+      padding: 0px 9px;
+      position: absolute;
+      background-color: #303030;
+      border: solid 1px #6a6a6a;
+      border-radius: 50%; }
+    #mapAppWrapper #cardPoiContent .content-holder {
+      padding: 50px 30px 30px;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+      max-height: 100%; }
+      #mapAppWrapper #cardPoiContent .content-holder h1 {
+        font-size: 35px;
+        line-height: 1.09; }
+      #mapAppWrapper #cardPoiContent .content-holder h2 {
+        font-size: 22px;
+        font-weight: 600; }
+      #mapAppWrapper #cardPoiContent .content-holder figure > * {
+        max-width: 100%;
+        height: auto; }
+      #mapAppWrapper #cardPoiContent .content-holder p {
+        font-size: 16px;
+        line-height: 22px; }
 
 /*# sourceMappingURL=main.css.map */
