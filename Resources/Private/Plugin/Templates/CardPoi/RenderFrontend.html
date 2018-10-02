@@ -31,23 +31,69 @@
             var iconScale = 0.9;
             var currentLang = "de";
             
+            var inactiveColor = "#4A4A4A";
+            var activeColor = "#D1880F";
             
             var iconHeight = 163 * iconScale;
             var iconWidth = 109 * iconScale;
             var poiData = <f:format.raw>{poiData}</f:format.raw>;
             
-            var markerSVGtemplate;
+            var mymap, markerSVGtemplate, lastAciveMarker = lastInAciveMarker= false;
             {
                 var xmlHttp = new XMLHttpRequest();
                 xmlHttp.open( "GET", "typo3conf/ext/visit_tablets/Resources/Public/Icons/map_marker.svg", false ); // false for synchronous request
                 xmlHttp.send( null );
                 markerSVGtemplate =  xmlHttp.responseText;
             }
+            
+            function getSvgFlagFromItem(item, active){
+                var parts = item[currentLang].flagText.split("//")
+                var svg = markerSVGtemplate
+                    .replace("{{BG_COL}}", active ? activeColor :inactiveColor)
+                    .replace("{{LINE1}}", parts[0])
+                    .replace("{{LINE2}}", parts[1] ? parts[1] : "" );
+            
+                return 'data:image/svg+xml;utf8,' + svg;
+            }
+            function addMarkerFromItemToMap(item, active){
+                var icon = L.icon( {
+                    iconUrl: getSvgFlagFromItem(item, active),
+                    iconAnchor:   [0, iconWidth], // point of the icon which will correspond to marker's location
+                    iconSize:     [iconHeight, iconWidth], // size of the icon
+                } );
+                var marker = L.marker(item.latlng, {icon: icon}).on('click', function(e){
+                    markerOnClick(e, item, marker);
+                }).addTo(mymap);
+                if(active){
+                    $(marker._icon).addClass('active');
+                }
+                return marker;
+            }
     
-            function markerOnClick(e, item){
-                console.log(this);
-                console.log(e);
-                console.log(item);
+            function markerOnClick(event, item, marker){
+                
+                if($(marker._icon).hasClass('active')){
+                    return;
+                }
+                
+                if(lastInAciveMarker !== false){
+                    //add last marker to map
+                    mymap.removeLayer(lastAciveMarker);
+                    mymap.addLayer(lastInAciveMarker);
+                }
+                lastInAciveMarker = marker;
+                
+                //remove inative marker from map
+                mymap.removeLayer(marker);
+                
+                //add active marker
+                lastAciveMarker = addMarkerFromItemToMap(item, true);
+                
+//                console.log(marker.options.icon.options.iconUrl);
+//                marker.options.icon.options.iconUrl = getSvgFlagFromItem(item, true);
+//                console.log(marker.options.icon.options.iconUrl);
+                
+//                item.icon.iconUrl =  getSvgFlagFromItem(item, true),
                 $("#cardPoiContent .content-holder h1").text(item[currentLang].title);
                 $("#cardPoiContent .content-holder h2").text(item[currentLang].subTitle);
 //                $("#cardPoiContent .content-holder figure").text(item[currentLang].title);
@@ -59,7 +105,7 @@
             document.addEventListener('DOMContentLoaded', function(){
                 
                 var bounds = new L.LatLngBounds(new L.LatLng(46.186, 13.881), new L.LatLng(49.7209, 8.686));
-                var mymap = L.map('cardPoiMap', {
+                mymap = L.map('cardPoiMap', {
                     zoomControl: false,
                     minZoom: 9,
                     maxZoom: 10,
@@ -67,28 +113,8 @@
                 }).setView([47.5793, 12.1687], 8);
                 L.tileLayer('/index.php?eID=map_server&x={' + 'x}&y={' + 'y}&z={' + 'z}').addTo(mymap);
 
-                mymap.on('click', function onMapClick(e) {
-                   console.log(e);
-                });
                 $.each(poiData, function(key, item) {
-//                    console.log(key);
-//                    console.log(item);
-                    var parts = item[currentLang].flagText.split("//")
-                    var svg = markerSVGtemplate.replace("{{line1}}", parts[0]).replace("{{line2}}", parts[1] ? parts[1] : "" ); // insert your own svg
-                    
-                    console.log(item.de.title)
-                    
-                    var icon = L.icon( {
-//                        iconUrl: 'data:image/svg+xml;base64,' + btoa(svg),
-                        iconUrl: 'data:image/svg+xml;utf8,' + svg,
-                        iconAnchor:   [0, iconWidth], // point of the icon which will correspond to marker's location
-                        iconSize:     [iconHeight, iconWidth], // size of the icon
-                    } );
-                    L.marker(item.latlng, {icon: icon}).on('click', function(e){
-                        markerOnClick(e, item);
-                    }).addTo(mymap);
-//                            .bindPopup(item.de.title);
-                    
+                    addMarkerFromItemToMap(item, false);
                 });
 
             });

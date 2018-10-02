@@ -12,8 +12,6 @@ $titleBarFontSize: 20px;
 $titleBarSeparatorColor: #6a6a6a;
 
 
-
-
 @at-root {
   @-ms-viewport { width: device-width; } // stylelint-disable-line at-rule-no-vendor-prefix
 }
@@ -186,6 +184,9 @@ main{
     & > div{
         height: 100%;
     }
+/*    .leaflet-marker-pane.active{
+        bgCol1:
+    }*/
     #cardPoiContent{
         cursor: pointer;
         position: absolute;

@@ -1803,7 +1803,10 @@ main {
 
 #mapAppWrapper {
   position: relative;
-  overflow: hidden; }
+  overflow: hidden;
+  /*    .leaflet-marker-pane.active{
+          bgCol1:
+      }*/ }
   #mapAppWrapper, #mapAppWrapper > div {
     height: 100%; }
   #mapAppWrapper #cardPoiContent {
