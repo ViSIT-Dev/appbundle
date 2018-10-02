@@ -100,6 +100,7 @@ plugin.tx_visittablets {
 plugin.tx_visittablets_glossarfe  <. plugin.tx_visittablets
 plugin.tx_visittablets_galeriefe <. plugin.tx_visittablets
 plugin.tx_visittablets_kartefe <. plugin.tx_visittablets
+plugin.tx_visittablets_fernrohrfe <. plugin.tx_visittablets
 
 
 # Module configuration

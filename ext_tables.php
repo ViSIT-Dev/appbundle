@@ -19,8 +19,13 @@ call_user_func(
     );
 
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-        'Visit.VisitFernrohr', 'Fernrohrfe', 'Fernrohr - POIs'
+        'Visit.VisitTablets', 'Fernrohrfe', 'Fernrohr - POIs'
     );
+    
+    
+    // Flexform
+    $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['visittablets_fernrohrfe'] = 'pi_flexform';
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue('visittablets_fernrohrfe','FILE:EXT:visit_tablets/Configuration/FlexForms/flexform_fernrohrfe.xml');
 
 
     if (TYPO3_MODE === 'BE') {
