@@ -152,7 +152,7 @@ class CardPoiController extends AbstractVisitController {
         foreach ($this->cardPoiRepository->findAll() as $cardPoi) {
             $out[$cardPoi->getUid()] = [
                 "uid" => $cardPoi->getUid(),
-                "img" => $cardPoi->getMedia(),
+                "media" => $cardPoi->getMedia(),
                 "latlng" => [$cardPoi->getLatitude(), $cardPoi->getLongitude()],
                 "de" => [
                     "title" => $cardPoi->getTitle(),
@@ -169,6 +169,7 @@ class CardPoiController extends AbstractVisitController {
             ];
         }
         
+        $this->view->assign("dataPoints", $out);
         $this->view->assign("poiData", \json_encode($out));
     }
     

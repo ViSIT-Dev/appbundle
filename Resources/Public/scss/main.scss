@@ -216,6 +216,12 @@ main{
             border: solid 1px #6a6a6a;
             border-radius: 50%;
         }
+        .datapoint{
+            display: none;
+            &.active{
+                display: block;
+            }
+        }
         .content-holder{
             padding: 50px 30px 30px;
             overflow: auto;
@@ -230,12 +236,28 @@ main{
                 font-size: 22px;
                 font-weight: 600;
             }
+            video,
             figure{
                 > * {
                     max-width: 100%;
                     height: auto;
                 }
-                
+            }
+            video{
+                &::-webkit-media-controls-fullscreen-button{
+                    display: none !important;
+                }
+                &::-internal-media-controls-download-button {
+                    display:none;
+                }
+
+                &::-webkit-media-controls-enclosure {
+                    overflow:hidden;
+                }
+
+                &::-webkit-media-controls-panel {
+                    width: calc(100% + 30px); /* Adjust as needed */
+                }
             }
             p{
                 font-size: 16px;

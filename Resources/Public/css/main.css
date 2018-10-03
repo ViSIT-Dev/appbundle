@@ -1836,6 +1836,10 @@ main {
       background-color: #303030;
       border: solid 1px #6a6a6a;
       border-radius: 50%; }
+    #mapAppWrapper #cardPoiContent .datapoint {
+      display: none; }
+      #mapAppWrapper #cardPoiContent .datapoint.active {
+        display: block; }
     #mapAppWrapper #cardPoiContent .content-holder {
       padding: 50px 30px 30px;
       overflow: auto;
@@ -1847,9 +1851,19 @@ main {
       #mapAppWrapper #cardPoiContent .content-holder h2 {
         font-size: 22px;
         font-weight: 600; }
+      #mapAppWrapper #cardPoiContent .content-holder video > *,
       #mapAppWrapper #cardPoiContent .content-holder figure > * {
         max-width: 100%;
         height: auto; }
+      #mapAppWrapper #cardPoiContent .content-holder video::-webkit-media-controls-fullscreen-button {
+        display: none !important; }
+      #mapAppWrapper #cardPoiContent .content-holder video::-internal-media-controls-download-button {
+        display: none; }
+      #mapAppWrapper #cardPoiContent .content-holder video::-webkit-media-controls-enclosure {
+        overflow: hidden; }
+      #mapAppWrapper #cardPoiContent .content-holder video::-webkit-media-controls-panel {
+        width: calc(100% + 30px);
+        /* Adjust as needed */ }
       #mapAppWrapper #cardPoiContent .content-holder p {
         font-size: 16px;
         line-height: 22px; }

@@ -7,18 +7,38 @@
         <div id="mapAppWrapper">
             <div id="cardPoiMap"></div>
             <div id="cardPoiContent" class="hidden">
-                <div class="closeBtn mdi mdi-arrow-right" onclick="$('#cardPoiContent').addClass('hidden')">
+                <div class="closeBtn mdi mdi-arrow-right" onclick="hideContent()">
                 </div>
                 <div class="content-holder">
                     <div class="scroller">
-                        <h1></h1>
-                        <h2></h2>
-                        <figure>
-                            <img src="https://via.placeholder.com/350x150">
-                        </figure>
-                        <div id="desc-text">
+                        <f:for each="{dataPoints}" as="datapoint">
+                            <div class="datapoint" id="datapoint-id-{datapoint.uid}" data-id="{datapoint.uid}" >
+                                
+                                <h1 class="lang-de">{datapoint.de.title}</h1>
+                                <h1 class="lang-en" style="display: none">{datapoint.en.title}</h1>
+                                
+                                <h2 class="lang-de">{datapoint.de.subTitle}</h2>
+                                <h2 class="lang-en"  style="display: none">{datapoint.en.subTitle}</h2>
+                                
+                                <figure>
+                                    <f:render partial="RenderMedia" arguments="{media: datapoint.media}"/>
+                                </figure>
+                                
+                                <div class="desc-text lang-de">
+                                    <f:format.raw>
+                                        {datapoint.de.description}
+                                    </f:format.raw>
+                                </div>
+                                <div class="desc-text lang-en"  style="display: none">
+                                    <f:format.raw>
+                                        {datapoint.en.description}
+                                    </f:format.raw>
+                                </div>
+                                
+                            </div>
                             
-                        </div>
+                        </f:for>
+                        
                     </div>
                 </div>
             </div>
@@ -46,6 +66,17 @@
                 markerSVGtemplate =  xmlHttp.responseText;
             }
             
+            function hideContent(){
+                $('#cardPoiContent').addClass('hidden');
+                stopAllVideos();
+                if(lastInAciveMarker !== false){
+                    //add last marker to map
+                    mymap.removeLayer(lastAciveMarker);
+                    mymap.addLayer(lastInAciveMarker);
+                }
+                lastInAciveMarker = false;
+            }
+            
             function getSvgFlagFromItem(item, active){
                 var parts = item[currentLang].flagText.split("//")
                 var svg = markerSVGtemplate
@@ -55,6 +86,13 @@
             
                 return 'data:image/svg+xml;utf8,' + svg;
             }
+            function stopAllVideos(){
+                $("video").each(function(index, element){
+                    element.pause();
+                    element.currentTime = 0;
+                });
+            }
+            
             function addMarkerFromItemToMap(item, active){
                 var icon = L.icon( {
                     iconUrl: getSvgFlagFromItem(item, active),
@@ -88,16 +126,9 @@
                 
                 //add active marker
                 lastAciveMarker = addMarkerFromItemToMap(item, true);
-                
-//                console.log(marker.options.icon.options.iconUrl);
-//                marker.options.icon.options.iconUrl = getSvgFlagFromItem(item, true);
-//                console.log(marker.options.icon.options.iconUrl);
-                
-//                item.icon.iconUrl =  getSvgFlagFromItem(item, true),
-                $("#cardPoiContent .content-holder h1").text(item[currentLang].title);
-                $("#cardPoiContent .content-holder h2").text(item[currentLang].subTitle);
-//                $("#cardPoiContent .content-holder figure").text(item[currentLang].title);
-                $("#desc-text").html(item[currentLang].description);
+                stopAllVideos();
+                $(".datapoint.active").removeClass("active");
+                $("#datapoint-id-" + item.uid).addClass("active");
                 $("#cardPoiContent").removeClass("hidden");
             }
     

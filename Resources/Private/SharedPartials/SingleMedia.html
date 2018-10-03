@@ -1,0 +1,28 @@
+<f:comment>
+    <f:debug>{media.originalResource.originalFile.identifier}</f:debug>
+    <f:debug>{media}</f:debug>
+</f:comment>
+
+<figure>
+
+    <f:switch expression="{media.originalResource.originalFile.properties.mime_type}">
+
+        <f:case value="image/jpeg">
+            <f:image src="{media.uid}" treatIdAsReference="1" maxHeight="300" class="img-fluid" />
+        </f:case>
+        <f:case value="video/mp4">
+            
+            <video muted="" controls="" controlslist="nodownload" >
+                <source src="{f:uri.image(image: media)}" type="video/mp4">
+                Your browser does not support HTML5 video.
+            </video>
+            
+        </f:case>
+
+        <f:defaultCase>
+            <img src="https://via.placeholder.com/350x150&text=Not+supported+{media.originalResource.originalFile.properties.mime_type}">
+        </f:defaultCase>
+    </f:switch>
+</figure>
+
+

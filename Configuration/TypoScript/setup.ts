@@ -83,6 +83,7 @@ plugin.tx_visittablets {
     templateRootPaths.1 = {$plugin.tx_visittablets.view.templateRootPath}
     partialRootPaths.0 = EXT:visit_tablets/Resources/Private/Plugin/Partials/
     partialRootPaths.1 = {$plugin.tx_visittablets.view.partialRootPath}
+    partialRootPaths.2 = EXT:visit_tablets/Resources/Private/SharedPartials/
     layoutRootPaths.0 = EXT:visit_tablets/Resources/Private/Plugin/Layouts/
     layoutRootPaths.1 = {$plugin.tx_visittablets.view.layoutRootPath}
   }
@@ -115,6 +116,7 @@ module.tx_visittablets {
     view {
         templateRootPaths.0 = EXT:visit_tablets/Resources/Private/Backend/Templates/
         partialRootPaths.0 = EXT:visit_tablets/Resources/Private/Backend/Partials/
+        partialRootPaths.1 = EXT:visit_tablets/Resources/Private/SharedPartials/
         layoutRootPaths.0 = EXT:visit_tablets/Resources/Private/Backend/Layouts/
     }
 }
