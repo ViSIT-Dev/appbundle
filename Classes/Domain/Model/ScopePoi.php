@@ -146,6 +146,16 @@ class ScopePoi extends AbstractEntityWithMedia {
     }
     
     /**
+     * Returns the radius
+     *
+     * @return int $radius
+     */
+    public function getRadiusHalf()
+    {
+        return $this->radius / 2;
+    }
+    
+    /**
      * Returns the subTitle
      *
      * @return string $subTitle

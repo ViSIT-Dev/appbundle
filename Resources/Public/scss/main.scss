@@ -13,7 +13,7 @@ $titleBarSeparatorColor: #6a6a6a;
 
 
 @at-root {
-  @-ms-viewport { width: device-width; } // stylelint-disable-line at-rule-no-vendor-prefix
+    @-ms-viewport { width: device-width; } // stylelint-disable-line at-rule-no-vendor-prefix
 }
 @mixin smoothen($seconds, $target: all, $transition: ease-in-out){
     -webkit-transition: $target $transition $seconds;
@@ -23,14 +23,14 @@ $titleBarSeparatorColor: #6a6a6a;
 }
 
 html {
-  box-sizing: border-box;
-  -ms-overflow-style: scrollbar;
+    box-sizing: border-box;
+    -ms-overflow-style: scrollbar;
 }
 
 *,
 *::before,
 *::after {
-  box-sizing: inherit;
+    box-sizing: inherit;
 }
 
 //get bootstrap + reboot
@@ -45,25 +45,25 @@ html {
 
 //init fonts
 @font-face {
-  font-family: "Rum Sans";
-  src: local("Rum Sans Medium"), url("../fonts/RumSans-Medium.ttf") format("truetype");
-  font-weight: 500; }
+    font-family: "Rum Sans";
+    src: local("Rum Sans Medium"), url("../fonts/RumSans-Medium.ttf") format("truetype");
+    font-weight: 500; }
 @font-face {
-  font-family: "Rum Sans";
-  src: local("Rum Sans Semibold"), url("../fonts/RumSans-Semibold.ttf") format("truetype");
-  font-weight: 600; }
+    font-family: "Rum Sans";
+    src: local("Rum Sans Semibold"), url("../fonts/RumSans-Semibold.ttf") format("truetype");
+    font-weight: 600; }
 @font-face {
-  font-family: "Rum Sans";
-  src: local("Rum Sans Light"), url("../fonts/RumSans-Light.ttf") format("truetype");
-  font-weight: 300; }
+    font-family: "Rum Sans";
+    src: local("Rum Sans Light"), url("../fonts/RumSans-Light.ttf") format("truetype");
+    font-weight: 300; }
 @font-face {
-  font-family: "Rum Serif";
-  src: local("Rum Serif Semibold"), url("../fonts/RumSerif-Semibold.ttf") format("truetype");
-  font-weight: 600; }
+    font-family: "Rum Serif";
+    src: local("Rum Serif Semibold"), url("../fonts/RumSerif-Semibold.ttf") format("truetype");
+    font-weight: 600; }
 @font-face {
-  font-family: "Rum Serif";
-  src: local("Rum Serif Bold"), url("../fonts/RumSerif-Bold.ttf") format("truetype");
-  font-weight: 700; }
+    font-family: "Rum Serif";
+    src: local("Rum Serif Bold"), url("../fonts/RumSerif-Bold.ttf") format("truetype");
+    font-weight: 700; }
 
 .extbase-debugger{
     position: fixed;
@@ -118,7 +118,7 @@ h1, h2, h3{
 }
 a{
     color: inherit;
-    
+
     &:hover {
         color: inherit;
         text-decoration: underline;
@@ -130,15 +130,15 @@ a{
     color: $titleBarFontColor;
     font-size: $titleBarFontSize;
     max-height: 60px;
-    
+
     h1{
         font-size: $titleBarFontSize;
         display: inline;
     }
-    
+
     nav{
         padding: ($titleBarFontSize - 5) $titleBarFontSize;
-        
+
         .right{
             width: 50%;
             display: inline-block;
@@ -176,17 +176,17 @@ main{
 
 
 #mapAppWrapper{
-    
+
     position: relative;
     overflow: hidden;
-    
+
     &,
     & > div{
         height: 100%;
     }
-/*    .leaflet-marker-pane.active{
-        bgCol1:
-    }*/
+    /*    .leaflet-marker-pane.active{
+            bgCol1:
+        }*/
     #cardPoiContent{
         cursor: pointer;
         position: absolute;
@@ -197,13 +197,13 @@ main{
         /*background-color: rgba(#303030, .9);*/
         background-color: #303030;
         color: white;
-        
+
         @include smoothen(0.5s);
-        
+
         &.hidden{
             right: -400px;
         }
-        
+
         .closeBtn{
             width: 50px;
             height: 50px;
@@ -221,7 +221,7 @@ main{
             overflow: auto;
             -webkit-overflow-scrolling: touch;
             max-height: 100%;
-            
+
             h1{
                 font-size: 35px;
                 line-height: 1.09;
@@ -235,12 +235,59 @@ main{
                     max-width: 100%;
                     height: auto;
                 }
-                
+
             }
             p{
                 font-size: 16px;
                 line-height: 22px;
             }
+        }
+    }
+}
+
+#scope{
+    .full {
+        width: 100%;
+        height: 100%;
+    }
+    #scopeContainer{
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+        #overlay{
+            position: absolute;
+            top: 0;
+            left: 0;
+            .poi{
+                transform-origin: left top;
+                position: absolute;
+                border-radius: 50%;
+                background-color: rgba(100,100,100,0.3);
+            }
+        }
+        #debug{
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px;
+            background: rgba(255,255,255,0.5);
+        }
+        #camrtc{
+            object-fit: cover;
+        }
+        #crosshair{
+            position: absolute;
+            background-image: url("data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8' standalone='no'?> <svg xmlns:dc='http://purl.org/dc/elements/1.1/' xmlns:cc='http://creativecommons.org/ns%23' xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns%23' xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' id='svg8' version='1.1' viewBox='0 0 58.924789 58.924789' height='58.924789mm' width='58.924789mm'> <defs id='defs2' /> <g transform='translate(-48.615745,-52.519271)' id='layer1'> <circle r='27.662395' cy='81.981667' cx='78.07814' id='path4485' style='fill:none;fill-opacity:1;stroke:%23000000;stroke-width:3.5999998;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:21.59999878,21.59999878;stroke-dashoffset:10.07999943;stroke-opacity:1' /> <circle r='1.4699829' cy='81.981667' cx='78.07814' id='path4502' style='fill:%23000000;fill-opacity:1;stroke:none;stroke-width:0.52800012;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:3.16800073, 3.16800073;stroke-dashoffset:40.81889725;stroke-opacity:1' /> </g> </svg>");
+            background-size: 100%;
+            width: 40px;
+            height: 40px;
+            left: calc(50% - 20px);
+            top: calc(50% - 20px);
+            left: -webkit-calc(50% - 20px);
+            top: -webkit-calc(50% - 20px);
+            left: -moz-calc(50% - 20px);
+            top: -moz-calc(50% - 20px);
         }
     }
 }
