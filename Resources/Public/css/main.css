@@ -1868,4 +1868,42 @@ main {
         font-size: 16px;
         line-height: 22px; }
 
+#scope .full {
+  width: 100%;
+  height: 100%; }
+#scope #scopeContainer {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%; }
+  #scope #scopeContainer #overlay {
+    position: absolute;
+    top: 0;
+    left: 0; }
+    #scope #scopeContainer #overlay .poi {
+      transform-origin: left top;
+      position: absolute;
+      border-radius: 50%;
+      background-color: rgba(100, 100, 100, 0.3); }
+  #scope #scopeContainer #debug {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.5); }
+  #scope #scopeContainer #camrtc {
+    object-fit: cover; }
+  #scope #scopeContainer #crosshair {
+    position: absolute;
+    background-image: url("data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8' standalone='no'?> <svg xmlns:dc='http://purl.org/dc/elements/1.1/' xmlns:cc='http://creativecommons.org/ns%23' xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns%23' xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' id='svg8' version='1.1' viewBox='0 0 58.924789 58.924789' height='58.924789mm' width='58.924789mm'> <defs id='defs2' /> <g transform='translate(-48.615745,-52.519271)' id='layer1'> <circle r='27.662395' cy='81.981667' cx='78.07814' id='path4485' style='fill:none;fill-opacity:1;stroke:%23000000;stroke-width:3.5999998;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:21.59999878,21.59999878;stroke-dashoffset:10.07999943;stroke-opacity:1' /> <circle r='1.4699829' cy='81.981667' cx='78.07814' id='path4502' style='fill:%23000000;fill-opacity:1;stroke:none;stroke-width:0.52800012;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:3.16800073, 3.16800073;stroke-dashoffset:40.81889725;stroke-opacity:1' /> </g> </svg>");
+    background-size: 100%;
+    width: 40px;
+    height: 40px;
+    left: calc(50% - 20px);
+    top: calc(50% - 20px);
+    left: -webkit-calc(50% - 20px);
+    top: -webkit-calc(50% - 20px);
+    left: -moz-calc(50% - 20px);
+    top: -moz-calc(50% - 20px); }
+
 /*# sourceMappingURL=main.css.map */

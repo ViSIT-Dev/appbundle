@@ -5,28 +5,9 @@
     <f:section name="title">Titel Sektion</f:section>
     <f:section name="main">
         <style type="text/css">
-            .full, #scopeContainer{
-                width: 100%;
-                height: 100%;
-            }
-            #scopeContainer{
-                position: relative;
-                overflow: hidden;
-            }
-            #camrtc{
-                object-fit: cover;
-            }
-            .debug{
-                position: absolute;
-                top: 20px;
-                right: 20px;
-                padding: 10px;
-                background: rgba(255,255,255,0.5);
-            }
-            .poi{
-                position: absolute;
-                border-radius: 50%;
-                background-color: rgba(100,100,100,0.3);
+            #scopeContainer #overlay{
+                width: <f:format.raw>{config.maxxpx}</f:format.raw>px;
+                height: <f:format.raw>{config.maxypx}</f:format.raw>px;
             }
         </style>
         <f:comment>WHAT?! For some reason we need to address config via this to access it afterwards?</f:comment>
@@ -34,38 +15,50 @@
         <div class="full">
             <div id="scopeContainer">
                 <video autoplay="true" id="camrtc" class="full"></video>
-                <div id="overlay" style="position: absolute;top:0;left:0;width:{config.maxypx};height:{config.maxxpx}">
+                <div id="overlay" class="full">
                     <f:for each="{pois}" as="poi">
-                        <div class="poi" style="left:{poi.x};top:{poi.y}">{poi.title}</div>
+                        <div class="poi" style="
+transform: translate({poi.y - poi.radiusHalf}px,{poi.x - poi.radiusHalf}px);height:{poi.radius}px;width:{poi.radius}px;">
+                            {poi.title}
+                            <br />X: {poi.x}
+                            <br />Y: {poi.y}
+                        </div>
                     </f:for>
                 </div>
-                <div class="debug">
-                    <p>
-                        maxx: {config.maxx}
-                        <br />maxy: {config.maxy}
-                        <br />maxxpx: {config.maxxpx}
-                        <br />maxypx: {config.maxypx}
-                    </p>
-                    <h3>POIs</h3>
-                    <table>
-                        <tr>
-                            <th>UID</th>
-                            <th>Title</th>
-                            <th>Radius</th>
-                            <th>X</th>
-                            <th>Y</th>
-                        </tr>
-                        <f:for each="{pois}" as="poi">
+                <f:if condition="{config.debugmode}">
+                    <div id="debug">
+                        <p>
+                            maxx: {config.maxx}
+                            <br />maxy: {config.maxy}
+                            <br />maxxpx: {config.maxxpx}
+                            <br />maxypx: {config.maxypx}
+                            <br />CurrentX: <span id="currentX"></span>
+                            <br />CurrentY: <span id="currentY"></span>
+                        </p>
+                        <h3>POIs</h3>
+                        <table>
                             <tr>
-                                <td>{poi.uid}</td>
-                                <td>{poi.title}</td>
-                                <td>{poi.radius}</td>
-                                <td>{poi.x}</td>
-                                <td>{poi.y}</td>
+                                <th>UID</th>
+                                <th>Title</th>
+                                <th>Radius</th>
+                                <th>X</th>
+                                <th>Y</th>
                             </tr>
-                        </f:for>
-                    </table>
-                </div>
+                            <f:for each="{pois}" as="poi">
+                                <tr>
+                                    <td>{poi.uid}</td>
+                                    <td>{poi.title}</td>
+                                    <td>{poi.radius}</td>
+                                    <td>{poi.x}</td>
+                                    <td>{poi.y}</td>
+                                </tr>
+                            </f:for>
+                        </table>
+                    </div>
+                    <div id="crosshair">
+                        
+                    </div>
+                </f:if>
             </div>
 
         </div>
@@ -82,9 +75,11 @@
                         })
                         .catch(function (err0r) {
                             console.log("Something went wrong!\n" + err0r);
-//                        alert("No Webcam Detected!")
+                            alert("No Webcam Detected!")
                         });
             }
+            
+            debugmode = <f:format.raw>{config.debugmode}</f:format.raw>;
 
             xMax = <f:format.raw>{config.maxx}</f:format.raw>;
             yMax = <f:format.raw>{config.maxy}</f:format.raw>;
@@ -92,6 +87,9 @@
             currentX = 0;
             currentY = 0;
 
+            screenOffsetX = $("#scopeContainer").width() / 2;
+            screenOffsetY = $("#scopeContainer").height() / 2;
+            
             var phid;
 
             $(document).ready(function () {
@@ -240,16 +238,31 @@
             }
 
             function gotoPosition() {
-                console.log("To Position: X-" + currentX / xMax + "  Y-" + currentY / yMax);
-
+                    
+                screenOffsetX = $("#scopeContainer").width() / 2;
+                screenOffsetY = $("#scopeContainer").height() / 2;
+                
                 mapXmax = $("#overlay").height() - $("#scopeContainer").height() * 1;
                 mapYmax = $("#overlay").width() - $("#scopeContainer").width() * 1;
 
+                
+                transformY = (currentY / yMax * mapYmax * -1);
+                transformX = (currentX / xMax * mapXmax * -1);
                 $("#overlay").css({
-                    'top': currentX / xMax * mapXmax * -1,
-                    'left': currentY / yMax * mapYmax * -1
+                    'transform': 'translate(' + transformY + 'px,' + transformX + 'px)'
                 });
-
+                console.log({
+                    'mapXmax': mapXmax + "px",
+                    'top': transformX + "px",
+                    'left': transformY + "px"
+                });
+                
+                if(debugmode){
+                    $("#currentX").html(currentX + screenOffsetX);
+                    $("#currentY").html(currentY + screenOffsetY);
+                }
+                
+                console.log("To Position: X-" + currentX / xMax + "  Y-" + currentY / yMax);
             }
 
             function onError(arg0, arg1) {
