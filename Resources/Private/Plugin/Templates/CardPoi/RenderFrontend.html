@@ -20,10 +20,9 @@
                                 <h2 class="lang-de">{datapoint.de.subTitle}</h2>
                                 <h2 class="lang-en"  style="display: none">{datapoint.en.subTitle}</h2>
                                 
-                                <figure>
-                                    <f:render partial="RenderMedia" arguments="{media: datapoint.media}"/>
-                                </figure>
                                 
+                                <f:render partial="RenderMedia" arguments="{media: datapoint.media}"/>
+
                                 <div class="desc-text lang-de">
                                     <f:format.raw>
                                         {datapoint.de.description}
@@ -44,8 +43,6 @@
             </div>
         </div>
 
-        <!-- leaflet -->
-        <script src="typo3conf/ext/visit_tablets/Resources/Public/Backend/vendors/leaflet/leaflet.js"></script> 
         <script>
             
             var iconScale = 0.9;
@@ -138,7 +135,7 @@
                 var bounds = new L.LatLngBounds(new L.LatLng(46.186, 13.881), new L.LatLng(49.7209, 8.686));
                 mymap = L.map('cardPoiMap', {
                     zoomControl: false,
-                    minZoom: 9,
+                    minZoom: 8,
                     maxZoom: 10,
                     maxBounds: bounds,
                 }).setView([47.5793, 12.1687], 8);
@@ -151,4 +148,21 @@
             });
         </script>
     </f:section>
+    <f:section name="footer">
+        
+        <!-- leaflet -->
+        <script src="typo3conf/ext/visit_tablets/Resources/Public/Backend/vendors/leaflet/leaflet.js"></script> 
+        <script src="typo3conf/ext/visit_tablets/Resources/Public/js/three/three.js"></script>
+        <script src="typo3conf/ext/visit_tablets/Resources/Public/js/three/OrbitControls.js"></script>
+        <script src="typo3conf/ext/visit_tablets/Resources/Public/js/three/STLLoader.js"></script>
+        <script src="typo3conf/ext/visit_tablets/Resources/Public/js/three/DDSLoader.js"></script>
+        <script src="typo3conf/ext/visit_tablets/Resources/Public/js/three/MTLLoader.js"></script>
+        <script src="typo3conf/ext/visit_tablets/Resources/Public/js/three/OBJLoader.js"></script>
+        <!--<script src="typo3conf/ext/visit_tablets/Resources/Public/js/three/Raycaster.js"></script>-->
+
+        <script src="typo3conf/ext/visit_tablets/Resources/Public/js/three/Detector.js"></script>
+        <!--<script src="typo3conf/ext/visit_tablets/Resources/Public/js/three/Material.js"></script>-->
+        <script src="typo3conf/ext/visit_tablets/Resources/Public/js/three/stats.js"></script>
+    </f:section>
+    
 </html>
