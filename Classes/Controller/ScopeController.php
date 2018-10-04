@@ -202,7 +202,7 @@ class ScopeController extends AbstractVisitController {
         // Assign to template
         $this->view->assign("config", $data);
         $this->view->assign("pois", $pois);
-        $this->view->assign("test", $data["maxx"]);
+        $this->view->assign("jsonPois", \json_encode($this->scopePoiRepository->findAllEager()));
     }
     
 }

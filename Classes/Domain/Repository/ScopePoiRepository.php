@@ -1,7 +1,8 @@
 <?php
+
 namespace Visit\VisitTablets\Domain\Repository;
 
-/***
+/* * *
  *
  * This file is part of the "fernrohr" Extension for TYPO3 CMS.
  *
@@ -10,11 +11,16 @@ namespace Visit\VisitTablets\Domain\Repository;
  *
  *  (c) 2018 Robert Kathrein
  *
- ***/
+ * * */
 
 /**
  * The repository for CardPois
  */
-class ScopePoiRepository extends AbstractVisitRepository{
-   
-}    
+class ScopePoiRepository extends AbstractVisitRepository {
+
+    public function findAllEager() {
+        $query = $this->createQuery();
+        return $query->execute(true);
+    }
+
+}

@@ -17,11 +17,14 @@
                 <video autoplay="true" id="camrtc" class="full"></video>
                 <div id="overlay" class="full">
                     <f:for each="{pois}" as="poi">
-                        <div class="poi" style="
+                        <div class="poi" id="poi-{poi.uid}" style="
 transform: translate({poi.y - poi.radiusHalf}px,{poi.x - poi.radiusHalf}px);height:{poi.radius}px;width:{poi.radius}px;">
-                            {poi.title}
-                            <br />X: {poi.x}
-                            <br />Y: {poi.y}
+                            <div class="inside">
+                                {poi.title}
+                                <br />X: {poi.x}
+                                <br />Y: {poi.y}
+                                <br />UID: {poi.uid}
+                            </div>
                         </div>
                     </f:for>
                 </div>
@@ -34,6 +37,7 @@ transform: translate({poi.y - poi.radiusHalf}px,{poi.x - poi.radiusHalf}px);heig
                             <br />maxypx: {config.maxypx}
                             <br />CurrentX: <span id="currentX"></span>
                             <br />CurrentY: <span id="currentY"></span>
+                            <br />Target: <span id="target">-</span>
                         </p>
                         <h3>POIs</h3>
                         <table>
@@ -55,12 +59,31 @@ transform: translate({poi.y - poi.radiusHalf}px,{poi.x - poi.radiusHalf}px);heig
                             </f:for>
                         </table>
                     </div>
-                    <div id="crosshair">
-                        
-                    </div>
+                    <div id="crosshair"></div>
                 </f:if>
             </div>
+        </div>
+        <div class="content-holder">
+            <div class="scroller">
+                <f:for each="{pois}" as="datapoint">
+                    <div class="datapoint" id="datapoint-id-{datapoint.uid}" data-id="{datapoint.uid}" >
 
+                        <h1 class="lang-de">{datapoint.title}</h1>
+
+                        <h2 class="lang-de">{datapoint.subTitle}</h2>
+
+                        <figure>
+                            <f:render partial="RenderMedia" arguments="{media: datapoint.media}"/>
+                        </figure>
+
+                        <div class="desc-text lang-de">
+                            <f:format.raw>
+                                {datapoint.description}
+                            </f:format.raw>
+                        </div>
+                    </div>
+                </f:for>
+            </div>
         </div>
         <script src="typo3conf/ext/visit_tablets/Resources/Public/Backend/vendors/encoder/jquery-2.1.4.min.js"></script> 
         <script src="typo3conf/ext/visit_tablets/Resources/Public/Backend/vendors/encoder/sha256.min.js"></script> 
@@ -80,15 +103,17 @@ transform: translate({poi.y - poi.radiusHalf}px,{poi.x - poi.radiusHalf}px);heig
             }
             
             debugmode = <f:format.raw>{config.debugmode}</f:format.raw>;
-
+            hysteresisFactor = 0.25;
+            
+            jsonPois = <f:format.raw>{jsonPois}</f:format.raw>;
+            
             xMax = <f:format.raw>{config.maxx}</f:format.raw>;
             yMax = <f:format.raw>{config.maxy}</f:format.raw>;
-
             currentX = 0;
             currentY = 0;
-
-            screenOffsetX = $("#scopeContainer").width() / 2;
-            screenOffsetY = $("#scopeContainer").height() / 2;
+            crosshairScreenOffsetX = 0;
+            crosshairScreenOffsetY = 0;
+            resetCrosshairPosition();
             
             var phid;
 
@@ -110,7 +135,7 @@ transform: translate({poi.y - poi.radiusHalf}px,{poi.x - poi.radiusHalf}px);heig
                 encoderY.onPropertyChange = posYChange;
                 encoderY.onPositionChange = posYChange;
                 encoderY.onAttach = onEncoderAttach;
-
+                
                 var endXTop = new phidget22.DigitalInput();
                 endXTop.onError = onError;
                 endXTop.name = "X Endstop Top";
@@ -236,33 +261,62 @@ transform: translate({poi.y - poi.radiusHalf}px,{poi.x - poi.radiusHalf}px);heig
                     gotoPosition();
                 }
             }
-
+            
+            function resetCrosshairPosition(){
+                crosshairScreenOffsetX = $("#scopeContainer").width() / 2;
+                crosshairScreenOffsetY = $("#scopeContainer").height() / 2;
+            }
+            
+            function getTarget(){
+                for(var poi in jsonPois) {
+                    distance = Math.sqrt(Math.pow((Math.abs(transformX) + crosshairScreenOffsetX - jsonPois[poi]["y"]), 2) + Math.pow((Math.abs(transformY) + crosshairScreenOffsetY - jsonPois[poi]["x"]), 2));
+                    if(distance < jsonPois[poi]["radius"] / 2){
+                        $("#target").html(jsonPois[poi]["uid"]);
+                        return {
+                            "distanceFactor": 1 - (distance / (jsonPois[poi]["radius"] / 2)),
+                            "target": $("#poi-" + jsonPois[poi]["uid"]),
+                            "datapoint": $("#datapoint-id-" + jsonPois[poi]["uid"])
+                        };
+                    }
+                }
+                $("#target").html("none");
+            }
+            
             function gotoPosition() {
                     
-                screenOffsetX = $("#scopeContainer").width() / 2;
-                screenOffsetY = $("#scopeContainer").height() / 2;
+                resetCrosshairPosition();
                 
-                mapXmax = $("#overlay").height() - $("#scopeContainer").height() * 1;
-                mapYmax = $("#overlay").width() - $("#scopeContainer").width() * 1;
-
+                mapYmax = $("#overlay").height() - $("#scopeContainer").height() * 1;
+                mapXmax = $("#overlay").width() - $("#scopeContainer").width() * 1;
                 
                 transformY = (currentY / yMax * mapYmax * -1);
                 transformX = (currentX / xMax * mapXmax * -1);
-                $("#overlay").css({
-                    'transform': 'translate(' + transformY + 'px,' + transformX + 'px)'
-                });
-                console.log({
-                    'mapXmax': mapXmax + "px",
-                    'top': transformX + "px",
-                    'left': transformY + "px"
-                });
                 
-                if(debugmode){
-                    $("#currentX").html(currentX + screenOffsetX);
-                    $("#currentY").html(currentY + screenOffsetY);
+                var target = getTarget();
+                if(target){
+                    console.log(target["distanceFactor"]);
+                    if(target["distanceFactor"] > hysteresisFactor){
+                        target["target"].addClass("active");
+                        target["datapoint"].addClass("active");
+                        $(".content-holder").addClass("active");
+                    }
+                }else{
+                    $(".poi.active").removeClass("active");
+                    $(".datapoint.active").removeClass("active");
+                    $(".content-holder").removeClass("active");
                 }
                 
-                console.log("To Position: X-" + currentX / xMax + "  Y-" + currentY / yMax);
+                $("#overlay").css({
+                    'transform': 'translate(' + transformX + 'px,' + transformY + 'px)'
+                });
+                
+                
+                if(debugmode){
+                    $("#currentY").html(Math.abs(transformX) + crosshairScreenOffsetX);
+                    $("#currentX").html(Math.abs(transformY) + crosshairScreenOffsetY);
+                }
+                
+//                console.log("To Position: X-" + currentX / xMax + "  Y-" + currentY / yMax);
             }
 
             function onError(arg0, arg1) {
