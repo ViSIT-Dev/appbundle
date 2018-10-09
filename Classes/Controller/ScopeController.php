@@ -178,7 +178,7 @@ class ScopeController extends AbstractVisitController {
         $this->addFlashMessage('Media wurde entfernt', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
         $this->removeImageFromModel($scopePoi, $media);
         $this->scopePoiRepository->update($scopePoi);
-        $this->redirect("edit", null, null, array("cardPoi" => $scopePoi));
+        $this->redirect("edit", null, null, array("scopePoi" => $scopePoi));
     }
     
     

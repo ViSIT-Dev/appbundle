@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3DataStructure>
+<ROOT type="array">
+    <type>array</type>
+    <el type="array">
+        <maxx>
+            <TCEforms type="array">
+                <label>x-max Endstop</label>
+                <config>
+                    <type>input</type>
+                    <size>10</size>
+                    <eval>int,required,trim</eval>
+                    <range>
+                      <lower>0</lower>
+                    </range>
+                    <default>5000</default>
+                </config>
+            </TCEforms>
+        </maxx>
+        <maxy>
+            <TCEforms type="array">
+                <label>y-max Endstop</label>
+                <config>
+                    <type>input</type>
+                    <size>10</size>
+                    <eval>int,required,trim</eval>
+                    <range>
+                      <lower>0</lower>
+                    </range>
+                    <default>5000</default>
+                </config>
+            </TCEforms>
+        </maxy>
+        <maxxpx>
+            <TCEforms type="array">
+                <label>x Pixel</label>
+                <config>
+                    <type>input</type>
+                    <size>10</size>
+                    <eval>int,required,trim</eval>
+                    <range>
+                      <lower>0</lower>
+                    </range>
+                    <default>5000</default>
+                </config>
+            </TCEforms>
+        </maxxpx>
+        <maxypx>
+            <TCEforms type="array">
+                <label>y Pixel</label>
+                <config>
+                    <type>input</type>
+                    <size>10</size>
+                    <eval>int,required,trim</eval>
+                    <range>
+                      <lower>0</lower>
+                    </range>
+                    <default>5000</default>
+                </config>
+            </TCEforms>
+        </maxypx>
+        <sensorhost>
+            <TCEforms type="array">
+                <label>Encoder-Server URL</label>
+                <config>
+                    <type>input</type>
+                    <size>50</size>
+                    <eval>required,trim</eval>
+                    <default>localhost</default>
+                </config>
+            </TCEforms>
+        </sensorhost>
+        <sensorport>
+            <TCEforms type="array">
+                <label>Encoder-Server Port</label>
+                <config>
+                    <type>input</type>
+                    <size>4</size>
+                    <eval>int,required,trim</eval>
+                    <default>8080</default>
+                </config>
+            </TCEforms>
+        </sensorport>
+        <debugmode>
+            <TCEforms type="array">
+                <label>Debugmodus aktivieren</label>
+                <config>
+                  <type>check</type>
+                  <default>0</default>
+                </config>
+            </TCEforms>
+        </debugmode>
+    </el>
+</ROOT>
+</T3DataStructure>
