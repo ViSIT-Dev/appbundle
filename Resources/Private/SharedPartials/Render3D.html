@@ -18,8 +18,8 @@
         var contentDom = document.getElementById('3d-view-container');
 
         var texloader = new THREE.TextureLoader();
-        var color = texloader.load("typo3conf/ext/visit_tablets/Resources/Public/SampleData/color.jpg");
-        var tex = texloader.load("typo3conf/ext/visit_tablets/Resources/Public/SampleData/texture_map.jpg");
+        var color = texloader.load("/typo3conf/ext/visit_tablets/Resources/Public/SampleData/color.jpg");
+        var tex = texloader.load("/typo3conf/ext/visit_tablets/Resources/Public/SampleData/texture_map.jpg");
 
 //        var boxHeight = contentDom.clientHeight;
 //        var boxWidth = contentDom.clientWidth;
@@ -30,7 +30,7 @@
         var loader = new THREE.JSONLoader();
         // load a resource
         loader.load(
-                'typo3conf/ext/visit_tablets/Resources/Public/SampleData/granate.json',
+                '/typo3conf/ext/visit_tablets/Resources/Public/SampleData/granate.json',
                 function (geometry, materials) {
                     geometry.computeBoundingBox();
 
