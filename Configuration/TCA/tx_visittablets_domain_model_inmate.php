@@ -12,14 +12,14 @@ return [
         'transOrigDiffSourceField' => 'l10n_diffsource',
 		'enablecolumns' => [
         ],
-		'searchFields' => 'first_name,last_name,date_of_birth,place_of_birth,nationality,day_of_passing,profession,prison_start,prison_end,subtitle,teasertext,text,media,vip,prison_cell',
+		'searchFields' => 'first_name,last_name,date_of_birth,place_of_birth,nationality,day_of_passing,profession,prison_start,prison_end,subtitle,teasertext,text,event,media,vip,prison_cell',
         'iconfile' => 'EXT:visit_tablets/Resources/Public/Icons/tx_visittablets_domain_model_inmate.gif'
     ],
     'interface' => [
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, first_name, last_name, date_of_birth, place_of_birth, nationality, day_of_passing, profession, prison_start, prison_end, subtitle, teasertext, text, media, vip, prison_cell',
+		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, first_name, last_name, date_of_birth, place_of_birth, nationality, day_of_passing, profession, prison_start, prison_end, subtitle, teasertext, text, event, media, vip, prison_cell',
     ],
     'types' => [
-		'1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, first_name, last_name, date_of_birth, place_of_birth, nationality, day_of_passing, profession, prison_start, prison_end, subtitle, teasertext, text, media, vip, prison_cell'],
+		'1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, first_name, last_name, date_of_birth, place_of_birth, nationality, day_of_passing, profession, prison_start, prison_end, subtitle, teasertext, text, event, media, vip, prison_cell'],
     ],
     'columns' => [
 		'sys_language_uid' => [
@@ -174,6 +174,15 @@ return [
 			    'eval' => 'trim',
 			],
 	        'defaultExtras' => 'richtext:rte_transform[mode=ts_css]'
+	    ],
+	    'event' => [
+	        'exclude' => false,
+	        'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_inmate.event',
+	        'config' => [
+			    'type' => 'input',
+			    'size' => 200,
+			    'eval' => 'trim'
+			],
 	    ],
 	    'media' => [
 	        'exclude' => false,

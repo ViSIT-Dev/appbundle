@@ -68,6 +68,9 @@
             <trans-unit id="tx_visittablets_domain_model_inmate.teasertext">
                 <source>Teaser</source>
             </trans-unit>
+            <trans-unit id="tx_visittablets_domain_model_inmate.event">
+                <source>Event</source>
+            </trans-unit>
             <trans-unit id="tx_visittablets_domain_model_inmate.text">
                 <source>Beschreibung</source>
             </trans-unit>

@@ -102,6 +102,13 @@ class Inmate extends AbstractEntityWithMedia {
     protected $text = '';
 
     /**
+     * text
+     *
+     * @var string
+     */
+    protected $event = '';
+
+    /**
      * vip
      *
      * @var bool
@@ -463,4 +470,37 @@ class Inmate extends AbstractEntityWithMedia {
     {
         $this->prisonCell = $prisonCell;
     }
+    
+    /**
+     * Returns the event
+     *
+     * @return string $event
+     */
+    public function getEvent()
+    {
+        return $this->event;
+    }
+
+    /**
+     * Sets the event
+     *
+     * @param string event
+     * @return void
+     */
+    public function setEvent($event)
+    {
+        $this->event = $event;
+    }
+    
+    /**
+     * Returns the full name
+     *
+     * @return string 
+     */
+    public function getFullName()
+    {
+        return $this->firstName . " " . $this->lastName;
+    }
+    
+    
 }

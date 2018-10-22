@@ -1,63 +1,91 @@
-<html  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 <f:layout name="Default" />
 
-This Template is responsible for creating a table of domain objects.
+<f:section name="title">
+    <h2>Häftlinge Übersicht</h2>
+</f:section>
 
-If you modify this template, do not forget to change the overwrite settings
-in /Configuration/ExtensionBuilder/settings.yaml:
-  Resources:
-    Private:
-      Templates:
-        List.html: keep
+<f:section name="sideBar">
+    <div class="left_col scroll-view">
+        <br />
+        <!-- sidebar menu -->
+        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+            <div class="menu_section">
+                <h3>Häftlinge</h3>
+                <ul class="nav side-menu">
+                    <li>
+                        <f:link.action action="list">
+                            <i class="fa fa-list"></i> Liste
+                        </f:link.action>
+                    </li>
+                    <li>
+                        <f:link.action action="new">
+                            <i class="fa fa-plus-circle"></i> Neu
+                        </f:link.action>
+                    </li>
+                </ul>
+            </div>
+            <div class="menu_section">
+                <h3>Zellen</h3>
+                <ul class="nav side-menu">
+                    <li>
+                        <f:link.action action="list">
+                            <i class="fa fa-list"></i> Liste
+                        </f:link.action>
+                    </li>
+                    <li>
+                        <f:link.action action="new">
+                            <i class="fa fa-plus-circle"></i> Neu
+                        </f:link.action>
+                    </li>
+                </ul>
+            </div>
 
-Otherwise your changes will be overwritten the next time you save the extension in the extension builder
+        </div>
+        <!-- /sidebar menu -->
+
+    </div>
+</f:section>
+
 
 <f:section name="main">
-<h1>Listing for Inmate</h1>
 
-<f:flashMessages />
+    <table id="datatable" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Beschreibung</th>
+                <th>Geburtsdatum</th>
+                <th>Todesdatum</th>
+                <th>Nationalität</th>
+                <th></th>
+            </tr>
+        </thead>
 
-<table  class="tx_visittablets" >
-	<tr>
-		<th><f:translate key="tx_visittablets_domain_model_inmate.first_name" /></th>
-		<th><f:translate key="tx_visittablets_domain_model_inmate.last_name" /></th>
-		<th><f:translate key="tx_visittablets_domain_model_inmate.date_of_birth" /></th>
-		<th><f:translate key="tx_visittablets_domain_model_inmate.place_of_birth" /></th>
-		<th><f:translate key="tx_visittablets_domain_model_inmate.nationality" /></th>
-		<th><f:translate key="tx_visittablets_domain_model_inmate.day_of_passing" /></th>
-		<th><f:translate key="tx_visittablets_domain_model_inmate.profession" /></th>
-		<th><f:translate key="tx_visittablets_domain_model_inmate.prison_start" /></th>
-		<th><f:translate key="tx_visittablets_domain_model_inmate.prison_end" /></th>
-		<th><f:translate key="tx_visittablets_domain_model_inmate.subtitle" /></th>
-		<th><f:translate key="tx_visittablets_domain_model_inmate.teasertext" /></th>
-		<th><f:translate key="tx_visittablets_domain_model_inmate.text" /></th>
-		<th><f:translate key="tx_visittablets_domain_model_inmate.image" /></th>
-		<th><f:translate key="tx_visittablets_domain_model_inmate.vip" /></th>
-		<th> </th>
-		<th> </th>
-	</tr>
 
-	<f:for each="{inmates}" as="inmate">
-		<tr>
-			<td><f:link.action action="show" arguments="{inmate : inmate}"> {inmate.firstName}</td>
-			<td><f:link.action action="show" arguments="{inmate : inmate}"> {inmate.lastName}</td>
-			<td><f:link.action action="show" arguments="{inmate : inmate}"> {inmate.dateOfBirth -> f:format.date()}</td>
-			<td><f:link.action action="show" arguments="{inmate : inmate}"> {inmate.placeOfBirth}</td>
-			<td><f:link.action action="show" arguments="{inmate : inmate}"> {inmate.nationality}</td>
-			<td><f:link.action action="show" arguments="{inmate : inmate}"> {inmate.dayOfPassing}</td>
-			<td><f:link.action action="show" arguments="{inmate : inmate}"> {inmate.profession}</td>
-			<td><f:link.action action="show" arguments="{inmate : inmate}"> {inmate.prisonStart -> f:format.date()}</td>
-			<td><f:link.action action="show" arguments="{inmate : inmate}"> {inmate.prisonEnd -> f:format.date()}</td>
-			<td><f:link.action action="show" arguments="{inmate : inmate}"> {inmate.subtitle}</td>
-			<td><f:link.action action="show" arguments="{inmate : inmate}"> {inmate.teasertext}</td>
-			<td><f:link.action action="show" arguments="{inmate : inmate}"> {inmate.text}</td>
-			<td><f:link.action action="show" arguments="{inmate : inmate}"> {inmate.image.originalResource.name}</td>
-			<td><f:link.action action="show" arguments="{inmate : inmate}"> {inmate.vip}</td>
-			<td><f:link.action action="edit" arguments="{inmate : inmate}">Edit</td>
-			<td><f:link.action action="delete" arguments="{inmate : inmate}">Delete</td>
-		</tr>
-</table>
+        <tbody>
+            
+            <f:for each="{inmates}" as="inmate">
+                <tr>
+                    <td>{inmate.fullName}</td>
+                    <td>
+                        <f:format.crop maxCharacters="35"><f:format.stripTags>{inmate.description}</f:format.stripTags></f:format.crop>
+                    </td>
+                    <td>{inmate.dateOfBirth}</td>
+                    <td>{inmate.dayOfPassing}</td>
+                    <td>                            
+                        <f:format.crop maxCharacters="35"><f:format.stripTags>{cardPoi.description}</f:format.stripTags></f:format.crop>
+                    </td>
+                    <td>
+                        <f:link.action action="edit" arguments="{inmate : inmate}" class="btn btn-primary btn-xs">
+                            <i class="fa fa-pencil fa-2x" aria-hidden="true"></i>
+                        </f:link.action>
+                        <f:link.action action="delete" arguments="{inmate : inmate}" class="askbeforedelete btn btn-warning btn-xs">
+                            <i class="fa fa-trash-o fa-2x" aria-hidden="true"></i>
+                        </f:link.action>
+                    </td>
+                </tr>
+            </f:for>
+        </tbody>
+    </table>
 
-<f:link.action action="new">New Inmate
-
-</html>
+</f:section>
