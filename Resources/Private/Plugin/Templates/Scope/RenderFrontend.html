@@ -20,10 +20,19 @@
                         <div class="poi" id="poi-{poi.uid}" style="
 transform: translate({poi.y - poi.radiusHalf}px,{poi.x - poi.radiusHalf}px);height:{poi.radius}px;width:{poi.radius}px;">
                             <div class="inside">
-                                {poi.title}
-                                <br />X: {poi.x}
-                                <br />Y: {poi.y}
-                                <br />UID: {poi.uid}
+                                <f:if condition="{config.debugmode} && false">
+                                    <f:then>
+                                        {poi.title}
+                                        <br />X: {poi.x}
+                                        <br />Y: {poi.y}
+                                        <br />UID: {poi.uid}
+                                    </f:then>
+                                    <f:else>
+                                        <figure>
+                                            <img class="poi-icon" src="/typo3conf/ext/visit_tablets/Resources/Public/Icons/Scope/Festung_ICON.svg" />
+                                        </figure>
+                                    </f:else>
+                                </f:if>
                             </div>
                         </div>
                     </f:for>
@@ -63,7 +72,7 @@ transform: translate({poi.y - poi.radiusHalf}px,{poi.x - poi.radiusHalf}px);heig
                 </f:if>
             </div>
         </div>
-        <div class="content-holder">
+        <div class="content-holder{f:if(condition:'{config.debugmode}', then:' debug')}">
             <div class="scroller">
                 <f:for each="{pois}" as="datapoint">
                     <div class="datapoint" id="datapoint-id-{datapoint.uid}" data-id="{datapoint.uid}" >
@@ -294,16 +303,32 @@ transform: translate({poi.y - poi.radiusHalf}px,{poi.x - poi.radiusHalf}px);heig
                 
                 var target = getTarget();
                 if(target){
-                    console.log(target["distanceFactor"]);
                     if(target["distanceFactor"] > hysteresisFactor){
-                        target["target"].addClass("active");
-                        target["datapoint"].addClass("active");
-                        $(".content-holder").addClass("active");
+                        if(!target["target"].hasClass("active")){
+                            target["target"].addClass("active");
+                            target["datapoint"].addClass("active");
+                            $(".content-holder").addClass("active");
+
+                            // start video
+                            target["datapoint"].find("video").each(function(i, video){
+                                $(video)[0].autoplay = true;
+                                $(video)[0].controls = false;
+                                $(video)[0].loop = true;
+                                $(video)[0].play();
+                            });
+                        }
                     }
                 }else{
                     $(".poi.active").removeClass("active");
                     $(".datapoint.active").removeClass("active");
                     $(".content-holder").removeClass("active");
+                    
+                    // stop video
+                    $(".content-holder video").each(function(i, video){
+                        $(video)[0].pause();
+                        $(video)[0].currentTime = 0;
+                    });
+                    
                 }
                 
                 $("#overlay").css({

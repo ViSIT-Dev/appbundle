@@ -83,7 +83,7 @@ call_user_func(
                 'fernrohr', // Submodule key
                 '', // Position
                 [
-                    'Scope' => 'list, new, create, edit, update, delete',
+                    'Scope' => 'list, new, create, edit, update, delete, deleteImage',
                 ],
                 [
                     'access' => 'user,group',
