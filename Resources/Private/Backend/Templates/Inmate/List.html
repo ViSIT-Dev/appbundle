@@ -1,49 +1,11 @@
 <f:layout name="Default" />
 
 <f:section name="title">
-    <h2>Häftlinge Übersicht</h2>
+    <h2>Insasse - Übersicht</h2>
 </f:section>
 
 <f:section name="sideBar">
-    <div class="left_col scroll-view">
-        <br />
-        <!-- sidebar menu -->
-        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-            <div class="menu_section">
-                <h3>Häftlinge</h3>
-                <ul class="nav side-menu">
-                    <li>
-                        <f:link.action action="list">
-                            <i class="fa fa-list"></i> Liste
-                        </f:link.action>
-                    </li>
-                    <li>
-                        <f:link.action action="new">
-                            <i class="fa fa-plus-circle"></i> Neu
-                        </f:link.action>
-                    </li>
-                </ul>
-            </div>
-            <div class="menu_section">
-                <h3>Zellen</h3>
-                <ul class="nav side-menu">
-                    <li>
-                        <f:link.action action="list">
-                            <i class="fa fa-list"></i> Liste
-                        </f:link.action>
-                    </li>
-                    <li>
-                        <f:link.action action="new">
-                            <i class="fa fa-plus-circle"></i> Neu
-                        </f:link.action>
-                    </li>
-                </ul>
-            </div>
-
-        </div>
-        <!-- /sidebar menu -->
-
-    </div>
+    <f:render partial="SideBarGlossar" />
 </f:section>
 
 
@@ -57,6 +19,7 @@
                 <th>Geburtsdatum</th>
                 <th>Todesdatum</th>
                 <th>Nationalität</th>
+                <th>Zelle</th>
                 <th></th>
             </tr>
         </thead>
@@ -70,11 +33,12 @@
                     <td>
                         <f:format.crop maxCharacters="35"><f:format.stripTags>{inmate.description}</f:format.stripTags></f:format.crop>
                     </td>
-                    <td>{inmate.dateOfBirth}</td>
-                    <td>{inmate.dayOfPassing}</td>
+                    <td><f:format.date format="d.m.Y">{inmate.dateOfBirth}</f:format.date></td>
+                    <td><f:format.date format="d.m.Y">{inmate.dayOfPassing}</f:format.date></td>
                     <td>                            
                         <f:format.crop maxCharacters="35"><f:format.stripTags>{cardPoi.description}</f:format.stripTags></f:format.crop>
                     </td>
+                    <td>{inmate.prisonCell.name}</td>
                     <td>
                         <f:link.action action="edit" arguments="{inmate : inmate}" class="btn btn-primary btn-xs">
                             <i class="fa fa-pencil fa-2x" aria-hidden="true"></i>

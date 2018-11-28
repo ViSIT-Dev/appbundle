@@ -55,7 +55,7 @@ class Inmate extends AbstractEntityWithMedia {
     /**
      * dayOfPassing
      *
-     * @var string
+     * @var \DateTime
      */
     protected $dayOfPassing = '';
 
@@ -118,7 +118,7 @@ class Inmate extends AbstractEntityWithMedia {
     /**
      * prisonCell
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Visit\VisitTablets\Domain\Model\PrisonCell>
+     * @var \Visit\VisitTablets\Domain\Model\PrisonCell
      * @cascade remove
      */
     protected $prisonCell = null;
@@ -142,7 +142,7 @@ class Inmate extends AbstractEntityWithMedia {
      */
     protected function initStorageObjects()
     {
-        $this->prisonCell = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        
     }
 
     /**
@@ -428,32 +428,11 @@ class Inmate extends AbstractEntityWithMedia {
         return $this->vip;
     }
 
-    /**
-     * Adds a PrisonCell
-     *
-     * @param \Visit\VisitTablets\Domain\Model\PrisonCell $prisonCell
-     * @return void
-     */
-    public function addPrisonCell(\Visit\VisitTablets\Domain\Model\PrisonCell $prisonCell)
-    {
-        $this->prisonCell->attach($prisonCell);
-    }
-
-    /**
-     * Removes a PrisonCell
-     *
-     * @param \Visit\VisitTablets\Domain\Model\PrisonCell $prisonCellToRemove The PrisonCell to be removed
-     * @return void
-     */
-    public function removePrisonCell(\Visit\VisitTablets\Domain\Model\PrisonCell $prisonCellToRemove)
-    {
-        $this->prisonCell->detach($prisonCellToRemove);
-    }
 
     /**
      * Returns the prisonCell
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Visit\VisitTablets\Domain\Model\PrisonCell> $prisonCell
+     * @return \Visit\VisitTablets\Domain\Model\PrisonCell
      */
     public function getPrisonCell()
     {
@@ -463,10 +442,10 @@ class Inmate extends AbstractEntityWithMedia {
     /**
      * Sets the prisonCell
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Visit\VisitTablets\Domain\Model\PrisonCell> $prisonCell
+     * @param \Visit\VisitTablets\Domain\Model\PrisonCell $prisonCell
      * @return void
      */
-    public function setPrisonCell(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $prisonCell)
+    public function setPrisonCell($prisonCell)
     {
         $this->prisonCell = $prisonCell;
     }

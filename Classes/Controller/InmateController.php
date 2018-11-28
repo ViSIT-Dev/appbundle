@@ -24,6 +24,18 @@ class InmateController extends AbstractVisitController {
      */
     protected $inmateRepository = null;
 
+    
+    public function initializeAction() {
+        if ($this->arguments->hasArgument('newInmate') || $this->arguments->hasArgument('inmate')) {
+            $argument = ($this->arguments->hasArgument('inmate')) ? "inmate" : "newInmate";
+            // fix dates from imput
+            $this->arguments->getArgument($argument)->getPropertyMappingConfiguration()->forProperty('dateOfBirth')->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter',\TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT,'d.m.Y');
+            $this->arguments->getArgument($argument)->getPropertyMappingConfiguration()->forProperty('dayOfPassing')->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter',\TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT,'d.m.Y');
+            $this->arguments->getArgument($argument)->getPropertyMappingConfiguration()->forProperty('prisonStart')->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter',\TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT,'d.m.Y');
+            $this->arguments->getArgument($argument)->getPropertyMappingConfiguration()->forProperty('prisonEnd')->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter',\TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT,'d.m.Y');
+        }
+    }
+    
     /**
      * action list
      *
@@ -53,7 +65,7 @@ class InmateController extends AbstractVisitController {
      */
     public function createAction(\Visit\VisitTablets\Domain\Model\Inmate $newInmate)
     {
-        $this->addFlashMessage('The object was created. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
+        //$this->addFlashMessage('The object was created. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
         $this->inmateRepository->add($newInmate);
         $this->redirect('list');
     }
@@ -78,7 +90,7 @@ class InmateController extends AbstractVisitController {
      */
     public function updateAction(\Visit\VisitTablets\Domain\Model\Inmate $inmate)
     {
-        $this->addFlashMessage('The object was updated. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
+//        $this->addFlashMessage('The object was updated. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
         $this->inmateRepository->update($inmate);
         $this->redirect('list');
     }

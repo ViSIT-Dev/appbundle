@@ -74,6 +74,7 @@ call_user_func(
                 'access' => 'user,group',
                 'icon' => 'EXT:' . $extKey . '/Resources/Public/Icons/glossar.svg',
                 'labels' => 'LLL:EXT:' . $extKey . '/Resources/Private/Language/locallang_glossar.xlf',
+                'navigationComponentId' => 'typo3-pagetree',
             ]
         );
         

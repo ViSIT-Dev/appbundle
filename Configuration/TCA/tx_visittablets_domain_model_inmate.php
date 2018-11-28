@@ -109,9 +109,11 @@ return [
 	        'exclude' => false,
 	        'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_inmate.day_of_passing',
 	        'config' => [
+			    'dbType' => 'date',
 			    'type' => 'input',
-			    'size' => 30,
-			    'eval' => 'trim'
+			    'size' => 7,
+			    'eval' => 'date',
+			    'default' => '0000-00-00'
 			],
 	    ],
 	    'profession' => [
@@ -247,19 +249,10 @@ return [
 	        'exclude' => false,
 	        'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_inmate.prison_cell',
 	        'config' => [
-			    'type' => 'inline',
+			    'type' => 'select',
 			    'foreign_table' => 'tx_visittablets_domain_model_prisoncell',
 			    'foreign_field' => 'inmate',
 			    'foreign_sortby' => 'sorting',
-			    'maxitems' => 9999,
-			    'appearance' => [
-			        'collapseAll' => 0,
-			        'levelLinksPosition' => 'top',
-			        'showSynchronizationLink' => 1,
-			        'showPossibleLocalizationRecords' => 1,
-			        'useSortable' => 1,
-			        'showAllLocalizationLink' => 1
-			    ],
 			],
 	    ],
     ],

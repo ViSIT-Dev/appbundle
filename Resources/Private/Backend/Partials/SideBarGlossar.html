@@ -1,0 +1,44 @@
+<div class="left_col scroll-view">
+        <br />
+        <!-- sidebar menu -->
+        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+            <div class="menu_section">
+                <f:comment>
+                    <h3>Häftlinge</h3>
+                </f:comment>
+                <ul class="nav side-menu">
+                    <li>
+                        <f:link.action action="list" controller="Inmate">
+                            <i class="fa fa-list"></i> Liste<br />Insassen
+                        </f:link.action>
+                    </li>
+                    <li>
+                        <f:link.action action="new" controller="Inmate">
+                            <i class="fa fa-plus-circle"></i> Neuer<br />Insasse
+                        </f:link.action>
+                    </li>
+                </ul>
+            </div>
+            <hr />
+            <div class="menu_section">
+                <f:comment>
+                    <h3>Zellen</h3>
+                </f:comment>
+                <ul class="nav side-menu">
+                    <li>
+                        <f:link.action action="list" controller="PrisonCell">
+                            <i class="fa fa-list"></i> Liste<br />Zellen
+                        </f:link.action>
+                    </li>
+                    <li>
+                        <f:link.action action="new" controller="PrisonCell">
+                            <i class="fa fa-plus-circle"></i> Neue<br />Zelle
+                        </f:link.action>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <!-- /sidebar menu -->
+
+    </div>

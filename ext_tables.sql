@@ -16,6 +16,7 @@ CREATE TABLE tx_visittablets_domain_model_inmate (
 	prison_start date DEFAULT '0000-00-00',
 	prison_end date DEFAULT '0000-00-00',
 	subtitle varchar(255) DEFAULT '' NOT NULL,
+	event varchar(255) DEFAULT '' NOT NULL,
 	teasertext text NOT NULL,
 	text text NOT NULL,
 	media int(11) unsigned NOT NULL default '0',

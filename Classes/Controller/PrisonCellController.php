@@ -64,7 +64,7 @@ class PrisonCellController extends AbstractVisitController {
      */
     public function createAction(\Visit\VisitTablets\Domain\Model\PrisonCell $newPrisonCell)
     {
-        $this->addFlashMessage('The object was created. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
+//        $this->addFlashMessage('The object was created. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
         $this->prisonCellRepository->add($newPrisonCell);
         $this->redirect('list');
     }
@@ -89,7 +89,7 @@ class PrisonCellController extends AbstractVisitController {
      */
     public function updateAction(\Visit\VisitTablets\Domain\Model\PrisonCell $prisonCell)
     {
-        $this->addFlashMessage('The object was updated. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
+//        $this->addFlashMessage('The object was updated. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
         $this->prisonCellRepository->update($prisonCell);
         $this->redirect('list');
     }
