@@ -47,6 +47,8 @@ CREATE TABLE tx_visittablets_domain_model_cardpoi (
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
 
+	language int(11) DEFAULT '0' NOT NULL,
+
 	title varchar(255) DEFAULT '' NOT NULL,
 	longitude double(11,2) DEFAULT '0.00' NOT NULL,
 	latitude double(11,2) DEFAULT '0.00' NOT NULL,

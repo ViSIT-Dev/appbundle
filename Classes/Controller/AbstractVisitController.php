@@ -18,6 +18,8 @@ use \TYPO3\CMS\Backend\View\BackendTemplateView;
 use \TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use \TYPO3\CMS\Backend\Template\Components\Menu\Menu;
 use \TYPO3\CMS\Backend\Template\Components\Menu\MenuItem;
+use Visit\VisitTablets\Helper\Util;
+
 /**
  * AbstractVisitController
  */
@@ -72,39 +74,21 @@ abstract class AbstractVisitController extends \TYPO3\CMS\Extbase\Mvc\Controller
         }
         
     }
-    
 
-    public static function translate($key){
-        \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($key, 'visit_tablets');
-    }
-    
-      /**
-     * Use for Classes with \TYPO3\CMS\Core\SingletonInterface 
-     * Does not inject dependencies
-     * 
-     * @param type $className
-     * @return type
-     */
-    public static function makeInstance($className) {
-        return \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance($className);
-    }
-    
-    public static function getUriBuilder(){
-        return self::getInstance('TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder');
-    }
-    
-    /**
-     * Use for other stuff like Repositories (injects dependencies)
-     * @param type $className
-     * @return type
-     */
-    public static function getInstance($className) {
-        $objectManager = self::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
-        return $objectManager->get($className);
+
+    protected function t($key){
+        return Util::translate($key);
     }
 
-    public static function debug($var) {
-        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($var);
+    protected function debug($var) {
+        Util::debug($var);
+    }
+    protected function getInstance($class){
+        return Util::getInstance($class);
+    }
+
+    protected function makeInstance($class) {
+        return Util::makeInstance($class);
     }
     
      protected function removeImageFromModel(AbstractEntityWithMedia $entityWithMedia, \TYPO3\CMS\Extbase\Domain\Model\FileReference $media){

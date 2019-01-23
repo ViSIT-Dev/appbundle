@@ -6,9 +6,9 @@ return [
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
-        'languageField' => 'sys_language_uid',
-        'transOrigPointerField' => 'l10n_parent',
-        'transOrigDiffSourceField' => 'l10n_diffsource',
+//        'languageField' => 'sys_language_uid',
+//        'transOrigPointerField' => 'l10n_parent',
+//        'transOrigDiffSourceField' => 'l10n_diffsource',
 		'enablecolumns' => [
         ],
 		'searchFields' => 'title,longitude,latitude,flag_text,sub_title,media,description',
@@ -21,40 +21,49 @@ return [
 		'1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, title, longitude, latitude, flag_text, sub_title, media, description'],
     ],
     'columns' => [
-		'sys_language_uid' => [
-			'exclude' => true,
-			'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.language',
-			'config' => [
-				'type' => 'select',
-				'renderType' => 'selectSingle',
-				'special' => 'languages',
-				'items' => [
-					[
-						'LLL:EXT:lang/locallang_general.xlf:LGL.allLanguages',
-						-1,
-						'flags-multiple'
-					]
-				],
-				'default' => 0,
-			],
-        ],
-        'l10n_parent' => [
-            'displayCond' => 'FIELD:sys_language_uid:>:0',
-            'exclude' => true,
-            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.l18n_parent',
+//		'sys_language_uid' => [
+//			'exclude' => true,
+//			'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.language',
+//			'config' => [
+//				'type' => 'select',
+//				'renderType' => 'selectSingle',
+//				'special' => 'languages',
+//				'items' => [
+//					[
+//						'LLL:EXT:lang/locallang_general.xlf:LGL.allLanguages',
+//						-1,
+//						'flags-multiple'
+//					]
+//				],
+//				'default' => 0,
+//			],
+//        ],
+//        'l10n_parent' => [
+//            'displayCond' => 'FIELD:sys_language_uid:>:0',
+//            'exclude' => true,
+//            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.l18n_parent',
+//            'config' => [
+//                'type' => 'select',
+//                'renderType' => 'selectSingle',
+//                'items' => [
+//                    ['', 0],
+//                ],
+//                'foreign_table' => 'tx_visittablets_domain_model_cardpoi',
+//                'foreign_table_where' => 'AND tx_visittablets_domain_model_cardpoi.pid=###CURRENT_PID### AND tx_visittablets_domain_model_cardpoi.sys_language_uid IN (-1,0)',
+//            ],
+//        ],
+//        'l10n_diffsource' => [
+//            'config' => [
+//                'type' => 'passthrough',
+//            ],
+//        ],
+        'language' => [
+            'exclude' => false,
+            'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:language',
             'config' => [
-                'type' => 'select',
-                'renderType' => 'selectSingle',
-                'items' => [
-                    ['', 0],
-                ],
-                'foreign_table' => 'tx_visittablets_domain_model_cardpoi',
-                'foreign_table_where' => 'AND tx_visittablets_domain_model_cardpoi.pid=###CURRENT_PID### AND tx_visittablets_domain_model_cardpoi.sys_language_uid IN (-1,0)',
-            ],
-        ],
-        'l10n_diffsource' => [
-            'config' => [
-                'type' => 'passthrough',
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim'
             ],
         ],
         'title' => [

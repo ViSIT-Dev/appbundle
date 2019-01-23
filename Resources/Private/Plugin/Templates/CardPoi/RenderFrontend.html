@@ -41,20 +41,47 @@
                     </div>
                 </div>
             </div>
+            <div class="modal fade modal-transparent" id="startModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <h1 class="modal-title">Lorem ipsum dolor Headline</h1>
+                            <h3>Lorem ipsum dolor Subline historisch</h3>
+                            <br>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eget elit a lacus sollicitudin finibus. Donec sed arcu mauris. Quisque eget fringilla erat. Cras sit amet sagittis nulla. In quis euismod tellus. Nulla pharetra elit risus, at mattis urna dignissim sit amet. Nunc luctus vestibulum mauris, vel tempor lorem luctus vitae.
+                                <br>
+                                <br>
+                                Vivamus placerat aliquet posuere. Phasellus aliquet dolor arcu, non semper orci congue vitae. Integer sit amet eros quis sapien iaculis vestibulum. Pellentesque imperdiet vestibulum tincidunt. Sed accumsan dui in odio scelerisque tristique. Pellentesque eu nisi et libero euismod posuere. Praesent ut lobortis enim. Aenean ultrices convallis orci a tincidunt. Etiam placerat, metus sit amet maximus aliquam, augue dui tristique orci, in dictum dui felis in.
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary lang-btn btn-lg" data-dismiss="modal" onclick="initMap('1')">
+                                <img src="/typo3/sysext/core/Resources/Public/Icons/Flags/en_us-gb.png" />Start in English
+                            </button>
+                            <button type="button" class="btn btn-primary lang-btn btn-lg" data-dismiss="modal" onclick="initMap('0')">
+                                <img src="/typo3/sysext/core/Resources/Public/Icons/Flags/PNG/DE.png" /> Starten mit Deutsch
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
+
         <script>
-            
+
             var iconScale = 0.9;
-            var currentLang = "de";
+            var currentLang;
             
             var inactiveColor = "#4A4A4A";
             var activeColor = "#D1880F";
             
             var iconHeight = 163 * iconScale;
             var iconWidth = 109 * iconScale;
-            var poiData = <f:format.raw>{poiData}</f:format.raw>;
-            
+            var languages = <f:format.raw>{languages}</f:format.raw>;
+            var poiData = <f:format.raw>{cardPois}</f:format.raw>;
+
             var mymap, markerSVGtemplate, lastAciveMarker = lastInAciveMarker= false;
             {
                 var xmlHttp = new XMLHttpRequest();
@@ -75,6 +102,8 @@
             }
             
             function getSvgFlagFromItem(item, active){
+                console.log(item);
+
                 var parts = item[currentLang].flagText.split("//")
                 var svg = markerSVGtemplate
                     .replace("{{BG_COL}}", active ? activeColor :inactiveColor)
@@ -128,10 +157,24 @@
                 $("#datapoint-id-" + item.uid).addClass("active");
                 $("#cardPoiContent").removeClass("hidden");
             }
-    
+
+
+            function initMap(lang){
+
+                console.log("init with: " + languages[lang].title);
+
+                hideContent();
+
+                currentLang = lang;
+
+                $.each(poiData, function(key, item) {
+                    addMarkerFromItemToMap(item, false);
+                });
+            }
+
     
             document.addEventListener('DOMContentLoaded', function(){
-                
+
                 var bounds = new L.LatLngBounds(new L.LatLng(46.186, 13.881), new L.LatLng(49.7209, 8.686));
                 mymap = L.map('cardPoiMap', {
                     zoomControl: false,
@@ -141,12 +184,17 @@
                 }).setView([47.5793, 12.1687], 8);
                 L.tileLayer('/index.php?eID=map_server&x={' + 'x}&y={' + 'y}&z={' + 'z}').addTo(mymap);
 
-                $.each(poiData, function(key, item) {
-                    addMarkerFromItemToMap(item, false);
-                });
+                $('#startModal').modal({
+                    keyboard: false,
+                    backdrop: "static"
+                })
 
             });
         </script>
+
+
+
+
     </f:section>
     <f:section name="footer">
         

@@ -2,6 +2,8 @@
 
 namespace Visit\VisitTablets\Domain\Model;
 
+use Visit\VisitTablets\Helper\Util;
+
 /***
  *
  * This file is part of the "tablets" Extension for TYPO3 CMS.
@@ -59,6 +61,14 @@ class CardPoi extends AbstractEntityWithMedia {
      * @var string
      */
     protected $description = '';
+
+
+    /**
+     * language
+     * @validate NotEmpty
+     * @var int
+     */
+    protected $language = 0;
 
     /**
      * Returns the title
@@ -185,6 +195,32 @@ class CardPoi extends AbstractEntityWithMedia {
     {
         $this->description = $description;
     }
-    
+
+    /**
+     * Returns the language
+     *
+     * @return int $language
+     */
+    public function getLanguage()
+    {
+        return $this->language;
+    }
+
+    /**
+     * Sets the language
+     *
+     * @param int $language
+     * @return void
+     */
+    public function setLanguage($language)
+    {
+        $this->language = $language;
+    }
+
+    public function getLangTitle(){
+        return Util::getLanguageNameById($this->getLanguage());
+    }
+
+
     
 }

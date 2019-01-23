@@ -3,7 +3,11 @@
     <file source-language="de" datatype="plaintext" original="messages" date="2018-06-27T09:45:11Z" product-name="visit_tablets">
         <header/>
         <body>
-                    
+
+            <trans-unit id="language">
+                <source>Sprache</source>
+            </trans-unit>
+
             <!-- used for plugin description -->
                     
             <trans-unit id="tx_visit_tablets_domain_model_glossarfe">

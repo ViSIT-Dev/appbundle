@@ -233,7 +233,8 @@ page {
 #        font-awesome = EXT:visit_tablets/Resources/Public/vendor/font-awesome/css/all.css
         material-design = EXT:visit_tablets/Resources/Public/vendor/material-design/css/materialdesignicons.css
         leaflet = EXT:visit_tablets/Resources/Public/Backend/vendors/leaflet/leaflet.css
-        main = EXT:visit_tablets/Resources/Public/css/main.css
+        bootstrap = EXT:visit_tablets/Resources/Public/vendor/bootstrap/dist/css/bootstrap.css
+        main = EXT:visit_tablets/Resources/Public/scss/main.css
 
     }
 
@@ -244,6 +245,7 @@ page {
     includeJSFooterlibs {
 
         jquery = EXT:visit_tablets/Resources/Public/vendor/jquery/jquery-3.3.1.min.js
+        bootstrap = EXT:visit_tablets/Resources/Public/vendor/bootstrap/dist/js/bootstrap.bundle.js
 
         #SRI Hash Generator https://www.srihash.org/
 

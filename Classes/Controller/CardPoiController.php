@@ -13,6 +13,7 @@ namespace Visit\VisitTablets\Controller;
  ***/
 
 use \Visit\VisitTablets\Domain\Model\CardPoi;
+use Visit\VisitTablets\Helper\Util;
 
 /**
  * CardPoiController
@@ -26,28 +27,39 @@ class CardPoiController extends AbstractVisitController {
      */
     protected $cardPoiRepository = null;
 
+
+    private function prepareForFrontend(){
+        $out = array();
+
+        /* @var $cardPoi \Visit\VisitTablets\Domain\Model\CardPoi */
+        foreach ($this->cardPoiRepository->findAll() as $cardPoi) {
+
+            $out[$cardPoi->getLanguage()][$cardPoi->getUid()] = [
+                "uid" => $cardPoi->getUid(),
+                "title" => $cardPoi->getTitle(),
+                "subTitle" => $cardPoi->getSubTitle(),
+                "flagText" => $cardPoi->getFlagText(),
+                "description" => $cardPoi->getDescription(),
+                "media" => $cardPoi->getMedia(),
+                "latlng" => [
+                    "lat" => $cardPoi->getLatitude(),
+                    "lng" => $cardPoi->getLongitude()
+                ]
+            ];
+        }
+
+        $this->view
+            ->assign('languages',  \json_encode(Util::getLanguages()))
+            ->assign('cardPois', \json_encode($out));
+    }
+
     /**
      * action showOnCard
      *
      * @return void
      */
     public function showOnCardAction(){
-        $out = array();
-        
-        /* @var $cardPoi \Visit\VisitTablets\Domain\Model\CardPoi */
-        foreach ($this->cardPoiRepository->findAll() as $cardPoi) {
-            $out[$cardPoi->getUid()] = [
-                "title" => $cardPoi->getTitle(),
-                "subTitle" => $cardPoi->getSubTitle(),
-                "flagText" => $cardPoi->getFlagText(),
-                "description" => $cardPoi->getDescription(),
-                "latlng" => [
-                    "lat" => $cardPoi->getLatitude(), 
-                    "lng" => $cardPoi->getLongitude()]
-            ];
-        }
-        
-        $this->view->assign('cardPois', \json_encode($out));
+       $this->prepareForFrontend();
     }
 
     /**
@@ -56,6 +68,8 @@ class CardPoiController extends AbstractVisitController {
      * @return void
      */
     public function listAction(){
+        Util::getLanguages();
+
         $cardPois = $this->cardPoiRepository->findAll();
         $this->view->assign('cardPois', $cardPois);
     }
@@ -147,30 +161,7 @@ class CardPoiController extends AbstractVisitController {
      */
     public function renderFrontendAction()
     {
-        $out = array();
-        /* @var $cardPoi CardPoi */
-        foreach ($this->cardPoiRepository->findAll() as $cardPoi) {
-            $out[$cardPoi->getUid()] = [
-                "uid" => $cardPoi->getUid(),
-                "media" => $cardPoi->getMedia(),
-                "latlng" => [$cardPoi->getLatitude(), $cardPoi->getLongitude()],
-                "de" => [
-                    "title" => $cardPoi->getTitle(),
-                    "subTitle" => $cardPoi->getSubTitle(),
-                    "flagText" => $cardPoi->getFlagText(),
-                    "description" => $cardPoi->getDescription(),
-                ],
-                "en" => [
-                    "title" => "en: " . $cardPoi->getTitle(),
-                    "subTitle" => "en: " . $cardPoi->getSubTitle(),
-                    "flagText" => "en: " . $cardPoi->getFlagText(),
-                    "description" => "en: " . $cardPoi->getDescription(),
-                ]
-            ];
-        }
-        
-        $this->view->assign("dataPoints", $out);
-        $this->view->assign("poiData", \json_encode($out));
+        $this->prepareForFrontend();
     }
     
 }

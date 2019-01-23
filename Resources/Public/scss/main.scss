@@ -11,6 +11,7 @@ $titleBarFontColor: #fff;
 $titleBarFontSize: 20px;
 $titleBarSeparatorColor: #6a6a6a;
 
+$btnPrim: #d1880f;
 
 @at-root {
     @-ms-viewport { width: device-width; } // stylelint-disable-line at-rule-no-vendor-prefix
@@ -124,6 +125,29 @@ a{
         text-decoration: underline;
     }
 }
+.btn{
+    border-radius: 0.5px;
+}
+
+.btn-primary{
+    background-color: $btnPrim;
+    border-color: $btnPrim;
+
+    &:not(:disabled):not(.disabled):active,
+    &:not(:disabled):not(.disabled).active,
+    &:hover{
+        background-color: lighten($btnPrim, 20%);
+        border-color: lighten($btnPrim, 20%);;
+    }
+
+    .btn-primary:not(:disabled):not(.disabled):active:focus,
+    .btn-primary:not(:disabled):not(.disabled).active:focus,
+    .show > .btn-primary.dropdown-toggle:focus{
+        background-color: darken($btnPrim, 20%);
+        border-color: darken($btnPrim, 20%);;
+    }
+
+}
 
 .titleBar{
     background-color: $titleBarBackgroundColor;
@@ -174,6 +198,30 @@ main{
     background-color: aqua;
 }
 
+.modal-transparent{
+    .modal-content{
+        background-color: transparent;
+        border: 0;
+        * {
+            color: white;
+        }
+        p{
+            font-size: 115%;
+        }
+    }
+    .modal-footer{
+        border: 0;
+    }
+    .lang-btn img{
+        width: 28px;
+        height: 20px;
+        margin-right: 6px;
+    }
+}
+
+.modal-backdrop.show {
+    opacity: 0.8;
+}
 
 #mapAppWrapper{
 
@@ -192,7 +240,7 @@ main{
         position: absolute;
         top: 0;
         right: 0;
-        z-index: 99999;
+        z-index: 999;
         width: 350px;
         /*background-color: rgba(#303030, .9);*/
         background-color: #303030;

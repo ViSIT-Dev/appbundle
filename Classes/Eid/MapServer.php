@@ -1,13 +1,5 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-//var_dump($_GET);
-
 $x = intval($_GET["x"]);
 $y = intval($_GET["y"]);
 $z = intval($_GET["z"]); 

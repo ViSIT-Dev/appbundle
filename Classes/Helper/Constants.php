@@ -20,6 +20,8 @@ namespace Visit\VisitTablets\Helper;
  */
 class Constants {
     
+    public static $EXTENSION_NAME = "visit_tablets";
+
     public static $AJAX_UPLOAD_TEMP_DIR = PATH_site . "typo3temp/ajax_upload/";
-    
+
 }

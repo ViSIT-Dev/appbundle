@@ -1,6 +1,10 @@
 <?php
 defined('TYPO3_MODE') || die('Access denied.');
 
+//import view helper per default
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['fluid']['namespaces']['visit'] = ['Visit\\VisitTablets\\ViewHelpers'];
+
+
 call_user_func(
     function($extKey)
 	{
