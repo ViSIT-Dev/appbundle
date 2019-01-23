@@ -31,16 +31,14 @@ class CardPoiController extends AbstractVisitController {
     private function prepareForFrontend(){
         $out = array();
 
+        $cardBois = $this->cardPoiRepository->findAll();
+
         /* @var $cardPoi \Visit\VisitTablets\Domain\Model\CardPoi */
-        foreach ($this->cardPoiRepository->findAll() as $cardPoi) {
+        foreach ($cardBois as $cardPoi) {
 
             $out[$cardPoi->getLanguage()][$cardPoi->getUid()] = [
                 "uid" => $cardPoi->getUid(),
-                "title" => $cardPoi->getTitle(),
-                "subTitle" => $cardPoi->getSubTitle(),
                 "flagText" => $cardPoi->getFlagText(),
-                "description" => $cardPoi->getDescription(),
-                "media" => $cardPoi->getMedia(),
                 "latlng" => [
                     "lat" => $cardPoi->getLatitude(),
                     "lng" => $cardPoi->getLongitude()
@@ -50,7 +48,8 @@ class CardPoiController extends AbstractVisitController {
 
         $this->view
             ->assign('languages',  \json_encode(Util::getLanguages()))
-            ->assign('cardPois', \json_encode($out));
+            ->assign('cardPoisJson', \json_encode($out))
+            ->assign('dataPoints', $cardBois);
     }
 
     /**

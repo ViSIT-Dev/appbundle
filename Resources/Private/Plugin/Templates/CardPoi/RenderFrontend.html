@@ -11,33 +11,34 @@
                 </div>
                 <div class="content-holder">
                     <div class="scroller">
+
                         <f:for each="{dataPoints}" as="datapoint">
                             <div class="datapoint" id="datapoint-id-{datapoint.uid}" data-id="{datapoint.uid}" >
-                                
-                                <h1 class="lang-de">{datapoint.de.title}</h1>
-                                <h1 class="lang-en" style="display: none">{datapoint.en.title}</h1>
-                                
+
+                                <h1 class="lang-de">{datapoint.title}</h1>
+                                <h1 class="lang-en" style="display: none">{datapoint.title}</h1>
+
                                 <h2 class="lang-de">{datapoint.de.subTitle}</h2>
-                                <h2 class="lang-en"  style="display: none">{datapoint.en.subTitle}</h2>
-                                
-                                
+                                <h2 class="lang-en"  style="display: none">{datapoint.subTitle}</h2>
+
+
                                 <f:render partial="RenderMedia" arguments="{media: datapoint.media}"/>
 
                                 <div class="desc-text lang-de">
                                     <f:format.raw>
-                                        {datapoint.de.description}
+                                        {datapoint.description}
                                     </f:format.raw>
                                 </div>
                                 <div class="desc-text lang-en"  style="display: none">
                                     <f:format.raw>
-                                        {datapoint.en.description}
+                                        {datapoint.description}
                                     </f:format.raw>
                                 </div>
-                                
+
                             </div>
-                            
+
                         </f:for>
-                        
+
                     </div>
                 </div>
             </div>
@@ -79,7 +80,7 @@
             var iconHeight = 163 * iconScale;
             var iconWidth = 109 * iconScale;
             var languages = <f:format.raw>{languages}</f:format.raw>;
-            var poiData = <f:format.raw>{cardPois}</f:format.raw>;
+            var poiData = <f:format.raw>{cardPoisJson}</f:format.raw>;
 
             var mapMarkers = [];
 
