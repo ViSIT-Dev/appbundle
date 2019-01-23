@@ -72,8 +72,7 @@
         <script>
 
             var iconScale = 0.9;
-            var currentLang;
-            
+
             var inactiveColor = "#4A4A4A";
             var activeColor = "#D1880F";
             
@@ -81,6 +80,8 @@
             var iconWidth = 109 * iconScale;
             var languages = <f:format.raw>{languages}</f:format.raw>;
             var poiData = <f:format.raw>{cardPois}</f:format.raw>;
+
+            var mapMarkers = [];
 
             var mymap, markerSVGtemplate, lastAciveMarker = lastInAciveMarker= false;
             {
@@ -104,7 +105,7 @@
             function getSvgFlagFromItem(item, active){
                 console.log(item);
 
-                var parts = item[currentLang].flagText.split("//")
+                var parts = item.flagText.split("//")
                 var svg = markerSVGtemplate
                     .replace("{{BG_COL}}", active ? activeColor :inactiveColor)
                     .replace("{{LINE1}}", parts[0])
@@ -120,6 +121,7 @@
             }
             
             function addMarkerFromItemToMap(item, active){
+
                 var icon = L.icon( {
                     iconUrl: getSvgFlagFromItem(item, active),
                     iconAnchor:   [0, iconWidth], // point of the icon which will correspond to marker's location
@@ -131,6 +133,8 @@
                 if(active){
                     $(marker._icon).addClass('active');
                 }
+                mapMarkers.push(marker);
+
                 return marker;
             }
     
@@ -158,6 +162,11 @@
                 $("#cardPoiContent").removeClass("hidden");
             }
 
+            function removeAllMarkers(){
+                for(var i = 0; i < this.mapMarkers.length; i++){
+                    mymap.removeLayer(this.mapMarkers[i]);
+                }
+            }
 
             function initMap(lang){
 
@@ -165,9 +174,9 @@
 
                 hideContent();
 
-                currentLang = lang;
+                removeAllMarkers();
 
-                $.each(poiData, function(key, item) {
+                $.each(poiData[lang], function(key, item) {
                     addMarkerFromItemToMap(item, false);
                 });
             }
@@ -183,6 +192,7 @@
                     maxBounds: bounds,
                 }).setView([47.5793, 12.1687], 8);
                 L.tileLayer('/index.php?eID=map_server&x={' + 'x}&y={' + 'y}&z={' + 'z}').addTo(mymap);
+
 
                 $('#startModal').modal({
                     keyboard: false,
