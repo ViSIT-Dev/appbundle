@@ -11,7 +11,16 @@
         </div>
         <div class="right">
 
-            <span class="spacer-left spacer-right"  data-toggle="modal" data-target="#startModal" style="cursor:pointer;"><i class="mdi mdi-help-circle"></i> Sprache | Language | Impressum</span>
+
+
+            <span class="spacer-left" data-toggle="modal" data-target="#startModal" style="cursor:pointer;">
+                 <i class="mdi mdi-comment-processing-outline"></i> Sprache | Language
+            </span>
+
+
+            <span class="spacer-left" data-toggle="modal" data-target="#imprint" style="cursor:pointer;">
+                <i class="mdi mdi-help-circle"></i> Impressum | Imprint
+            </span>
 
         </div>
 
@@ -23,3 +32,40 @@
 
 
 <f:render section="footer" optional="1" />
+
+
+<div class="modal fade" id="imprint" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h1 class="modal-title">Impressum</h1>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eget elit a lacus sollicitudin finibus. Donec sed arcu mauris. Quisque eget fringilla erat. Cras sit amet sagittis nulla. In quis euismod tellus. Nulla pharetra elit risus, at mattis urna dignissim sit amet. Nunc luctus vestibulum mauris, vel tempor lorem luctus vitae.
+                    <br>
+                    <div class="row imprint-logos">
+                        <div class="col-3">
+                            <img src="/typo3conf/ext/visit_tablets/Resources/Public/Backend/images/ViSIT_Logo_web.png"  class="img-fluid" />
+                        </div>
+                        <div class="col-6">
+                            <img src="/typo3conf/ext/visit_tablets/Resources/Public/Backend/images/interreg.png"  class="img-fluid" />
+                        </div>
+                        <div class="col-3">
+                            <img src="/typo3conf/ext/visit_tablets/Resources/Public/fh-kufstein.svg"  class="img-fluid" />
+                        </div>
+                    </div>
+
+
+
+
+
+                    Vivamus placerat aliquet posuere. Phasellus aliquet dolor arcu, non semper orci congue vitae. Integer sit amet eros quis sapien iaculis vestibulum. Pellentesque imperdiet vestibulum tincidunt. Sed accumsan dui in odio scelerisque tristique. Pellentesque eu nisi et libero euismod posuere. Praesent ut lobortis enim. Aenean ultrices convallis orci a tincidunt. Etiam placerat, metus sit amet maximus aliquam, augue dui tristique orci, in dictum dui felis in.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary lang-btn btn-lg" data-dismiss="modal">
+                    Schließen | Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

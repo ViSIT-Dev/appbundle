@@ -84,7 +84,7 @@
 
             var mapMarkers = [];
 
-            var mymap, markerSVGtemplate, lastAciveMarker = lastInAciveMarker= false;
+            var mymap, currentLanguage, markerSVGtemplate, lastAciveMarker = lastInAciveMarker= false;
             {
                 var xmlHttp = new XMLHttpRequest();
                 xmlHttp.open( "GET", "typo3conf/ext/visit_tablets/Resources/Public/Icons/map_marker.svg", false ); // false for synchronous request
@@ -171,15 +171,17 @@
 
             function initMap(lang){
 
-                console.log("init with: " + languages[lang].title);
-
                 hideContent();
 
-                removeAllMarkers();
+                if(lang != currentLanguage){
+                    currentLanguage = lang;
+                    console.log("init with: " + languages[lang].title);
+                    removeAllMarkers();
+                    $.each(poiData[lang], function(key, item) {
+                        addMarkerFromItemToMap(item, false);
+                    });
+                }
 
-                $.each(poiData[lang], function(key, item) {
-                    addMarkerFromItemToMap(item, false);
-                });
             }
 
     

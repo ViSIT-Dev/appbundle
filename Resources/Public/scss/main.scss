@@ -197,6 +197,19 @@ main{
     height: calc(100% - 60px);
     background-color: aqua;
 }
+.imprint-logos{
+
+    > div{
+        text-align: center;
+        img{
+            max-height: 80px;
+        }
+    }
+
+    margin: 20px 0;
+
+}
+
 
 .modal-transparent{
     .modal-content{

@@ -1816,6 +1816,13 @@ main {
   height: calc(100% - 60px);
   background-color: aqua; }
 
+.imprint-logos {
+  margin: 20px 0; }
+  .imprint-logos > div {
+    text-align: center; }
+    .imprint-logos > div img {
+      max-height: 80px; }
+
 .modal-transparent .modal-content {
   background-color: transparent;
   border: 0; }
