@@ -89,6 +89,18 @@
             </trans-unit>
             
             
+            <trans-unit id="tx_visittablets_domain_model_config">
+                <source>Konfiguration</source>
+            </trans-unit>
+            <trans-unit id="tx_visittablets_domain_model_config.name">
+                <source>Konfigurations name</source>
+            </trans-unit>
+            <trans-unit id="tx_visittablets_domain_model_config.content">
+                <source>Konfiguration Inahlt</source>
+            </trans-unit>
+
+
+
             <trans-unit id="tx_visittablets_domain_model_cardpoi">
                 <source>Punkt auf Karte</source>
             </trans-unit>

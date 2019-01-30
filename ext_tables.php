@@ -51,7 +51,7 @@ call_user_func(
             'kartebe', // Submodule key
             '', // Position
             [
-                'CardPoi' => 'list, new, create, edit, update, delete, showOnCard, deleteImage',
+                'CardPoi' => 'list, new, create, edit, update, delete, showOnCard, deleteImage, settings, updateSettings',
             ], 
             [
                 'access' => 'user,group',

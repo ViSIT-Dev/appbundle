@@ -2,7 +2,16 @@
 
     <f:layout name="Tablets" />
 
-    <f:section name="title">Titel Sektion1</f:section>
+    <f:comment>
+        <f:section name="title">
+                <h1>
+                    <span class="lang-content show-de">{title.0}</span>
+                    <span class="lang-content show-en">{title.1}</span>
+                </h1>
+        </f:section>
+    </f:comment>
+
+
     <f:section name="main">
         <div id="mapAppWrapper">
             <div id="cardPoiMap"></div>
@@ -170,6 +179,14 @@
             }
 
             function initMap(lang){
+
+                $(".lang-content").hide();
+                if(lang == 0){
+                    $(".lang-content.show-de").show();
+                }else{
+                    $(".lang-content.show-en").show();
+                }
+
 
                 hideContent();
 

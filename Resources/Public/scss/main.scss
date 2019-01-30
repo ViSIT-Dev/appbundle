@@ -129,6 +129,12 @@ a{
     border-radius: 0.5px;
 }
 
+*[data-toggle="modal"]{
+    &, *{
+        cursor: pointer;
+    }
+}
+
 .btn-primary{
     background-color: $btnPrim;
     border-color: $btnPrim;
@@ -426,3 +432,8 @@ main#scope{
         }
     }
 }
+
+.lang-content{
+    display: none;
+}
+

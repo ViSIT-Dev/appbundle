@@ -83,7 +83,7 @@ return [
 	        'config' => [
 			    'type' => 'input',
 			    'size' => 10,
-			    'eval' => 'double2,required'
+			    'eval' => 'double2,required' // lol why u do dis bob?
 			]
 	    ],
 	    'y' => [
@@ -92,7 +92,7 @@ return [
 	        'config' => [
 			    'type' => 'input',
 			    'size' => 10,
-			    'eval' => 'int'
+			    'eval' => 'int' // lol why u do dis bob?
 			]
 	    ],
 	    'radius' => [
@@ -102,14 +102,14 @@ return [
 			    'type' => 'input',
 			    'size' => 30,
 			    'eval' => 'int,trim',
-                            'range' => [
-                                'lower' => 0,
-                                'upper' => 100,
-                            ],
-                            'slider' => [
-                                'step' => 10,
-                                'width' => 200,
-                            ],
+                        'range' => [
+                            'lower' => 0,
+                            'upper' => 100,
+                        ],
+                        'slider' => [
+                            'step' => 10,
+                            'width' => 200,
+                        ],
 			]
 	    ],
 	    'sub_title' => [

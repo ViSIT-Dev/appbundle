@@ -89,4 +89,12 @@ class Util {
         \TYPO3\CMS\Core\Utility\DebugUtility::debug($var, 'Debug: ' . __FILE__ . ' in Line: ' . __LINE__);
     }
 
+    public static function getConfig($title, $language = 0){
+        return self::getInstance('Visit\VisitTablets\Domain\Repository\ConfigRepository')->get($title, $language);
+    }
+
+    public static function getConfigForAllLanguages($title){
+        return self::getInstance('Visit\VisitTablets\Domain\Repository\ConfigRepository')->getForAllLanguages($title);
+    }
+
 }

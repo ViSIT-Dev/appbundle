@@ -1,7 +1,7 @@
 <f:layout name="Default" />
 
 <f:section name="title">
-    <h2>Karten Element hinzufügen</h2>
+    <h2>Einstellungen</h2>
 </f:section>
 
 <f:section name="sideBar">
@@ -17,12 +17,12 @@
                             <i class="fa fa-list"></i> Liste
                         </f:link.action>
                     </li>
-                    <li class="active">
+                    <li >
                         <f:link.action action="new">
                             <i class="fa fa-plus-circle"></i> Neu
                         </f:link.action>
                     </li>
-                    <li>
+                    <li class="active">
                         <f:link.action action="settings">
                             <i class="fa fa-cog"></i> Einstellungen
                         </f:link.action>
@@ -48,34 +48,29 @@
 
 <f:section name="main">
 
-    <div class="row row-eq-height">
-        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-            <f:form class="form-horizontal form-label-left" action="create"  name="newCardPoi">
-
-                <f:render partial="CardPoiFormFields" />
-
-                <div class="ln_solid"></div>
-                <div class="form-group">
-                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                        <button type="submit" class="btn btn-success">Anlegen</button>
-                    </div>
-                </div>
-
-            </f:form>
+    <f:form class="form-horizontal form-label-left" action="updateSettings"  >
+        <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title-de">Titel Deutsch</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <f:form.textfield id="title-de" name="title-de" class="form-control col-md-7 col-xs-12" value="{title.0}" />
+            </div>
         </div>
-        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-
-            <iframe class="warenkorb" src="http://database.visit.uni-passau.de/drupal/search/wisski" border="0" style="border: 0; width: 100%; min-height: 969px;">
-                Ihr Browser mag keine iFrames :(
-            </iframe>
-
+        <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title-en">Titel English</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <f:form.textfield id="title-en" name="title-en" class="form-control col-md-7 col-xs-12" value="{title.1}" />
+            </div>
         </div>
-    </div>
 
-
+        <div class="ln_solid"></div>
+        <div class="form-group">
+            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                <button type="submit" class="btn btn-success">Speichern</button>
+            </div>
+        </div>
+    </f:form>
 
 </f:section>
 
-<f:section name="footer">
-    <f:render partial="CardPoiFormJs" />
-</f:section>

@@ -2,6 +2,7 @@
 
 namespace Visit\VisitTablets\Domain\Model;
 
+use Visit\VisitTablets\Domain\Interfaces\IHasLanguage;
 use Visit\VisitTablets\Helper\Util;
 
 /***
@@ -18,7 +19,7 @@ use Visit\VisitTablets\Helper\Util;
 /**
  * CardPoi
  */
-class CardPoi extends AbstractEntityWithMedia {
+class CardPoi extends AbstractEntityWithMedia  implements IHasLanguage {
     
     /**
      * title

@@ -5,20 +5,30 @@
  <div class="titleBar">
     <nav>
         <div class="left">
-            <a href="./">
-                <i class="mdi mdi-home"></i> <h1 class="spacer-left"><f:render section="title" /></h1>
-            </a>
+            <span data-toggle="modal" data-target="#startModal">
+                <i class="mdi mdi-home"></i>
+                <h1 class="spacer-left">
+
+
+
+                        <f:render section="title" />
+
+                    <f:comment>
+                        <f:cObject typoscriptObjectPath="lib.dynamicContent" data="{pageUid: '{data.uid}', colPos: '1'}" />
+                    </f:comment>
+                </h1>
+            </span>
         </div>
         <div class="right">
 
 
 
-            <span class="spacer-left" data-toggle="modal" data-target="#startModal" style="cursor:pointer;">
+            <span class="spacer-left" data-toggle="modal" data-target="#startModal">
                  <i class="mdi mdi-comment-processing-outline"></i> Sprache | Language
             </span>
 
 
-            <span class="spacer-left" data-toggle="modal" data-target="#imprint" style="cursor:pointer;">
+            <span class="spacer-left" data-toggle="modal" data-target="#imprint">
                 <i class="mdi mdi-help-circle"></i> Impressum | Imprint
             </span>
 

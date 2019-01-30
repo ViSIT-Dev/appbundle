@@ -58,16 +58,16 @@ lib.dynamicContent {
             pidInList.data = register:pageUid
             pidInList.override.data = register:contentFromPid
         }
-        renderObj{
-            stdWrap{
-                dataWrap = {register:elementWrap}
-                required = 1
-            }
-        }
-        stdWrap {
-            dataWrap = {register:wrap}
-            required = 1
-        }
+#        renderObj{
+#            stdWrap{
+#                dataWrap = {register:elementWrap}
+#                required = 1
+#            }
+#        }
+#        stdWrap {
+#            dataWrap = {register:wrap}
+#            required = 1
+#        }
     }
     90 = RESTORE_REGISTER
 }

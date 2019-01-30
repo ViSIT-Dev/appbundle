@@ -1768,6 +1768,9 @@ a {
 .btn {
   border-radius: 0.5px; }
 
+*[data-toggle="modal"], *[data-toggle="modal"] * {
+  cursor: pointer; }
+
 .btn-primary {
   background-color: #d1880f;
   border-color: #d1880f; }
@@ -1985,5 +1988,8 @@ main#scope {
         main#scope .content-holder .scroller .datapoint.active {
           display: inline-block;
           opacity: 1; }
+
+.lang-content {
+  display: none; }
 
 /*# sourceMappingURL=main.css.map */

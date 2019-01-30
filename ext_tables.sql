@@ -1,4 +1,27 @@
 #
+# Table structure for table 'tx_visittablets_domain_model_config'
+#
+CREATE TABLE tx_visittablets_domain_model_config (
+
+	uid int(11) NOT NULL auto_increment,
+	pid int(11) DEFAULT '0' NOT NULL,
+
+	language int(11) DEFAULT '0' NOT NULL,
+
+	name varchar(255) DEFAULT '' NOT NULL,
+	content text DEFAULT NULL,
+
+	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
+	crdate int(11) unsigned DEFAULT '0' NOT NULL,
+
+	PRIMARY KEY (uid),
+	KEY parent (pid),
+	KEY language (language)
+
+);
+
+
+#
 # Table structure for table 'tx_visittablets_domain_model_inmate'
 #
 CREATE TABLE tx_visittablets_domain_model_inmate (
@@ -61,15 +84,12 @@ CREATE TABLE tx_visittablets_domain_model_cardpoi (
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
 	cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
 
-	sys_language_uid int(11) DEFAULT '0' NOT NULL,
-	l10n_parent int(11) DEFAULT '0' NOT NULL,
-	l10n_diffsource mediumblob,
-
 	PRIMARY KEY (uid),
 	KEY parent (pid),
-	KEY language (l10n_parent,sys_language_uid)
 
 );
+
+
 #
 # Table structure for table 'tx_visittablets_domain_model_scopepoi'
 #
