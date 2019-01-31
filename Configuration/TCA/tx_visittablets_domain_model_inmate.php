@@ -7,57 +7,69 @@ return [
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
         'sortby' => 'sorting',
-        'languageField' => 'sys_language_uid',
-        'transOrigPointerField' => 'l10n_parent',
-        'transOrigDiffSourceField' => 'l10n_diffsource',
+//        'languageField' => 'sys_language_uid',
+//        'transOrigPointerField' => 'l10n_parent',
+//        'transOrigDiffSourceField' => 'l10n_diffsource',
 		'enablecolumns' => [
         ],
-		'searchFields' => 'first_name,last_name,date_of_birth,place_of_birth,nationality,day_of_passing,profession,prison_start,prison_end,subtitle,teasertext,text,event,media,vip,prison_cell',
+		'searchFields' => 'language,first_name,last_name,date_of_birth,place_of_birth,nationality,day_of_passing,profession,prison_start,prison_end,subtitle,teasertext,text,event,media,vip,prison_cell',
         'iconfile' => 'EXT:visit_tablets/Resources/Public/Icons/tx_visittablets_domain_model_inmate.gif'
     ],
     'interface' => [
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, first_name, last_name, date_of_birth, place_of_birth, nationality, day_of_passing, profession, prison_start, prison_end, subtitle, teasertext, text, event, media, vip, prison_cell',
+		'showRecordFieldList' => 'language, first_name, last_name, date_of_birth, place_of_birth, nationality, day_of_passing, profession, prison_start, prison_end, subtitle, teasertext, text, event, media, vip, prison_cell',
     ],
     'types' => [
-		'1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, first_name, last_name, date_of_birth, place_of_birth, nationality, day_of_passing, profession, prison_start, prison_end, subtitle, teasertext, text, event, media, vip, prison_cell'],
+		'1' => ['showitem' => 'language, first_name, last_name, date_of_birth, place_of_birth, nationality, day_of_passing, profession, prison_start, prison_end, subtitle, teasertext, text, event, media, vip, prison_cell'],
     ],
     'columns' => [
-		'sys_language_uid' => [
-			'exclude' => true,
-			'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.language',
-			'config' => [
-				'type' => 'select',
-				'renderType' => 'selectSingle',
-				'special' => 'languages',
-				'items' => [
-					[
-						'LLL:EXT:lang/locallang_general.xlf:LGL.allLanguages',
-						-1,
-						'flags-multiple'
-					]
-				],
-				'default' => 0,
-			],
-        ],
-        'l10n_parent' => [
-            'displayCond' => 'FIELD:sys_language_uid:>:0',
-            'exclude' => true,
-            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.l18n_parent',
+//		'sys_language_uid' => [
+//			'exclude' => true,
+//			'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.language',
+//			'config' => [
+//				'type' => 'select',
+//				'renderType' => 'selectSingle',
+//				'special' => 'languages',
+//				'items' => [
+//					[
+//						'LLL:EXT:lang/locallang_general.xlf:LGL.allLanguages',
+//						-1,
+//						'flags-multiple'
+//					]
+//				],
+//				'default' => 0,
+//			],
+//        ],
+//        'l10n_parent' => [
+//            'displayCond' => 'FIELD:sys_language_uid:>:0',
+//            'exclude' => true,
+//            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.l18n_parent',
+//            'config' => [
+//                'type' => 'select',
+//                'renderType' => 'selectSingle',
+//                'items' => [
+//                    ['', 0],
+//                ],
+//                'foreign_table' => 'tx_visittablets_domain_model_inmate',
+//                'foreign_table_where' => 'AND tx_visittablets_domain_model_inmate.pid=###CURRENT_PID### AND tx_visittablets_domain_model_inmate.sys_language_uid IN (-1,0)',
+//            ],
+//        ],
+//        'l10n_diffsource' => [
+//            'config' => [
+//                'type' => 'passthrough',
+//            ],
+//        ],
+
+
+        'language' => [
+            'exclude' => false,
+            'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:language',
             'config' => [
-                'type' => 'select',
-                'renderType' => 'selectSingle',
-                'items' => [
-                    ['', 0],
-                ],
-                'foreign_table' => 'tx_visittablets_domain_model_inmate',
-                'foreign_table_where' => 'AND tx_visittablets_domain_model_inmate.pid=###CURRENT_PID### AND tx_visittablets_domain_model_inmate.sys_language_uid IN (-1,0)',
-            ],
+                'type' => 'input',
+                'size' => 10,
+                'eval' => 'int'
+            ]
         ],
-        'l10n_diffsource' => [
-            'config' => [
-                'type' => 'passthrough',
-            ],
-        ],
+
         'first_name' => [
 	        'exclude' => false,
 	        'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_inmate.first_name',

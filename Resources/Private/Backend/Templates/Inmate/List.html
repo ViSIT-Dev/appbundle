@@ -14,6 +14,7 @@
     <table id="datatable" class="table table-striped table-bordered">
         <thead>
             <tr>
+                <th>Sprache</th>
                 <th>Name</th>
                 <th>Beschreibung</th>
                 <th>Geburtsdatum</th>
@@ -29,6 +30,7 @@
             
             <f:for each="{inmates}" as="inmate">
                 <tr>
+                    <td>{inmate.langTitle}</td>
                     <td>{inmate.fullName}</td>
                     <td>
                         <f:format.crop maxCharacters="35"><f:format.stripTags>{inmate.description}</f:format.stripTags></f:format.crop>

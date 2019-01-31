@@ -1,6 +1,9 @@
 <?php
 namespace Visit\VisitTablets\Domain\Model;
 
+use Visit\VisitTablets\Domain\Interfaces\IHasLanguage;
+use Visit\VisitTablets\Helper\Util;
+
 /***
  *
  * This file is part of the "tablets" Extension for TYPO3 CMS.
@@ -15,7 +18,7 @@ namespace Visit\VisitTablets\Domain\Model;
 /**
  * Inmate
  */
-class Inmate extends AbstractEntityWithMedia {
+class Inmate extends AbstractEntityWithMedia implements IHasLanguage {
     
     /**
      * firstName
@@ -122,6 +125,16 @@ class Inmate extends AbstractEntityWithMedia {
      * @cascade remove
      */
     protected $prisonCell = null;
+
+
+    /**
+     * language
+     * @validate NotEmpty
+     * @var int
+     */
+    protected $language = 0;
+
+
 
     /**
      * __construct
@@ -480,6 +493,30 @@ class Inmate extends AbstractEntityWithMedia {
     {
         return $this->firstName . " " . $this->lastName;
     }
-    
-    
+
+
+    /**
+     * Returns the language
+     *
+     * @return int $language
+     */
+    public function getLanguage()
+    {
+        return $this->language;
+    }
+
+    /**
+     * Sets the language
+     *
+     * @param int $language
+     * @return void
+     */
+    public function setLanguage($language)
+    {
+        $this->language = $language;
+    }
+
+    public function getLangTitle(){
+        return Util::getLanguageNameById($this->getLanguage());
+    }
 }

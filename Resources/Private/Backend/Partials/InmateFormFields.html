@@ -1,3 +1,5 @@
+<f:render partial="LanguageSelect" />
+
 <div class="form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="firstName">Vorname <span class="required">*</span></label>
     <div class="col-md-9 col-sm-9 col-xs-12">
@@ -41,7 +43,7 @@
     </div>
 </div>
 <div class="form-group date date-picker">
-    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="prisonStart">Eingebuchtet </label>
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="prisonStart">Inhaftiert </label>
     <div class="col-md-9 col-sm-9 col-xs-12">
         <f:form.textfield id="prisonStart" property="prisonStart" value="{prisonStart ->f:format.date()}" class="form-control col-md-7 col-xs-12" additionalAttributes="{readonly:'readonly'}"/>
         <span class="input-group-addon">
@@ -56,6 +58,13 @@
         <span class="input-group-addon">
             <span class="glyphicon glyphicon-calendar"></span>
         </span>
+    </div>
+</div>
+
+<div class="form-group date date-picker">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="prisonCell">Zelle </label>
+    <div class="col-md-9 col-sm-9 col-xs-12">
+        <f:form.select id="prisonCell" property="prisonCell" options="{prisonCells}" optionLabelField="name" class="form-control col-md-7 col-xs-12" />
     </div>
 </div>
 

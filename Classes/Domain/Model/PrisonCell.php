@@ -23,6 +23,12 @@ class PrisonCell extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var string
      */
     protected $name = '';
+    /**
+     * nameEn
+     *
+     * @var string
+     */
+    protected $nameEn = '';
 
     /**
      * imates
@@ -75,6 +81,26 @@ class PrisonCell extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setName($name)
     {
         $this->name = $name;
+    }
+    /**
+     * Returns the nameEn
+     *
+     * @return string $nameEn
+     */
+    public function getNameEn()
+    {
+        return $this->nameEn;
+    }
+
+    /**
+     * Sets the nameEn
+     *
+     * @param string $nameEn
+     * @return void
+     */
+    public function setNameEn($nameEn)
+    {
+        $this->nameEn = $nameEn;
     }
 
     /**

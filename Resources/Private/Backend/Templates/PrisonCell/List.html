@@ -15,7 +15,7 @@
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Insassen</th>
+                <th>Name En</th>
                 <th></th>
             </tr>
         </thead>
@@ -26,9 +26,12 @@
             <f:for each="{prisonCells}" as="prisonCell">
                 <tr>
                     <td>{prisonCell.name}</td>
-                    <td>
-                        <f:format.crop maxCharacters="35"><f:format.stripTags>{prisonCell.inlineInmate}</f:format.stripTags></f:format.crop>
-                    </td>
+                    <td>{prisonCell.nameEn}</td>
+                    <f:comment>
+                        <td>
+                            <f:format.crop maxCharacters="35"><f:format.stripTags>{prisonCell.inlineInmate}</f:format.stripTags></f:format.crop>
+                        </td>
+                    </f:comment>
                     <td>
                         <f:link.action action="edit" arguments="{prisonCell : prisonCell}" class="btn btn-primary btn-xs">
                             <i class="fa fa-pencil fa-2x" aria-hidden="true"></i>

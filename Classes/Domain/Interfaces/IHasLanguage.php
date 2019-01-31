@@ -19,4 +19,6 @@ interface IHasLanguage{
 
     public function setLanguage($language);
 
+    public function getLangTitle();
+
 }

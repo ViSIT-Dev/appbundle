@@ -1,6 +1,8 @@
 <?php
 namespace Visit\VisitTablets\Controller;
 
+use Visit\VisitTablets\Helper\Util;
+
 /***
  *
  * This file is part of the "tablets" Extension for TYPO3 CMS.
@@ -16,6 +18,7 @@ namespace Visit\VisitTablets\Controller;
  * InmateController
  */
 class InmateController extends AbstractVisitController {
+
     /**
      * inmateRepository
      *
@@ -24,8 +27,19 @@ class InmateController extends AbstractVisitController {
      */
     protected $inmateRepository = null;
 
+    /**
+     * prisonCellRepository
+     *
+     * @var \Visit\VisitTablets\Domain\Repository\PrisonCellRepository
+     * @inject
+     */
+    protected $prisonCellRepository = null;
+
     
     public function initializeAction() {
+
+        parent::initializeAction(); //DO NOT FORGET!
+
         if ($this->arguments->hasArgument('newInmate') || $this->arguments->hasArgument('inmate')) {
             $argument = ($this->arguments->hasArgument('inmate')) ? "inmate" : "newInmate";
             // fix dates from imput
@@ -54,7 +68,7 @@ class InmateController extends AbstractVisitController {
      */
     public function newAction()
     {
-
+        $this->view->assign('prisonCells', $this->prisonCellRepository->findAll());
     }
 
     /**
@@ -79,7 +93,9 @@ class InmateController extends AbstractVisitController {
      */
     public function editAction(\Visit\VisitTablets\Domain\Model\Inmate $inmate)
     {
-        $this->view->assign('inmate', $inmate);
+        $this->view
+            ->assign('inmate', $inmate)
+            ->assign('prisonCells', $this->prisonCellRepository->findAll());
     }
 
     /**

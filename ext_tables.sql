@@ -52,13 +52,10 @@ CREATE TABLE tx_visittablets_domain_model_inmate (
 
 	sorting int(11) DEFAULT '0' NOT NULL,
 
-	sys_language_uid int(11) DEFAULT '0' NOT NULL,
-	l10n_parent int(11) DEFAULT '0' NOT NULL,
-	l10n_diffsource mediumblob,
+		language int(11) DEFAULT '0' NOT NULL,
 
 	PRIMARY KEY (uid),
 	KEY parent (pid),
-	KEY language (l10n_parent,sys_language_uid)
 
 );
 
@@ -128,9 +125,8 @@ CREATE TABLE tx_visittablets_domain_model_prisoncell (
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
 
-	inmate int(11) unsigned DEFAULT '0' NOT NULL,
-
 	name varchar(255) DEFAULT '' NOT NULL,
+	name_en varchar(255) DEFAULT '' NOT NULL,
 	imates int(11) unsigned DEFAULT '0',
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
@@ -139,13 +135,8 @@ CREATE TABLE tx_visittablets_domain_model_prisoncell (
 
 	sorting int(11) DEFAULT '0' NOT NULL,
 
-	sys_language_uid int(11) DEFAULT '0' NOT NULL,
-	l10n_parent int(11) DEFAULT '0' NOT NULL,
-	l10n_diffsource mediumblob,
-
 	PRIMARY KEY (uid),
 	KEY parent (pid),
-	KEY language (l10n_parent,sys_language_uid)
 
 );
 
