@@ -61,6 +61,7 @@ call_user_func(
             'ext-visit-glossar' => 'glossar.svg',
             'ext-visit-karte' => 'karte.svg',
             'ext-visit-fernrohr' => 'scope.svg',
+            'ext-visit-datei' => 'file.svg',
         ];
         $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
         foreach ($icons as $identifier => $path) {

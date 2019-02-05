@@ -31,7 +31,7 @@ call_user_func(
     if (TYPO3_MODE === 'BE') {
 
         //prepare backend menu fuer modules
-        $GLOBALS['TBE_MODULES'] = array_merge(array('tabletbe' => '', 'fernrohrbe' => ''), $GLOBALS['TBE_MODULES']);
+        $GLOBALS['TBE_MODULES'] = array_merge(array('tabletbe' => '', 'fernrohrbe' => '', 'dateibe' => ''), $GLOBALS['TBE_MODULES']);
 
         $GLOBALS['TBE_MODULES']['_configuration']['tabletbe'] = [
             'labels' => 'LLL:EXT:' . $extKey . '/Resources/Private/Language/locallang_tabbe.xlf',
@@ -42,6 +42,11 @@ call_user_func(
             'labels' => 'LLL:EXT:' . $extKey . '/Resources/Private/Language/locallang_fernbe.xlf',
             'name' => 'fernrohrbe',
             'iconIdentifier' => 'ext-visit-backend',
+        ];
+        $GLOBALS['TBE_MODULES']['_configuration']['dateibe'] = [
+            'labels' => 'LLL:EXT:' . $extKey . '/Resources/Private/Language/locallang_dateibe.xlf',
+            'name' => 'dateibe',
+            'iconIdentifier' => 'ext-visit-datei',
         ];
 
         
@@ -93,13 +98,29 @@ call_user_func(
                     'navigationComponentId' => 'typo3-pagetree',
                 ]
             );
-            
+
+            \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
+                'Visit.VisitTablets',
+                'dateibe',
+                'datei', // Submodule key
+                '',
+                [
+                    'File' => 'list, new, create, edit, update, delete',
+                ],
+                [
+                    'access' => 'user,group',
+                    'icon'   => 'EXT:' . $extKey . '/Resources/Public/Icons/file.svg',
+                    'labels' => 'LLL:EXT:' . $extKey . '/Resources/Private/Language/locallang_datei.xlf',
+                ]
+            );
+
             // Register the navigation component
             \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addNavigationComponent(
                 'tools_VisitFernrohr',
                 'typo3-pagetree',
                 'fernrohr'
             );
+
     }
 
 
