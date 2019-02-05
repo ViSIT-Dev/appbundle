@@ -17,7 +17,7 @@ use \Visit\VisitTablets\Domain\Model\ScopePoi;
 /**
  * CardPoiController
  */
-class ScopeController extends AbstractVisitController {
+class ScopeController extends AbstractVisitController  implements IRenderFrontend {
     
     /**
      * Displays a page tree

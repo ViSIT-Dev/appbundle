@@ -2,7 +2,7 @@
 
 namespace Visit\VisitTablets\Domain\Model;
 
-use Visit\VisitTablets\Domain\Interfaces\IHasLanguage;
+use Visit\VisitTablets\Domain\IHasLanguage;
 use Visit\VisitTablets\Helper\Util;
 
 /***

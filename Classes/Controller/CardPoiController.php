@@ -19,7 +19,7 @@ use \TYPO3\CMS\Core\Messaging\AbstractMessage;
 /**
  * CardPoiController
  */
-class CardPoiController extends AbstractVisitController {
+class CardPoiController extends AbstractVisitController implements IRenderFrontend {
 
     /**
      * cardPoiRepository
@@ -202,7 +202,7 @@ class CardPoiController extends AbstractVisitController {
     
     
     /**
-     * action renderFronten
+     * action renderFrontend
      * @allowAllUsers
      * 
      * @return void

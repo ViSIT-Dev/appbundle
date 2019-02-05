@@ -10,15 +10,11 @@
  *
  ***/
 
-namespace Visit\VisitTablets\Domain\Interfaces;
+namespace Visit\VisitTablets\Controller;
 
 
-interface IHasLanguage{
+interface IRenderFrontend{
 
-    public function getLanguage();
-
-    public function setLanguage($language);
-
-    public function getLangTitle();
+    public function renderFrontendAction();
 
 }

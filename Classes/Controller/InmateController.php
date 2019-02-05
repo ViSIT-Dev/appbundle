@@ -17,7 +17,7 @@ use Visit\VisitTablets\Helper\Util;
 /**
  * InmateController
  */
-class InmateController extends AbstractVisitController {
+class InmateController extends AbstractVisitController  implements IRenderFrontend{
 
     /**
      * inmateRepository
@@ -119,8 +119,20 @@ class InmateController extends AbstractVisitController {
      */
     public function deleteAction(\Visit\VisitTablets\Domain\Model\Inmate $inmate)
     {
-        $this->addFlashMessage('The object was deleted. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
         $this->inmateRepository->remove($inmate);
         $this->redirect('list');
     }
+
+    /**
+     * action renderFrontend
+     * @allowAllUsers
+     *
+     * @return void
+     */
+    public function renderFrontendAction()
+    {
+        $this->view->assign('title',"asd");
+    }
+
+
 }

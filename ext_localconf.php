@@ -13,13 +13,10 @@ call_user_func(
             'Visit.VisitTablets',
             'Glossarfe',
             [
-                'Glossar' => 'show'
+                'Inmate' => 'renderFrontend'
             ],
             // non-cacheable actions
             [
-                'Inmate' => 'create, update, delete',
-                'CardPoi' => 'create, update, delete',
-                'PrisonCell' => 'create, update, delete'
             ]
         );
 
@@ -27,13 +24,10 @@ call_user_func(
             'Visit.VisitTablets',
             'Galeriefe',
             [
-                'Galerie' => 'show'
+                'Gallery' => 'renderFrontend'
             ],
             // non-cacheable actions
             [
-                'Inmate' => 'create, update, delete',
-                'CardPoi' => 'create, update, delete',
-                'PrisonCell' => 'create, update, delete'
             ]
         );
 
