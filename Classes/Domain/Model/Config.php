@@ -106,9 +106,8 @@ class Config extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity implements I
         $this->language = $language;
     }
 
-    public function getLangName(){
+
+    public function getLangTitle(){
         return Util::getLanguageNameById($this->getLanguage());
     }
-
-    
 }

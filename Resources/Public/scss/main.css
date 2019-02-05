@@ -1715,7 +1715,8 @@ template {
   position: fixed;
   min-width: 33%;
   opacity: .6;
-  bottom: 0; }
+  bottom: 0;
+  z-index: 9999; }
 
 /*.mdi::before {
     font-size: 24px;
