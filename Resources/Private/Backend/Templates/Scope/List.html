@@ -16,6 +16,7 @@
                 <th>X</th>
                 <th>Y</th>
                 <th>Radius</th>
+                <th>Typ</th>
                 <th>Beschreibung</th>
                 <th></th>
             </tr>
@@ -27,8 +28,15 @@
                     <td>{scopePoi.x}</td>
                     <td>{scopePoi.y}</td>
                     <td>{scopePoi.radius}</td>
+                    <td>
+                        <f:if condition="{scopePoi.fullscreenvideo}">
+                            <f:then><i class="fa fa-video-camera fa-2x" aria-hidden="true"></i></f:then>
+                            <f:else><i class="fa fa-image fa-2x" aria-hidden="true"></i></f:else>
+                        </f:if></td>
                     <td>                            
-                        <f:format.crop maxCharacters="35"><f:format.stripTags>{scopePoi.description}</f:format.stripTags></f:format.crop>
+                        <f:format.crop maxCharacters="35">
+                            <f:format.stripTags>{scopePoi.description}</f:format.stripTags>
+                        </f:format.crop>
                     </td>
                     <td>
                         <f:link.action action="edit" arguments="{scopePoi : scopePoi}" class="btn btn-primary btn-xs">

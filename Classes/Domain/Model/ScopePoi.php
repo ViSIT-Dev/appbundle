@@ -59,7 +59,23 @@ class ScopePoi extends AbstractEntityWithMedia {
      * @var string
      */
     protected $description = '';
+    
+    /**
+     * fullscreenvideo
+     * @validate NotEmpty
+     * @var boolean
+     */
+    protected $fullscreenvideo = false;
 
+    
+    function getFullscreenvideo() {
+        return $this->fullscreenvideo;
+    }
+
+    function setFullscreenvideo($fullscreenvideo) {
+        $this->fullscreenvideo = $fullscreenvideo;
+    }
+    
     /**
      * Returns the title
      *

@@ -1,4 +1,4 @@
-<html  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 
     <f:layout name="Fernrohr" />
 
@@ -20,16 +20,17 @@
                         <div class="poi" id="poi-{poi.uid}" style="
 transform: translate({poi.y - poi.radiusHalf}px,{poi.x - poi.radiusHalf}px);height:{poi.radius}px;width:{poi.radius}px;">
                             <div class="inside">
-                                <f:if condition="{config.debugmode} && false">
+                                <f:if condition="{config.debugmode} || false">
                                     <f:then>
                                         {poi.title}
                                         <br />X: {poi.x}
                                         <br />Y: {poi.y}
                                         <br />UID: {poi.uid}
+                                        <br />FS: {poi.fullscreenvideo}
                                     </f:then>
                                     <f:else>
                                         <figure>
-                                            <img class="poi-icon" src="/typo3conf/ext/visit_tablets/Resources/Public/Icons/Scope/Festung_ICON.svg" />
+                                            <img class="poi-icon" src="{config.poiicon}" />
                                         </figure>
                                     </f:else>
                                 </f:if>
@@ -37,13 +38,14 @@ transform: translate({poi.y - poi.radiusHalf}px,{poi.x - poi.radiusHalf}px);heig
                         </div>
                     </f:for>
                 </div>
-                <f:if condition="{config.debugmode}">
+                <f:if condition="{config.debugmode || true}">
                     <div id="debug">
                         <p>
                             maxx: {config.maxx}
                             <br />maxy: {config.maxy}
                             <br />maxxpx: {config.maxxpx}
                             <br />maxypx: {config.maxypx}
+                            <br />icon: {config.poiicon}
                             <br />CurrentX: <span id="currentX"></span>
                             <br />CurrentY: <span id="currentY"></span>
                             <br />Target: <span id="target">-</span>
@@ -75,22 +77,32 @@ transform: translate({poi.y - poi.radiusHalf}px,{poi.x - poi.radiusHalf}px);heig
         <div class="content-holder{f:if(condition:'{config.debugmode}', then:' debug')}">
             <div class="scroller">
                 <f:for each="{pois}" as="datapoint">
-                    <div class="datapoint" id="datapoint-id-{datapoint.uid}" data-id="{datapoint.uid}" >
+                    <f:if condition="!{datapoint.fullscreenvideo}">
+                        <div class="datapoint" id="datapoint-id-{datapoint.uid}" data-id="{datapoint.uid}" >
+                            <h1 class="lang-de">{datapoint.title}</h1>
 
-                        <h1 class="lang-de">{datapoint.title}</h1>
+                            <h2 class="lang-de">{datapoint.subTitle}</h2>
 
-                        <h2 class="lang-de">{datapoint.subTitle}</h2>
+                            <figure>
+                                <f:render partial="RenderMedia" arguments="{media: datapoint.media}"/>
+                            </figure>
 
-                        <figure>
-                            <f:render partial="RenderMedia" arguments="{media: datapoint.media}"/>
-                        </figure>
-
-                        <div class="desc-text lang-de">
-                            <f:format.raw>
-                                {datapoint.description}
-                            </f:format.raw>
+                            <div class="desc-text lang-de">
+                                <f:format.raw>
+                                    {datapoint.description}
+                                </f:format.raw>
+                            </div>
                         </div>
-                    </div>
+                    </f:if>
+                </f:for>
+            </div>
+            <div class="video-holder">
+                <f:for each="{pois}" as="datapoint">
+                    <f:if condition="{datapoint.fullscreenvideo}">
+                        <div class="datapoint fullscreen transparent" id="datapoint-id-{datapoint.uid}" data-id="{datapoint.uid}" >
+                            <f:render partial="RenderMedia" arguments="{media: datapoint.media}"/>
+                        </div>
+                    </f:if>
                 </f:for>
             </div>
         </div>

@@ -165,6 +165,9 @@
             <trans-unit id="tx_visittablets_domain_model_scopepoi.description">
                 <source>Beschreibung</source>
             </trans-unit>
+            <trans-unit id="tx_visittablets_domain_model_scopepoi.fullscreenvideo">
+                <source>Fullscreen Video</source>
+            </trans-unit>
         </body>
     </file>
 </xliff>

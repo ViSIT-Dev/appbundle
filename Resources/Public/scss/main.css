@@ -1974,21 +1974,37 @@ main#scope {
       display: block; }
     main#scope .content-holder.debug {
       opacity: 0.2; }
+    main#scope .content-holder .video-holder {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%; }
+      main#scope .content-holder .video-holder video, main#scope .content-holder .video-holder figure, main#scope .content-holder .video-holder .datapoint {
+        height: 100%;
+        width: 100%; }
+      main#scope .content-holder .video-holder .datapoint {
+        margin-top: auto; }
     main#scope .content-holder .scroller {
       margin: 200px auto;
       width: 50%;
       text-align: center;
       background: black;
-      min-height: 600px; }
-      main#scope .content-holder .scroller .datapoint {
-        display: none;
-        margin-top: 50px;
-        transition-duration: 2s;
-        opacity: 0;
-        color: white; }
-        main#scope .content-holder .scroller .datapoint.active {
-          display: inline-block;
-          opacity: 1; }
+      min-height: 600px;
+      display: none;
+      opacity: 0; }
+      main#scope .content-holder .scroller.active {
+        display: inline-block;
+        opacity: 1; }
+    main#scope .content-holder .datapoint {
+      display: none;
+      margin-top: 50px;
+      transition-duration: 2s;
+      opacity: 0;
+      color: white; }
+      main#scope .content-holder .datapoint.active {
+        display: inline-block;
+        opacity: 1; }
 
 .lang-content {
   display: none; }
