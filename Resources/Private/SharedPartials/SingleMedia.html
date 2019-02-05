@@ -18,6 +18,13 @@
                 Your browser does not support HTML5 video.
             </video>
         </f:case>
+        
+        <f:case value="video/webm">
+            <video muted="" controls="" controlslist="nodownload" >
+                <source src="{f:uri.image(image: media)}" type="video/webm">
+                Your browser does not support HTML5 video.
+            </video>
+        </f:case>
 
         <f:case value="text/plain">
             <f:render partial="Render3D" arguments="{media: media}"/>
