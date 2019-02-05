@@ -412,22 +412,45 @@ main#scope{
         &.debug{
             opacity: 0.2;
         }
+        .video-holder{
+            position: fixed;
+            top:0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            video, figure, .datapoint{
+                height: 100%;
+                width: 100%;
+            }
+            .datapoint{
+                margin-top: auto;
+            }
+        }
         .scroller{
             margin: 200px auto;
             width: 50%;
             text-align: center;
             background: black;
             min-height: 600px;
-            .datapoint{
-                display: none;
-                margin-top: 50px;
-                transition-duration: 2s;
-                opacity: 0;
-                color: white;
-                &.active{
-                    display: inline-block;
-                    opacity: 1;
-                }
+            display: none;
+            opacity: 0;
+            &.active{
+                display: inline-block;
+                opacity: 1;
+            }
+        }
+        .datapoint{
+            display: none;
+            margin-top: 50px;
+            transition-duration: 2s;
+            opacity: 0;
+            color: white;
+            &.transparent{
+
+            }
+            &.active{
+                display: inline-block;
+                opacity: 1;
             }
         }
     }

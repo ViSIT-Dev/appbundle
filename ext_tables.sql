@@ -104,6 +104,7 @@ CREATE TABLE tx_visittablets_domain_model_scopepoi (
 	radius int(11) DEFAULT '0' NOT NULL,
 	sub_title varchar(255) DEFAULT '' NOT NULL,
 	media int(11) unsigned NOT NULL default '0',
+        fullscreenvideo tinyint(1) unsigned DEFAULT '0' NOT NULL,
 	description text NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
