@@ -86,7 +86,9 @@ class Util {
     }
 
     public static function debug($var) {
-        \TYPO3\CMS\Core\Utility\DebugUtility::debug($var, 'Debug: ' . __FILE__ . ' in Line: ' . __LINE__);
+        $bt = debug_backtrace();
+        $caller = array_shift($bt);
+        \TYPO3\CMS\Core\Utility\DebugUtility::debug($var, 'Debug: ' . $caller['file'] . ' in Line: ' . $caller['line']);
     }
 
     public static function getConfig($title, $language = 0){

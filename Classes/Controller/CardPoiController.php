@@ -77,8 +77,6 @@ class CardPoiController extends AbstractVisitController {
      * @return void
      */
     public function listAction(){
-        Util::getLanguages();
-
         $cardPois = $this->cardPoiRepository->findAll();
         $this->view->assign('cardPois', $cardPois);
     }
