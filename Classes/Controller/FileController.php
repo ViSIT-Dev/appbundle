@@ -26,5 +26,23 @@ class FileController extends AbstractVisitController  {
 
     }
 
-    
+
+    /**
+     * action upload
+     * @return void
+     */
+    public function uploadAction(){
+
+    }
+
+
+    /**
+     * action partner
+     * @return void
+     */
+    public function partnerAction(){
+
+    }
+
+
 }

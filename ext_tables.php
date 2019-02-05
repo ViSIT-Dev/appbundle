@@ -46,7 +46,7 @@ call_user_func(
         $GLOBALS['TBE_MODULES']['_configuration']['dateibe'] = [
             'labels' => 'LLL:EXT:' . $extKey . '/Resources/Private/Language/locallang_dateibe.xlf',
             'name' => 'dateibe',
-            'iconIdentifier' => 'ext-visit-datei',
+            'iconIdentifier' => 'ext-visit-backend',
         ];
 
         
@@ -105,7 +105,7 @@ call_user_func(
                 'datei', // Submodule key
                 '',
                 [
-                    'File' => 'list, new, create, edit, update, delete',
+                    'File' => 'list, upload, partner',
                 ],
                 [
                     'access' => 'user,group',
