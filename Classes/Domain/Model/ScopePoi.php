@@ -12,11 +12,12 @@ namespace Visit\VisitTablets\Domain\Model;
  *  (c) 2018 Robert Kathrein
  *
  ***/
-
+use \Visit\VisitTablets\Domain\IHasLanguage;
+use \Visit\VisitTablets\Helper\Util;
 /**
  * CardPoi
  */
-class ScopePoi extends AbstractEntityWithMedia {
+class ScopePoi extends AbstractEntityWithMedia implements IHasLanguage {
     
     /**
      * title
@@ -66,6 +67,14 @@ class ScopePoi extends AbstractEntityWithMedia {
      * @var boolean
      */
     protected $fullscreenvideo = false;
+
+    
+    /**
+     * language
+     * @validate NotEmpty
+     * @var int
+     */
+    protected $language = 0;
 
     
     function getFullscreenvideo() {
@@ -212,5 +221,30 @@ class ScopePoi extends AbstractEntityWithMedia {
     {
         $this->description = $description;
     }
-    
+
+    /**
+     * Returns the language
+     *
+     * @return int $language
+     */
+    public function getLanguage()
+    {
+        return $this->language;
+    }
+
+    /**
+     * Sets the language
+     *
+     * @param int $language
+     * @return void
+     */
+    public function setLanguage($language)
+    {
+        $this->language = $language;
+    }
+
+    public function getLangTitle(){
+        return Util::getLanguageNameById($this->getLanguage());
+    }
+
 }

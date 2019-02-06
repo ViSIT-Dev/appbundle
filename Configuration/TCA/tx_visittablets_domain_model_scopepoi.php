@@ -32,22 +32,31 @@ return [
 		'1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, title, x, y, sub_title, media, description'],
     ],
     'columns' => [
-		'sys_language_uid' => [
-			'exclude' => true,
-			'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.language',
-			'config' => [
-				'type' => 'select',
-				'renderType' => 'selectSingle',
-				'special' => 'languages',
-				'items' => [
-					[
-						'LLL:EXT:lang/locallang_general.xlf:LGL.allLanguages',
-						-1,
-						'flags-multiple'
-					]
-				],
-				'default' => 0,
-			],
+        'language' => [
+            'exclude' => false,
+            'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:language',
+            'config' => [
+                'type' => 'input',
+                'size' => 10,
+                'eval' => 'int'
+            ]
+        ],
+        'sys_language_uid' => [
+                'exclude' => true,
+                'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.language',
+                'config' => [
+                        'type' => 'select',
+                        'renderType' => 'selectSingle',
+                        'special' => 'languages',
+                        'items' => [
+                                [
+                                        'LLL:EXT:lang/locallang_general.xlf:LGL.allLanguages',
+                                        -1,
+                                        'flags-multiple'
+                                ]
+                        ],
+                        'default' => 0,
+                ],
         ],
         'l10n_parent' => [
             'displayCond' => 'FIELD:sys_language_uid:>:0',
