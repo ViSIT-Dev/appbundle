@@ -428,7 +428,7 @@ main#scope{
             }
         }
         .scroller{
-            margin: 200px auto;
+            margin: 200px 25%;
             width: 50%;
             text-align: center;
             background: black;
@@ -446,9 +446,6 @@ main#scope{
             transition-duration: 2s;
             opacity: 0;
             color: white;
-            &.transparent{
-
-            }
             &.active{
                 display: inline-block;
                 opacity: 1;
@@ -456,7 +453,6 @@ main#scope{
         }
     }
 }
-
 .lang-content{
     display: none;
 }

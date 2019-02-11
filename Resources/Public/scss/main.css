@@ -1986,7 +1986,7 @@ main#scope {
       main#scope .content-holder .video-holder .datapoint {
         margin-top: auto; }
     main#scope .content-holder .scroller {
-      margin: 200px auto;
+      margin: 200px 25%;
       width: 50%;
       text-align: center;
       background: black;
