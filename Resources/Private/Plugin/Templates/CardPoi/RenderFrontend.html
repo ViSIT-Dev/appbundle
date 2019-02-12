@@ -54,26 +54,19 @@
             <div class="modal fade modal-transparent" id="startModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div class="modal-content">
-                        <div class="modal-body">
-                            <h1 class="modal-title">Lorem ipsum dolor Headline</h1>
-                            <h3>Lorem ipsum dolor Subline historisch</h3>
-                            <br>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eget elit a lacus sollicitudin finibus. Donec sed arcu mauris. Quisque eget fringilla erat. Cras sit amet sagittis nulla. In quis euismod tellus. Nulla pharetra elit risus, at mattis urna dignissim sit amet. Nunc luctus vestibulum mauris, vel tempor lorem luctus vitae.
-                                <br>
-                                <br>
-                                Vivamus placerat aliquet posuere. Phasellus aliquet dolor arcu, non semper orci congue vitae. Integer sit amet eros quis sapien iaculis vestibulum. Pellentesque imperdiet vestibulum tincidunt. Sed accumsan dui in odio scelerisque tristique. Pellentesque eu nisi et libero euismod posuere. Praesent ut lobortis enim. Aenean ultrices convallis orci a tincidunt. Etiam placerat, metus sit amet maximus aliquam, augue dui tristique orci, in dictum dui felis in.
-                            </p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary lang-btn btn-lg" data-dismiss="modal" onclick="initMap('1')">
-                                <img src="/typo3/sysext/core/Resources/Public/Icons/Flags/en_us-gb.png" />Start in English
-                            </button>
-                            <button type="button" class="btn btn-primary lang-btn btn-lg" data-dismiss="modal" onclick="initMap('0')">
-                                <img src="/typo3/sysext/core/Resources/Public/Icons/Flags/PNG/DE.png" /> Starten mit Deutsch
-                            </button>
-                        </div>
+                        <f:format.raw>{splash.0}</f:format.raw>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="imprint" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content lang-content show-de">
+                    <f:format.raw>{imprint.0}</f:format.raw>
+                </div>
+                <div class="modal-content lang-content show-en">
+                    <f:format.raw>{imprint.1}</f:format.raw>
                 </div>
             </div>
         </div>

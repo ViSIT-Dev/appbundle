@@ -70,5 +70,16 @@ class ConfigRepository extends AbstractVisitRepository{
 
     }
 
+    public function processRequest(\TYPO3\CMS\Extbase\Mvc\Request $request, string $paramName){
+        foreach (Util::getLanguages() as $language){
+            $paramWithLang = $paramName . "-" . $language["languageIsocode"];
+            if($request->hasArgument($paramWithLang) &&
+               ($data = $request->getArgument($paramWithLang))){
+                $this->addOrUpdate($paramName, $data, $language["uid"]);
+            }
+        }
+
+    }
+
 
 }

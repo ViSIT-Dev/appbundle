@@ -89,6 +89,9 @@ class CardPoiController extends AbstractVisitController implements IRenderFronte
      */
     public function settingsAction(){
         $this->view->assign('title', Util::getConfigForAllLanguages("title"));
+        $this->view->assign('imprint', Util::getConfigForAllLanguages("imprint"));
+        $this->view->assign('splash', Util::getConfigForAllLanguages("splash"));
+
     }
 
     /**
@@ -98,29 +101,15 @@ class CardPoiController extends AbstractVisitController implements IRenderFronte
      */
     public function updateSettingsAction(){
 
-
-        if(
-            $this->request->hasArgument('title-de') &&
-            ($titelDe = $this->request->getArgument('title-de')))
-        {
-            $this->configRepository->addOrUpdate("title", $titelDe, 0);
-        }
-
-        if(
-            $this->request->hasArgument('title-en') &&
-            ($titelEn = $this->request->getArgument('title-en')))
-        {
-            $this->configRepository->addOrUpdate("title", $titelEn, 1);
-        }
+        $this->configRepository->processRequest($this->request, "title");
+        $this->configRepository->processRequest($this->request, "imprint");
+        $this->configRepository->processRequest($this->request, "splash");
 
         $this->addFlashMessage("Änderungen gespeichert", '', AbstractMessage::INFO);
 
         $this->redirect('settings');
 
     }
-
-
-
 
     /**
      * action new
@@ -211,6 +200,8 @@ class CardPoiController extends AbstractVisitController implements IRenderFronte
     {
         $this->prepareForFrontend();
         $this->view->assign('title', Util::getConfigForAllLanguages("title"));
+        $this->view->assign('imprint', Util::getConfigForAllLanguages("imprint"));
+        $this->view->assign('splash', Util::getConfigForAllLanguages("splash"));
     }
     
 }
