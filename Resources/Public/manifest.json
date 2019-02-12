@@ -25,12 +25,12 @@
     },
     {
       "src": "/typo3conf/ext/visit_tablets/Resources/Public/pwa-images/icons/icon-144x144.png",
-      "sizes": "144x144",
+      "sizes": "132x144",
       "type": "image/png"
     },
     {
       "src": "/typo3conf/ext/visit_tablets/Resources/Public/pwa-images/icons/icon-152x152.png",
-      "sizes": "152x152",
+      "sizes": "139x152",
       "type": "image/png"
     },
     {
