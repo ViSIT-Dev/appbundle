@@ -78,7 +78,7 @@ transform: translate({poi.y - poi.radiusHalf}px,{poi.x - poi.radiusHalf}px);heig
             <div class="scroller">
                 <f:for each="{pois}" as="datapoint">
                     <f:if condition="!{datapoint.fullscreenvideo}">
-                        <div class="datapoint" id="datapoint-id-{datapoint.uid}" data-id="{datapoint.uid}" >
+                        <div class="datapoint" id="datapoint-id-{datapoint.uid}" data-id="{datapoint.uid}" data-withBG="true" >
                             <h1 class="lang-de">{datapoint.title}</h1>
 
                             <h2 class="lang-de">{datapoint.subTitle}</h2>
@@ -99,7 +99,7 @@ transform: translate({poi.y - poi.radiusHalf}px,{poi.x - poi.radiusHalf}px);heig
             <div class="video-holder">
                 <f:for each="{pois}" as="datapoint">
                     <f:if condition="{datapoint.fullscreenvideo}">
-                        <div class="datapoint fullscreen transparent" id="datapoint-id-{datapoint.uid}" data-id="{datapoint.uid}" >
+                        <div class="datapoint fullscreen transparent" id="datapoint-id-{datapoint.uid}" data-id="{datapoint.uid}" data-withBG="false" >
                             <f:render partial="RenderMedia" arguments="{media: datapoint.media}"/>
                         </div>
                     </f:if>
@@ -296,7 +296,8 @@ transform: translate({poi.y - poi.radiusHalf}px,{poi.x - poi.radiusHalf}px);heig
                         return {
                             "distanceFactor": 1 - (distance / (jsonPois[poi]["radius"] / 2)),
                             "target": $("#poi-" + jsonPois[poi]["uid"]),
-                            "datapoint": $("#datapoint-id-" + jsonPois[poi]["uid"])
+                            "datapoint": $("#datapoint-id-" + jsonPois[poi]["uid"]),
+                            "fullscreenvideo": jsonPois[poi]["fullscreenvideo"]
                         };
                     }
                 }
@@ -320,6 +321,10 @@ transform: translate({poi.y - poi.radiusHalf}px,{poi.x - poi.radiusHalf}px);heig
                             target["target"].addClass("active");
                             target["datapoint"].addClass("active");
                             $(".content-holder").addClass("active");
+                            
+                            if(target["fullscreenvideo"] == 0){
+                                $(".scroller").addClass("active");
+                            }
 
                             // start video
                             target["datapoint"].find("video").each(function(i, video){
@@ -334,6 +339,7 @@ transform: translate({poi.y - poi.radiusHalf}px,{poi.x - poi.radiusHalf}px);heig
                     $(".poi.active").removeClass("active");
                     $(".datapoint.active").removeClass("active");
                     $(".content-holder").removeClass("active");
+                    $(".scroller").removeClass("active");
                     
                     // stop video
                     $(".content-holder video").each(function(i, video){
