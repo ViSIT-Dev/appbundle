@@ -9,18 +9,41 @@
                 width: <f:format.raw>{config.maxxpx}</f:format.raw>px;
                 height: <f:format.raw>{config.maxypx}</f:format.raw>px;
             }
+            .poi.special{
+                width: <f:format.raw>{config.specialIconSize}</f:format.raw>px;
+                height: <f:format.raw>{config.specialIconSize}</f:format.raw>px;
+            }
         </style>
         <f:comment>WHAT?! For some reason we need to address config via this to access it afterwards?</f:comment>
-        <f:for each="{config}" as="conf" key="k"></f:for>
         <div class="full">
             <div id="scopeContainer">
                 <video autoplay="true" id="camrtc" class="full"></video>
                 <div id="overlay" class="full">
+                    <div class="poi special" id="poi-impress">
+                        <div class="inside">
+                            <figure>
+                                <img class="poi-icon" src="{config.langicon_impress}" />
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="poi special" id="poi-lang-de">
+                        <div class="inside">
+                            <figure>
+                                <img class="poi-icon" src="{config.langicon_de}" />
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="poi special" id="poi-lang-en">
+                        <div class="inside">
+                            <figure>
+                                <img class="poi-icon" src="{config.langicon_en}" />
+                            </figure>
+                        </div>
+                    </div>
                     <f:for each="{pois}" as="poi">
-                        <div class="poi" id="poi-{poi.uid}" style="
-transform: translate({poi.y - poi.radiusHalf}px,{poi.x - poi.radiusHalf}px);height:{poi.radius}px;width:{poi.radius}px;">
+                        <div class="poi lang-content {f:if(condition:'{datapoint.language} == 0', then:' lang-de', else:' lang-en')}" id="poi-{poi.uid}" style=height:{poi.radius}px;width:{poi.radius}px;">
                             <div class="inside">
-                                <f:if condition="{config.debugmode} || false">
+                                <f:if condition="{config.debugmode}">
                                     <f:then>
                                         {poi.title}
                                         <br />X: {poi.x}
@@ -38,7 +61,7 @@ transform: translate({poi.y - poi.radiusHalf}px,{poi.x - poi.radiusHalf}px);heig
                         </div>
                     </f:for>
                 </div>
-                <f:if condition="{config.debugmode || true}">
+                <f:if condition="{config.debugmode}">
                     <div id="debug">
                         <p>
                             maxx: {config.maxx}
@@ -70,24 +93,41 @@ transform: translate({poi.y - poi.radiusHalf}px,{poi.x - poi.radiusHalf}px);heig
                             </f:for>
                         </table>
                     </div>
-                    <div id="crosshair"></div>
                 </f:if>
+                <div id="crosshair"></div>
             </div>
         </div>
-        <div class="content-holder{f:if(condition:'{config.debugmode}', then:' debug')}">
+        <div class="content-holder {f:if(condition:'{config.debugmode}', then:' debug')}">
             <div class="scroller">
+                <div class="datapoint lang-de lang-en" id="datapoint-id-impress" data-id="impress" data-withBG="true" >
+                    <h1 class="modal-title">Impressum</h1>
+                    <p>
+                        {imprint}
+                        <div class="row imprint-logos">
+                            <div class="col-3">
+                                <img src="/typo3conf/ext/visit_tablets/Resources/Public/Backend/images/ViSIT_Logo_web.png"  class="img-fluid" />
+                            </div>
+                            <div class="col-6">
+                                <img src="/typo3conf/ext/visit_tablets/Resources/Public/Backend/images/interreg.png"  class="img-fluid" />
+                            </div>
+                            <div class="col-3">
+                                <img src="/typo3conf/ext/visit_tablets/Resources/Public/fh-kufstein.svg"  class="img-fluid" />
+                            </div>
+                        </div>
+                    </p>
+                </div>
                 <f:for each="{pois}" as="datapoint">
                     <f:if condition="!{datapoint.fullscreenvideo}">
-                        <div class="datapoint" id="datapoint-id-{datapoint.uid}" data-id="{datapoint.uid}" data-withBG="true" >
-                            <h1 class="lang-de">{datapoint.title}</h1>
+                        <div class="datapoint lang-content {f:if(condition:'{datapoint.language} == 0', then:' lang-de', else:' lang-en')}" id="datapoint-id-{datapoint.uid}" data-id="{datapoint.uid}" data-withBG="true" >
+                            <h1 class="">{datapoint.title}</h1>
 
-                            <h2 class="lang-de">{datapoint.subTitle}</h2>
+                            <h2 class="">{datapoint.subTitle}</h2>
 
                             <figure>
                                 <f:render partial="RenderMedia" arguments="{media: datapoint.media}"/>
                             </figure>
 
-                            <div class="desc-text lang-de">
+                            <div class="desc-text">
                                 <f:format.raw>
                                     {datapoint.description}
                                 </f:format.raw>
@@ -99,7 +139,7 @@ transform: translate({poi.y - poi.radiusHalf}px,{poi.x - poi.radiusHalf}px);heig
             <div class="video-holder">
                 <f:for each="{pois}" as="datapoint">
                     <f:if condition="{datapoint.fullscreenvideo}">
-                        <div class="datapoint fullscreen transparent" id="datapoint-id-{datapoint.uid}" data-id="{datapoint.uid}" data-withBG="false" >
+                        <div class="datapoint fullscreen transparent lang-content {f:if(condition:'{datapoint.language} == 0', then:' lang-de', else:' lang-en')}" id="datapoint-id-{datapoint.uid}" data-id="{datapoint.uid}" data-withBG="false" >
                             <f:render partial="RenderMedia" arguments="{media: datapoint.media}"/>
                         </div>
                     </f:if>
@@ -111,7 +151,13 @@ transform: translate({poi.y - poi.radiusHalf}px,{poi.x - poi.radiusHalf}px);heig
         <script src="typo3conf/ext/visit_tablets/Resources/Public/Backend/vendors/encoder/phidget22.min.js"></script> 
         <script>
             var video = document.querySelector("#camrtc");
-
+            specialIconSize = <f:format.raw>{config.specialIconSize}</f:format.raw>;
+            specialIconSizeHalf = specialIconSize / 2;
+            specialIconOffset = specialIconSize * 1.7;
+            
+            specialIconX = <f:format.raw>{config.maxxpx - 540 - 50}</f:format.raw>;
+            specialIconY = <f:format.raw>{config.maxypx - 960 - 50}</f:format.raw>;
+            
             if (navigator.mediaDevices.getUserMedia) {
                 navigator.mediaDevices.getUserMedia({video: true})
                         .then(function (stream) {
@@ -127,6 +173,29 @@ transform: translate({poi.y - poi.radiusHalf}px,{poi.x - poi.radiusHalf}px);heig
             hysteresisFactor = 0.25;
             
             jsonPois = <f:format.raw>{jsonPois}</f:format.raw>;
+            jsonPois.push({
+                'uid': "impress",
+                'x': specialIconX - specialIconSizeHalf,
+                'y': specialIconY - specialIconSizeHalf,
+                'radius': specialIconSize,
+                'fullscreenvideo': 0,
+                'displayAllways': true
+            });
+            jsonPois.push({
+                'uid': "lang-de",
+                'x': specialIconX - specialIconSizeHalf,
+                'y': specialIconY - specialIconSizeHalf - specialIconOffset,
+                'radius': specialIconSize,
+                'lang':'de'
+            });
+            jsonPois.push({
+                'uid': "lang-en",
+                'x': specialIconX - specialIconSizeHalf,
+                'y': specialIconY - specialIconSizeHalf - specialIconOffset * 2,
+                'radius': specialIconSize,
+                'lang':'en',
+            });
+            console.log(jsonPois);
             
             xMax = <f:format.raw>{config.maxx}</f:format.raw>;
             yMax = <f:format.raw>{config.maxy}</f:format.raw>;
@@ -135,10 +204,24 @@ transform: translate({poi.y - poi.radiusHalf}px,{poi.x - poi.radiusHalf}px);heig
             crosshairScreenOffsetX = 0;
             crosshairScreenOffsetY = 0;
             resetCrosshairPosition();
+            language = "de";
+            $("body").addClass("lang-de");
             
             var phid;
 
             $(document).ready(function () {
+                
+                // setup the pois
+                for(var poi in jsonPois) {
+                    console.log((jsonPois[poi]['y'] - jsonPois[poi]['radius'] / 2));
+                    $("#poi-" + jsonPois[poi]["uid"])
+                            .css({'transform': 
+                    'translate(' + (jsonPois[poi]['y'] - jsonPois[poi]['radius'] / 2) + 'px' + 
+                             ',' + (jsonPois[poi]['x'] - jsonPois[poi]['radius'] / 2) + 'px' + ')'
+                 });
+                }
+                
+                
                 var conn = new phidget22.Connection(<f:format.raw>{config.sensorport}</f:format.raw>, '<f:format.raw>{config.sensorhost}</f:format.raw>');
 
                 var encoderX = new phidget22.Encoder();
@@ -293,11 +376,21 @@ transform: translate({poi.y - poi.radiusHalf}px,{poi.x - poi.radiusHalf}px);heig
                     distance = Math.sqrt(Math.pow((Math.abs(transformX) + crosshairScreenOffsetX - jsonPois[poi]["y"]), 2) + Math.pow((Math.abs(transformY) + crosshairScreenOffsetY - jsonPois[poi]["x"]), 2));
                     if(distance < jsonPois[poi]["radius"] / 2){
                         $("#target").html(jsonPois[poi]["uid"]);
+                        if(jsonPois[poi]["lang"]){
+                            $("body").removeClass("lang-en");
+                            $("body").removeClass("lang-de");
+                            $("body").addClass("lang-" + jsonPois[poi]["lang"]);
+                            language = jsonPois[poi]["lang"];
+                            return null;
+                        }
+                        console.log({"target": $("#poi-" + jsonPois[poi]["uid"])});
                         return {
+                            "language": jsonPois[poi]["language"],
                             "distanceFactor": 1 - (distance / (jsonPois[poi]["radius"] / 2)),
                             "target": $("#poi-" + jsonPois[poi]["uid"]),
                             "datapoint": $("#datapoint-id-" + jsonPois[poi]["uid"]),
-                            "fullscreenvideo": jsonPois[poi]["fullscreenvideo"]
+                            "fullscreenvideo": jsonPois[poi]["fullscreenvideo"],
+                            "displayAllways": jsonPois[poi]["displayAllways"]
                         };
                     }
                 }
@@ -314,9 +407,18 @@ transform: translate({poi.y - poi.radiusHalf}px,{poi.x - poi.radiusHalf}px);heig
                 transformY = (currentY / yMax * mapYmax * -1);
                 transformX = (currentX / xMax * mapXmax * -1);
                 
+                $("#overlay").css({
+                    'transform': 'translate(' + transformX + 'px,' + transformY + 'px)'
+                });
+                
                 var target = getTarget();
                 if(target){
                     if(target["distanceFactor"] > hysteresisFactor){
+                        if(
+                                target["language"] != (language === "de" ? 0 : 1) && target["displayAllways"] != true
+                                ){
+                            return;
+                        }
                         if(!target["target"].hasClass("active")){
                             target["target"].addClass("active");
                             target["datapoint"].addClass("active");
@@ -349,17 +451,10 @@ transform: translate({poi.y - poi.radiusHalf}px,{poi.x - poi.radiusHalf}px);heig
                     
                 }
                 
-                $("#overlay").css({
-                    'transform': 'translate(' + transformX + 'px,' + transformY + 'px)'
-                });
-                
-                
                 if(debugmode){
                     $("#currentY").html(Math.abs(transformX) + crosshairScreenOffsetX);
                     $("#currentX").html(Math.abs(transformY) + crosshairScreenOffsetY);
                 }
-                
-//                console.log("To Position: X-" + currentX / xMax + "  Y-" + currentY / yMax);
             }
 
             function onError(arg0, arg1) {

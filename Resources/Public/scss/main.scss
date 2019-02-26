@@ -411,7 +411,7 @@ main#scope{
             display: block;
         }
         &.debug{
-            opacity: 0.2;
+            opacity: 0.8;
         }
         .video-holder{
             position: fixed;
@@ -455,5 +455,9 @@ main#scope{
 }
 .lang-content{
     display: none;
+}
+body.lang-de .lang-de,
+body.lang-en .lang-en{
+    display: inline-block;
 }
 
