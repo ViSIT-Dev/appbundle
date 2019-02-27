@@ -41,7 +41,7 @@
                         </div>
                     </div>
                     <f:for each="{pois}" as="poi">
-                        <div class="poi lang-content {f:if(condition:'{datapoint.language} == 0', then:' lang-de', else:' lang-en')}" id="poi-{poi.uid}" style=height:{poi.radius}px;width:{poi.radius}px;">
+                        <div class="poi lang-content {f:if(condition:'{poi.language} == 0', then:' lang-de', else:' lang-en')}" id="poi-{poi.uid}" style=height:{poi.radius}px;width:{poi.radius}px;">
                             <div class="inside">
                                 <f:if condition="{config.debugmode}">
                                     <f:then>
@@ -49,7 +49,7 @@
                                         <br />X: {poi.x}
                                         <br />Y: {poi.y}
                                         <br />UID: {poi.uid}
-                                        <br />FS: {poi.fullscreenvideo}
+                                        <br />FS: {poi.language}
                                     </f:then>
                                     <f:else>
                                         <figure>
@@ -81,6 +81,7 @@
                                 <th>Radius</th>
                                 <th>X</th>
                                 <th>Y</th>
+                                <th>Lang</th>
                             </tr>
                             <f:for each="{pois}" as="poi">
                                 <tr>
@@ -89,6 +90,7 @@
                                     <td>{poi.radius}</td>
                                     <td>{poi.x}</td>
                                     <td>{poi.y}</td>
+                                    <td>{poi.language}</td>
                                 </tr>
                             </f:for>
                         </table>
@@ -118,7 +120,7 @@
                 </div>
                 <f:for each="{pois}" as="datapoint">
                     <f:if condition="!{datapoint.fullscreenvideo}">
-                        <div class="datapoint lang-content {f:if(condition:'{datapoint.language} == 0', then:' lang-de', else:' lang-en')}" id="datapoint-id-{datapoint.uid}" data-id="{datapoint.uid}" data-withBG="true" >
+                        <div class="datapoint lang-content {f:if(condition:'{datapoint.language == 0}', then:' lang-de', else:' lang-en')}" id="datapoint-id-{datapoint.uid}" data-id="{datapoint.uid}" data-withBG="true" >
                             <h1 class="">{datapoint.title}</h1>
 
                             <h2 class="">{datapoint.subTitle}</h2>
