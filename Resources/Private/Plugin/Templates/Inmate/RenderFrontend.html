@@ -13,16 +13,166 @@
 
 
     <f:section name="main">
+
         <div id="mapAppWrapper">
-            asd
+
+            <div id="inmateHeader">
+                <div>A-Z</div>
+                <div>Ereignis</div>
+                <div>Zellen</div>
+                <div>VIP</div>
+            </div>
+            <div id="inmateContent" class="row no-gutters justify-content-center">
+                <div class="col-6 inmateList">
+                    <div class="row no-gutters ">
+                        <div class="alpabet col-1 align-self-center">
+                            <ul class="align-self-center">
+                                <f:for each="{persons}" as="p" key="index">
+                                    <li data-index="{index}">{index}</li>
+                                </f:for>
+                            </ul>
+                        </div>
+                        <div id="scrolllist" class="col-11">
+                            <f:for each="{persons}" as="personIndex" key="index">
+                                <div class="data-index-anchor" data-index="{index}">
+                                    <ul>
+                                    <f:for each="{personIndex}" as="person">
+                                        <li>{person.first_name}</li>
+                                    </f:for>
+                                    </ul>
+                                </div>
+                            </f:for>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-6 inmateDetail">
+                    sdfsd gfsdfg
+
+                </div>
+            </div>
+
 
         </div>
 
 
+        <script>
+
+
+
+            //alphabet scroll
+
+            function preventDefault(e){
+                e.preventDefault();
+            }
+
+            function disableScroll(){
+                document.body.addEventListener('touchmove', preventDefault, { passive: false });
+            }
+            function enableScroll(){
+                document.body.removeEventListener('touchmove', preventDefault, { passive: false });
+            }
+
+
+            document.addEventListener('DOMContentLoaded', function(){
+
+                var currentElement, currentPosition, listGroupContainerMaxHeight = 0, touching = false, $scrolllist = $('#scrolllist');
+
+                $(".data-index-anchor").each(function (i, e) {
+                    let h = $(e).height();
+                    if(h > listGroupContainerMaxHeight){
+                        listGroupContainerMaxHeight = h;
+                    }
+                });
+
+                let supportTouch =  !!(('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch);
+
+                let touchEvents = {
+                    start: supportTouch ? 'touchstart' : 'mousedown',
+                    move: supportTouch ? 'touchmove' : 'mousemove',
+                    end: supportTouch ? 'touchend' : 'mouseup'
+                };
+
+                function getTarget(e) {
+                    let target;
+
+                    if ( supportTouch ) {
+                        if ( e.targetTouches.length ) {
+                            target = document.elementFromPoint(e.targetTouches[0].clientX, e.targetTouches[0].clientY);
+                        }
+                    } else {
+                        target = e.target;
+                    }
+                    return target;
+
+                }
+
+                console.log(touchEvents);
+
+
+                $(".alpabet ul").on(touchEvents.start, function (e) {
+                    touching = true;
+                    $scrolllist.addClass("indexActive");
+                    disableScroll();
+                    console.log("start", e)
+                } );
+
+                $(".alpabet ul").on(touchEvents.move,function (e) {
+
+                    let target = getTarget(e);
+
+                    if(touching && currentPosition != target){
+                        let indexToScroll = $(target).data("index");
+                        currentPosition = target;
+                        scrollToIndex(indexToScroll);
+                    }
+                });
+                $(".alpabet ul").on(touchEvents.end, function (e) {
+                    touching = false;
+                    $scrolllist.removeClass("indexActive");
+                    enableScroll();
+                    console.log("end", e)
+                } );
+                $(".alpabet ul li").click(function (e) {
+                    scrollToIndex($(this).data("index"));
+                });
+
+
+
+                function scrollToIndex(indexToScroll) {
+                    console.log("scroll to", indexToScroll);
+                    $(".alpabet li").removeClass("active");
+                    $(".alpabet li[data-index='" + indexToScroll +"']").addClass("active")
+                    $scrolllist.scrollTop($(".data-index-anchor[data-index='" + indexToScroll + "']").offset().top -  $scrolllist.offset().top +  $scrolllist.scrollTop());
+                }
+
+                function setAlphabetScroll(){
+                    $(".data-index-anchor").each(function (i, e) {
+
+                        let t = $(e).offset().top -  $scrolllist.offset().top;
+                        // console.log(t);
+                        if(t <= 0 && t > -listGroupContainerMaxHeight && currentElement != e){
+                            currentElement = e;
+                            $(".alpabet li").removeClass("active");
+                            $(".alpabet li[data-index='" + $(e).data("index") +"']").addClass("active")
+                        }
+                    });
+                }
+
+                $("#scrolllist").on("scroll" ,setAlphabetScroll);
+                setAlphabetScroll();
+
+            });
+
+
+
+        </script>
 
 
 
     </f:section>
+
     <f:section name="footer">
         
 
@@ -37,6 +187,8 @@
         <script src="typo3conf/ext/visit_tablets/Resources/Public/js/three/Detector.js"></script>
         <!--<script src="typo3conf/ext/visit_tablets/Resources/Public/js/three/Material.js"></script>-->
         <script src="typo3conf/ext/visit_tablets/Resources/Public/js/three/stats.js"></script>
+
+
 
     </f:section>
     

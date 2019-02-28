@@ -131,7 +131,33 @@ class InmateController extends AbstractVisitController  implements IRenderFronte
      */
     public function renderFrontendAction()
     {
+
         $this->view->assign('title',"asd");
+
+        $persons = json_decode(
+            file_get_contents("typo3conf/ext/visit_tablets/Resources/Public/SampleData/MOCK_DATA.json"),
+            true
+        );
+
+        \usort($persons, function($a, $b){
+            return \strcmp($a["first_name"], $b["first_name"]);
+        });
+
+
+
+        $out = [];
+        foreach ($persons  as $person){
+            $current =  \strtoupper($person["first_name"][0]);
+            if(! \array_key_exists($current, $out)){
+                $out[$current] = array();
+            }
+            $person["index"] = $current;
+            $out[$current][] = $person;
+        }
+
+        $this->view
+            ->assign('persons', $out);
+
     }
 
 

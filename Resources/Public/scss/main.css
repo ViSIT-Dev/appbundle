@@ -1910,6 +1910,82 @@ main {
       #mapAppWrapper #cardPoiContent .content-holder p {
         font-size: 16px;
         line-height: 22px; }
+  #mapAppWrapper #inmateHeader {
+    height: 45px;
+    background-color: #f0f0f0; }
+    #mapAppWrapper #inmateHeader > div {
+      display: inline-block;
+      line-height: 45px;
+      cursor: pointer;
+      padding: 0 22.5px;
+      color: #4a4a4a; }
+      #mapAppWrapper #inmateHeader > div.active {
+        color: #d1880f; }
+  #mapAppWrapper #inmateContent {
+    height: calc(100% - 45px); }
+    #mapAppWrapper #inmateContent > div {
+      max-height: 100%;
+      overflow: hidden;
+      overflow-y: auto; }
+    #mapAppWrapper #inmateContent .inmateList {
+      background-color: #ffffff;
+      max-height: 100%;
+      height: 100%; }
+      #mapAppWrapper #inmateContent .inmateList > .row {
+        max-height: 100%;
+        height: 100%; }
+        #mapAppWrapper #inmateContent .inmateList > .row #scrolllist {
+          max-height: 100%;
+          overflow: hidden;
+          overflow-y: auto; }
+      #mapAppWrapper #inmateContent .inmateList .alpabet ul {
+        list-style: none;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+        -webkit-touch-callout: none;
+        /* iOS Safari */
+        -webkit-user-select: none;
+        /* Safari */
+        -khtml-user-select: none;
+        /* Konqueror HTML */
+        -moz-user-select: none;
+        /* Firefox */
+        -ms-user-select: none;
+        /* Internet Explorer/Edge */
+        user-select: none;
+       /* Non-prefixed version, currently
+      supported by Chrome and Opera */ }
+        #mapAppWrapper #inmateContent .inmateList .alpabet ul li {
+          padding: 3px 0;
+          color: #d6d6d6;
+          font-size: 16px;
+          font-weight: bold;
+          text-transform: uppercase;
+          line-height: 26px;
+          position: relative; }
+          #mapAppWrapper #inmateContent .inmateList .alpabet ul li.active {
+            color: #d1880f; }
+            #mapAppWrapper #inmateContent .inmateList .alpabet ul li.active:after {
+              content: " ";
+              border-radius: 50%;
+              background-color: #d1880f;
+              position: absolute;
+              display: block;
+              left: calc(50% - 17px);
+              top: calc(50% - 3px);
+              height: 6px;
+              width: 6px; }
+      #mapAppWrapper #inmateContent .inmateList #scrolllist:not(.indexActive) {
+        -webkit-overflow-scrolling: touch; }
+      #mapAppWrapper #inmateContent .inmateList #scrolllist ul {
+        list-style: none;
+        list-style-type: none;
+        padding: 0;
+        margin: 0; }
+    #mapAppWrapper #inmateContent .inmateDetail {
+      background-color: #303030; }
 
 main#scope {
   height: 100%; }

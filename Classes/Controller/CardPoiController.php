@@ -201,10 +201,9 @@ class CardPoiController extends AbstractVisitController implements IRenderFronte
         $this->prepareForFrontend();
 
         //add pwa manifest
-
         $this->response->addAdditionalHeaderData('<link rel="manifest" href="/typo3conf/ext/visit_tablets/Resources/Public/manifest.json" />');
+        $this->response->addAdditionalHeaderData('<script href="/typo3conf/ext/visit_tablets/Resources/Public/js/cache.js" type="text/javascript"></script>');
         $this->response->addAdditionalHeaderData('<meta name="apple-mobile-web-app-capable" content="yes">');
-
 
         $this->view->assign('title', Util::getConfigForAllLanguages("title"));
         $this->view->assign('imprint', Util::getConfigForAllLanguages("imprint"));

@@ -220,12 +220,9 @@ page {
 
     meta {
 
-        viewport = width=device-width, initial-scale=1, maximum-scale=1    
+        viewport = width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, height=device-height
         apple-mobile-web-app-capable = yes
-
         X-UA-Compatible = http-equiv
-
-
     }
 
     includeCSS {
