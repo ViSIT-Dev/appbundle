@@ -2049,7 +2049,7 @@ main#scope {
     main#scope .content-holder.active {
       display: block; }
     main#scope .content-holder.debug {
-      opacity: 0.2; }
+      opacity: 0.8; }
     main#scope .content-holder .video-holder {
       position: fixed;
       top: 0;
@@ -2084,5 +2084,9 @@ main#scope {
 
 .lang-content {
   display: none; }
+
+body.lang-de .lang-de,
+body.lang-en .lang-en {
+  display: inline-block; }
 
 /*# sourceMappingURL=main.css.map */

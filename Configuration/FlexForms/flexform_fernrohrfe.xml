@@ -3,6 +3,17 @@
 <ROOT type="array">
     <type>array</type>
     <el type="array">
+        <imprint>
+            <TCEforms type="array">
+                <config type="array">
+                    <type>text</type>
+                    <cols>48</cols>
+                    <rows>5</rows>
+                </config>
+                <label>Impressum</label>
+                <defaultExtras>richtext[*]:rte_transform[flag=rte_enabled|mode=ts_css]</defaultExtras>
+            </TCEforms>
+        </imprint>
         <maxx>
             <TCEforms type="array">
                 <label>x-max Endstop</label>
@@ -59,6 +70,34 @@
                 </config>
             </TCEforms>
         </maxypx>
+        <screenSizeWidth>
+            <TCEforms type="array">
+                <label>Bildschirmbreite</label>
+                <config>
+                    <type>input</type>
+                    <size>10</size>
+                    <eval>int,required,trim</eval>
+                    <range>
+                      <lower>0</lower>
+                    </range>
+                    <default>1940</default>
+                </config>
+            </TCEforms>
+        </screenSizeWidth>
+        <screenSizeHight>
+            <TCEforms type="array">
+                <label>Bildschirmhöhe</label>
+                <config>
+                    <type>input</type>
+                    <size>10</size>
+                    <eval>int,required,trim</eval>
+                    <range>
+                      <lower>0</lower>
+                    </range>
+                    <default>1080</default>
+                </config>
+            </TCEforms>
+        </screenSizeHight>
         <sensorhost>
             <TCEforms type="array">
                 <label>Encoder-Server URL</label>
@@ -94,21 +133,68 @@
                     <minitems>1</minitems>
                     <maxitems>1</maxitems>
                 </config>
-<!--                <config>
-                    <type>group</type>
-                    <internal_type>db</internal_type>
-                    <allowed>sys_file</allowed>
-                    <size>10</size>
-                    <minitems>0</minitems>
-                    <maxitems>1</maxitems>
-                    <show_thumbs>1</show_thumbs>
-                    <appearance>
-                        <elementBrowserType>file</elementBrowserType>
-                        <elementBrowserAllowed>png</elementBrowserAllowed>
-                    </appearance>
-                </config>-->
             </TCEforms>
         </poiicon>
+        <langicon_impress>
+            <TCEforms type="array">
+                <label>Icon Impressum</label>
+                <config type="array">
+                    <type>group</type>    
+                    <internal_type>file</internal_type>
+                    <allowed>png</allowed>                   
+                    <max_size>2000</max_size>
+                    <show_thumbs>1</show_thumbs>
+                    <size>3</size>
+                    <minitems>1</minitems>
+                    <maxitems>1</maxitems>
+                </config>
+            </TCEforms>
+        </langicon_impress>
+        <langicon_de>
+            <TCEforms type="array">
+                <label>Icon Deutsch</label>
+                <config type="array">
+                    <type>group</type>    
+                    <internal_type>file</internal_type>
+                    <allowed>png</allowed>                   
+                    <max_size>2000</max_size>
+                    <show_thumbs>1</show_thumbs>
+                    <size>3</size>
+                    <minitems>1</minitems>
+                    <maxitems>1</maxitems>
+                </config>
+            </TCEforms>
+        </langicon_de>
+        <langicon_en>
+            <TCEforms type="array">
+                <label>Icon Englisch</label>
+                <config type="array">
+                    <type>group</type>    
+                    <internal_type>file</internal_type>
+                    <allowed>png</allowed>                   
+                    <max_size>2000</max_size>
+                    <show_thumbs>1</show_thumbs>
+                    <size>3</size>
+                    <minitems>1</minitems>
+                    <maxitems>1</maxitems>
+                </config>
+            </TCEforms>
+        </langicon_en>
+        <specialIconSize>
+            <TCEforms type="array">
+                <label>Spezial POI - Größe (px)</label>
+                <config>
+                    <type>input</type>
+                    <size>10</size>
+                    <eval>int,required,trim</eval>
+                    <range>
+                      <lower>0</lower>
+                      <higher>300</higher>
+                    </range>
+                    <default>150</default>
+                </config>
+            </TCEforms>
+        </specialIconSize>
         <debugmode>
             <TCEforms type="array">
                 <label>Debugmodus aktivieren</label>
