@@ -151,7 +151,6 @@ class InmateController extends AbstractVisitController  implements IRenderFronte
             if(! \array_key_exists($current, $out)){
                 $out[$current] = array();
             }
-            $person["index"] = $current;
             $out[$current][] = $person;
         }
 

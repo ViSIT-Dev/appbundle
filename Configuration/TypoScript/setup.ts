@@ -235,13 +235,16 @@ page {
 
     }
 
+    includeJS {
+        jquery = EXT:visit_tablets/Resources/Public/vendor/jquery/jquery-3.3.1.min.js
+    }
+
     includeJSFooter {
         app = EXT:visit_tablets/Resources/Public/js/app.js
     }
 
     includeJSFooterlibs {
 
-        jquery = EXT:visit_tablets/Resources/Public/vendor/jquery/jquery-3.3.1.min.js
         bootstrap = EXT:visit_tablets/Resources/Public/vendor/bootstrap/dist/js/bootstrap.bundle.js
 
         #SRI Hash Generator https://www.srihash.org/

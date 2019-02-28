@@ -17,10 +17,29 @@
         <div id="mapAppWrapper">
 
             <div id="inmateHeader">
-                <div>A-Z</div>
-                <div>Ereignis</div>
-                <div>Zellen</div>
-                <div>VIP</div>
+                <div class="remove-filter menue-item">A-Z</div>
+
+                <div class="dropdown">
+                    <button class="btn btn-transparent dropdown-toggle menue-item" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Zellen
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-transparent dropdown-toggle menue-item" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Ereignis
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </div>
+                <div class="filter-action menue-item" data-filter="vip">VIP</div>
             </div>
             <div id="inmateContent" class="row no-gutters justify-content-center">
                 <div class="col-6 inmateList">
@@ -47,9 +66,27 @@
                     </div>
                 </div>
 
-                <div class="col-6 inmateDetail">
-                    sdfsd gfsdfg
+                <div class="col-6 scrollWrapper">
+                    <div id="inmateDetail">
+                        <h1>Josef Zaliwski</h1>
+                        <h2>Offizier</h2>
+                        <hr />
+                        <ul>
+                            <li>*1797 Polen</li>
+                            <li>† 1855 Polen</li>
+                            <li>Offizier</li>
+                        </ul>
 
+                        <hr />
+
+                        <img class="img-fluid" src="typo3conf/ext/visit_tablets/Resources/Public/SampleData/mike-gorrell-692333-unsplash-copy.jpg "/>
+
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eget elit a lacus sollicitudin finibus. Donec sed arcu mauris. Quisque eget fringilla erat. Cras sit amet sagittis nulla. In quis euismod tellus. Nulla pharetra elit risus, at mattis urna dignissim sit amet. Nunc luctus vestibulum mauris, vel tempor lorem luctus vitae. Praesent rutrum elit id massa aliquam rutrum. Duis lobortis posuere neque, non bibendum libero suscipit ut. Nullam consectetur convallis commodo. Nullam pulvinar lacus blandit lacinia laoreet. Integer aliquam ac quam a dapibus. Duis placerat tincidunt orci quis faucibus. Nam pretium consequat egestas. In luctus accumsan erat, ac lacinia odio.
+
+                            Vivamus placerat aliquet posuere. Phasellus aliquet dolor arcu, non semper orci congue vitae. Integer sit amet eros quis sapien iaculis vestibulum. Pellentesque imperdiet vestibulum tincidunt. Sed accumsan dui in odio scelerisque tristique. Pellentesque eu nisi et libero euismod posuere. Praesent ut lobortis enim. Aenean ultrices convallis orci a tincidunt. Etiam placerat, metus sit amet maximus aliquam, augue dui tristique orci, in dictum dui felis in tortor. Mauris imperdiet consectetur libero ut dictum. Donec aliquet gravida sapien, sed interdum nibh semper quis. Praesent vel urna consectetur, eleifend odio at, gravida neque. Sed semper maximus tellus a congue. Ut vehicula, libero ac lacinia auctor, turpis diam dapibus purus, ut feugiat risus lacus pharetra nibh. Nunc quam ante, consequat eget finibus at, interdum a ipsum. Pellentesque vel elit non tortor suscipit egestas ac a magna.
+                        </p>
+                    </div>
                 </div>
             </div>
 
@@ -59,112 +96,145 @@
 
         <script>
 
-
-
             //alphabet scroll
+            {
 
-            function preventDefault(e){
-                e.preventDefault();
-            }
-
-            function disableScroll(){
-                document.body.addEventListener('touchmove', preventDefault, { passive: false });
-            }
-            function enableScroll(){
-                document.body.removeEventListener('touchmove', preventDefault, { passive: false });
-            }
-
-
-            document.addEventListener('DOMContentLoaded', function(){
-
-                var currentElement, currentPosition, listGroupContainerMaxHeight = 0, touching = false, $scrolllist = $('#scrolllist');
-
-                $(".data-index-anchor").each(function (i, e) {
-                    let h = $(e).height();
-                    if(h > listGroupContainerMaxHeight){
-                        listGroupContainerMaxHeight = h;
-                    }
-                });
-
-                let supportTouch =  !!(('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch);
-
-                let touchEvents = {
-                    start: supportTouch ? 'touchstart' : 'mousedown',
-                    move: supportTouch ? 'touchmove' : 'mousemove',
-                    end: supportTouch ? 'touchend' : 'mouseup'
-                };
-
-                function getTarget(e) {
-                    let target;
-
-                    if ( supportTouch ) {
-                        if ( e.targetTouches.length ) {
-                            target = document.elementFromPoint(e.targetTouches[0].clientX, e.targetTouches[0].clientY);
-                        }
-                    } else {
-                        target = e.target;
-                    }
-                    return target;
-
+                function preventDefault(e){
+                    e.preventDefault();
                 }
 
-                console.log(touchEvents);
-
-
-                $(".alpabet ul").on(touchEvents.start, function (e) {
-                    touching = true;
-                    $scrolllist.addClass("indexActive");
-                    disableScroll();
-                    console.log("start", e)
-                } );
-
-                $(".alpabet ul").on(touchEvents.move,function (e) {
-
-                    let target = getTarget(e);
-
-                    if(touching && currentPosition != target){
-                        let indexToScroll = $(target).data("index");
-                        currentPosition = target;
-                        scrollToIndex(indexToScroll);
-                    }
-                });
-                $(".alpabet ul").on(touchEvents.end, function (e) {
-                    touching = false;
-                    $scrolllist.removeClass("indexActive");
-                    enableScroll();
-                    console.log("end", e)
-                } );
-                $(".alpabet ul li").click(function (e) {
-                    scrollToIndex($(this).data("index"));
-                });
-
-
-
-                function scrollToIndex(indexToScroll) {
-                    console.log("scroll to", indexToScroll);
-                    $(".alpabet li").removeClass("active");
-                    $(".alpabet li[data-index='" + indexToScroll +"']").addClass("active")
-                    $scrolllist.scrollTop($(".data-index-anchor[data-index='" + indexToScroll + "']").offset().top -  $scrolllist.offset().top +  $scrolllist.scrollTop());
+                function disableScroll(){
+                    document.body.addEventListener('touchmove', preventDefault, { passive: false });
+                }
+                function enableScroll(){
+                    document.body.removeEventListener('touchmove', preventDefault, { passive: false });
                 }
 
-                function setAlphabetScroll(){
+                function initScroll(){
+
+
+                    var currentElement, currentPosition, listGroupContainerMaxHeight = 0, touching = false, $scrolllist = $('#scrolllist'), marignTop = 50;
+
                     $(".data-index-anchor").each(function (i, e) {
-
-                        let t = $(e).offset().top -  $scrolllist.offset().top;
-                        // console.log(t);
-                        if(t <= 0 && t > -listGroupContainerMaxHeight && currentElement != e){
-                            currentElement = e;
-                            $(".alpabet li").removeClass("active");
-                            $(".alpabet li[data-index='" + $(e).data("index") +"']").addClass("active")
+                        let h = $(e).height();
+                        if(h > listGroupContainerMaxHeight){
+                            listGroupContainerMaxHeight = h;
                         }
                     });
+
+                    let supportTouch =  !!(('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch);
+
+                    let touchEvents = {
+                        start: supportTouch ? 'touchstart' : 'mousedown',
+                        move: supportTouch ? 'touchmove' : 'mousemove',
+                        end: supportTouch ? 'touchend' : 'mouseup'
+                    };
+
+                    function getTarget(e) {
+                        let target;
+
+                        if ( supportTouch ) {
+                            if ( e.targetTouches.length ) {
+                                target = document.elementFromPoint(0, e.targetTouches[0].clientY);
+                            }
+                        } else {
+                            target = e.target;
+                        }
+                        return target;
+
+                    }
+
+
+                    $(".alpabet ul").on(touchEvents.start, function (e) {
+                        touching = true;
+                        $scrolllist.addClass("indexActive");
+                        disableScroll();
+                        console.log("start", e)
+                    } );
+
+                    $(".alpabet ul").on(touchEvents.move,function (e) {
+
+                        let target = getTarget(e);
+
+                        if(touching && currentPosition != target){
+                            let indexToScroll = $(target).data("index");
+                            currentPosition = target;
+                            scrollToIndex(indexToScroll);
+                        }
+                    });
+                    $(".alpabet ul").on(touchEvents.end, function (e) {
+                        touching = false;
+                        $scrolllist.removeClass("indexActive");
+                        enableScroll();
+                        console.log("end", e)
+                    } );
+                    $(".alpabet ul li").click(function (e) {
+                        scrollToIndex($(this).data("index"));
+                    });
+
+
+
+                    function scrollToIndex(indexToScroll) {
+                        console.log("scroll to", indexToScroll);
+                        $(".alpabet li").removeClass("active");
+                        $(".alpabet li[data-index='" + indexToScroll +"']").addClass("active")
+                        $scrolllist.scrollTop($(".data-index-anchor[data-index='" + indexToScroll + "']").offset().top -  $scrolllist.offset().top +  $scrolllist.scrollTop() - marignTop);
+                    }
+
+                    function setAlphabetScroll(){
+                        $(".data-index-anchor").each(function (i, e) {
+
+                            let t = $(e).offset().top -  $scrolllist.offset().top - marignTop;
+                            // console.log(t);
+                            if(t <= 0 && t > -listGroupContainerMaxHeight && currentElement != e){
+                                currentElement = e;
+                                $(".alpabet li").removeClass("active");
+                                $(".alpabet li[data-index='" + $(e).data("index") +"']").addClass("active")
+                            }
+                        });
+                    }
+
+                    $("#scrolllist").on("scroll" ,setAlphabetScroll);
+                    setAlphabetScroll();
+
                 }
 
-                $("#scrolllist").on("scroll" ,setAlphabetScroll);
-                setAlphabetScroll();
+            }
+
+            //content
+            {
+
+                var currentActiveEntry, $grid;;
+                function initContent() {
+                    $("#scrolllist li").click(function () {
+                        if(currentActiveEntry != ($s = $(this))){
+                            currentActiveEntry = $s;
+                            $("#scrolllist li").removeClass("active");
+                            currentActiveEntry.addClass("active");
+                            loadContent();
+                        }
+                    });
+
+                    $grid = $("#scrolllist");
+                    // $grid.isotope({
+                    //     layoutMode: 'vertical',
+                    //     filter: ['[data-index="B"]', '[data-index="C"]']
+                    // });
+
+                }
+
+                function loadContent(){
+                    console.log(currentActiveEntry);
+                }
+
+            }
+
+            document.addEventListener('DOMContentLoaded', function(){
+                initContent();
+                initScroll();
+                $("#scrolllist .data-index-anchor:first-of-type li:first-of-type").trigger("click");
 
             });
-
 
 
         </script>
@@ -187,6 +257,8 @@
         <script src="typo3conf/ext/visit_tablets/Resources/Public/js/three/Detector.js"></script>
         <!--<script src="typo3conf/ext/visit_tablets/Resources/Public/js/three/Material.js"></script>-->
         <script src="typo3conf/ext/visit_tablets/Resources/Public/js/three/stats.js"></script>
+
+        <script src="typo3conf/ext/visit_tablets/Resources/Public/js/isotope.js"></script>
 
 
 
