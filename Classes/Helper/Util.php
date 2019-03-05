@@ -99,4 +99,22 @@ class Util {
         return self::getInstance('Visit\VisitTablets\Domain\Repository\ConfigRepository')->getForAllLanguages($title);
     }
 
+    public static function deleteSystemCache(){
+
+        $GLOBALS['TYPO3_DB']->exec_TRUNCATEquery('cache_treelist');
+        $GLOBALS['TYPO3_DB']->exec_TRUNCATEquery('cache_pagesection');
+        $GLOBALS['TYPO3_DB']->exec_TRUNCATEquery('cache_hash');
+        $GLOBALS['TYPO3_DB']->exec_TRUNCATEquery('cache_pages');
+
+        if($handle = opendir('./typo3conf')) {
+            while (false !== ($file = readdir($handle))) {
+                if(strpos($file, 'temp_CACHED_')!==false) {
+                    unlink('./typo3conf/'.$file);
+                }
+            }
+            closedir($handle);
+        }
+
+    }
+
 }
