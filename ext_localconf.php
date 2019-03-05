@@ -156,7 +156,14 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Visit\VisitTabl
     'title'            => 'Löscht nicht verwendete Uploads',
     'description'      => 'Löscht alle Dateien in /typo3temp/ajax_upload'
 );
-    
+
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Visit\VisitTablets\SchedulerTasks\UpdateExtensionTask'] = array(
+    'extension'        => $_EXTKEY,
+    'title'            => 'Updated die Extension vom Git Repo',
+    'description'      => 'Das kann nicht rückgängig gemacht werden',
+);
+
+
 $GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['map_server'] = 'EXT:visit_tablets/Classes/Eid/MapServer.php';
 
     
