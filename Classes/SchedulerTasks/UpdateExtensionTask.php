@@ -13,7 +13,6 @@ namespace Visit\VisitTablets\SchedulerTasks;
  *
  ***/
 
-use Visit\VisitTablets\Helper\Constants;
 
 /**
  * Aufgaben: Updated die Extension vom git repo
@@ -25,6 +24,21 @@ class UpdateExtensionTask extends AbstractVisitTask {
     public function execute(): bool {
 
         \shell_exec("git -C /var/www/html/typo3conf/ext/visit_tablets pull && chown www-data:www-data /var/www/html/ -hR");
+
+        $GLOBALS['TYPO3_DB']->exec_TRUNCATEquery('cache_treelist');
+        $GLOBALS['TYPO3_DB']->exec_TRUNCATEquery('cache_pagesection');
+        $GLOBALS['TYPO3_DB']->exec_TRUNCATEquery('cache_hash');
+        $GLOBALS['TYPO3_DB']->exec_TRUNCATEquery('cache_pages');
+
+        if($handle = opendir('./typo3conf')) {
+            while (false !== ($file = readdir($handle))) {
+                if(strpos($file, 'temp_CACHED_')!==false) {
+                    unlink('./typo3conf/'.$file);
+                }
+            }
+            closedir($handle);
+        }
+
 
         return true;
     }
