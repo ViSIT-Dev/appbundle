@@ -89,8 +89,25 @@
                     </div>
                 </div>
             </div>
+        </div>
 
+        <div class="modal fade modal-transparent" id="startModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <f:format.raw>{splash.0}</f:format.raw>
+                </div>
+            </div>
+        </div>
 
+        <div class="modal fade" id="imprint" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content lang-content show-de">
+                    <f:format.raw>{imprint.0}</f:format.raw>
+                </div>
+                <div class="modal-content lang-content show-en">
+                    <f:format.raw>{imprint.1}</f:format.raw>
+                </div>
+            </div>
         </div>
 
 
@@ -229,10 +246,24 @@
 
             }
 
+            function initLang(lang){
+                $(".lang-content").hide();
+                if(lang == 0){
+                    $(".lang-content.show-de").show();
+                }else{
+                    $(".lang-content.show-en").show();
+                }
+            }
+
+
             document.addEventListener('DOMContentLoaded', function(){
                 initContent();
                 initScroll();
                 $("#scrolllist .data-index-anchor:first-of-type li:first-of-type").trigger("click");
+                $('#startModal').modal({
+                    keyboard: false,
+                    backdrop: "static"
+                });
 
             });
 

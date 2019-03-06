@@ -1,8 +1,6 @@
 <?php
 namespace Visit\VisitTablets\Controller;
 
-use Visit\VisitTablets\Helper\Util;
-
 /***
  *
  * This file is part of the "tablets" Extension for TYPO3 CMS.
@@ -13,6 +11,9 @@ use Visit\VisitTablets\Helper\Util;
  *  (c) 2018 Kris Raich
  *
  ***/
+
+use Visit\VisitTablets\Helper\Util;
+use \TYPO3\CMS\Core\Messaging\AbstractMessage;
 
 /**
  * InmateController
@@ -123,6 +124,36 @@ class InmateController extends AbstractVisitController  implements IRenderFronte
         $this->redirect('list');
     }
 
+
+    /**
+     * action settings
+     *
+     * @return void
+     */
+    public function settingsAction(){
+        $this->view->assign('title', Util::getConfigForAllLanguages("title"));
+        $this->view->assign('imprint', Util::getConfigForAllLanguages("imprint"));
+        $this->view->assign('splash', Util::getConfigForAllLanguages("splash"));
+
+    }
+
+    /**
+     * action updateSettings
+     *
+     * @return void
+     */
+    public function updateSettingsAction(){
+
+        $this->configRepository->processRequest($this->request, "title");
+        $this->configRepository->processRequest($this->request, "imprint");
+        $this->configRepository->processRequest($this->request, "splash");
+
+        $this->addFlashMessage("Änderungen gespeichert", '', AbstractMessage::INFO);
+
+        $this->redirect('settings');
+
+    }
+
     /**
      * action renderFrontend
      * @allowAllUsers
@@ -131,8 +162,7 @@ class InmateController extends AbstractVisitController  implements IRenderFronte
      */
     public function renderFrontendAction()
     {
-
-        $this->view->assign('title',"asd");
+        $this->addSettingsForTablets();
 
         $persons = json_decode(
             file_get_contents("typo3conf/ext/visit_tablets/Resources/Public/SampleData/MOCK_DATA.json"),

@@ -34,7 +34,7 @@ class Util {
         $languages = [
             0 =>  [
                 "uid" => 0,
-                "title" => "DE",
+                "title" => "Deutsch",
                 "languageIsocode" => "de"
             ]
         ];

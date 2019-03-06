@@ -3,42 +3,65 @@
         <!-- sidebar menu -->
         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
             <div class="menu_section">
-                <f:comment>
-                    <h3>Häftlinge</h3>
-                </f:comment>
                 <ul class="nav side-menu">
-                    <li>
+                    <li class="{f:if(condition: "{active} == 'im-list'", then: 'active')}">
                         <f:link.action action="list" controller="Inmate">
                             <i class="fa fa-list"></i> Liste<br />Insassen
                         </f:link.action>
                     </li>
-                    <li>
+                    <li class="{f:if(condition: "{active} == 'im-new'", then: 'active')}">
                         <f:link.action action="new" controller="Inmate">
                             <i class="fa fa-plus-circle"></i> Neuer<br />Insasse
                         </f:link.action>
                     </li>
+                    <f:if condition="{active} == 'im-edit'">
+                        <li class="active">
+                            <a>
+                                <i class="fa fa-pencil"></i> Edit
+                            </a>
+                        </li>
+                    </f:if>
+
                 </ul>
             </div>
             <hr />
             <div class="menu_section">
-                <f:comment>
-                    <h3>Zellen</h3>
-                </f:comment>
                 <ul class="nav side-menu">
-                    <li>
+                    <li class="{f:if(condition: "{active} == 'pc-list'", then: 'active')}">
                         <f:link.action action="list" controller="PrisonCell">
                             <i class="fa fa-list"></i> Liste<br />Zellen
                         </f:link.action>
                     </li>
-                    <li>
+                    <li class="{f:if(condition: "{active} == 'pc-new'", then: 'active')}">
                         <f:link.action action="new" controller="PrisonCell">
                             <i class="fa fa-plus-circle"></i> Neue<br />Zelle
+                        </f:link.action>
+                    </li>
+                    <f:if condition="{active} == 'pc-edit'">
+                        <li class="active">
+                            <a>
+                                <i class="fa fa-pencil"></i> Edit
+                            </a>
+                        </li>
+                    </f:if>
+                </ul>
+            </div>
+
+            <hr />
+
+            <div class="menu_section">
+                <ul class="nav side-menu">
+                    <li class="{f:if(condition: "{active} == 'settings'", then: 'active')}">
+                        <f:link.action action="settings" controller="Inmate">
+                            <i class="fa fa-cog"></i> Einstellungen
                         </f:link.action>
                     </li>
                 </ul>
             </div>
 
+
         </div>
+
         <!-- /sidebar menu -->
 
     </div>
