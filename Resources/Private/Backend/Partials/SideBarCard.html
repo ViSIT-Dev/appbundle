@@ -5,17 +5,24 @@
         <div class="menu_section">
             <h3>Markierungen</h3>
             <ul class="nav side-menu">
-                <li>
+                <li class="{f:if(condition: "{active} == 'list'", then: 'active')}">
                     <f:link.action action="list">
                         <i class="fa fa-list"></i> Liste
                     </f:link.action>
                 </li>
-                <li>
+                <f:if condition="{active} == 'edit'">
+                    <li class="active">
+                        <a>
+                            <i class="fa fa-pencil"></i> Edit
+                        </a>
+                    </li>
+                </f:if>
+                <li class="{f:if(condition: "{active} == 'new'", then: 'active')}">
                     <f:link.action action="new">
                         <i class="fa fa-plus-circle"></i> Neu
                     </f:link.action>
                 </li>
-                <li>
+                <li class="{f:if(condition: "{active} == 'settings'", then: 'active')}">
                     <f:link.action action="settings">
                         <i class="fa fa-cog"></i> Einstellungen
                     </f:link.action>
@@ -26,7 +33,7 @@
         <div class="menu_section">
             <h3>Übersicht</h3>
             <ul class="nav side-menu">
-                <li>
+                <li class="{f:if(condition: "{active} == 'card'", then: 'active')}">
                     <f:link.action action="showOnCard">
                         <i class="fa fa-map-pin"></i> Karte
                     </f:link.action>

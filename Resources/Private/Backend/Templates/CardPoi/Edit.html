@@ -6,51 +6,7 @@
 </f:section>
 
 <f:section name="sideBar">
-    <div class="left_col scroll-view">
-        <br />
-        <!-- sidebar menu -->
-        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-            <div class="menu_section">
-                <h3>Markierungen</h3>
-                <ul class="nav side-menu">
-                    <li>
-                        <f:link.action action="list">
-                            <i class="fa fa-list"></i> Liste
-                        </f:link.action>
-                    </li>
-                    <li class="active">
-                        <a>
-                            <i class="fa fa-pencil"></i> Edit
-                        </a>
-                    </li>
-                    <li>
-                        <f:link.action action="new">
-                            <i class="fa fa-plus-circle"></i> Neu
-                        </f:link.action>
-                    </li>
-                    <li>
-                        <f:link.action action="settings">
-                            <i class="fa fa-cog"></i> Einstellungen
-                        </f:link.action>
-                    </li>
-
-                </ul>
-            </div>
-            <div class="menu_section">
-                <h3>Übersicht</h3>
-                <ul class="nav side-menu">
-                    <li>
-                        <f:link.action action="showOnCard">
-                            <i class="fa fa-map-pin"></i> Karte
-                        </f:link.action>
-                    </li>
-                </ul>
-            </div>
-
-        </div>
-        <!-- /sidebar menu -->
-
-    </div>
+    <f:render partial="SideBarCard" arguments="{active: 'edit'}"/>
 </f:section>
 
 

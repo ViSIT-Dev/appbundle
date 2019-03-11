@@ -24,7 +24,16 @@ use Visit\VisitTablets\Helper\Util;
  * AbstractVisitController
  */
 abstract class AbstractVisitController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController{
-   
+
+    /**
+     * configRepository
+     *
+     * @var \Visit\VisitTablets\Domain\Repository\ConfigRepository
+     * @inject
+     */
+    protected $configRepository = null;
+
+
     protected $pageUid = 0;
     /**
      * Check Access Rights
@@ -131,6 +140,18 @@ abstract class AbstractVisitController extends \TYPO3\CMS\Extbase\Mvc\Controller
         }
         
     }
+
+    protected function addSettingsForTablets(){
+        //add pwa manifest
+        $this->response->addAdditionalHeaderData('<link rel="manifest" href="/typo3conf/ext/visit_tablets/Resources/Public/manifest.json" />');
+        $this->response->addAdditionalHeaderData('<script href="/typo3conf/ext/visit_tablets/Resources/Public/js/cache.js" type="text/javascript"></script>');
+        $this->response->addAdditionalHeaderData('<meta name="apple-mobile-web-app-capable" content="yes">');
+
+        $this->view->assign('title', Util::getConfigForAllLanguages("title"));
+        $this->view->assign('imprint', Util::getConfigForAllLanguages("imprint"));
+        $this->view->assign('splash', Util::getConfigForAllLanguages("splash"));
+    }
+
     
          /**	
     * Initializes the view before invoking an action method.	

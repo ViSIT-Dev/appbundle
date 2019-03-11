@@ -24,7 +24,7 @@ class UpdateExtensionTask extends AbstractVisitTask {
 
     public function execute(): bool {
 
-        \shell_exec("git -C /var/www/html/typo3conf/ext/visit_tablets pull && chown www-data:www-data /var/www/html/ -hR");
+        \shell_exec("git -C /var/www/html/typo3conf/ext/visit_tablets pull && chown www-data:www-data /var/www/html/typo3conf -hR");
 
         Util::deleteSystemCache();
 

@@ -72,7 +72,7 @@ call_user_func(
             'glossarbe', // Submodule key
             '', // Position
             [
-                'Inmate' => 'list, new, create, edit, update, delete',
+                'Inmate' => 'list, new, create, edit, update, delete, settings, updateSettings',
                 'PrisonCell' => 'list, show, new, create, edit, update, delete',
             ], 
             [
