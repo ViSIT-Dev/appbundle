@@ -199,7 +199,9 @@ class InmateController extends AbstractVisitController  implements IRenderFronte
         }
 
         $this->view
-            ->assign('persons', $out);
+            ->assign('persons', $out)
+            ->assign('events', $this->eventRepository->findAll())
+            ->assign('cells', $this->prisonCellRepository->findAll());
 
     }
 
