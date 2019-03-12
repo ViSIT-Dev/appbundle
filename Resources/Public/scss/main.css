@@ -2088,6 +2088,32 @@ iframe.warenkorb {
         font-weight: 500;
         line-height: 1.38; }
 
+#galery-layout {
+  background: #4B4B4B; }
+  #galery-layout .row .col-4 {
+    padding: 0; }
+  #galery-layout .row .col-4:nth-child(2) {
+    padding: 0 2px; }
+  #galery-layout .row .teaser-image {
+    background: blue;
+    width: 100%;
+    background-size: cover;
+    background-position: center; }
+  #galery-layout .row .teaser-title {
+    background: #fff;
+    width: 100%;
+    height: 128px;
+    padding: 24px 21px 0;
+    font-family: "Rum Serif";
+    font-weight: 600;
+    font-size: 24px; }
+  #galery-layout.layout3 .teaser-image {
+    height: -webkit-calc(100vh - 128px - 60px); }
+  #galery-layout.layout6 .row:nth-child(2) {
+    padding: 2px 0 0; }
+  #galery-layout.layout6 .teaser-image {
+    height: -webkit-calc((100vh - 60px) / 2 - 128px); }
+
 main#scope {
   height: 100%; }
   main#scope .full {
