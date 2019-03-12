@@ -13,8 +13,8 @@ namespace Visit\VisitTablets\Domain\Model;
  ***/
 
 /**
- * PrisonCell
+ * Event
  */
-class PrisonCell extends AbstractInmateMeta {
+class Event extends AbstractInmateMeta{
 
 }

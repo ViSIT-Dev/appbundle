@@ -36,7 +36,29 @@ config.tx_extbase.persistence{
                 recordType = Visit\VisitTablets\Domain\Model\ScopePoi
             }
         }
-     
+
+        //vererbung inmate meta
+        Visit\VisitTablets\Domain\Model\AbstractInmateMeta {
+            subclasses {
+                Visit\VisitTablets\Domain\Model\Event = Visit\VisitTablets\Domain\Model\Event
+                Visit\VisitTablets\Domain\Model\PrisonCell = Visit\VisitTablets\Domain\Model\PrisonCell
+            }
+        }
+
+        Visit\VisitTablets\Domain\Model\Event {
+            mapping {
+                tableName = tx_visittablets_domain_model_event
+                recordType = Visit\VisitTablets\Domain\Model\Event
+            }
+        }
+
+        Visit\VisitTablets\Domain\Model\PrisonCell {
+            mapping {
+                tableName = tx_visittablets_domain_model_prisoncell
+                recordType = Visit\VisitTablets\Domain\Model\PrisonCell
+            }
+        }
+
 
         //File Ref for Products
         Visit\VisitTablets\Domain\Model\FileReference {

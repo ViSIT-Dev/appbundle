@@ -12,6 +12,8 @@ namespace Visit\VisitTablets\Controller;
  *
  ***/
 
+use \Visit\VisitTablets\Domain\Model\PrisonCell;
+
 /**
  * PrisonCellController
  */
@@ -36,17 +38,6 @@ class PrisonCellController extends AbstractVisitController {
     }
 
     /**
-     * action show
-     *
-     * @param \Visit\VisitTablets\Domain\Model\PrisonCell $prisonCell
-     * @return void
-     */
-    public function showAction(\Visit\VisitTablets\Domain\Model\PrisonCell $prisonCell)
-    {
-        $this->view->assign('prisonCell', $prisonCell);
-    }
-
-    /**
      * action new
      *
      * @return void
@@ -62,35 +53,9 @@ class PrisonCellController extends AbstractVisitController {
      * @param \Visit\VisitTablets\Domain\Model\PrisonCell $newPrisonCell
      * @return void
      */
-    public function createAction(\Visit\VisitTablets\Domain\Model\PrisonCell $newPrisonCell)
+    public function createAction(PrisonCell $newPrisonCell)
     {
-//        $this->addFlashMessage('The object was created. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
         $this->prisonCellRepository->add($newPrisonCell);
-        $this->redirect('list');
-    }
-
-    /**
-     * action edit
-     *
-     * @param \Visit\VisitTablets\Domain\Model\PrisonCell $prisonCell
-     * @ignorevalidation $prisonCell
-     * @return void
-     */
-    public function editAction(\Visit\VisitTablets\Domain\Model\PrisonCell $prisonCell)
-    {
-        $this->view->assign('prisonCell', $prisonCell);
-    }
-
-    /**
-     * action update
-     *
-     * @param \Visit\VisitTablets\Domain\Model\PrisonCell $prisonCell
-     * @return void
-     */
-    public function updateAction(\Visit\VisitTablets\Domain\Model\PrisonCell $prisonCell)
-    {
-//        $this->addFlashMessage('The object was updated. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
-        $this->prisonCellRepository->update($prisonCell);
         $this->redirect('list');
     }
 
@@ -100,9 +65,9 @@ class PrisonCellController extends AbstractVisitController {
      * @param \Visit\VisitTablets\Domain\Model\PrisonCell $prisonCell
      * @return void
      */
-    public function deleteAction(\Visit\VisitTablets\Domain\Model\PrisonCell $prisonCell)
+    public function deleteAction(PrisonCell $prisonCell)
     {
-        $this->addFlashMessage('The object was deleted. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
+        $this->addFlashMessage('Zelle gelöscht', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
         $this->prisonCellRepository->remove($prisonCell);
         $this->redirect('list');
     }

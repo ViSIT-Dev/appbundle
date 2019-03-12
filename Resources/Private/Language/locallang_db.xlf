@@ -139,6 +139,16 @@
             <trans-unit id="tx_visittablets_domain_model_prisoncell.imates">
                 <source>Häftlinge</source>
             </trans-unit>
+
+            <trans-unit id="tx_visittablets_domain_model_event">
+                <source>Event</source>
+            </trans-unit>
+            <trans-unit id="tx_visittablets_domain_model_event.name">
+                <source>Name</source>
+            </trans-unit>
+            <trans-unit id="tx_visittablets_domain_model_event.imates">
+                <source>Häftlinge</source>
+            </trans-unit>
             
             <!-- Scope -->
             <trans-unit id="tx_visittablets_domain_model_scopepoi">

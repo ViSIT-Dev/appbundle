@@ -1,11 +1,11 @@
 <f:layout name="Default" />
 
 <f:section name="title">
-    <h2>Gefängnis Zellen - Übersicht</h2>
+    <h2>Events - Übersicht</h2>
 </f:section>
 
 <f:section name="sideBar">
-    <f:render partial="SideBarGlossar" arguments="{active: 'pc-list'}"/>
+    <f:render partial="SideBarGlossar" arguments="{active: 'ev-list'}"/>
 </f:section>
 
 
@@ -23,15 +23,15 @@
 
         <tbody>
             
-            <f:for each="{prisonCells}" as="prisonCell">
+            <f:for each="{events}" as="event">
                 <tr>
-                    <td>{prisonCell.name}</td>
-                    <td>{prisonCell.nameEn}</td>
+                    <td>{event.name}</td>
+                    <td>{event.nameEn}</td>
                     <td>
-                        <f:link.action action="edit" arguments="{prisonCell : prisonCell}" class="btn btn-primary btn-xs">
+                        <f:link.action action="edit" arguments="{event : event}" class="btn btn-primary btn-xs">
                             <i class="fa fa-pencil fa-2x" aria-hidden="true"></i>
                         </f:link.action>
-                        <f:link.action action="delete" arguments="{prisonCell : prisonCell}" class="askbeforedelete btn btn-warning btn-xs">
+                        <f:link.action action="delete" arguments="{event : event}" class="askbeforedelete btn btn-warning btn-xs">
                             <i class="fa fa-trash-o fa-2x" aria-hidden="true"></i>
                         </f:link.action>
                     </td>
