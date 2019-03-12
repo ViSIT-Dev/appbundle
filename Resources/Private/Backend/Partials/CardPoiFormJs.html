@@ -46,20 +46,6 @@
 
     }
 
-    ClassicEditor.create(document.querySelector('#description'), {
-        language: 'de',
-        removePlugins: ['Link'],
-        toolbar: ['heading', '|', 'bold', 'italic', 'bulletedList', 'numberedList', 'blockQuote'],
-        heading: {
-            options: [
-                {model: 'heading2', view: 'h3', title: 'Teaser', class: 'ck-heading_heading3'},
-                {model: 'paragraph', title: 'Text', class: 'ck-heading_paragraph'}
-            ]
-        }
-    }).catch(error => {
-        console.error(error);
-    });
-
     $(".dropzone").dropzone({
         url: parent.TYPO3.settings.ajaxUrls["fileUpload"], 
         timeout:  3600000, //1h für DSL...

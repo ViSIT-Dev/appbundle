@@ -7,58 +7,18 @@ return [
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
         'sortby' => 'sorting',
-//        'languageField' => 'sys_language_uid',
-//        'transOrigPointerField' => 'l10n_parent',
-//        'transOrigDiffSourceField' => 'l10n_diffsource',
 		'enablecolumns' => [
         ],
-		'searchFields' => 'language,first_name,last_name,date_of_birth,place_of_birth,nationality,day_of_passing,profession,prison_start,prison_end,subtitle,teasertext,text,event,media,vip,prison_cell',
+		'searchFields' => 'language,first_name,last_name,date_of_birth,place_of_birth,nationality,date_of_passing,profession,date_of_imprisonment,date_of_release,subtitle,teasertext,text,event,media,vip,prison_cell',
         'iconfile' => 'EXT:visit_tablets/Resources/Public/Icons/tx_visittablets_domain_model_inmate.gif'
     ],
     'interface' => [
-		'showRecordFieldList' => 'language, first_name, last_name, date_of_birth, place_of_birth, nationality, day_of_passing, profession, prison_start, prison_end, subtitle, teasertext, text, event, media, vip, prison_cell',
+		'showRecordFieldList' => 'language, first_name, last_name, date_of_birth, place_of_birth, nationality, date_of_passing, profession, date_of_imprisonment, date_of_release, subtitle, teasertext, text, event, media, vip, prison_cell',
     ],
     'types' => [
-		'1' => ['showitem' => 'language, first_name, last_name, date_of_birth, place_of_birth, nationality, day_of_passing, profession, prison_start, prison_end, subtitle, teasertext, text, event, media, vip, prison_cell'],
+		'1' => ['showitem' => 'language, first_name, last_name, date_of_birth, place_of_birth, nationality, date_of_passing, profession, date_of_imprisonment, date_of_release, subtitle, teasertext, text, event, media, vip, prison_cell'],
     ],
     'columns' => [
-//		'sys_language_uid' => [
-//			'exclude' => true,
-//			'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.language',
-//			'config' => [
-//				'type' => 'select',
-//				'renderType' => 'selectSingle',
-//				'special' => 'languages',
-//				'items' => [
-//					[
-//						'LLL:EXT:lang/locallang_general.xlf:LGL.allLanguages',
-//						-1,
-//						'flags-multiple'
-//					]
-//				],
-//				'default' => 0,
-//			],
-//        ],
-//        'l10n_parent' => [
-//            'displayCond' => 'FIELD:sys_language_uid:>:0',
-//            'exclude' => true,
-//            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.l18n_parent',
-//            'config' => [
-//                'type' => 'select',
-//                'renderType' => 'selectSingle',
-//                'items' => [
-//                    ['', 0],
-//                ],
-//                'foreign_table' => 'tx_visittablets_domain_model_inmate',
-//                'foreign_table_where' => 'AND tx_visittablets_domain_model_inmate.pid=###CURRENT_PID### AND tx_visittablets_domain_model_inmate.sys_language_uid IN (-1,0)',
-//            ],
-//        ],
-//        'l10n_diffsource' => [
-//            'config' => [
-//                'type' => 'passthrough',
-//            ],
-//        ],
-
 
         'language' => [
             'exclude' => false,
@@ -96,7 +56,7 @@ return [
 			    'type' => 'input',
 			    'size' => 7,
 			    'eval' => 'date',
-			    'default' => '0000-00-00'
+			    'default' => NULL
 			],
 	    ],
 	    'place_of_birth' => [
@@ -117,15 +77,15 @@ return [
 			    'eval' => 'trim'
 			],
 	    ],
-	    'day_of_passing' => [
+	    'date_of_passing' => [
 	        'exclude' => false,
-	        'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_inmate.day_of_passing',
+	        'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_inmate.date_of_passing',
 	        'config' => [
 			    'dbType' => 'date',
 			    'type' => 'input',
 			    'size' => 7,
 			    'eval' => 'date',
-			    'default' => '0000-00-00'
+                'default' => NULL
 			],
 	    ],
 	    'profession' => [
@@ -137,26 +97,26 @@ return [
 			    'eval' => 'trim'
 			],
 	    ],
-	    'prison_start' => [
+	    'date_of_imprisonment' => [
 	        'exclude' => false,
-	        'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_inmate.prison_start',
+	        'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_inmate.date_of_imprisonment',
 	        'config' => [
 			    'dbType' => 'date',
 			    'type' => 'input',
 			    'size' => 7,
 			    'eval' => 'date',
-			    'default' => '0000-00-00'
+                'default' => NULL
 			],
 	    ],
-	    'prison_end' => [
+	    'date_of_release' => [
 	        'exclude' => false,
-	        'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_inmate.prison_end',
+	        'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_inmate.date_of_release',
 	        'config' => [
 			    'dbType' => 'date',
 			    'type' => 'input',
 			    'size' => 7,
 			    'eval' => 'date',
-			    'default' => '0000-00-00'
+                'default' => NULL
 			],
 	    ],
 	    'subtitle' => [
@@ -259,13 +219,23 @@ return [
 	    ],
 	    'prison_cell' => [
 	        'exclude' => false,
-	        'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_inmate.prison_cell',
+	        'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_inmate',
 	        'config' => [
-			    'type' => 'select',
-			    'foreign_table' => 'tx_visittablets_domain_model_prisoncell',
-			    'foreign_field' => 'inmate',
-			    'foreign_sortby' => 'sorting',
+                'type' => 'select',
+                'foreign_table' => 'tx_visittablets_domain_model_prisoncell',
+                'minitems' => 0,
+                'maxitems' => 1,
 			],
 	    ],
+        'event' => [
+            'exclude' => false,
+            'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_event',
+            'config' => [
+                'type' => 'select',
+                'foreign_table' => 'tx_visittablets_domain_model_event',
+                'minitems' => 0,
+                'maxitems' => 1,
+            ],
+        ],
     ],
 ];

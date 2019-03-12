@@ -1,0 +1,17 @@
+
+<script>
+    ClassicEditor.create(document.querySelector('.rte'), {
+        language: 'de',
+        removePlugins: ['Link'],
+        toolbar: ['heading', '|', 'bold', 'italic', 'bulletedList', 'numberedList', 'blockQuote'],
+        heading: {
+            options: [
+                {model: 'heading2', view: 'h3', title: 'Teaser', class: 'ck-heading_heading3'},
+                {model: 'paragraph', title: 'Text', class: 'ck-heading_paragraph'}
+            ]
+        }
+    }).catch(error => {
+        console.error(error);
+    });
+
+</script>
