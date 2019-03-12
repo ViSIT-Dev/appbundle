@@ -11,7 +11,6 @@
         </f:section>
     </f:comment>
 
-
     <f:section name="main">
 
         <div id="mapAppWrapper">
@@ -21,22 +20,30 @@
 
                 <div class="dropdown">
                     <button class="btn btn-transparent dropdown-toggle menue-item" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Zellen
+                        <span class="lang-content show-de">Zellen</span>
+                        <span class="lang-content show-en">Cells</span>
                     </button>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        <f:for each="{cells}" as="cell">
+                            <a class="dropdown-item" href="#" data-celluid="{cell.uid}">
+                                <span class="lang-content show-de">{cell.name}</span>
+                                <span class="lang-content show-en">{cell.nameEn}</span>
+                            </a>
+                        </f:for>
                     </div>
                 </div>
                 <div class="dropdown">
                     <button class="btn btn-transparent dropdown-toggle menue-item" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Ereignis
+                        <span class="lang-content show-de">Ereignis</span>
+                        <span class="lang-content show-en">Event</span>
                     </button>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        <f:for each="{events}" as="event">
+                            <a class="dropdown-item" href="#" data-eventuid="{event.uid}">
+                                <span class="lang-content show-de">{event.name}</span>
+                                <span class="lang-content show-en">{event.nameEn}</span>
+                            </a>
+                        </f:for>
                     </div>
                 </div>
                 <div class="filter-action menue-item" data-filter="vip">VIP</div>
@@ -56,7 +63,7 @@
                                 <div class="data-index-anchor" data-index="{index}">
                                     <ul>
                                     <f:for each="{personIndex}" as="person">
-                                        <li>{person.first_name}</li>
+                                        <li data-personuid="{person.uid}">{person.fullName}</li>
                                     </f:for>
                                     </ul>
                                 </div>
@@ -68,24 +75,37 @@
 
                 <div class="col-6 scrollWrapper">
                     <div id="inmateDetail">
-                        <h1>Josef Zaliwski</h1>
-                        <h2>Offizier</h2>
-                        <hr />
-                        <ul>
-                            <li>*1797 Polen</li>
-                            <li>† 1855 Polen</li>
-                            <li>Offizier</li>
-                        </ul>
+                        <f:for each="{persons}" as="personIndex" key="index">
+                            <f:for each="{personIndex}" as="person">
+                                <div data-personuid="{person.uid}" class="inmate-card">
+                                    <h1>{person.fullName}</h1>
+                                    <h2>{person.subtitle}</h2>
+                                    <hr />
+                                    <ul>
+                                        <f:if condition="{person.dateOfBirth}">
+                                            <li>* {person.dateOfBirth}</li>
+                                        </f:if>
+                                        <f:if condition="{person.dateOfPassing}">
+                                            <li>† {person.dateOfPassing}</li>
+                                        </f:if>
 
-                        <hr />
+                                        <f:if condition="{person.dateOfImprisonment}">
+                                            <li>{person.dateOfImprisonment}</li>
+                                        </f:if>
+                                        <f:if condition="{person.dateOfRelease}">
+                                            <li>{person.dateOfRelease}</li>
+                                        </f:if>
+                                        <f:if condition="{person.profession}">
+                                            <li>{person.profession}</li>
+                                        </f:if>
+                                    </ul>
+                                    <hr />
+                                    <img class="img-fluid" src="typo3conf/ext/visit_tablets/Resources/Public/SampleData/mike-gorrell-692333-unsplash-copy.jpg "/>
+                                    <p><f:format.raw>{person.text}</f:format.raw></p>
+                                </div>
+                            </f:for>
+                        </f:for>
 
-                        <img class="img-fluid" src="typo3conf/ext/visit_tablets/Resources/Public/SampleData/mike-gorrell-692333-unsplash-copy.jpg "/>
-
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eget elit a lacus sollicitudin finibus. Donec sed arcu mauris. Quisque eget fringilla erat. Cras sit amet sagittis nulla. In quis euismod tellus. Nulla pharetra elit risus, at mattis urna dignissim sit amet. Nunc luctus vestibulum mauris, vel tempor lorem luctus vitae. Praesent rutrum elit id massa aliquam rutrum. Duis lobortis posuere neque, non bibendum libero suscipit ut. Nullam consectetur convallis commodo. Nullam pulvinar lacus blandit lacinia laoreet. Integer aliquam ac quam a dapibus. Duis placerat tincidunt orci quis faucibus. Nam pretium consequat egestas. In luctus accumsan erat, ac lacinia odio.
-
-                            Vivamus placerat aliquet posuere. Phasellus aliquet dolor arcu, non semper orci congue vitae. Integer sit amet eros quis sapien iaculis vestibulum. Pellentesque imperdiet vestibulum tincidunt. Sed accumsan dui in odio scelerisque tristique. Pellentesque eu nisi et libero euismod posuere. Praesent ut lobortis enim. Aenean ultrices convallis orci a tincidunt. Etiam placerat, metus sit amet maximus aliquam, augue dui tristique orci, in dictum dui felis in tortor. Mauris imperdiet consectetur libero ut dictum. Donec aliquet gravida sapien, sed interdum nibh semper quis. Praesent vel urna consectetur, eleifend odio at, gravida neque. Sed semper maximus tellus a congue. Ut vehicula, libero ac lacinia auctor, turpis diam dapibus purus, ut feugiat risus lacus pharetra nibh. Nunc quam ante, consequat eget finibus at, interdum a ipsum. Pellentesque vel elit non tortor suscipit egestas ac a magna.
-                        </p>
                     </div>
                 </div>
             </div>
@@ -224,7 +244,7 @@
                 var currentActiveEntry, $grid;;
                 function initContent() {
                     $("#scrolllist li").click(function () {
-                        if(currentActiveEntry != ($s = $(this))){
+                        if(currentActiveEntry !== ($s = $(this))) {
                             currentActiveEntry = $s;
                             $("#scrolllist li").removeClass("active");
                             currentActiveEntry.addClass("active");
@@ -241,7 +261,9 @@
                 }
 
                 function loadContent(){
-                    console.log(currentActiveEntry);
+                    $(".inmate-card.active").removeClass("active");
+                    let content = $(".inmate-card[data-personuid='" + currentActiveEntry.data("personuid") + "']")
+                    content.addClass("active").show();
                 }
 
             }

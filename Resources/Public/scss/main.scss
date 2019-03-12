@@ -501,6 +501,13 @@ main{
             background-color: #303030;
             padding: 75px;
 
+            .inmate-card{
+                display: none;
+                &.active{
+                    display: block;
+                }
+            }
+
             * {
                 color: white;
             }
@@ -573,6 +580,7 @@ main{
             font-family: "Rum Serif";
             font-weight: 600;
             font-size: 24px;
+            color: #4B4B4B;
         }
     }
     &.layout3{

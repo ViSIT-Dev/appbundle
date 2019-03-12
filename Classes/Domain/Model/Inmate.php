@@ -37,9 +37,9 @@ class Inmate extends AbstractEntityWithMedia implements IHasLanguage {
     /**
      * dateOfBirth
      *
-     * @var \DateTime
+     * @var string
      */
-    protected $dateOfBirth = null;
+    protected $dateOfBirth;
 
     /**
      * placeOfBirth
@@ -56,11 +56,11 @@ class Inmate extends AbstractEntityWithMedia implements IHasLanguage {
     protected $nationality = '';
 
     /**
-     * dayOfPassing
+     * dateOfPassing
      *
-     * @var \DateTime
+     * @var string
      */
-    protected $dayOfPassing = '';
+    protected $dateOfPassing;
 
     /**
      * profession
@@ -70,18 +70,18 @@ class Inmate extends AbstractEntityWithMedia implements IHasLanguage {
     protected $profession = '';
 
     /**
-     * prisonStart
+     * dateOfImprisonment
      *
-     * @var \DateTime
+     * @var string
      */
-    protected $prisonStart = null;
+    protected $dateOfImprisonment;
 
     /**
-     * prisonEnd
+     * dateOfRelease
      *
-     * @var \DateTime
+     * @var string
      */
-    protected $prisonEnd = null;
+    protected $dateOfRelease;
 
     /**
      * subtitle
@@ -105,13 +105,6 @@ class Inmate extends AbstractEntityWithMedia implements IHasLanguage {
     protected $text = '';
 
     /**
-     * text
-     *
-     * @var string
-     */
-    protected $event = '';
-
-    /**
      * vip
      *
      * @var bool
@@ -122,9 +115,15 @@ class Inmate extends AbstractEntityWithMedia implements IHasLanguage {
      * prisonCell
      *
      * @var \Visit\VisitTablets\Domain\Model\PrisonCell
-     * @cascade remove
      */
     protected $prisonCell = null;
+
+    /**
+     * event
+     *
+     * @var \Visit\VisitTablets\Domain\Model\Event
+     */
+    protected $event = null;
 
 
     /**
@@ -203,7 +202,7 @@ class Inmate extends AbstractEntityWithMedia implements IHasLanguage {
     /**
      * Returns the dateOfBirth
      *
-     * @return \DateTime $dateOfBirth
+     * @return string $dateOfBirth
      */
     public function getDateOfBirth()
     {
@@ -213,10 +212,10 @@ class Inmate extends AbstractEntityWithMedia implements IHasLanguage {
     /**
      * Sets the dateOfBirth
      *
-     * @param \DateTime $dateOfBirth
+     * @param string $dateOfBirth
      * @return void
      */
-    public function setDateOfBirth(\DateTime $dateOfBirth)
+    public function setDateOfBirth($dateOfBirth)
     {
         $this->dateOfBirth = $dateOfBirth;
     }
@@ -264,24 +263,24 @@ class Inmate extends AbstractEntityWithMedia implements IHasLanguage {
     }
 
     /**
-     * Returns the dayOfPassing
+     * Returns the dateOfPassing
      *
-     * @return string $dayOfPassing
+     * @return string $dateOfPassing
      */
-    public function getDayOfPassing()
+    public function getDateOfPassing()
     {
-        return $this->dayOfPassing;
+        return $this->dateOfPassing;
     }
 
     /**
-     * Sets the dayOfPassing
+     * Sets the dateOfPassing
      *
-     * @param string $dayOfPassing
+     * @param \string|null $dateOfPassing
      * @return void
      */
-    public function setDayOfPassing($dayOfPassing)
+    public function setDateOfPassing($dateOfPassing)
     {
-        $this->dayOfPassing = $dayOfPassing;
+        $this->dateOfPassing = $dateOfPassing;
     }
 
     /**
@@ -306,45 +305,45 @@ class Inmate extends AbstractEntityWithMedia implements IHasLanguage {
     }
 
     /**
-     * Returns the prisonStart
+     * Returns the dateOfImprisonment
      *
-     * @return \DateTime $prisonStart
+     * @return \DateTime $dateOfImprisonment
      */
-    public function getPrisonStart()
+    public function getDateOfImprisonment()
     {
-        return $this->prisonStart;
+        return $this->dateOfImprisonment;
     }
 
     /**
-     * Sets the prisonStart
+     * Sets the dateOfImprisonment
      *
-     * @param \DateTime $prisonStart
+     * @param string $dateOfImprisonment
      * @return void
      */
-    public function setPrisonStart(\DateTime $prisonStart)
+    public function setDateOfImprisonment($dateOfImprisonment)
     {
-        $this->prisonStart = $prisonStart;
+        $this->dateOfImprisonment = $dateOfImprisonment;
     }
 
     /**
-     * Returns the prisonEnd
+     * Returns the dateOfRelease
      *
-     * @return \DateTime $prisonEnd
+     * @return \DateTime $dateOfRelease
      */
-    public function getPrisonEnd()
+    public function getDateOfRelease()
     {
-        return $this->prisonEnd;
+        return $this->dateOfRelease;
     }
 
     /**
-     * Sets the prisonEnd
+     * Sets the dateOfRelease
      *
-     * @param \DateTime $prisonEnd
+     * @param string $dateOfRelease
      * @return void
      */
-    public function setPrisonEnd(\DateTime $prisonEnd)
+    public function setDateOfRelease($dateOfRelease)
     {
-        $this->prisonEnd = $prisonEnd;
+        $this->dateOfRelease = $dateOfRelease;
     }
 
     /**
@@ -458,7 +457,7 @@ class Inmate extends AbstractEntityWithMedia implements IHasLanguage {
      * @param \Visit\VisitTablets\Domain\Model\PrisonCell $prisonCell
      * @return void
      */
-    public function setPrisonCell($prisonCell)
+    public function setPrisonCell(PrisonCell $prisonCell)
     {
         $this->prisonCell = $prisonCell;
     }
@@ -466,7 +465,7 @@ class Inmate extends AbstractEntityWithMedia implements IHasLanguage {
     /**
      * Returns the event
      *
-     * @return string $event
+     * @return \Visit\VisitTablets\Domain\Model\Event $event
      */
     public function getEvent()
     {
@@ -476,10 +475,10 @@ class Inmate extends AbstractEntityWithMedia implements IHasLanguage {
     /**
      * Sets the event
      *
-     * @param string event
+     * @param \Visit\VisitTablets\Domain\Model\Event $event
      * @return void
      */
-    public function setEvent($event)
+    public function setEvent(Event $event)
     {
         $this->event = $event;
     }

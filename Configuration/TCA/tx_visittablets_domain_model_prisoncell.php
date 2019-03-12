@@ -41,7 +41,7 @@ return [
             'exclude' => true,
             'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_prisoncell.imates',
             'config' => [
-                'type' => 'select',
+                'type' => 'inline',
                 'foreign_table' => 'tx_visittablets_domain_model_inmate',
                 'foreign_field' => 'prison_cell',
                 'minitems' => 0,

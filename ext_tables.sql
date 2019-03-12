@@ -31,13 +31,13 @@ CREATE TABLE tx_visittablets_domain_model_inmate (
 
 	first_name varchar(255) DEFAULT '' NOT NULL,
 	last_name varchar(255) DEFAULT '' NOT NULL,
-	date_of_birth date DEFAULT '0000-00-00',
-	place_of_birth varchar(255) DEFAULT '' NOT NULL,
 	nationality varchar(255) DEFAULT '' NOT NULL,
-	day_of_passing varchar(255) DEFAULT '' NOT NULL,
 	profession varchar(255) DEFAULT '' NOT NULL,
-	prison_start date DEFAULT '0000-00-00',
-	prison_end date DEFAULT '0000-00-00',
+  place_of_birth varchar(255) DEFAULT '' NOT NULL,
+	date_of_birth varchar(255) DEFAULT '' NOT NULL,
+	date_of_passing varchar(255) DEFAULT '' NOT NULL,
+	date_of_imprisonment varchar(255) DEFAULT '' NOT NULL,
+	date_of_release varchar(255) DEFAULT '' NOT NULL,
 	subtitle varchar(255) DEFAULT '' NOT NULL,
 	event varchar(255) DEFAULT '' NOT NULL,
 	teasertext text NOT NULL,
@@ -52,7 +52,7 @@ CREATE TABLE tx_visittablets_domain_model_inmate (
 
 	sorting int(11) DEFAULT '0' NOT NULL,
 
-		language int(11) DEFAULT '0' NOT NULL,
+  language int(11) DEFAULT '0' NOT NULL,
 
 	PRIMARY KEY (uid),
 	KEY parent (pid),
@@ -104,12 +104,12 @@ CREATE TABLE tx_visittablets_domain_model_galerycontentelement (
 	text text NOT NULL,
 	layout int(11) NOT NULL default '0',
 	media int(11) unsigned NOT NULL default '0',
-        teaser_image int(11) unsigned NOT NULL default '0',
+  teaser_image int(11) unsigned NOT NULL default '0',
         
-        sorting tinyint(1) unsigned DEFAULT '0' NOT NULL,
-        hidden tinyint(1) unsigned DEFAULT '0' NOT NULL,
-        deleted tinyint(1) unsigned DEFAULT '0' NOT NULL,
-        startPage tinyint(1) unsigned DEFAULT '0' NOT NULL,
+  sorting tinyint(1) unsigned DEFAULT '0' NOT NULL,
+  hidden tinyint(1) unsigned DEFAULT '0' NOT NULL,
+  deleted tinyint(1) unsigned DEFAULT '0' NOT NULL,
+  startPage tinyint(1) unsigned DEFAULT '0' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
@@ -160,7 +160,7 @@ CREATE TABLE tx_visittablets_domain_model_prisoncell (
 
 	name varchar(255) DEFAULT '' NOT NULL,
 	name_en varchar(255) DEFAULT '' NOT NULL,
-	imates int(11) unsigned DEFAULT '0',
+	inmates int(11) unsigned DEFAULT '0',
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
@@ -183,7 +183,7 @@ CREATE TABLE tx_visittablets_domain_model_event (
 
 	name varchar(255) DEFAULT '' NOT NULL,
 	name_en varchar(255) DEFAULT '' NOT NULL,
-	imates int(11) unsigned DEFAULT '0',
+	inmates int(11) unsigned DEFAULT '0',
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,

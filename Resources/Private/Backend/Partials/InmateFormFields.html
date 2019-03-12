@@ -12,52 +12,52 @@
         <f:form.textfield id="lastName" property="lastName" class="form-control col-md-7 col-xs-12" required="required" />
     </div>
 </div>
-<div class="form-group">
-    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="placeOfBirth">Geburtsort </label>
-    <div class="col-md-9 col-sm-9 col-xs-12">
-        <f:form.textfield id="placeOfBirth" property="placeOfBirth" class="form-control col-md-7 col-xs-12" />
+<f:comment>
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="placeOfBirth">Geburtsort </label>
+        <div class="col-md-9 col-sm-9 col-xs-12">
+            <f:form.textfield id="placeOfBirth" property="placeOfBirth" class="form-control col-md-7 col-xs-12" />
+        </div>
     </div>
-</div>
-<div class="form-group date date-picker">
-    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dateOfBirth">Geburtstag </label>
-    <div class="col-md-9 col-sm-9 col-xs-12">
-        <f:form.textfield id="dateOfBirth" property="dateOfBirth" value="{dateOfBirth ->f:format.date()}" class="form-control col-md-7 col-xs-12" additionalAttributes="{readonly:'readonly'}"/>
-        <span class="input-group-addon">
-            <span class="glyphicon glyphicon-calendar"></span>
-        </span>
-    </div>
-</div>
-<div class="form-group date date-picker">
-    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dayOfPassing">Todestag </label>
-    <div class="col-md-9 col-sm-9 col-xs-12">
-        <f:form.textfield id="dayOfPassing" property="dayOfPassing" value="{dayOfPassing ->f:format.date()}" class="form-control col-md-7 col-xs-12" additionalAttributes="{readonly:'readonly'}"/>
-        <span class="input-group-addon">
-            <span class="glyphicon glyphicon-calendar"></span>
-        </span>
-    </div>
-</div>
+</f:comment>
+
+
 <div class="form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="profession">Handwerk </label>
     <div class="col-md-9 col-sm-9 col-xs-12">
         <f:form.textfield id="profession" property="profession" class="form-control col-md-7 col-xs-12" />
     </div>
 </div>
+
+
 <div class="form-group date date-picker">
-    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="prisonStart">Inhaftiert </label>
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dateOfBirth">Geburtstag </label>
     <div class="col-md-9 col-sm-9 col-xs-12">
-        <f:form.textfield id="prisonStart" property="prisonStart" value="{prisonStart ->f:format.date()}" class="form-control col-md-7 col-xs-12" additionalAttributes="{readonly:'readonly'}"/>
-        <span class="input-group-addon">
-            <span class="glyphicon glyphicon-calendar"></span>
-        </span>
+        <f:form.textfield id="dateOfBirth" property="dateOfBirth" class="form-control col-md-7 col-xs-12" />
     </div>
 </div>
+
 <div class="form-group date date-picker">
-    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="prisonEnd">Freigelassen </label>
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dateOfPassing">Todestag </label>
     <div class="col-md-9 col-sm-9 col-xs-12">
-        <f:form.textfield id="prisonEnd" property="prisonEnd" value="{prisonEnd ->f:format.date()}" class="form-control col-md-7 col-xs-12" additionalAttributes="{readonly:'readonly'}"/>
-        <span class="input-group-addon">
-            <span class="glyphicon glyphicon-calendar"></span>
-        </span>
+        <f:form.textfield id="dateOfPassing" property="dateOfPassing"  class="form-control col-md-7 col-xs-12" />
+    </div>
+</div>
+
+<div class="form-group date date-picker">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dateOfImprisonment">Inhaftiert</label>
+    <div class="col-md-9 col-sm-9 col-xs-12">
+        <f:form.textfield id="dateOfImprisonment" property="dateOfImprisonment"  class="form-control col-md-7 col-xs-12" />
+    </div>
+</div>
+
+<div class="form-group date date-picker">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dateOfRelease">Freigelassen </label>
+    <div class="col-md-9 col-sm-9 col-xs-12">
+        <f:form.textfield id="dateOfRelease" property="dateOfRelease" class="form-control col-md-7 col-xs-12"  />
+        <f:comment>
+            <f:form.textfield id="dateOfRelease" property="dateOfRelease" value="{f:format.date(date: inmate.dateOfRelease, format: 'd.m.Y')}" class="form-control col-md-7 col-xs-12" additionalAttributes="{placeholder:'tt.mm.jjj'}" />
+        </f:comment>
     </div>
 </div>
 
@@ -68,29 +68,46 @@
     </div>
 </div>
 
+<div class="form-group date date-picker">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="prisonCell">Event </label>
+    <div class="col-md-9 col-sm-9 col-xs-12">
+        <f:form.select id="prisonCell" property="event" options="{events}" optionLabelField="name" class="form-control col-md-7 col-xs-12" />
+    </div>
+</div>
+
 <div class="ln_solid"></div>
 
 <div class="form-group">
-    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="subtitle">Titel <span class="required">*</span></label>
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="subtitle">Titel</label>
     <div class="col-md-9 col-sm-9 col-xs-12">
-        <f:form.textfield id="subtitle" property="subtitle" class="form-control col-md-7 col-xs-12" required="required" />
+        <f:form.textfield id="subtitle" property="subtitle" class="form-control col-md-7 col-xs-12"  />
     </div>
 </div>
-<div class="form-group">
-    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="event">Ereigniss <span class="required">*</span></label>
-    <div class="col-md-9 col-sm-9 col-xs-12">
-        <f:form.textfield id="event" property="event" class="form-control col-md-7 col-xs-12" required="required" />
+
+<f:comment>
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="teasertext">Teaser Text</label>
+        <div class="col-md-9 col-sm-9 col-xs-12">
+            <f:form.textarea id="teasertext" style="width: 100%" property="teasertext" />
+        </div>
     </div>
-</div>
-<div class="form-group">
-    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="teasertext">Teaser Text</label>
-    <div class="col-md-9 col-sm-9 col-xs-12">
-        <f:form.textarea id="teasertext" property="teasertext" />
-    </div>
-</div>
+</f:comment>
+
 <div class="form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="text">Text</label>
     <div class="col-md-9 col-sm-9 col-xs-12">
-        <f:form.textarea id="text" property="text" />
+        <f:form.textarea id="text" class="rte" property="text" />
     </div>
 </div>
+
+<f:comment>
+    <script>
+        window.onload = function(){
+            $('.date-picker').datetimepicker({
+                ignoreReadonly: true,
+                allowInputToggle: true,
+                format: 'DD.MM.YYYY'
+            });
+        };
+    </script>
+</f:comment>

@@ -36,16 +36,16 @@
             <trans-unit id="nationality.description">
                 <source>nationality</source>
             </trans-unit>
-            <trans-unit id="day_of_passing.description">
+            <trans-unit id="date_of_passing.description">
                 <source>dayOfPassing</source>
             </trans-unit>
             <trans-unit id="profession.description">
                 <source>profession</source>
             </trans-unit>
-            <trans-unit id="prison_start.description">
+            <trans-unit id="date_of_imprisonment.description">
                 <source>prisonStart</source>
             </trans-unit>
-            <trans-unit id="prison_end.description">
+            <trans-unit id="date_of_release.description">
                 <source>prisonEnd</source>
             </trans-unit>
             <trans-unit id="subtitle.description">
