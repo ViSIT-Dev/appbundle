@@ -14,9 +14,9 @@ namespace Visit\VisitTablets\Domain\Repository;
  * * */
 
 /**
- * The repository for CardPois
+ * The repository for Galery Content Elements
  */
-class ScopePoiRepository extends AbstractVisitRepository {
+class GaleryContentElementRepository extends AbstractVisitRepository {
 
     public function findAllEager() {
         $query = $this->createQuery();

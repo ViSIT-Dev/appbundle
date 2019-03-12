@@ -36,5 +36,15 @@ class GaleryContentLayout extends \TYPO3\CMS\Core\Type\Enumeration
    
    /** @var int Use wildcard on both sides */
    const FULLSCREEN_MEDIA = 4;
-   
+
+    public static function getValues() {
+        return [
+            self::TEXT_LEFT_ONE_MEDIA =>    "Ein Medienobjekt, Text links",
+            self::TEXT_RIGHT_ONE_MEDIA =>   "Ein Medienobjekt, Text rechts",
+            self::TEXT_LEFT_TWO_MEDIA =>    "Zwei Medienobjekte, Text links",
+            self::TEXT_RIGHT_TWO_MEDIA =>   "Zwei Medienobjekte, Text rechts",
+            self::FULLSCREEN_MEDIA =>       "Vollbild-Medienobjekt"
+        ];
+    }
+
 }
