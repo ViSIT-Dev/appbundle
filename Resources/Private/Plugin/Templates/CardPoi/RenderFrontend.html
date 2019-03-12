@@ -74,7 +74,6 @@
 
 
         <script>
-
             var iconScale = 0.9;
 
             var inactiveColor = "#4A4A4A";
@@ -86,10 +85,11 @@
             var poiData = <f:format.raw>{cardPoisJson}</f:format.raw>;
 
             var mapMarkers = [];
+            var markerCache = [];
 
             var mymap, currentLanguage, markerSVGtemplate, lastAciveMarker = lastInAciveMarker= false;
             {
-                var xmlHttp = new XMLHttpRequest();
+                let xmlHttp = new XMLHttpRequest();
                 xmlHttp.open( "GET", "typo3conf/ext/visit_tablets/Resources/Public/Icons/map_marker.svg", false ); // false for synchronous request
                 xmlHttp.send( null );
                 markerSVGtemplate =  xmlHttp.responseText;
@@ -107,16 +107,30 @@
             }
             
             function getSvgFlagFromItem(item, active){
-                console.log(item);
 
-                var parts = item.flagText.split("//")
-                var svg = markerSVGtemplate
-                    .replace("{{BG_COL}}", active ? activeColor :inactiveColor)
-                    .replace("{{LINE1}}", parts[0])
-                    .replace("{{LINE2}}", parts[1] ? parts[1] : "" );
-            
-                return 'data:image/svg+xml;utf8,' + svg;
+                let key =[item.uid, active, currentLanguage].join('-');
+
+                if(markerCache[key] === undefined){
+
+                    let parts = item.flagText.split("//");
+                    let svg = markerSVGtemplate.replace("{{BG_COL}}", active ? activeColor : inactiveColor);
+
+                    if(item.flagText.length === 0 || parts.length === 0){
+                        svg = svg.replace("{{LINE1}}", "").replace("{{LINE2}}", "" );
+                    }else if(parts.length === 1){
+                        svg = svg.replace("{{LINE1}}", parts[0]).replace("{{LINE2}}", "" );
+                    }else{
+                        svg = svg.replace("{{LINE1}}", parts[0]).replace("{{LINE2}}",  parts[1]);
+                    }
+                    markerCache[key] =  base64_encode(svg);
+                }
+
+                // wont work on desktop any more??
+                // return 'data:image/svg+xml;utf8,' + svg;
+                return 'data:image/svg+xml;base64,' +  markerCache[key];
+
             }
+
             function stopAllVideos(){
                 $("video").each(function(index, element){
                     element.pause();
@@ -131,6 +145,7 @@
                     iconAnchor:   [0, iconWidth], // point of the icon which will correspond to marker's location
                     iconSize:     [iconHeight, iconWidth], // size of the icon
                 } );
+                console.log(icon);
                 var marker = L.marker(item.latlng, {icon: icon}).on('click', function(e){
                     markerOnClick(e, item, marker);
                 }).addTo(mymap);

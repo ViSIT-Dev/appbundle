@@ -1,5 +1,5 @@
 <?php
-namespace Visit\VisitTablets\Domain\Model;
+namespace Visit\VisitTablets\Domain\Repository;
 
 /***
  *
@@ -8,13 +8,14 @@ namespace Visit\VisitTablets\Domain\Model;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- *  (c) 2018 Kris Raich & Kathrei Robert
+ *  (c) 2018 Kris Raich
  *
  ***/
 
 /**
- * PrisonCell
+ * The repository for Events
  */
-class PrisonCell extends AbstractInmateMeta {
+class EventRepository extends AbstractVisitRepository{
 
+    
 }

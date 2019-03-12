@@ -1,7 +1,7 @@
 <?php
 return [
     'ctrl' => [
-        'title'	=> 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_prisoncell',
+        'title'	=> 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_event',
         'label' => 'name',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
@@ -10,7 +10,7 @@ return [
 		'enablecolumns' => [
         ],
 		'searchFields' => 'name,name_en,imates',
-        'iconfile' => 'EXT:visit_tablets/Resources/Public/Icons/tx_visittablets_domain_model_prisoncell.gif'
+        'iconfile' => 'EXT:visit_tablets/Resources/Public/Icons/tx_visittablets_domain_model_event.gif'
     ],
     'interface' => [
 		'showRecordFieldList' => 'name, name_en, imates',
@@ -21,7 +21,7 @@ return [
     'columns' => [
         'name' => [
 	        'exclude' => false,
-	        'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_prisoncell.name',
+	        'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_event.name',
 	        'config' => [
 			    'type' => 'input',
 			    'size' => 30,
@@ -30,7 +30,7 @@ return [
 	    ],
         'name_en' => [
             'exclude' => false,
-            'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_prisoncell.name',
+            'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_event.name',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -39,7 +39,7 @@ return [
         ],
         'imates' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_prisoncell.imates',
+            'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_event.imates',
             'config' => [
                 'type' => 'select',
                 'foreign_table' => 'tx_visittablets_domain_model_inmate',

@@ -73,8 +73,9 @@ call_user_func(
             '', // Position
             [
                 'Inmate' => 'list, new, create, edit, update, delete, settings, updateSettings',
-                'PrisonCell' => 'list, show, new, create, edit, update, delete',
-            ], 
+                'PrisonCell' => 'list, new, create, delete',
+                'Event' => 'list, new, create, delete',
+            ],
             [
                 'access' => 'user,group',
                 'icon' => 'EXT:' . $extKey . '/Resources/Public/Icons/glossar.svg',
