@@ -2132,6 +2132,15 @@ main#scope {
       top: -webkit-calc(50% - 20px);
       left: -moz-calc(50% - 20px);
       top: -moz-calc(50% - 20px); }
+    main#scope #scopeContainer #lang-indicator {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100px;
+      height: 100px;
+      padding: 20px; }
+      main#scope #scopeContainer #lang-indicator img {
+        width: 100%; }
   main#scope .content-holder {
     display: none;
     position: absolute;

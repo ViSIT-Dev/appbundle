@@ -83,6 +83,22 @@ call_user_func(
                 'navigationComponentId' => 'typo3-pagetree',
             ]
         );
+
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
+            'Visit.VisitTablets', 
+            'tabletbe', 
+            'galleriebe', // Submodule key
+            '', // Position
+            [
+                'Gallerie' => 'list, new, create, edit, update, delete, settings, updateSettings',
+            ], 
+            [
+                'access' => 'user,group',
+                'icon' => 'EXT:' . $extKey . '/Resources/Public/Icons/galerie.svg',
+                'labels' => 'LLL:EXT:' . $extKey . '/Resources/Private/Language/locallang_gallerie.xlf',
+                'navigationComponentId' => 'typo3-pagetree',
+            ]
+        );
         
             \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
                 'Visit.VisitTablets',

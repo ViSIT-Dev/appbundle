@@ -97,6 +97,14 @@
                     </div>
                 </f:if>
                 <div id="crosshair"></div>
+                <div id="lang-indicator">
+                    <figure class="lang-content lang-de">
+                        <img class="poi-icon" src="{config.langicon_de}" />
+                    </figure>
+                    <figure class="lang-content lang-en">
+                        <img class="poi-icon" src="{config.langicon_en}" />
+                    </figure>
+                </div>
             </div>
         </div>
         <div class="content-holder {f:if(condition:'{config.debugmode}', then:' debug')}">
@@ -385,6 +393,11 @@
                             language = jsonPois[poi]["lang"];
                             return null;
                         }
+                        if(
+                                jsonPois[poi]["language"] != (language === "de" ? 0 : 1) && jsonPois[poi]["displayAllways"] != true
+                                ){
+                            continue;
+                        }
                         console.log({"target": $("#poi-" + jsonPois[poi]["uid"])});
                         return {
                             "language": jsonPois[poi]["language"],
@@ -416,11 +429,6 @@
                 var target = getTarget();
                 if(target){
                     if(target["distanceFactor"] > hysteresisFactor){
-                        if(
-                                target["language"] != (language === "de" ? 0 : 1) && target["displayAllways"] != true
-                                ){
-                            return;
-                        }
                         if(!target["target"].hasClass("active")){
                             target["target"].addClass("active");
                             target["datapoint"].addClass("active");
