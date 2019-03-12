@@ -24,7 +24,7 @@ call_user_func(
             'Visit.VisitTablets',
             'Galeriefe',
             [
-                'Gallery' => 'renderFrontend'
+                'Gallerie' => 'renderFrontend'
             ],
             // non-cacheable actions
             [

@@ -79,7 +79,9 @@ class GallerieController extends AbstractVisitController  implements IRenderFron
      */
     public function renderFrontendAction()
     {
-        $this->view->assign('title', "test");
+        $this->addSettingsForTablets();
+        $this->view->assign('startUpLayout', $this->configRepository->get("startUpLayout"));
+        $this->view->assign('contentElements', $this->galeryContentElementRepository->findAll());
     }
     
     

@@ -1,0 +1,88 @@
+<html  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+    <f:layout name="Tablets" />
+
+    
+    <f:comment>
+        <f:section name="title">
+                <h1>
+                    <span class="lang-content show-de">{title.0}</span>
+                    <span class="lang-content show-en">{title.1}</span>
+                </h1>
+        </f:section>
+    </f:comment>
+    
+    <f:section name="main">
+        
+        <f:debug>{_all}</f:debug>
+        
+        <f:if condition="{startUpLayout} == 0">
+            <f:render partial="Galery/Layout3" arguments="{_all}" />
+        </f:if>
+        <f:if condition="{startUpLayout} == 1">
+            <f:render partial="Galery/Layout6" arguments="{_all}" />
+        </f:if>
+
+        <div id='content-holder'>
+            <f:for each='{contentElements}' as='element'>
+                
+            </f:for>
+        </div>
+        
+        <div class="modal fade modal-transparent" id="startModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <f:format.raw>{splash.0}</f:format.raw>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="imprint" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content lang-content show-de">
+                    <f:format.raw>{imprint.0}</f:format.raw>
+                </div>
+                <div class="modal-content lang-content show-en">
+                    <f:format.raw>{imprint.1}</f:format.raw>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+
+            document.addEventListener('DOMContentLoaded', function(){
+                initContent();
+                initScroll();
+                $("#scrolllist .data-index-anchor:first-of-type li:first-of-type").trigger("click");
+                $('#startModal').modal({
+                    keyboard: false,
+                    backdrop: "static"
+                });
+
+            });
+        </script>
+
+    </f:section>
+
+    <f:section name="footer">
+        
+
+        <script src="typo3conf/ext/visit_tablets/Resources/Public/js/three/three.js"></script>
+        <script src="typo3conf/ext/visit_tablets/Resources/Public/js/three/OrbitControls.js"></script>
+        <script src="typo3conf/ext/visit_tablets/Resources/Public/js/three/STLLoader.js"></script>
+        <script src="typo3conf/ext/visit_tablets/Resources/Public/js/three/DDSLoader.js"></script>
+        <script src="typo3conf/ext/visit_tablets/Resources/Public/js/three/MTLLoader.js"></script>
+        <script src="typo3conf/ext/visit_tablets/Resources/Public/js/three/OBJLoader.js"></script>
+        <!--<script src="typo3conf/ext/visit_tablets/Resources/Public/js/three/Raycaster.js"></script>-->
+        
+        <script src="typo3conf/ext/visit_tablets/Resources/Public/js/three/Detector.js"></script>
+        <!--<script src="typo3conf/ext/visit_tablets/Resources/Public/js/three/Material.js"></script>-->
+        <script src="typo3conf/ext/visit_tablets/Resources/Public/js/three/stats.js"></script>
+
+        <script src="typo3conf/ext/visit_tablets/Resources/Public/js/isotope.js"></script>
+
+
+
+    </f:section>
+    
+</html>
