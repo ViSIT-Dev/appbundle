@@ -20,7 +20,7 @@
 </label><br />
 	<f:form.textfield property="nationality" /><br />
 <label for="dayOfPassing">
-	<f:translate key="tx_visittablets_domain_model_inmate.day_of_passing" />
+	<f:translate key="tx_visittablets_domain_model_inmate.date_of_passing" />
 </label><br />
 	<f:form.textfield property="dayOfPassing" /><br />
 <label for="profession">
@@ -28,11 +28,11 @@
 </label><br />
 	<f:form.textfield property="profession" /><br />
 <label for="prisonStart">
-	<f:translate key="tx_visittablets_domain_model_inmate.prison_start" />
+	<f:translate key="tx_visittablets_domain_model_inmate.date_of_imprisonment" />
 </label><br />
 	<f:form.textfield property="prisonStart" value="{inmate.prisonStart->f:format.date()}" /><br />
 <label for="prisonEnd">
-	<f:translate key="tx_visittablets_domain_model_inmate.prison_end" />
+	<f:translate key="tx_visittablets_domain_model_inmate.date_of_release" />
 </label><br />
 	<f:form.textfield property="prisonEnd" value="{inmate.prisonEnd->f:format.date()}" /><br />
 <label for="subtitle">

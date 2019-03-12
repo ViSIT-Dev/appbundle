@@ -54,16 +54,16 @@
             <trans-unit id="tx_visittablets_domain_model_inmate.nationality">
                 <source>Nationalität</source>
             </trans-unit>
-            <trans-unit id="tx_visittablets_domain_model_inmate.day_of_passing">
+            <trans-unit id="tx_visittablets_domain_model_inmate.date_of_passing">
                 <source>Todestag</source>
             </trans-unit>
             <trans-unit id="tx_visittablets_domain_model_inmate.profession">
                 <source>Beruf</source>
             </trans-unit>
-            <trans-unit id="tx_visittablets_domain_model_inmate.prison_start">
+            <trans-unit id="tx_visittablets_domain_model_inmate.date_of_imprisonment">
                 <source>Haftbeginn</source>
             </trans-unit>
-            <trans-unit id="tx_visittablets_domain_model_inmate.prison_end">
+            <trans-unit id="tx_visittablets_domain_model_inmate.date_of_release">
                 <source>Haftende</source>
             </trans-unit>
             <trans-unit id="tx_visittablets_domain_model_inmate.subtitle">

@@ -2044,6 +2044,10 @@ main {
     #mapAppWrapper #inmateContent #inmateDetail {
       background-color: #303030;
       padding: 75px; }
+      #mapAppWrapper #inmateContent #inmateDetail .inmate-card {
+        display: none; }
+        #mapAppWrapper #inmateContent #inmateDetail .inmate-card.active {
+          display: block; }
       #mapAppWrapper #inmateContent #inmateDetail * {
         color: white; }
       #mapAppWrapper #inmateContent #inmateDetail h1 {

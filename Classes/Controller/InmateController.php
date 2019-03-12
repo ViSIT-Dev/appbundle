@@ -12,6 +12,7 @@ namespace Visit\VisitTablets\Controller;
  *
  ***/
 
+use Visit\VisitTablets\Domain\Model\Inmate;
 use Visit\VisitTablets\Helper\Util;
 use \TYPO3\CMS\Core\Messaging\AbstractMessage;
 
@@ -19,6 +20,9 @@ use \TYPO3\CMS\Core\Messaging\AbstractMessage;
  * InmateController
  */
 class InmateController extends AbstractVisitController  implements IRenderFrontend{
+
+
+//    public static $DATE_PICKER_FORMAT = "d.m.Y";
 
     /**
      * inmateRepository
@@ -36,6 +40,14 @@ class InmateController extends AbstractVisitController  implements IRenderFronte
      */
     protected $prisonCellRepository = null;
 
+    /**
+     * eventRepository
+     *
+     * @var \Visit\VisitTablets\Domain\Repository\EventRepository
+     * @inject
+     */
+    protected $eventRepository = null;
+
     
     public function initializeAction() {
 
@@ -44,10 +56,10 @@ class InmateController extends AbstractVisitController  implements IRenderFronte
         if ($this->arguments->hasArgument('newInmate') || $this->arguments->hasArgument('inmate')) {
             $argument = ($this->arguments->hasArgument('inmate')) ? "inmate" : "newInmate";
             // fix dates from imput
-            $this->arguments->getArgument($argument)->getPropertyMappingConfiguration()->forProperty('dateOfBirth')->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter',\TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT,'d.m.Y');
-            $this->arguments->getArgument($argument)->getPropertyMappingConfiguration()->forProperty('dayOfPassing')->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter',\TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT,'d.m.Y');
-            $this->arguments->getArgument($argument)->getPropertyMappingConfiguration()->forProperty('prisonStart')->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter',\TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT,'d.m.Y');
-            $this->arguments->getArgument($argument)->getPropertyMappingConfiguration()->forProperty('prisonEnd')->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter',\TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT,'d.m.Y');
+//            $this->arguments->getArgument($argument)->getPropertyMappingConfiguration()->forProperty('dateOfBirth')->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter',\TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, self::$DATE_PICKER_FORMAT);
+//            $this->arguments->getArgument($argument)->getPropertyMappingConfiguration()->forProperty('dateOfPassing')->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter',\TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT,self::$DATE_PICKER_FORMAT);
+//            $this->arguments->getArgument($argument)->getPropertyMappingConfiguration()->forProperty('dateOfImprisonment')->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter',\TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT,self::$DATE_PICKER_FORMAT);
+//            $this->arguments->getArgument($argument)->getPropertyMappingConfiguration()->forProperty('dateOfRelease')->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter',\TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT,self::$DATE_PICKER_FORMAT);
         }
     }
     
@@ -69,7 +81,9 @@ class InmateController extends AbstractVisitController  implements IRenderFronte
      */
     public function newAction()
     {
-        $this->view->assign('prisonCells', $this->prisonCellRepository->findAll());
+        $this->view
+            ->assign('prisonCells', $this->prisonCellRepository->findAll())
+            ->assign('events', $this->eventRepository->findAll());
     }
 
     /**
@@ -96,7 +110,8 @@ class InmateController extends AbstractVisitController  implements IRenderFronte
     {
         $this->view
             ->assign('inmate', $inmate)
-            ->assign('prisonCells', $this->prisonCellRepository->findAll());
+            ->assign('prisonCells', $this->prisonCellRepository->findAll())
+            ->assign('events', $this->eventRepository->findAll());
     }
 
     /**
@@ -164,28 +179,31 @@ class InmateController extends AbstractVisitController  implements IRenderFronte
     {
         $this->addSettingsForTablets();
 
-        $persons = json_decode(
-            file_get_contents("typo3conf/ext/visit_tablets/Resources/Public/SampleData/MOCK_DATA.json"),
-            true
-        );
-
-        \usort($persons, function($a, $b){
-            return \strcmp($a["first_name"], $b["first_name"]);
-        });
+//        $persons = json_decode(
+//            file_get_contents("typo3conf/ext/visit_tablets/Resources/Public/SampleData/MOCK_DATA.json"),
+//            true
+//        );
+//
+//        \usort($persons, function($a, $b){
+//            return \strcmp($a["first_name"], $b["first_name"]);
+//        });
 
 
 
         $out = [];
-        foreach ($persons  as $person){
-            $current =  \strtoupper($person["first_name"][0]);
+        /** @var Inmate $inmate */
+        foreach ($this->inmateRepository->findAll() as $inmate){
+            $current =  \strtoupper($inmate->getFullName()[0]);
             if(! \array_key_exists($current, $out)){
                 $out[$current] = array();
             }
-            $out[$current][] = $person;
+            $out[$current][] = $inmate;
         }
 
         $this->view
-            ->assign('persons', $out);
+            ->assign('persons', $out)
+            ->assign('events', $this->eventRepository->findAll())
+            ->assign('cells', $this->prisonCellRepository->findAll());
 
     }
 

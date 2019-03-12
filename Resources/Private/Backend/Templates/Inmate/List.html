@@ -16,10 +16,11 @@
             <tr>
                 <th>Sprache</th>
                 <th>Name</th>
-                <th>Beschreibung</th>
                 <th>Geburtsdatum</th>
                 <th>Todesdatum</th>
-                <th>Nationalität</th>
+                <th>Inhaftiert am</th>
+                <th>Freigelassen am</th>
+                <th>Event</th>
                 <th>Zelle</th>
                 <th></th>
             </tr>
@@ -32,14 +33,11 @@
                 <tr>
                     <td>{inmate.langTitle}</td>
                     <td>{inmate.fullName}</td>
-                    <td>
-                        <f:format.crop maxCharacters="35"><f:format.stripTags>{inmate.description}</f:format.stripTags></f:format.crop>
-                    </td>
                     <td><f:format.date format="d.m.Y">{inmate.dateOfBirth}</f:format.date></td>
-                    <td><f:format.date format="d.m.Y">{inmate.dayOfPassing}</f:format.date></td>
-                    <td>                            
-                        <f:format.crop maxCharacters="35"><f:format.stripTags>{cardPoi.description}</f:format.stripTags></f:format.crop>
-                    </td>
+                    <td><f:format.date format="d.m.Y">{inmate.dateOfPassing}</f:format.date></td>
+                    <td><f:format.date format="d.m.Y">{inmate.dateOfImprisonment}</f:format.date></td>
+                    <td><f:format.date format="d.m.Y">{inmate.dateOfRelease}</f:format.date></td>
+                    <td>{inmate.event.name}</td>
                     <td>{inmate.prisonCell.name}</td>
                     <td>
                         <f:link.action action="edit" arguments="{inmate : inmate}" class="btn btn-primary btn-xs">

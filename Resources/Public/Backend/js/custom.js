@@ -32,6 +32,8 @@
     // smartresize 
     jQuery.fn[sr] = function(fn){  return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr); };
 
+
+
 })(jQuery,'smartresize');
 /**
  * To change this license header, choose License Headers in Project Properties.
