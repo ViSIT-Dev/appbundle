@@ -92,9 +92,9 @@ class InmateController extends AbstractVisitController  implements IRenderFronte
      * @param \Visit\VisitTablets\Domain\Model\Inmate $newInmate
      * @return void
      */
-    public function createAction(\Visit\VisitTablets\Domain\Model\Inmate $newInmate)
+    public function createAction(Inmate $newInmate)
     {
-        //$this->addFlashMessage('The object was created. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
+        $this->addImageFromTempToModel($newInmate);
         $this->inmateRepository->add($newInmate);
         $this->redirect('list');
     }
@@ -106,7 +106,7 @@ class InmateController extends AbstractVisitController  implements IRenderFronte
      * @ignorevalidation $inmate
      * @return void
      */
-    public function editAction(\Visit\VisitTablets\Domain\Model\Inmate $inmate)
+    public function editAction(Inmate $inmate)
     {
         $this->view
             ->assign('inmate', $inmate)
@@ -120,9 +120,9 @@ class InmateController extends AbstractVisitController  implements IRenderFronte
      * @param \Visit\VisitTablets\Domain\Model\Inmate $inmate
      * @return void
      */
-    public function updateAction(\Visit\VisitTablets\Domain\Model\Inmate $inmate)
+    public function updateAction(Inmate $inmate)
     {
-//        $this->addFlashMessage('The object was updated. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
+        $this->addImageFromTempToModel($inmate);
         $this->inmateRepository->update($inmate);
         $this->redirect('list');
     }
@@ -133,7 +133,7 @@ class InmateController extends AbstractVisitController  implements IRenderFronte
      * @param \Visit\VisitTablets\Domain\Model\Inmate $inmate
      * @return void
      */
-    public function deleteAction(\Visit\VisitTablets\Domain\Model\Inmate $inmate)
+    public function deleteAction(Inmate $inmate)
     {
         $this->inmateRepository->remove($inmate);
         $this->redirect('list');

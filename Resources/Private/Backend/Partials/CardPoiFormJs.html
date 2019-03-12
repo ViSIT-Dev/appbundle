@@ -46,34 +46,5 @@
 
     }
 
-    $(".dropzone").dropzone({
-        url: parent.TYPO3.settings.ajaxUrls["fileUpload"], 
-        timeout:  3600000, //1h für DSL...
-        init: function () {
-            this.on("addedfile", function () {
-                if (this.files[1] != null) {
-                    this.removeFile(this.files[0]);
-                }
-            });
-        },
-        success: function (file) {
-            console.log(file.xhr.response);
-            var response = JSON.parse(file.xhr.response);
-            console.log(response);
-            $("#fileTempPath").val(response.tempPath);
-        },
-//                complete: function(e) { console.log(3) },
-        dictDefaultMessage: "Datei hier ablegen oder Klicken",
-        dictFallbackMessage: "Ihr Browser unterstützt kein Drag & Drop Dateiuploads",
-        dictFallbackText: "Bitte verwenden Sie das unten stehende Fallback-Formular, um Ihre Dateien wie in den alten Tagen hochzuladen.",
-        dictFileTooBig: "Datei ist zu groß ({{filesize}}MiB). Maximale größe: {{maxFilesize}}MiB.",
-        dictInvalidFileType: "Dieser Dateityp ist nicht erlaubt",
-        dictResponseError: "Etwas ist schiefgelaufen: Server code {{statusCode}}",
-        dictCancelUpload: "Upload abbrechen",
-        dictCancelUploadConfirmation: "Wollen Sie den Upload wirklich abbrechen?",
-        dictRemoveFile: "Datei entfernen",
-        dictRemoveFileConfirmation: null,
-        dictMaxFilesExceeded: "Sie können keine weitere Dateien hochladen",
-    });
 
 </script>

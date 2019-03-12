@@ -216,6 +216,17 @@ page {
         layoutRootPaths {
             0 = EXT:visit_tablets/Resources/Private/Page/Layouts/
         }
+
+#        stdWrap.replacement {
+#
+#            1 {
+#                search = http://###WARENKORB_URL###/
+#                replace.typolink {
+#                parameter = typo3/
+#                returnLast = url
+#                }
+#            }
+#        }
     }
 
     meta {
