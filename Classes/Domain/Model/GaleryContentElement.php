@@ -15,17 +15,18 @@ namespace Visit\VisitTablets\Domain\Model;
 use Visit\VisitTablets\Domain\Enums\GaleryContentLayout;
 use Visit\VisitTablets\Domain\IHasLanguage;
 use Visit\VisitTablets\Helper\Util;
+use Visit\VisitTablets\Domain\Model\AbstractEntityWithMedia;
 
 /**
  * Description of GaleryContentElement
  *
  * @author Kathrein Robert
  */
-class GaleryContentElement extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity implements IHasLanguage {
+class GaleryContentElement extends AbstractEntityWithMedia implements IHasLanguage {
 
     /**
      * title
-     * @validate NotEmpty
+     * 
      * @var string
      */
     protected $title = '';
@@ -43,6 +44,14 @@ class GaleryContentElement extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntit
      * @var string
      */
     protected $teaserTitle = '';
+    
+    /**
+     * teaserImage
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     * @cascade remove
+     */
+    protected $teaserImage = 0;
     
     /**
      * teaserText
@@ -73,12 +82,68 @@ class GaleryContentElement extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntit
     protected $deleted = false;
     
     /**
-     * galeryContentLayout
+     * isOnStartPage
      * @validate NotEmpty
-     * @var GaleryContentLayout
+     * @var boolean
      */
-    protected $galeryContentLayout = 0;
+    protected $isOnStartPage = false;
     
+    /**
+     * layout
+     * 
+     * @var \Visit\VisitTablets\Domain\Enums\GaleryContentLayout
+     */
+    protected $layout;
+    
+    /**
+     * language
+     * 
+     * @var int
+     */
+    protected $language;
+    
+    
+    /**
+     * sorting
+     * 
+     * @var int
+     */
+    protected $sorting;
+    
+
+        
+    /**
+     * Initializes all ObjectStorage properties
+     * Do not modify this method!
+     * It will be rewritten on each save in the extension builder
+     * You may modify the constructor of this class instead
+     *
+     * @return void
+     */
+    protected function initStorageObjects() {
+        $this->teaserImage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        parent::initStorageObjects();
+    }
+    
+    
+    /**
+     * Returns the media
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $media
+     */
+    public function getTeaserImage() {
+        return $this->teaserImage;
+    }
+
+    /**
+     * Sets the media
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $teaserImage
+     * @return void
+     */
+    public function setTeaserImage(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $teaserImage) {
+        $this->teaserImage = $teaserImage;
+    }
     
     
     /**
@@ -106,4 +171,87 @@ class GaleryContentElement extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntit
         return Util::getLanguageNameById($this->getLanguage());
     }
 
+    public function getSorting() {
+        return $this->sorting;
+    }
+
+    public function setSorting($sorting) {
+        $this->sorting = $sorting;
+    }
+    
+    public function getTitle() {
+        return $this->title;
+    }
+
+    public function getSubTitle() {
+        return $this->subTitle;
+    }
+
+    public function getTeaserTitle() {
+        return $this->teaserTitle;
+    }
+
+    public function getTeaserText() {
+        return $this->teaserText;
+    }
+
+    public function getText() {
+        return $this->text;
+    }
+
+    public function getHidden() {
+        return $this->hidden;
+    }
+
+    public function getDeleted() {
+        return $this->deleted;
+    }
+
+    public function getIsOnStartPage() {
+        return $this->isOnStartPage;
+    }
+
+    public function getLayout() {
+        return $this->layout;
+    }
+
+    public function setTitle($title) {
+        $this->title = $title;
+    }
+
+    public function setSubTitle($subTitle) {
+        $this->subTitle = $subTitle;
+    }
+
+    public function setTeaserTitle($teaserTitle) {
+        $this->teaserTitle = $teaserTitle;
+    }
+
+    public function setTeaserText($teaserText) {
+        $this->teaserText = $teaserText;
+    }
+
+    public function setText($text) {
+        $this->text = $text;
+    }
+
+    public function setHidden($hidden) {
+        $this->hidden = $hidden;
+    }
+
+    public function setDeleted($deleted) {
+        $this->deleted = $deleted;
+    }
+
+    public function setIsOnStartPage($isOnStartPage) {
+        $this->isOnStartPage = $isOnStartPage;
+    }
+
+    public function setLayout($galeryContentLayoutId) {
+        $galeryContentLayout = GaleryContentLayout::getValues()[$galeryContentLayoutId];
+        $this->layout = $galeryContentLayout;
+    }
+    
+    
+    
 }

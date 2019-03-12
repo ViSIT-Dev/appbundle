@@ -1,0 +1,44 @@
+<div class="left_col scroll-view">
+        <br />
+        <!-- sidebar menu -->
+        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+            <div class="menu_section">
+                <ul class="nav side-menu">
+                    <li class="{f:if(condition: "{active} == 'im-list'", then: 'active')}">
+                        <f:link.action action="list" controller="Gallerie">
+                            <i class="fa fa-list"></i> Liste<br />Inhalte
+                        </f:link.action>
+                    </li>
+                    <li class="{f:if(condition: "{active} == 'im-new'", then: 'active')}">
+                        <f:link.action action="new" controller="Gallerie">
+                            <i class="fa fa-plus-circle"></i> Neuer<br />Inhalt
+                        </f:link.action>
+                    </li>
+                    <f:if condition="{active} == 'im-edit'">
+                        <li class="active">
+                            <a>
+                                <i class="fa fa-pencil"></i> Edit
+                            </a>
+                        </li>
+                    </f:if>
+
+                </ul>
+            </div>
+            <hr />
+
+            <div class="menu_section">
+                <ul class="nav side-menu">
+                    <li class="{f:if(condition: "{active} == 'settings'", then: 'active')}">
+                        <f:link.action action="settings" controller="Gallerie">
+                            <i class="fa fa-cog"></i> Einstellungen
+                        </f:link.action>
+                    </li>
+                </ul>
+            </div>
+
+
+        </div>
+
+        <!-- /sidebar menu -->
+
+    </div>

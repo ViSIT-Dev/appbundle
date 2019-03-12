@@ -12,12 +12,23 @@ namespace Visit\VisitTablets\Controller;
  *
  ***/
 
+use Visit\VisitTablets\Helper\Util;
+use \TYPO3\CMS\Core\Messaging\AbstractMessage;
+use Visit\VisitTablets\Domain\Model\GaleryContentElement;
 /**
  * GaleryController
  */
 class GallerieController extends AbstractVisitController  implements IRenderFrontend{
 
 
+    /**
+     * inmateRepository
+     *
+     * @var \Visit\VisitTablets\Domain\Repository\GaleryContentElementRepository
+     * @inject
+     */
+    protected $galeryContentElementRepository = null;
+    
     /**
      * Displays a page tree
      *
@@ -78,9 +89,38 @@ class GallerieController extends AbstractVisitController  implements IRenderFron
      * @return void
      */
     public function listAction(){
-        
+        $contentElements = $this->galeryContentElementRepository->findAll();
+        $this->view->assign('contentElements', $contentElements);
     }
 
+    
+    /**
+     * action edit
+     *
+     * @param \Visit\VisitTablets\Domain\Model\GaleryContentElement $contentElement
+     * @ignorevalidation $inmate
+     * @return void
+     */
+    public function editAction(GaleryContentElement $contentElement)
+    {
+        $this->view
+            ->assign('contentElement', $contentElement);
+    }
+    
+    
+    /**
+     * action update
+     *
+     * @param \Visit\VisitTablets\Domain\Model\GaleryContentElement $contentElement
+     * @return void
+     */
+    public function updateAction(GaleryContentElement $contentElement)
+    {
+//        $this->addFlashMessage('The object was updated. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
+        $this->galeryContentElementRepository->update($contentElement);
+        $this->redirect('list');
+    }
+    
     /**
      * action new
      *
@@ -91,5 +131,56 @@ class GallerieController extends AbstractVisitController  implements IRenderFron
 
     }
     
+    /**
+     * action new
+     *
+     * @param GaleryContentElement $newContentElement
+     * @return void
+     */
+    public function createAction(GaleryContentElement $newContentElement)
+    {
+        $this->galeryContentElementRepository->add($newContentElement);
+        $this->redirect('list');
+    }
+    
 
+    
+    /**
+     * action settings
+     *
+     * @return void
+     */
+    public function settingsAction(){
+        
+        
+        $this->view->assign('title', Util::getConfigForAllLanguages("title"));
+        $this->view->assign('imprint', Util::getConfigForAllLanguages("imprint"));
+        $this->view->assign('splash', Util::getConfigForAllLanguages("splash"));
+        $this->view->assign('startUpLayout', $this->configRepository->get("startUpLayout"));
+        
+        $this->view->assign('startUpLayoutOptions', [
+            0 => "3er (3 Spalten, 1 Zeile)",
+            1 => "6er (3 Spalten, 2 Zeilen)"
+        ]);
+
+    }
+
+    /**
+     * action updateSettings
+     *
+     * @return void
+     */
+    public function updateSettingsAction(){
+
+        $this->configRepository->processRequest($this->request, "title");
+        $this->configRepository->processRequest($this->request, "imprint");
+        $this->configRepository->processRequest($this->request, "splash");
+        $this->configRepository->addOrUpdate("startUpLayout", $this->request->getArgument("startUpLayout"));
+
+        $this->addFlashMessage("Änderungen gespeichert", '', AbstractMessage::INFO);
+
+        $this->redirect('settings');
+
+    }
+    
 }

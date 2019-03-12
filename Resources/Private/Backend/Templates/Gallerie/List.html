@@ -1,7 +1,11 @@
-<f:layout name="DefaultScope" />
+<f:layout name="Default" />
 
 <f:section name="title">
     <h2>Gallerie Übersicht</h2>
+</f:section>
+
+<f:section name="sideBar">
+    <f:render partial="SideBarGalery" arguments="{active: 'im-list'}"/>
 </f:section>
 
 <f:section name="main">

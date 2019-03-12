@@ -1,0 +1,12 @@
+<div class="form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="language">Layout des Inhaltes <span class="required">*</span></label>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        
+        <f:for each="{startUpLayoutOptions}" as="item" key="key">
+            <div class="radio">
+                <label><f:form.radio name="startUpLayout" value="{key}" checked="{key} == {startUpLayout}"  /> {item}</label>
+            </div>
+        </f:for>
+    </div>
+</div>
+<div class="ln_solid"></div>
