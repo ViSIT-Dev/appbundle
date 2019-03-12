@@ -100,7 +100,9 @@
                                         </f:if>
                                     </ul>
                                     <hr />
-                                    <img class="img-fluid" src="typo3conf/ext/visit_tablets/Resources/Public/SampleData/mike-gorrell-692333-unsplash-copy.jpg "/>
+                                    <f:if condition="{person.media}">
+                                        <f:render partial="SingleMedia" arguments="{media: person.media.0}"/>
+                                    </f:if>
                                     <p><f:format.raw>{person.text}</f:format.raw></p>
                                 </div>
                             </f:for>
