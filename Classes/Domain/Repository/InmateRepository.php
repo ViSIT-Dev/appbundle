@@ -17,5 +17,8 @@ namespace Visit\VisitTablets\Domain\Repository;
  */
 class InmateRepository extends AbstractVisitRepository{
 
-    
+    protected $defaultOrderings = array(
+        'firstName' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
+    );
+
 }

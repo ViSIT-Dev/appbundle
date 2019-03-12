@@ -501,6 +501,13 @@ main{
             background-color: #303030;
             padding: 75px;
 
+            .inmate-card{
+                display: none;
+                &.active{
+                    display: block;
+                }
+            }
+
             * {
                 color: white;
             }

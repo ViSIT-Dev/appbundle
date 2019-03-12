@@ -37,7 +37,7 @@ class Inmate extends AbstractEntityWithMedia implements IHasLanguage {
     /**
      * dateOfBirth
      *
-     * @var \DateTime
+     * @var string
      */
     protected $dateOfBirth;
 
@@ -58,7 +58,7 @@ class Inmate extends AbstractEntityWithMedia implements IHasLanguage {
     /**
      * dateOfPassing
      *
-     * @var \DateTime
+     * @var string
      */
     protected $dateOfPassing;
 
@@ -72,14 +72,14 @@ class Inmate extends AbstractEntityWithMedia implements IHasLanguage {
     /**
      * dateOfImprisonment
      *
-     * @var \DateTime
+     * @var string
      */
     protected $dateOfImprisonment;
 
     /**
      * dateOfRelease
      *
-     * @var \DateTime
+     * @var string
      */
     protected $dateOfRelease;
 
@@ -202,7 +202,7 @@ class Inmate extends AbstractEntityWithMedia implements IHasLanguage {
     /**
      * Returns the dateOfBirth
      *
-     * @return \DateTime $dateOfBirth
+     * @return string $dateOfBirth
      */
     public function getDateOfBirth()
     {
@@ -212,10 +212,10 @@ class Inmate extends AbstractEntityWithMedia implements IHasLanguage {
     /**
      * Sets the dateOfBirth
      *
-     * @param \DateTime|null $dateOfBirth
+     * @param string $dateOfBirth
      * @return void
      */
-    public function setDateOfBirth(\DateTime $dateOfBirth = null)
+    public function setDateOfBirth($dateOfBirth)
     {
         $this->dateOfBirth = $dateOfBirth;
     }
@@ -275,10 +275,10 @@ class Inmate extends AbstractEntityWithMedia implements IHasLanguage {
     /**
      * Sets the dateOfPassing
      *
-     * @param \DateTime|null $dateOfPassing
+     * @param \string|null $dateOfPassing
      * @return void
      */
-    public function setDateOfPassing(\DateTime $dateOfPassing = null)
+    public function setDateOfPassing($dateOfPassing)
     {
         $this->dateOfPassing = $dateOfPassing;
     }
@@ -317,10 +317,10 @@ class Inmate extends AbstractEntityWithMedia implements IHasLanguage {
     /**
      * Sets the dateOfImprisonment
      *
-     * @param \DateTime|null $dateOfImprisonment
+     * @param string $dateOfImprisonment
      * @return void
      */
-    public function setDateOfImprisonment(\DateTime $dateOfImprisonment = null)
+    public function setDateOfImprisonment($dateOfImprisonment)
     {
         $this->dateOfImprisonment = $dateOfImprisonment;
     }
@@ -338,10 +338,10 @@ class Inmate extends AbstractEntityWithMedia implements IHasLanguage {
     /**
      * Sets the dateOfRelease
      *
-     * @param \DateTime|null $dateOfRelease
+     * @param string $dateOfRelease
      * @return void
      */
-    public function setDateOfRelease(\DateTime $dateOfRelease = null)
+    public function setDateOfRelease($dateOfRelease)
     {
         $this->dateOfRelease = $dateOfRelease;
     }

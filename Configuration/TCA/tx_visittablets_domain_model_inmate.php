@@ -48,26 +48,6 @@ return [
 			    'eval' => 'trim'
 			],
 	    ],
-	    'date_of_birth' => [
-	        'exclude' => false,
-	        'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_inmate.date_of_birth',
-	        'config' => [
-			    'dbType' => 'date',
-			    'type' => 'input',
-			    'size' => 7,
-			    'eval' => 'date',
-			    'default' => NULL
-			],
-	    ],
-	    'place_of_birth' => [
-	        'exclude' => false,
-	        'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_inmate.place_of_birth',
-	        'config' => [
-			    'type' => 'input',
-			    'size' => 30,
-			    'eval' => 'trim'
-			],
-	    ],
 	    'nationality' => [
 	        'exclude' => true,
 	        'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_inmate.nationality',
@@ -75,17 +55,6 @@ return [
 			    'type' => 'input',
 			    'size' => 30,
 			    'eval' => 'trim'
-			],
-	    ],
-	    'date_of_passing' => [
-	        'exclude' => false,
-	        'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_inmate.date_of_passing',
-	        'config' => [
-			    'dbType' => 'date',
-			    'type' => 'input',
-			    'size' => 7,
-			    'eval' => 'date',
-                'default' => NULL
 			],
 	    ],
 	    'profession' => [
@@ -97,28 +66,49 @@ return [
 			    'eval' => 'trim'
 			],
 	    ],
+	    'date_of_birth' => [
+	        'exclude' => false,
+	        'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_inmate.date_of_birth',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim'
+            ],
+	    ],
+	    'date_of_passing' => [
+	        'exclude' => false,
+	        'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_inmate.date_of_passing',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim'
+            ],
+	    ],
 	    'date_of_imprisonment' => [
 	        'exclude' => false,
 	        'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_inmate.date_of_imprisonment',
-	        'config' => [
-			    'dbType' => 'date',
-			    'type' => 'input',
-			    'size' => 7,
-			    'eval' => 'date',
-                'default' => NULL
-			],
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim'
+            ],
 	    ],
 	    'date_of_release' => [
 	        'exclude' => false,
-	        'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_inmate.date_of_release',
-	        'config' => [
-			    'dbType' => 'date',
-			    'type' => 'input',
-			    'size' => 7,
-			    'eval' => 'date',
-                'default' => NULL
-			],
-	    ],
+            'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_inmate.date_of_release',
+//            'config' => [
+//                'dbType' => 'date',
+//                'type' => 'input',
+//                'size' => 7,
+//                'eval' => 'date',
+//                'default' => NULL
+//            ],
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim'
+            ],
+        ],
 	    'subtitle' => [
 	        'exclude' => false,
 	        'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_inmate.subtitle',
@@ -128,16 +118,16 @@ return [
 			    'eval' => 'trim'
 			],
 	    ],
-	    'teasertext' => [
-	        'exclude' => false,
-	        'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_inmate.teasertext',
-	        'config' => [
-			    'type' => 'text',
-			    'cols' => 40,
-			    'rows' => 15,
-			    'eval' => 'trim'
-			]
-	    ],
+//	    'teasertext' => [
+//	        'exclude' => false,
+//	        'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_inmate.teasertext',
+//	        'config' => [
+//			    'type' => 'text',
+//			    'cols' => 40,
+//			    'rows' => 15,
+//			    'eval' => 'trim'
+//			]
+//	    ],
 	    'text' => [
 	        'exclude' => false,
 	        'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_inmate.text',
