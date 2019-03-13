@@ -134,6 +134,8 @@ module.tx_visittablets_visit_visitfernrohr <. module.tx_visittablets
 config {
     no_cache = 1
 
+    baseURL= /
+
     # Localization:
     #default-Konfiguration
     sys_language_uid = 0

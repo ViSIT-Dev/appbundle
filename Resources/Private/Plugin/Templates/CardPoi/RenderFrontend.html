@@ -222,6 +222,8 @@
                 }).setView([47.5793, 12.1687], 8);
                 L.tileLayer('/index.php?eID=map_server&x={' + 'x}&y={' + 'y}&z={' + 'z}').addTo(mymap);
 
+                //we have to remove this link to make the app tempering safe
+                $(".leaflet-control-attribution.leaflet-control").remove();
 
                 $('#startModal').modal({
                     keyboard: false,
