@@ -143,10 +143,7 @@ abstract class AbstractVisitController extends \TYPO3\CMS\Extbase\Mvc\Controller
 
     protected function addSettingsForTablets(){
         //add pwa manifest
-        $this->response->addAdditionalHeaderData(
-            '<link rel="manifest" href="/typo3conf/ext/visit_tablets/Resources/Public/manifest/' . $this->request->getControllerName() . '.json" />'
-        );
-
+        $this->response->addAdditionalHeaderData('<link rel="manifest" href="/typo3conf/ext/visit_tablets/Resources/Public/manifest.json" />');
         $this->response->addAdditionalHeaderData('<script href="/typo3conf/ext/visit_tablets/Resources/Public/js/cache.js" type="text/javascript"></script>');
         $this->response->addAdditionalHeaderData('<meta name="apple-mobile-web-app-capable" content="yes">');
 
