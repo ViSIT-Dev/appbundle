@@ -2048,7 +2048,8 @@ iframe.warenkorb {
       max-height: 100%; }
     #mapAppWrapper #inmateContent #inmateDetail {
       background-color: #303030;
-      padding: 75px; }
+      padding: 75px;
+      min-height: 100%; }
       #mapAppWrapper #inmateContent #inmateDetail .inmate-card {
         display: none; }
         #mapAppWrapper #inmateContent #inmateDetail .inmate-card.active {
