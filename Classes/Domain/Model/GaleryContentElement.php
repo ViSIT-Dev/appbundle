@@ -39,21 +39,6 @@ class GaleryContentElement extends AbstractEntityWithMedia implements IHasLangua
     protected $subTitle = '';
     
     /**
-     * teaserTitle
-     *
-     * @var string
-     */
-    protected $teaserTitle = '';
-    
-    /**
-     * teaserImage
-     *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
-     * @cascade remove
-     */
-    protected $teaserImage = 0;
-    
-    /**
      * teaserText
      *
      * @var string
@@ -82,13 +67,6 @@ class GaleryContentElement extends AbstractEntityWithMedia implements IHasLangua
     protected $deleted = false;
     
     /**
-     * isOnStartPage
-     * @validate NotEmpty
-     * @var boolean
-     */
-    protected $isOnStartPage = false;
-    
-    /**
      * layout
      * 
      * @var \Visit\VisitTablets\Domain\Enums\GaleryContentLayout
@@ -109,42 +87,6 @@ class GaleryContentElement extends AbstractEntityWithMedia implements IHasLangua
      * @var int
      */
     protected $sorting;
-    
-
-        
-    /**
-     * Initializes all ObjectStorage properties
-     * Do not modify this method!
-     * It will be rewritten on each save in the extension builder
-     * You may modify the constructor of this class instead
-     *
-     * @return void
-     */
-    protected function initStorageObjects() {
-        $this->teaserImage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-        parent::initStorageObjects();
-    }
-    
-    
-    /**
-     * Returns the media
-     *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $media
-     */
-    public function getTeaserImage() {
-        return $this->teaserImage;
-    }
-
-    /**
-     * Sets the media
-     *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $teaserImage
-     * @return void
-     */
-    public function setTeaserImage(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $teaserImage) {
-        $this->teaserImage = $teaserImage;
-    }
-    
     
     /**
      * Returns the language
@@ -186,11 +128,6 @@ class GaleryContentElement extends AbstractEntityWithMedia implements IHasLangua
     public function getSubTitle() {
         return $this->subTitle;
     }
-
-    public function getTeaserTitle() {
-        return $this->teaserTitle;
-    }
-
     public function getTeaserText() {
         return $this->teaserText;
     }
@@ -223,10 +160,6 @@ class GaleryContentElement extends AbstractEntityWithMedia implements IHasLangua
         $this->subTitle = $subTitle;
     }
 
-    public function setTeaserTitle($teaserTitle) {
-        $this->teaserTitle = $teaserTitle;
-    }
-
     public function setTeaserText($teaserText) {
         $this->teaserText = $teaserText;
     }
@@ -251,7 +184,5 @@ class GaleryContentElement extends AbstractEntityWithMedia implements IHasLangua
         $galeryContentLayout = GaleryContentLayout::getValues()[$galeryContentLayoutId];
         $this->layout = $galeryContentLayout;
     }
-    
-    
     
 }

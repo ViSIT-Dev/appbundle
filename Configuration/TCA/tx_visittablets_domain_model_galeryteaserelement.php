@@ -12,7 +12,7 @@
 
 return [
     'ctrl' => [
-        'title'	=> 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_galerycontentelement',
+        'title'	=> 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_galeryteaserelement',
         'label' => 'title',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
@@ -29,25 +29,7 @@ return [
 		'1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, title, x, y, sub_title, media, description'],
     ],
     'columns' => [
-        'language' => [
-            'exclude' => false,
-            'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:language',
-            'config' => [
-                'type' => 'input',
-                'size' => 10,
-                'eval' => 'int'
-            ]
-        ],
-        'layout' => [
-            'exclude' => false,
-            'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:language',
-            'config' => [
-                'type' => 'input',
-                'size' => 10,
-                'eval' => 'int'
-            ]
-        ],
-        'title' => [
+        'teaser_title' => [
             'exclude' => false,
             'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_scopepoi.title',
             'config' => [
@@ -56,7 +38,7 @@ return [
                         'eval' => 'trim'
                     ],
         ],
-        'sub_title' => [
+        'teaser_title_en' => [
             'exclude' => false,
             'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_scopepoi.title',
             'config' => [
@@ -64,17 +46,6 @@ return [
                         'size' => 100,
                         'eval' => 'trim'
                     ],
-        ],
-        'text' => [
-            'exclude' => true,
-            'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_scopepoi.description',
-            'config' => [
-                        'type' => 'text',
-                        'cols' => 40,
-                        'rows' => 15,
-                        'eval' => 'trim',
-                    ],
-            'defaultExtras' => 'richtext:rte_transform[mode=ts_css]'
         ],
         'media' => [
             'exclude' => false,
@@ -147,24 +118,6 @@ return [
                         ],
                         'default' => 0
                     ]
-        ],
-        'galery_content_element' => [
-            'exclude' => false,
-            'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_inmate.event',
-            'config' => [
-                        'type' => 'input',
-                        'size' => 200,
-                        'eval' => 'trim'
-                    ],
-        ],
-        'galery_content_element_en' => [
-            'exclude' => false,
-            'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_inmate.event',
-            'config' => [
-                        'type' => 'input',
-                        'size' => 200,
-                        'eval' => 'trim'
-                    ],
         ],
     ],
 ];

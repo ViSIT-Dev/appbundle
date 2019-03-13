@@ -1,0 +1,41 @@
+<f:layout name="Default" />
+
+<f:section name="title">
+    <h2>Gallerie Übersicht</h2>
+</f:section>
+
+<f:section name="sideBar">
+    <f:render partial="SideBarGalery" arguments="{active: 'th-list'}"/>
+</f:section>
+
+<f:section name="main">
+    
+    <table id="datatable" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Sprache</th>
+                <th>Überschrift</th>
+                <th>Sortierung</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <f:for each="{contentElements}" as="element">
+                <tr>
+                    <td>{element.langTitle}</td>
+                    <td>{element.teaserTitle}</td>
+                    <td>{element.sorting}</td>
+                    <td>
+                        <f:link.action action="edit" arguments="{contentElement : element}" class="btn btn-primary btn-xs">
+                            <i class="fa fa-pencil fa-2x" aria-hidden="true"></i>
+                        </f:link.action>
+                        <f:link.action action="delete" arguments="{contentElement : element}" class="askbeforedelete btn btn-warning btn-xs">
+                            <i class="fa fa-trash-o fa-2x" aria-hidden="true"></i>
+                        </f:link.action>
+                    </td>
+                </tr>
+            </f:for>
+        </tbody>
+    </table>
+
+</f:section>

@@ -2107,7 +2107,8 @@ iframe.warenkorb {
     padding: 24px 21px 0;
     font-family: "Rum Serif";
     font-weight: 600;
-    font-size: 24px; }
+    font-size: 24px;
+    color: #4B4B4B; }
   #galery-layout.layout3 .teaser-image {
     height: -webkit-calc(100vh - 128px - 60px); }
   #galery-layout.layout6 .row:nth-child(2) {
