@@ -36,9 +36,16 @@ class GaleryTeaserElement extends AbstractEntityWithMedia {
     /**
      * galeryContentElement
      * 
-     * @var GaleryContentElement
+     * @var \Visit\VisitTablets\Domain\Model\GaleryContentElement
      */
     protected $galeryContentElement = false;
+    
+    /**
+     * galeryContentElement
+     * 
+     * @var \Visit\VisitTablets\Domain\Model\GaleryContentElement
+     */
+    protected $galeryContentElementEn = false;
     
     
     /**
@@ -48,8 +55,43 @@ class GaleryTeaserElement extends AbstractEntityWithMedia {
      */
     protected $sorting;
     
+    /**
+     * 
+     * @return \Visit\VisitTablets\Domain\Model\GaleryContentElement
+     */
+    public function getGaleryContentElement() {
+        return $this->galeryContentElement;
+    }
 
-        
+    /**
+     * 
+     * @return \Visit\VisitTablets\Domain\Model\GaleryContentElement
+     */
+    public function getGaleryContentElementEn() {
+        return $this->galeryContentElementEn;
+    }
+
+    /**
+     * Sets the galeryContentElement
+     *
+     * @param \Visit\VisitTablets\Domain\Model\GaleryContentElement $galeryContentElement
+     * @return void
+     */
+    public function setGaleryContentElement(GaleryContentElement $galeryContentElement) {
+        $this->galeryContentElement = $galeryContentElement;
+    }
+
+    /**
+     * Sets the galeryContentElementEn
+     *
+     * @param \Visit\VisitTablets\Domain\Model\GaleryContentElement $galeryContentElementEn
+     * @return void
+     */
+    public function setGaleryContentElementEn(GaleryContentElement $galeryContentElementEn) {
+        $this->galeryContentElementEn = $galeryContentElementEn;
+    }
+
+            
     public function getSorting() {
         return $this->sorting;
     }

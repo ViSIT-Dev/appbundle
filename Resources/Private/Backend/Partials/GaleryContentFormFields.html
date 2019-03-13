@@ -1,22 +1,6 @@
 
 <div class="ln_solid"></div>
 <div class="form-group">
-    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="teaserTitle">Teaser Titel</label>
-    <div class="col-md-9 col-sm-9 col-xs-12">
-        <f:form.textfield id="teaserTitle" property="teaserTitle" class="form-control col-md-7 col-xs-12"/>
-    </div>
-</div>
-<div class="form-group">
-    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="teaserImage">Teaser Bild</label>
-    <div class="col-md-9 col-sm-9 col-xs-12">
-        
-        <div class="dropzone2" style="min-height: auto;"></div>
-        {teaserImage}
-        <f:form.upload name="teaserImage"></f:form.upload>
-        
-    </div>
-</div>
-<div class="form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="teaserText">Teaser Text</label>
     <div class="col-md-9 col-sm-9 col-xs-12">
         <f:form.textarea id="teaserText" property="teaserText" class="col-md-7 col-sm-7 col-xs-12" />
@@ -50,13 +34,6 @@
     </div>
 </div>
 
-<div class="form-group">
-    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="isOnStartPage">Anzeigen am </label>
-    <div class="col-md-9 col-sm-9 col-xs-12">
-        <label class="checkbox-inline"><f:form.checkbox id="isOnStartPage" property="isOnStartPage" value="{isOnStartPage}" />Willkommensbildschirm</label>
-    </div>
-</div>
-
 <div class="ln_solid"></div>
 <div class="form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="media">Media hinzufügen</label>
@@ -69,4 +46,4 @@
     </div>
 </div>
 
-<f:render partial="DropzoneJs" />
+<f:render partial="Dropzone" />

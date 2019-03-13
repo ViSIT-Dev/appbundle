@@ -54,6 +54,9 @@ config.tx_extbase.persistence{
             }
         }
 
+
+
+
         //vererbung inmate meta
         Visit\VisitTablets\Domain\Model\AbstractInmateMeta {
             subclasses {

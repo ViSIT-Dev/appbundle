@@ -15,6 +15,8 @@ namespace Visit\VisitTablets\Controller;
 use Visit\VisitTablets\Helper\Util;
 use \TYPO3\CMS\Core\Messaging\AbstractMessage;
 use Visit\VisitTablets\Domain\Model\GaleryContentElement;
+use Visit\VisitTablets\Domain\Model\GaleryTeaserElement;
+
 /**
  * GaleryController
  */
@@ -22,12 +24,20 @@ class GaleryTeaserController extends AbstractVisitController  implements IRender
 
 
     /**
-     * inmateRepository
+     * galeryTeaserElementRepository
      *
      * @var \Visit\VisitTablets\Domain\Repository\GaleryTeaserElementRepository
      * @inject
      */
     protected $galeryTeaserElementRepository = null;
+    
+    /**
+     * galeryContentElementRepository
+     *
+     * @var \Visit\VisitTablets\Domain\Repository\GaleryContentElementRepository
+     * @inject
+     */
+    protected $galeryContentElementRepository = null;
     
     /**
      * Displays a page tree
@@ -99,27 +109,26 @@ class GaleryTeaserController extends AbstractVisitController  implements IRender
     /**
      * action edit
      *
-     * @param \Visit\VisitTablets\Domain\Model\GaleryContentElement $contentElement
-     * @ignorevalidation $inmate
+     * @param \Visit\VisitTablets\Domain\Model\GaleryTeaserElement $teaserElement
      * @return void
      */
-    public function editAction(GaleryContentElement $contentElement)
+    public function editAction(GaleryTeaserElement $teaserElement)
     {
         $this->view
-            ->assign('contentElement', $contentElement);
+                ->assign('contentElement', $teaserElement)
+                ->assign('contentElements', $this->galeryContentElementRepository->findAll());
     }
-    
-    
+
     /**
      * action update
      *
-     * @param \Visit\VisitTablets\Domain\Model\GaleryContentElement $contentElement
+     * @param \Visit\VisitTablets\Domain\Model\GaleryTeaserElement $teaserElement
      * @return void
      */
-    public function updateAction(GaleryContentElement $contentElement)
+    public function updateAction(GaleryTeaserElement $teaserElement)
     {
-        $this->debug($contentElement);
-        $this->galeryTeaserElementRepository->update($contentElement);
+        $this->debug($teaserElement);
+        $this->galeryTeaserElementRepository->update($teaserElement);
 //        $this->redirect('edit',null, null, ["contentElement" => $contentElement]);
     }
     
@@ -130,18 +139,26 @@ class GaleryTeaserController extends AbstractVisitController  implements IRender
      */
     public function newAction()
     {
-
+        $contentElements = $this->galeryContentElementRepository->findAll();
+        $contentElementsLang = [];
+        
+        /* @var $currentContentElement GaleryContentElement */
+        foreach($contentElements as $currentContentElement){
+            $contentElementsLang[$currentContentElement->getLanguage()][] = $currentContentElement;
+        }
+        $this->view
+                ->assign('contentElements', $contentElementsLang);
     }
-    
+
     /**
      * action new
      *
-     * @param GaleryContentElement $newContentElement
+     * @param GaleryTeaserElement $newTeaserElement
      * @return void
      */
-    public function createAction(GaleryContentElement $newContentElement)
+    public function createAction(GaleryTeaserElement $newTeaserElement)
     {
-        $this->galeryTeaserElementRepository->add($newContentElement);
+        $this->galeryTeaserElementRepository->add($newTeaserElement);
         $this->redirect('list');
     }
     

@@ -17,16 +17,15 @@ return [
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
-		'enablecolumns' => [
+        'sortby' => 'sorting',
+        'enablecolumns' => [
+            'disabled' => 'hidden',
         ],
-		'searchFields' => 'title,sub_title,teaser_title',
+        'searchFields' => 'title,sub_title,teaser_title',
         'iconfile' => 'EXT:visit_tablets/Resources/Public/Icons/tx_visittablets_domain_model_scopepoi.gif'
     ],
-    'interface' => [
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, title, x, y, sub_title, media, description',
-    ],
     'types' => [
-		'1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, title, x, y, sub_title, media, description'],
+		'1' => ['showitem' => ''],
     ],
     'columns' => [
         'teaser_title' => [
@@ -93,31 +92,26 @@ return [
                 $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
             ),
         ],
-        'hidden' => [
+        'galery_content_element' => [
             'exclude' => false,
-            'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_scopepoi.fullscreenvideo',
+            'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_galerycontentelement',
             'config' => [
-                        'type' => 'check',
-                        'items' => [
-                            '1' => [
-                                '0' => 'LLL:EXT:lang/locallang_core.xlf:labels.enabled'
-                            ]
-                        ],
-                        'default' => 0
-                    ]
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'foreign_table' => 'tx_visittablets_domain_model_galerycontentelement',
+                'minitems' => 0,
+                'maxitems' => 1,
+            ],
         ],
-        'deleted' => [
+        'galery_content_element_en' => [
             'exclude' => false,
-            'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_scopepoi.fullscreenvideo',
+            'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_galerycontentelement',
             'config' => [
-                        'type' => 'check',
-                        'items' => [
-                            '1' => [
-                                '0' => 'LLL:EXT:lang/locallang_core.xlf:labels.enabled'
-                            ]
-                        ],
-                        'default' => 0
-                    ]
+                'type' => 'select',
+                'foreign_table' => 'tx_visittablets_domain_model_galerycontentelement',
+                'minitems' => 0,
+                'maxitems' => 1,
+            ],
         ],
     ],
 ];

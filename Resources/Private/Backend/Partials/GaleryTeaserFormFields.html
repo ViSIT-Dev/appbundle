@@ -1,46 +1,36 @@
 
 <div class="ln_solid"></div>
+
 <div class="form-group">
-    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="teaserTitle">Teaser Titel</label>
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="teaserTitle">Titel</label>
     <div class="col-md-9 col-sm-9 col-xs-12">
         <f:form.textfield id="teaserTitle" property="teaserTitle" class="form-control col-md-7 col-xs-12"/>
     </div>
 </div>
+
 <div class="form-group">
-    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="teaserImage">Teaser Bild</label>
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="teaserTitleEn">Titel Englisch</label>
     <div class="col-md-9 col-sm-9 col-xs-12">
-        
-        <div class="dropzone2" style="min-height: auto;"></div>
-        {teaserImage}
-        <f:form.upload name="teaserImage"></f:form.upload>
-        
+        <f:form.textfield id="teaserTitleEn" property="teaserTitleEn" class="form-control col-md-7 col-xs-12"/>
     </div>
 </div>
-<div class="form-group">
-    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="teaserText">Teaser Text</label>
-    <div class="col-md-9 col-sm-9 col-xs-12">
-        <f:form.textarea id="teaserText" property="teaserText" class="col-md-7 col-sm-7 col-xs-12" />
-    </div>
-</div>
+
 <div class="ln_solid"></div>
-<div class="form-group">
-    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">Titel</label>
+
+<div class="form-group date date-picker">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="prisonCell">Link </label>
     <div class="col-md-9 col-sm-9 col-xs-12">
-        <f:form.textfield id="title" property="title" class="form-control col-md-7 col-xs-12"/>
+        <f:form.select id="prisonCell" property="galeryContentElement" options="{contentElements.0}" optionLabelField="title" class="form-control col-md-7 col-xs-12" />
     </div>
 </div>
-<div class="form-group">
-    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="subTitle">Untertitel</label>
+<f:debug>{_all}</f:debug>
+<div class="form-group date date-picker">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="prisonCell">Link Englisch </label>
     <div class="col-md-9 col-sm-9 col-xs-12">
-        <f:form.textfield id="subTitle" property="subTitle" class="form-control col-md-7 col-xs-12"/>
+        <f:form.select id="prisonCell" property="galeryContentElementEn" options="{contentElements.1}" optionLabelField="title" class="form-control col-md-7 col-xs-12" />
     </div>
 </div>
-<div class="form-group">
-    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="text">Text</label>
-    <div class="col-md-9 col-sm-9 col-xs-12">
-        <f:form.textarea id="text" property="text" class="col-md-7 col-sm-7 col-xs-12" />
-    </div>
-</div>
+
 <div class="ln_solid"></div>
 
 <div class="form-group">
@@ -50,14 +40,8 @@
     </div>
 </div>
 
-<div class="form-group">
-    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="isOnStartPage">Anzeigen am </label>
-    <div class="col-md-9 col-sm-9 col-xs-12">
-        <label class="checkbox-inline"><f:form.checkbox id="isOnStartPage" property="isOnStartPage" value="{isOnStartPage}" />Willkommensbildschirm</label>
-    </div>
-</div>
-
 <div class="ln_solid"></div>
+
 <div class="form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="media">Media hinzufügen</label>
     <div class="col-md-9 col-sm-9 col-xs-12">
@@ -69,4 +53,4 @@
     </div>
 </div>
 
-<f:render partial="DropzoneJs" />
+<f:render partial="Dropzone" />

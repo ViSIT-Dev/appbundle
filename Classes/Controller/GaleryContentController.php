@@ -121,7 +121,7 @@ class GaleryContentController extends AbstractVisitController  implements IRende
         $this->addImageFromTempToModel($contentElement);
         $this->debug($contentElement);
         $this->galeryContentElementRepository->update($contentElement);
-//        $this->redirect('edit',null, null, ["contentElement" => $contentElement]);
+        $this->redirect('edit', null, null, ["contentElement" => $contentElement]);
     }
     
     /**

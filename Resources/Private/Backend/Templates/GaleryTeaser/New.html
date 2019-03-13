@@ -1,7 +1,7 @@
 <f:layout name="Default" />
 
 <f:section name="title">
-    <h2>Gallerie Inhaltselement hinzufügen</h2>
+    <h2>Gallerie Teaser hinzufügen</h2>
 </f:section>
 
 <f:section name="sideBar">
@@ -13,10 +13,8 @@
     <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
         <f:render partial="FormErrors" arguments="{object:Inmate}" />
 
-        <f:form class="form-horizontal form-label-left" action="create" name="newContentElement">
+        <f:form class="form-horizontal form-label-left" action="create" name="newTeaserElement">
 
-            <f:render partial="GaleryContentLayoutSelect" arguments="{_all}" />
-            <f:render partial="LanguageSelect" arguments="{_all}" />
             <f:render partial="GaleryTeaserFormFields" arguments="{_all}" />
             
             <div class="ln_solid"></div>
