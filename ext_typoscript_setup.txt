@@ -13,6 +13,9 @@ config.tx_extbase.persistence{
             subclasses {
                 Visit\VisitTablets\Domain\Model\Inmate = Visit\VisitTablets\Domain\Model\Inmate
                 Visit\VisitTablets\Domain\Model\CardPoi = Visit\VisitTablets\Domain\Model\CardPoi
+                Visit\VisitTablets\Domain\Model\ScopePoi = Visit\VisitTablets\Domain\Model\ScopePoi
+                Visit\VisitTablets\Domain\Model\GaleryContentElement = Visit\VisitTablets\Domain\Model\GaleryContentElement
+                Visit\VisitTablets\Domain\Model\GaleryTeaserElement = Visit\VisitTablets\Domain\Model\GaleryTeaserElement
             }
         }
 
@@ -34,6 +37,20 @@ config.tx_extbase.persistence{
             mapping {
                 tableName = tx_visittablets_domain_model_scopepoi
                 recordType = Visit\VisitTablets\Domain\Model\ScopePoi
+            }
+        }
+
+        Visit\VisitTablets\Domain\Model\GaleryContentElement {
+            mapping {
+                tableName = tx_visittablets_domain_model_galerycontentelement
+                recordType = Visit\VisitTablets\Domain\Model\GaleryContentElement
+            }
+        }
+
+        Visit\VisitTablets\Domain\Model\GaleryTeaserElement {
+            mapping {
+                tableName = tx_visittablets_domain_model_galeryteaserelement
+                recordType = Visit\VisitTablets\Domain\Model\GaleryTeaserElement
             }
         }
 

@@ -18,7 +18,7 @@ use Visit\VisitTablets\Domain\Model\GaleryContentElement;
 /**
  * GaleryController
  */
-class GallerieController extends AbstractVisitController  implements IRenderFrontend{
+class GallerieContentController extends AbstractVisitController  implements IRenderFrontend{
 
 
     /**
@@ -118,9 +118,10 @@ class GallerieController extends AbstractVisitController  implements IRenderFron
      */
     public function updateAction(GaleryContentElement $contentElement)
     {
-//        $this->addFlashMessage('The object was updated. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
+        $this->addImageFromTempToModel($contentElement);
+        $this->debug($contentElement);
         $this->galeryContentElementRepository->update($contentElement);
-        $this->redirect('list');
+//        $this->redirect('edit',null, null, ["contentElement" => $contentElement]);
     }
     
     /**
@@ -141,6 +142,7 @@ class GallerieController extends AbstractVisitController  implements IRenderFron
      */
     public function createAction(GaleryContentElement $newContentElement)
     {
+        $this->addImageFromTempToModel($newContentElement);
         $this->galeryContentElementRepository->add($newContentElement);
         $this->redirect('list');
     }

@@ -1,0 +1,44 @@
+<f:layout name="Default" />
+
+<f:section name="title">
+    <h2>Gallerie Inhaltselement hinzufügen</h2>
+</f:section>
+
+<f:section name="sideBar">
+    <f:render partial="SideBarGalery" arguments="{active: 'co-new'}"/>
+</f:section>
+
+<f:section name="main">
+
+    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+        <f:render partial="FormErrors" arguments="{object:Inmate}" />
+
+        <f:form class="form-horizontal form-label-left" action="create" name="newContentElement">
+
+            <f:render partial="GaleryContentLayoutSelect" arguments="{_all}" />
+            <f:render partial="LanguageSelect" arguments="{_all}" />
+            <f:render partial="GaleryContentFormFields" arguments="{_all}" />
+            
+            <div class="ln_solid"></div>
+            <div class="form-group">
+                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                    <button type="submit" class="btn btn-success">Anlegen</button>
+                </div>
+            </div>
+
+        </f:form>
+    </div>
+
+    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+
+        <iframe class="warenkorb" src="http://database.visit.uni-passau.de/drupal/search/wisski" border="0" style="border: 0; width: 100%; min-height: 969px;">
+            Ihr Browser mag keine iFrames :( 
+        </iframe>
+
+    </div>
+
+</f:section>
+
+<f:section name="footer">
+
+</f:section>

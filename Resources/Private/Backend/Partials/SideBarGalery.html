@@ -4,17 +4,17 @@
         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
             <div class="menu_section">
                 <ul class="nav side-menu">
-                    <li class="{f:if(condition: "{active} == 'im-list'", then: 'active')}">
-                        <f:link.action action="list" controller="Gallerie">
-                            <i class="fa fa-list"></i> Liste<br />Inhalte
+                    <li class="{f:if(condition: "{active} == 'th-list'", then: 'active')}">
+                        <f:link.action action="list" controller="GallerieTeaser">
+                            <i class="fa fa-list"></i> Liste<br />Teaser
                         </f:link.action>
                     </li>
-                    <li class="{f:if(condition: "{active} == 'im-new'", then: 'active')}">
-                        <f:link.action action="new" controller="Gallerie">
-                            <i class="fa fa-plus-circle"></i> Neuer<br />Inhalt
+                    <li class="{f:if(condition: "{active} == 'th-new'", then: 'active')}">
+                        <f:link.action action="new" controller="GallerieTeaser">
+                            <i class="fa fa-plus-circle"></i> Neuer<br />Teaser
                         </f:link.action>
                     </li>
-                    <f:if condition="{active} == 'im-edit'">
+                    <f:if condition="{active} == 'th-edit'">
                         <li class="active">
                             <a>
                                 <i class="fa fa-pencil"></i> Edit
@@ -24,12 +24,38 @@
 
                 </ul>
             </div>
+            
+            <hr />
+
+            <div class="menu_section">
+                <ul class="nav side-menu">
+                    <li class="{f:if(condition: "{active} == 'co-list'", then: 'active')}">
+                        <f:link.action action="list" controller="GallerieContent">
+                            <i class="fa fa-list"></i> Liste<br />Inhalte
+                        </f:link.action>
+                    </li>
+                    <li class="{f:if(condition: "{active} == 'co-new'", then: 'active')}">
+                        <f:link.action action="new" controller="GallerieContent">
+                            <i class="fa fa-plus-circle"></i> Neuer<br />Inhalt
+                        </f:link.action>
+                    </li>
+                    <f:if condition="{active} == 'co-edit'">
+                        <li class="active">
+                            <a>
+                                <i class="fa fa-pencil"></i> Edit
+                            </a>
+                        </li>
+                    </f:if>
+
+                </ul>
+            </div>
+
             <hr />
 
             <div class="menu_section">
                 <ul class="nav side-menu">
                     <li class="{f:if(condition: "{active} == 'settings'", then: 'active')}">
-                        <f:link.action action="settings" controller="Gallerie">
+                        <f:link.action action="settings" controller="GallerieTeaser">
                             <i class="fa fa-cog"></i> Einstellungen
                         </f:link.action>
                     </li>

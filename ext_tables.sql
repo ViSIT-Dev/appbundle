@@ -99,17 +99,39 @@ CREATE TABLE tx_visittablets_domain_model_galerycontentelement (
 
 	title varchar(255) DEFAULT '' NOT NULL,
 	sub_title varchar(255) DEFAULT '' NOT NULL,
-	teaser_title varchar(255) DEFAULT '' NOT NULL,
 	teaser_text text DEFAULT '' NOT NULL,
 	text text NOT NULL,
 	layout int(11) NOT NULL default '0',
 	media int(11) unsigned NOT NULL default '0',
-  teaser_image int(11) unsigned NOT NULL default '0',
         
-  sorting tinyint(1) unsigned DEFAULT '0' NOT NULL,
-  hidden tinyint(1) unsigned DEFAULT '0' NOT NULL,
-  deleted tinyint(1) unsigned DEFAULT '0' NOT NULL,
-  startPage tinyint(1) unsigned DEFAULT '0' NOT NULL,
+        sorting tinyint(1) unsigned DEFAULT '0' NOT NULL,
+        hidden tinyint(1) unsigned DEFAULT '0' NOT NULL,
+        deleted tinyint(1) unsigned DEFAULT '0' NOT NULL,
+
+	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
+	crdate int(11) unsigned DEFAULT '0' NOT NULL,
+	cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
+
+	PRIMARY KEY (uid),
+	KEY parent (pid),
+
+);
+
+#
+# Table structure for table 'tx_visittablets_domain_model_galeryteaserelement'
+#
+CREATE TABLE tx_visittablets_domain_model_galeryteaserelement (
+
+	uid int(11) NOT NULL auto_increment,
+	pid int(11) DEFAULT '0' NOT NULL,
+
+	teaser_title varchar(255) DEFAULT '' NOT NULL,
+	teaser_title_en varchar(255) DEFAULT '' NOT NULL,
+	media int(11) unsigned NOT NULL default '0',
+
+        sorting tinyint(1) unsigned DEFAULT '0' NOT NULL,
+        hidden tinyint(1) unsigned DEFAULT '0' NOT NULL,
+        deleted tinyint(1) unsigned DEFAULT '0' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
