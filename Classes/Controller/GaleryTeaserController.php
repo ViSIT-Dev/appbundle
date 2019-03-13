@@ -18,7 +18,7 @@ use Visit\VisitTablets\Domain\Model\GaleryContentElement;
 /**
  * GaleryController
  */
-class GallerieTeaserController extends AbstractVisitController  implements IRenderFrontend{
+class GaleryTeaserController extends AbstractVisitController  implements IRenderFrontend{
 
 
     /**
