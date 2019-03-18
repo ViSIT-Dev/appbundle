@@ -14,8 +14,6 @@
     
     <f:section name="main">
         
-        <f:debug>{_all}</f:debug>
-        
         <f:if condition="{startUpLayout} == 0">
             <f:render partial="Galery/Layout3" arguments="{_all}" />
         </f:if>
@@ -27,7 +25,7 @@
             <div class="swiper-container-de lang-content lang-de">
                 <div class="swiper-wrapper">
                     <f:for each='{contentElements.0}' as='element'>
-                        <f:render partial="Galery/GaleryTemplate{element.layout}" arguments="{_all}" />
+                        <f:render partial="Galery/GaleryTemplate{element.layout}" arguments="{element : element}" />
                     </f:for>
                 </div>
                 <div class="swiper-pagination"></div>
@@ -35,7 +33,7 @@
             <div class="swiper-container-en lang-content lang-en">
                 <div class="swiper-wrapper">
                     <f:for each='{contentElements.1}' as='element'>
-                        <f:render partial="Galery/GaleryTemplate{element.layout}" arguments="{_all}" />
+                        <f:render partial="Galery/GaleryTemplate{element.layout}" arguments="{element : element}" />
                     </f:for>
                 </div>
                 <div class="swiper-pagination"></div>
@@ -63,6 +61,9 @@
         <style>
             #galery-layout{
                 display:none;
+            }
+            #content-holder{
+                background: #303030;
             }
             .swiper-container-de {
                 width: 100%;

@@ -1,3 +1,11 @@
 <div class="galery-content-layout swiper-slide layout-id-3">
-    LAYOUT 3
+    <div class="row">
+        <div class="col-6">
+            <f:render partial="Galery/GaleryTemplateContent" arguments="{element : element}" />
+            <strong>TEMPLATE3</strong>
+        </div>
+        <div class="col-6">
+            <f:render partial="RenderMedia" arguments="{media : element.media}"/>
+        </div>
+    </div>
 </div>

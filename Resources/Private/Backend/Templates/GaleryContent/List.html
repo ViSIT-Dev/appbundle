@@ -15,7 +15,7 @@
             <tr>
                 <th>Sprache</th>
                 <th>Überschrift</th>
-                <th>Sortierung</th>
+                <th>Unterüberschrift</th>
                 <th></th>
             </tr>
         </thead>
@@ -23,8 +23,8 @@
             <f:for each="{contentElements}" as="element">
                 <tr>
                     <td>{element.langTitle}</td>
-                    <td>{element.teaserTitle}</td>
-                    <td>{element.sorting}</td>
+                    <td>{element.title}</td>
+                    <td>{element.subTitle}</td>
                     <td>
                         <f:link.action action="edit" arguments="{contentElement : element}" class="btn btn-primary btn-xs">
                             <i class="fa fa-pencil fa-2x" aria-hidden="true"></i>
