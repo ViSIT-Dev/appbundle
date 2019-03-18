@@ -1,7 +1,7 @@
 <f:layout name="Default" />
 
 <f:section name="title">
-    <h2>Gallerie Inhaltselement bearbeiten</h2>
+    <h2>Teaser Element Bearbeiten</h2>
 </f:section>
 
 <f:section name="sideBar">
@@ -11,7 +11,8 @@
 <f:section name="main">
 
     <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-        
+        <f:render partial="FormErrors" arguments="{object:Inmate}" />
+
         <f:form class="form-horizontal form-label-left" action="update" name="teaserElement" object="{teaserElement}">
 
             <f:render partial="GaleryTeaserFormFields" arguments="{_all}" />
@@ -37,5 +38,5 @@
 </f:section>
 
 <f:section name="footer">
-
+    <f:render partial="Dropzone" />
 </f:section>

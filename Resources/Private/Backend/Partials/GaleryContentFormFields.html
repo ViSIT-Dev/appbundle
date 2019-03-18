@@ -3,7 +3,7 @@
 <div class="form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="teaserText">Teaser Text</label>
     <div class="col-md-9 col-sm-9 col-xs-12">
-        <f:form.textarea id="teaserText" property="teaserText" class="col-md-7 col-sm-7 col-xs-12" />
+        <f:form.textarea id="teaserText" property="teaserText" class="col-md-7 col-sm-7 col-xs-12 rte" />
     </div>
 </div>
 <div class="ln_solid"></div>
@@ -22,7 +22,7 @@
 <div class="form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="text">Text</label>
     <div class="col-md-9 col-sm-9 col-xs-12">
-        <f:form.textarea id="text" property="text" class="col-md-7 col-sm-7 col-xs-12" />
+        <f:form.textarea id="text" property="text" class="col-md-7 col-sm-7 col-xs-12 rte" />
     </div>
 </div>
 <div class="ln_solid"></div>
@@ -35,15 +35,35 @@
 </div>
 
 <div class="ln_solid"></div>
+
 <div class="form-group">
-    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="media">Media hinzufügen</label>
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fileTempPath">Media hinzufügen</label>
     <div class="col-md-9 col-sm-9 col-xs-12">
         
         <div class="dropzone" style="min-height: auto;"></div>
         
-        <f:form.hidden name="media" id="fileTempPath" />
+        <f:form.hidden name="fileTempPath" id="fileTempPath" />
         
     </div>
 </div>
 
-<f:render partial="Dropzone" />
+<f:if condition="{contentElement.media}">
+
+    <div class="ln_solid"></div>
+
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Media</label>
+        <div class="col-md-9 col-sm-9 col-xs-12">
+            <f:for each="{contentElement.media}" as="currentMedia">
+                <div class="figure-action-wrapper">
+                    <div class="action-wrapper">
+                        <f:link.action action="deleteImage" arguments="{contentElement : contentElement, media: currentMedia}" class="askbeforedelete  btn btn-danger btn-xs">
+                            <i class="fa fa-trash-o fa-2x" aria-hidden="true"></i>
+                        </f:link.action>
+                    </div>
+                    <f:render partial="SingleMedia" arguments="{media: currentMedia}"/>
+                </div>
+            </f:for>
+        </div>
+    </div>
+</f:if>

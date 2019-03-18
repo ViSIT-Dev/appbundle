@@ -102,7 +102,7 @@ class GaleryTeaserController extends AbstractVisitController  implements IRender
      */
     public function listAction(){
         $contentElements = $this->galeryTeaserElementRepository->findAll();
-        $this->view->assign('contentElements', $contentElements);
+        $this->view->assign('teaserElements', $contentElements);
     }
 
     
@@ -114,9 +114,8 @@ class GaleryTeaserController extends AbstractVisitController  implements IRender
      */
     public function editAction(GaleryTeaserElement $teaserElement)
     {
-        $this->view
-                ->assign('contentElement', $teaserElement)
-                ->assign('contentElements', $this->galeryContentElementRepository->findAll());
+        $this->assignContentElementsByLanguage();
+        $this->view->assign('teaserElement', $teaserElement);
     }
 
     /**
@@ -127,9 +126,9 @@ class GaleryTeaserController extends AbstractVisitController  implements IRender
      */
     public function updateAction(GaleryTeaserElement $teaserElement)
     {
-        $this->debug($teaserElement);
+        $this->addImageFromTempToModel($teaserElement);
         $this->galeryTeaserElementRepository->update($teaserElement);
-//        $this->redirect('edit',null, null, ["contentElement" => $contentElement]);
+        $this->redirect('list', null, null, ["teaserElement" => $teaserElement]);
     }
     
     /**
@@ -139,15 +138,7 @@ class GaleryTeaserController extends AbstractVisitController  implements IRender
      */
     public function newAction()
     {
-        $contentElements = $this->galeryContentElementRepository->findAll();
-        $contentElementsLang = [];
-        
-        /* @var $currentContentElement GaleryContentElement */
-        foreach($contentElements as $currentContentElement){
-            $contentElementsLang[$currentContentElement->getLanguage()][] = $currentContentElement;
-        }
-        $this->view
-                ->assign('contentElements', $contentElementsLang);
+        $this->assignContentElementsByLanguage();
     }
 
     /**
@@ -158,6 +149,7 @@ class GaleryTeaserController extends AbstractVisitController  implements IRender
      */
     public function createAction(GaleryTeaserElement $newTeaserElement)
     {
+        $this->addImageFromTempToModel($teaserElement);
         $this->galeryTeaserElementRepository->add($newTeaserElement);
         $this->redirect('list');
     }
@@ -200,6 +192,17 @@ class GaleryTeaserController extends AbstractVisitController  implements IRender
 
         $this->redirect('settings');
 
+    }
+
+    public function assignContentElementsByLanguage() {
+        $contentElements = $this->galeryContentElementRepository->findAll();
+        $contentElementsLang = [];
+        
+        /* @var $currentContentElement GaleryContentElement */
+        foreach($contentElements as $currentContentElement){
+            $contentElementsLang[$currentContentElement->getLanguage()][] = $currentContentElement;
+        }
+        $this->view->assign('contentElements', $contentElementsLang);
     }
 
 }
