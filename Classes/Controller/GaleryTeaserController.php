@@ -91,7 +91,8 @@ class GaleryTeaserController extends AbstractVisitController  implements IRender
     {
         $this->addSettingsForTablets();
         $this->view->assign('startUpLayout', $this->configRepository->get("startUpLayout"));
-        $this->view->assign('contentElements', $this->galeryTeaserElementRepository->findAll());
+        $this->view->assign('contentElements', $this->galeryContentElementRepository->findAll());
+        $this->view->assign('teaserElements', $this->galeryTeaserElementRepository->findAll());
     }
     
     
