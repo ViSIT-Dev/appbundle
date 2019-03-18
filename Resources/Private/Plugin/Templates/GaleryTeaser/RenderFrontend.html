@@ -24,9 +24,22 @@
         </f:if>
 
         <div id='content-holder'>
-            <f:for each='{contentElements}' as='element'>
-                
-            </f:for>
+            <div class="swiper-container-de lang-content lang-de">
+                <div class="swiper-wrapper">
+                    <f:for each='{contentElements.0}' as='element'>
+                        <f:render partial="Galery/GaleryTemplate{element.layout}" arguments="{_all}" />
+                    </f:for>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+            <div class="swiper-container-en lang-content lang-en">
+                <div class="swiper-wrapper">
+                    <f:for each='{contentElements.1}' as='element'>
+                        <f:render partial="Galery/GaleryTemplate{element.layout}" arguments="{_all}" />
+                    </f:for>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
         </div>
         
         <div class="modal fade modal-transparent" id="startModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -47,19 +60,64 @@
                 </div>
             </div>
         </div>
-        
+        <style>
+            #galery-layout{
+                display:none;
+            }
+            .swiper-container-de {
+                width: 100%;
+                height: 100%;
+            }
+            .swiper-container-en {
+                width: 100%;
+                height: 100%;
+            }
+        </style>
         <script>
+            swiperDe = null;
+            swiperEn = null;
+            lang = 0;
+            
+            function initLang(lang){
+                $("body").removeClass("lang-de");
+                $("body").removeClass("lang-en");
+                if(lang == 0){
+                    $("body").addClass("lang-de");
+                    $(".lang-content.show-de").show();
+                }else{
+                    $("body").addClass("lang-en");
+                    $(".lang-content.show-en").show();
+                }
+            }
+
+            window.onload = function () {
+                //initialize swiper when document ready
+                swiperDe = new Swiper ('.swiper-container-de', {
+                    loop: true,
+                    // If we need pagination
+                    pagination: {
+                      el: '.swiper-pagination',
+                    },
+                });
+                //initialize swiper when document ready
+                swiperEn = new Swiper ('.swiper-container-en', {
+                    // If we need pagination
+                    pagination: {
+                      el: '.swiper-pagination',
+                    },
+                });
+            };
 
             document.addEventListener('DOMContentLoaded', function(){
-                initContent();
-                initScroll();
+                initLang(lang);
                 $("#scrolllist .data-index-anchor:first-of-type li:first-of-type").trigger("click");
-                $('#startModal').modal({
-                    keyboard: false,
-                    backdrop: "static"
-                });
+//                $('#startModal').modal({
+//                    keyboard: false,
+//                    backdrop: "static"
+//                });
 
             });
+            
         </script>
 
     </f:section>
@@ -80,6 +138,8 @@
         <script src="typo3conf/ext/visit_tablets/Resources/Public/js/three/stats.js"></script>
 
         <script src="typo3conf/ext/visit_tablets/Resources/Public/js/isotope.js"></script>
+        
+        <script src="typo3conf/ext/visit_tablets/Resources/Public/vendor/swiper/swiper.min.js"></script>
 
 
 

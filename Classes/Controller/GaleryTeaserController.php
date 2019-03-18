@@ -90,8 +90,11 @@ class GaleryTeaserController extends AbstractVisitController  implements IRender
     public function renderFrontendAction()
     {
         $this->addSettingsForTablets();
+        $this->response->addAdditionalHeaderData('<link rel="stylesheet" href="typo3conf/ext/visit_tablets/Resources/Public/vendor/swiper/swiper.min.css">');
+        
+        $this->assignContentElementsByLanguage();
+        
         $this->view->assign('startUpLayout', $this->configRepository->get("startUpLayout"));
-        $this->view->assign('contentElements', $this->galeryContentElementRepository->findAll());
         $this->view->assign('teaserElements', $this->galeryTeaserElementRepository->findAll());
     }
     
@@ -150,7 +153,7 @@ class GaleryTeaserController extends AbstractVisitController  implements IRender
      */
     public function createAction(GaleryTeaserElement $newTeaserElement)
     {
-        $this->addImageFromTempToModel($teaserElement);
+        $this->addImageFromTempToModel($newTeaserElement);
         $this->galeryTeaserElementRepository->add($newTeaserElement);
         $this->redirect('list');
     }

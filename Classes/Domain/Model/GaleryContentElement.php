@@ -69,7 +69,7 @@ class GaleryContentElement extends AbstractEntityWithMedia implements IHasLangua
     /**
      * layout
      * 
-     * @var \Visit\VisitTablets\Domain\Enums\GaleryContentLayout
+     * @var int
      */
     protected $layout;
     
@@ -181,8 +181,8 @@ class GaleryContentElement extends AbstractEntityWithMedia implements IHasLangua
     }
 
     public function setLayout($galeryContentLayoutId) {
-        $galeryContentLayout = GaleryContentLayout::getValues()[$galeryContentLayoutId];
-        $this->layout = $galeryContentLayout;
+//        $galeryContentLayout = GaleryContentLayout::getValues()[$galeryContentLayoutId];
+        $this->layout = $galeryContentLayoutId;
     }
     
 }

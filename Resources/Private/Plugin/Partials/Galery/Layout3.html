@@ -1,22 +1,20 @@
-<html  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-    <f:comment>
-        {f:uri.image(src: media.ref_uid, treatIdAsReference: '1', width: '2000c', height: '500c')}
-    </f:comment>
-    
-    <div id="galery-layout" class="layout3">
-        <div class="row">
-            <div class="col-4" data-uid="">
-                <div class="teaser-image" style="background-image: url('/fileadmin/user_upload/sandra-ahn-mode-639499-unsplash.png')"></div>
-                <div class="teaser-title">Lorem ipsum dolor orilu zweizeiliger Titel</div>
-            </div>
-            <div class="col-4">
-                <div class="teaser-image" style="background-image: url('/fileadmin/user_upload/samuel-zeller-432089-unsplash.png')"></div>
-                <div class="teaser-title">Lorem ipsum dolor orilu zweizeiliger Titel</div>
-            </div>
-            <div class="col-4">
-                <div class="teaser-image" style="background-image: url('/fileadmin/user_upload/rectangle-copy-2.png')"></div>
-                <div class="teaser-title">Lorem ipsum dolor orilu zweizeiliger Titel</div>
-            </div>
-        </div>
+<div id="galery-layout" class="layout3">
+    <div class="row">
+        <f:for each="{teaserElements}" as="currentElement" iteration="iter">
+            <f:if condition="{iter.cycle} < 4">
+                <div class="col-4" data-uid="{currentElement.uid}">
+                    <f:if condition="{currentElement.media.0}">
+                        <f:then>
+                            <div class="teaser-image" style="background-image: url('{f:uri.image(src: currentElement.media.0.uid, width: '340c', height: '254c')}')"></div>
+                        </f:then>
+                        <f:else>
+                            <div class="teaser-image" style="background-image: url('https://placehold.it/340x254&text=no Media')"></div>
+                        </f:else>
+                    </f:if>
+                    <div class="teaser-title lang-content lang-de">{currentElement.teaserTitle}</div>
+                    <div class="teaser-title lang-content lang-en">{currentElement.teaserTitleEn}</div>
+                </div>
+            </f:if>
+        </f:for> 
     </div>
-</html>
+</div>
