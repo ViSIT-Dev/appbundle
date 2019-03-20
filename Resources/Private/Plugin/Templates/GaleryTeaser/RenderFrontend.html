@@ -21,8 +21,8 @@
             <f:render partial="Galery/Layout6" arguments="{_all}" />
         </f:if>
 
-        <div id='content-holder'>
-            <div class="swiper-container-de lang-content lang-de">
+        <div id='galery-content-holder'>
+            <div class="swiper-container-de swiper-container lang-content lang-de">
                 <div class="swiper-wrapper">
                     <f:for each='{contentElements.0}' as='element'>
                         <f:render partial="Galery/GaleryTemplate{element.layout}" arguments="{element : element}" />
@@ -30,7 +30,7 @@
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
-            <div class="swiper-container-en lang-content lang-en">
+            <div class="swiper-container-en swiper-container lang-content lang-en">
                 <div class="swiper-wrapper">
                     <f:for each='{contentElements.1}' as='element'>
                         <f:render partial="Galery/GaleryTemplate{element.layout}" arguments="{element : element}" />
@@ -61,39 +61,6 @@
         <style>
             #galery-layout{
                 display:none;
-            }
-            #content-holder{
-                background: #303030;
-                color: #ffffff;
-                height: 100%;
-                position: relative;
-            }
-            .text-content{
-                padding: 2% 5%;
-            }
-            .swiper-container-de {
-                width: 100%;
-                height: 100%;
-            }
-            .swiper-container-en {
-                width: 100%;
-                height: 100%;
-            }
-            .galery-content-layout > .row,
-            .row.media-holder{
-                height: 100%;
-            }
-            .row.media-holder col-12{
-                height: 100%;
-            }
-            .galery-image{
-                width: 100%;
-                height: 100%;
-                background-size: cover;
-                background-position: center;
-            }
-            .swiper-pagination-bullet-active{
-                background: #CA8B11;
             }
         </style>
         <script>

@@ -734,6 +734,45 @@ main#scope{
         }
     }
 }
+
+// Galery
+#galery-content-holder{
+    background: #303030;
+    color: #ffffff;
+    height: 100%;
+    position: relative;
+    
+    .text-content{
+        padding: 2% 5%;
+    }
+    
+    .swiper-container {
+        width: 100%;
+        height: 100%;
+    }
+    
+    .galery-content-layout > .row,
+    .row.media-holder{
+        height: 100%;
+    }
+    
+    .galery-image{
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+    }
+    
+    .swiper-pagination-bullet-active{
+        background: #CA8B11;
+    }
+    
+    .text-content{
+        max-height: 100%;
+        overflow-y: scroll;
+    }
+}
+
 .lang-content{
     display: none;
 }

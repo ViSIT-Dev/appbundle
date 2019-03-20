@@ -2220,6 +2220,30 @@ main#scope {
         display: inline-block;
         opacity: 1; }
 
+#galery-content-holder {
+  background: #303030;
+  color: #ffffff;
+  height: 100%;
+  position: relative; }
+  #galery-content-holder .text-content {
+    padding: 2% 5%; }
+  #galery-content-holder .swiper-container {
+    width: 100%;
+    height: 100%; }
+  #galery-content-holder .galery-content-layout > .row,
+  #galery-content-holder .row.media-holder {
+    height: 100%; }
+  #galery-content-holder .galery-image {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center; }
+  #galery-content-holder .swiper-pagination-bullet-active {
+    background: #CA8B11; }
+  #galery-content-holder .text-content {
+    max-height: 100%;
+    overflow-y: scroll; }
+
 .lang-content {
   display: none; }
 
