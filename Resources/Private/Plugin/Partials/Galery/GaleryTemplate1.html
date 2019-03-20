@@ -1,9 +1,15 @@
 <div class="galery-content-layout swiper-slide layout-id-1">
     <div class="row">
-        <div class="col-6">
-            <f:render partial="RenderMedia" arguments="{media : element.media}"/>
+        <div class="col-6 no-gutters">
+            <div class="row media-holder">
+                <div class="col-12">
+                    <f:if condition="{element.media.0}">
+                        <f:render partial="SingleMedia" arguments="{media : element.media.0}"/>
+                    </f:if>
+                </div>
+            </div>
         </div>
-        <div class="col-6">
+        <div class="col-6 no-gutters text-content">
             <f:render partial="Galery/GaleryTemplateContent" arguments="{element : element}" />
             <strong>TEMPLATE1</strong>
         </div>
