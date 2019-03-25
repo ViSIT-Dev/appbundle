@@ -2242,7 +2242,7 @@ main#scope {
     background: #CA8B11; }
   #galery-content-holder .text-content {
     max-height: 100%;
-    overflow-y: scroll; }
+    overflow-y: hidden; }
 
 .lang-content {
   display: none; }
