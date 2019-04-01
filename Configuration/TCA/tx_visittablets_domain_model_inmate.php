@@ -8,9 +8,6 @@ return [
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
         'sortby' => 'sorting',
-        'enablecolumns' => [
-            'disabled' => 'hidden',
-        ],
         'searchFields' => 'language,first_name,last_name,date_of_birth,place_of_birth,nationality,date_of_passing,profession,date_of_imprisonment,date_of_release,subtitle,teasertext,text,event,media,vip,prison_cell',
         'iconfile' => 'EXT:visit_tablets/Resources/Public/Icons/tx_visittablets_domain_model_inmate.gif'
     ],
