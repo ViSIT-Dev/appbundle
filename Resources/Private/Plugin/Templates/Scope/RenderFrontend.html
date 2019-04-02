@@ -22,21 +22,40 @@
                     <div class="poi special" id="poi-impress">
                         <div class="inside">
                             <figure>
-                                <img class="poi-icon" src="{config.langicon_impress}" />
+                                <f:if condition="{config.langicon_impress}">
+                                    <f:then>
+                                        <img class="poi-icon" src="{config.langicon_impress}" />
+                                    </f:then>
+                                    <f:else>
+                                        <img class="poi-icon" src="/typo3/sysext/core/Resources/Public/Icons/Flags/PNG/GB.png" />
+                                    </f:else>
+                                </f:if>
                             </figure>
                         </div>
                     </div>
                     <div class="poi special" id="poi-lang-de">
                         <div class="inside">
                             <figure>
-                                <img class="poi-icon" src="{config.langicon_de}" />
+                                <f:then>
+                                    <img class="poi-icon" src="{config.langicon_de}" />
+                                </f:then>
+                                <f:else>
+                                    <img class="poi-icon" src="/typo3/sysext/core/Resources/Public/Icons/Flags/PNG/DE.png" />
+                                </f:else>
                             </figure>
                         </div>
                     </div>
                     <div class="poi special" id="poi-lang-en">
                         <div class="inside">
                             <figure>
-                                <img class="poi-icon" src="{config.langicon_en}" />
+                                <f:if condition="{config.langicon_en}">
+                                    <f:then>
+                                        <img class="poi-icon" src="{config.langicon_en}" />
+                                    </f:then>
+                                    <f:else>
+                                        <img class="poi-icon" src="/typo3/sysext/core/Resources/Public/Icons/Flags/PNG/GB.png" />
+                                    </f:else>
+                                </f:if>
                             </figure>
                         </div>
                     </div>
@@ -99,10 +118,24 @@
                 <div id="crosshair"></div>
                 <div id="lang-indicator">
                     <figure class="lang-content lang-de">
-                        <img class="poi-icon" src="{config.langicon_de}" />
+                        <f:if condition="{config.langicon_de}">
+                            <f:then>
+                                <img class="poi-icon" src="{config.langicon_de}" />
+                            </f:then>
+                            <f:else>
+                                <img class="poi-icon" src="/typo3/sysext/core/Resources/Public/Icons/Flags/PNG/DE.png" />
+                            </f:else>
+                        </f:if>
                     </figure>
                     <figure class="lang-content lang-en">
-                        <img class="poi-icon" src="{config.langicon_en}" />
+                        <f:if condition="{config.langicon_en}">
+                            <f:then>
+                                <img class="poi-icon" src="{config.langicon_en}" />
+                            </f:then>
+                            <f:else>
+                                <img class="poi-icon" src="/typo3/sysext/core/Resources/Public/Icons/Flags/PNG/GB.png" />
+                            </f:else>
+                        </f:if>
                     </figure>
                 </div>
             </div>
