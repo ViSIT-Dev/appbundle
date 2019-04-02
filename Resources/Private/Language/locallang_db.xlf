@@ -152,12 +152,12 @@
             
             <!-- Galery Teaser -->
             <trans-unit id="tx_visittablets_domain_model_galeryteaserelement">
-                <source>Gallerie Teaser</source>
+                <source>Galerie Teaser</source>
             </trans-unit>
             
             <!-- Galery Element -->
             <trans-unit id="tx_visittablets_domain_model_galeryteaserelement">
-                <source>Gallerie Teaser</source>
+                <source>Galerie Teaser</source>
             </trans-unit>
             
             <!-- Scope -->
