@@ -59,53 +59,78 @@
             </div>
         </div>
         <style>
-            #galery-layout{
-                display:none;
-            }
+/*            .back-to-menu{
+                visibility: visible !important;
+            }*/
         </style>
         <script>
-            swiperDe = null;
-            swiperEn = null;
-            lang = 0;
+            var swiper = null;
+            var lang = 0;
+//            mySwiper.slideTo
+
+            function showDetail(el){
+                $("#galery-layout").hide();
+                $(".back-to-menu").removeClass("invisible");
+                let targetUid =  $(el).data(lang == 0 ? "deUid" : "enUid");
+                let sliderindex = $(".swiper-slide[data-uid='" + targetUid + "']").data("swiperSlideIndex");
+                swiper.slideTo(sliderindex);   
+            }
             
-            function initLang(lang){
+            function showOverview(){
+                $("#galery-layout").show();
+                $(".back-to-menu").addClass("invisible");
+            }
+
+            function destroySwipers(){
+                if(swiper != null){
+                    swiper.destroy(true, true);
+                }
+                if(swiper != null){
+                    swiper.destroy(true, true);
+                }
+            }
+            
+            function initSwiperDe(){
+                swiper = new Swiper ('.swiper-container-de', {
+                    loop: true,
+                    pagination: {
+                      el: '.swiper-pagination',
+                    },
+                });
+            }
+            
+            function initSwiperEn(){
+                swiper = new Swiper ('.swiper-container-en', {
+                    loop: true,
+                    pagination: {
+                      el: '.swiper-pagination',
+                    },
+                });
+            }
+            
+            function initLang(newLang){
+                lang = newLang;
                 $("body").removeClass("lang-de");
                 $("body").removeClass("lang-en");
-                if(lang == 0){
+                $(".lang-content.show-en").hide();
+                $(".lang-content.show-de").hide();
+                destroySwipers();
+                if(newLang == 0){
                     $("body").addClass("lang-de");
                     $(".lang-content.show-de").show();
+                    initSwiperDe();
                 }else{
                     $("body").addClass("lang-en");
                     $(".lang-content.show-en").show();
+                    initSwiperEn();
                 }
             }
 
-            window.onload = function () {
-                //initialize swiper when document ready
-                swiperDe = new Swiper ('.swiper-container-de', {
-                    loop: true,
-                    // If we need pagination
-                    pagination: {
-                      el: '.swiper-pagination',
-                    },
-                });
-                //initialize swiper when document ready
-                swiperEn = new Swiper ('.swiper-container-en', {
-                    // If we need pagination
-                    pagination: {
-                      el: '.swiper-pagination',
-                    },
-                });
-            };
-
             document.addEventListener('DOMContentLoaded', function(){
                 initLang(lang);
-                $("#scrolllist .data-index-anchor:first-of-type li:first-of-type").trigger("click");
-//                $('#startModal').modal({
-//                    keyboard: false,
-//                    backdrop: "static"
-//                });
-
+                $(".back-to-menu").on("click", function(){
+                    showOverview();
+                });
             });
             
         </script>
