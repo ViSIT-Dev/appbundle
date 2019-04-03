@@ -1,4 +1,4 @@
-<div id="3d-view-container" style="height: 290px">
+<div id="3d-view-container-{element.uid}" data-object-path="/typo3conf/ext/visit_tablets/Resources/Public/SampleData/test.obj" style="height: 290px">
     
 </div>
 <script>
@@ -15,7 +15,7 @@
         scene = new THREE.Scene();
 //        scene.background = new THREE.Color(0xffffff);
         //scene.fog = new THREE.Fog(0x72645b, 2, 55);
-        var contentDom = document.getElementById('3d-view-container');
+        var contentDom = document.getElementById('3d-view-container-{element.uid}');
 
         var texloader = new THREE.TextureLoader();
         var color = texloader.load("/typo3conf/ext/visit_tablets/Resources/Public/SampleData/color.jpg");
@@ -27,7 +27,7 @@
         var boxWidth = 290;
 
         // --------------- JSONLoader
-        var loader = new THREE.JSONLoader();
+//        var loader = new THREE.JSONLoader();
         // load a resource
         loader.load(
                 '/typo3conf/ext/visit_tablets/Resources/Public/SampleData/granate.json',
@@ -51,23 +51,52 @@
                     scene.add(mesh);
                 }
         );
+        
+        // --------------- JSONLoader
+        var loader = new THREE.OBJLoader();
+        // load a resource
+loader.load(
+	// resource URL
+	'/typo3conf/ext/visit_tablets/Resources/Public/SampleData/test.obj',
+	// called when resource is loaded
+	function ( object ) {
+
+		scene.add( object );
+
+	},
+	// called when loading is in progresses
+	function ( xhr ) {
+
+		console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+	},
+	// called when loading has errors
+	function ( error ) {
+
+		console.log( 'An error happened' );
+
+	}
+);
 
         // --------------- Camera and Lignting
         camera = new THREE.PerspectiveCamera(75, boxWidth / boxHeight, 10, 1000);
         cameraTarget = new THREE.Vector3(0, 0, 0);
 
-            var light_0 = new THREE.DirectionalLight(0xffffff, 0.5);
-            light_0.position.set(150, 100, 100);
-            light_0.position.normalize();
-    camera.add(light_0);
-            var light_1 = new THREE.DirectionalLight(0xffffff, 0.5);
-            light_1.position.set(-150, 100, 100);
-            light_1.position.normalize();
-    camera.add(light_1);
-            var light_2 = new THREE.DirectionalLight(0xffffff, 0.5);
-            light_2.position.set(0, -100, -100);
-            light_2.position.normalize();
-    camera.add(light_2);
+        var light_0 = new THREE.DirectionalLight(0xffffff, 0.5);
+        light_0.position.set(150, 100, 100);
+        light_0.position.normalize();
+        camera.add(light_0);
+        
+        var light_1 = new THREE.DirectionalLight(0xffffff, 0.5);
+        light_1.position.set(-150, 100, 100);
+        light_1.position.normalize();
+        camera.add(light_1);
+        
+        var light_2 = new THREE.DirectionalLight(0xffffff, 0.5);
+        light_2.position.set(0, -100, -100);
+        light_2.position.normalize();
+        camera.add(light_2);
+        
         scene.add(camera);
 
         camera.position.z = 30;
@@ -208,13 +237,13 @@
 
     }
     
-
-    window.onload = function () {
-        console.log("init 3d");
-        resize();
-        init();
-        animate();
-    };
+//
+//    window.onload = function () {
+//        console.log("init 3d");
+//        resize();
+//        init();
+//        animate();
+//    };
 
 </script>
       
