@@ -145,7 +145,6 @@
                     iconAnchor:   [0, iconWidth], // point of the icon which will correspond to marker's location
                     iconSize:     [iconHeight, iconWidth], // size of the icon
                 } );
-                console.log(icon);
                 var marker = L.marker(item.latlng, {icon: icon}).on('click', function(e){
                     markerOnClick(e, item, marker);
                 }).addTo(mymap);

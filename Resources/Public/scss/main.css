@@ -1772,6 +1772,9 @@ a {
 *[data-toggle="modal"], *[data-toggle="modal"] * {
   cursor: pointer; }
 
+.render3d-container {
+  min-height: 200px; }
+
 .btn-primary {
   background-color: #d1880f;
   border-color: #d1880f; }

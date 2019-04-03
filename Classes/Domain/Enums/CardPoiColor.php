@@ -18,8 +18,6 @@ namespace Visit\VisitTablets\Domain\Enums;
  * Farben laut vorlage
  * 
  */
-class CardPoiColor extends \TYPO3\CMS\Core\Type\Enumeration
-{
-   
+class CardPoiColor extends \TYPO3\CMS\Core\Type\Enumeration{
    
 }
