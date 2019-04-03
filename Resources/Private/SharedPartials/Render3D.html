@@ -1,16 +1,11 @@
-<div id="3d-view-container" style="height: 290px">
-
-    <visit:objRender media="{media}">
-        <f:uri.image image="{media}" />
-        <f:uri.image image="{texture}" />
-        <f:uri.image image="{texture}" />
-    </visit:objRender>
-
-
-</div>
-
-<f:comment>
-
+<visit:objRender media="{media}">
+    <div
+        class="render3d-container"
+        data-object="{f:uri.image(image: object)}"
+        data-material="{f:uri.image(image: texture)}"
+        data-texture="{f:uri.image(image: texture)}">
+    </div>
+</visit:objRender>
 
 
 <script>
@@ -27,7 +22,7 @@
         scene = new THREE.Scene();
 //        scene.background = new THREE.Color(0xffffff);
         //scene.fog = new THREE.Fog(0x72645b, 2, 55);
-        var contentDom = document.getElementById('3d-view-container');
+        var contentDom = document.getElementsByClassName('render3d-container')[0];
 
         var texloader = new THREE.TextureLoader();
         var color = texloader.load("/typo3conf/ext/visit_tablets/Resources/Public/SampleData/color.jpg");
@@ -229,5 +224,3 @@
     };
 
 </script>
-
-</f:comment>

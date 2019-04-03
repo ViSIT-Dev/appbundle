@@ -7,24 +7,24 @@ use Visit\VisitTablets\Helper\Util;
 /**
  * Class ObjRenderViewHelper
  */
-class ObjRenderViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
-{
+class ObjRenderViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
     protected $escapeOutput = false;
     protected $escapeChildren = false;
 
     public function initializeArguments(){
         $this->registerArgument('media', 'object', 'the media');
+        $this->registerArgument('objVarName', 'string', 'name of obj var', false, "object");
         $this->registerArgument('mtlVarName', 'string', 'name of mtl var', false, "material");
         $this->registerArgument('textureVarName', 'string', 'name of texture var', false, "texture");
     }
-
 
     public function render(){
 
         $media = $this->arguments["media"];
         $mtlVarName = $this->arguments["mtlVarName"];
         $textureVarName = $this->arguments["textureVarName"];
+        $objVarName = $this->arguments["objVarName"];
 
         if (! ($media instanceof \TYPO3\CMS\Extbase\Domain\Model\FileReference || $media instanceof \TYPO3\CMS\Core\Resource\File ) ){
             throw new \Exception('You must either specify a FileReference or a File as media.', 1554284716);
@@ -39,6 +39,8 @@ class ObjRenderViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewH
         if(substr($fileIdentifier , strrpos($fileIdentifier , '.')) !== ".obj"){
             throw new \Exception('Not a OBJ File', 1554285497);
         }
+
+        $this->templateVariableContainer->add($objVarName, $media);
 
         $resourceFactory = \TYPO3\CMS\Core\Resource\ResourceFactory::getInstance();
 
@@ -59,7 +61,6 @@ class ObjRenderViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewH
                  $resourceFactory->getFileObject($mtlFileUid) :
                  null
         );
-
 
         //suche datei mit .jpg, .jpeg oder .png endung, erzeuge fileref
         $fileBasename = substr($fileIdentifier , 0, strrpos($fileIdentifier , '.'));
@@ -84,10 +85,9 @@ class ObjRenderViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewH
 
         $this->templateVariableContainer->remove($mtlVarName);
         $this->templateVariableContainer->remove($textureVarName);
+        $this->templateVariableContainer->remove($objVarName);
 
         return $renderedChild;
     }
-
-
 
 }

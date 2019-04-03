@@ -135,7 +135,9 @@ a{
         cursor: pointer;
     }
 }
-
+.render3d-container{
+    min-height: 200px;
+}
 .btn-primary{
     background-color: $btnPrim;
     border-color: $btnPrim;
