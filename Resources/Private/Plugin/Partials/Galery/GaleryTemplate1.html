@@ -11,7 +11,9 @@
         </div>
         <div class="col-6 no-gutters text-content">
             <f:render partial="Galery/GaleryTemplateContent" arguments="{element : element}" />
-            <strong>TEMPLATE1</strong>
+            <f:if condition="{settings.debugging}">
+                <strong>TEMPLATE1</strong>
+            </f:if>
         </div>
     </div>
 </div>
