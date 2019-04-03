@@ -1,6 +1,18 @@
 <div id="3d-view-container" style="height: 290px">
-    
+
+    <visit:objRender media="{media}">
+        <f:uri.image image="{media}" />
+        <f:uri.image image="{texture}" />
+        <f:uri.image image="{texture}" />
+    </visit:objRender>
+
+
 </div>
+
+<f:comment>
+
+
+
 <script>
 
     var camera, scene, renderer,
@@ -217,4 +229,5 @@
     };
 
 </script>
-      
+
+</f:comment>

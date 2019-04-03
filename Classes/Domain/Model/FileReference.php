@@ -2,6 +2,9 @@
 
 namespace Visit\VisitTablets\Domain\Model;
 
+use Visit\VisitTablets\Domain\Enums\FileReferenceType;
+use Visit\VisitTablets\Helper\Util;
+
 /***
  *
  * This file is part of the "tablets" Extension for TYPO3 CMS.
@@ -35,7 +38,6 @@ class FileReference extends \TYPO3\CMS\Extbase\Domain\Model\FileReference {
      */
     public function setOriginalResource(\TYPO3\CMS\Core\Resource\ResourceInterface $originalResource) {
         parent::setOriginalResource($originalResource);
-        $this->originalResource = $originalResource;
         $this->originalFileIdentifier = (int) $originalResource->getOriginalFile()->getUid();
     }
 
