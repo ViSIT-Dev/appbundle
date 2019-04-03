@@ -1,8 +1,10 @@
-<div class="galery-content-layout swiper-slide layout-id-0">
+<div class="galery-content-layout swiper-slide layout-id-0" data-uid="{element.uid}">
     <div class="row">
         <div class="col-6 text-content">
             <f:render partial="Galery/GaleryTemplateContent" arguments="{element : element}" />
-            <strong>TEMPLATE0</strong>
+            <f:if condition="{settings.debugging}">
+                <strong>TEMPLATE0</strong>
+            </f:if>
         </div>
         <div class="col-6">
             <div class="row media-holder">
