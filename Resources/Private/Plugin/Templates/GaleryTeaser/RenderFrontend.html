@@ -66,14 +66,13 @@
         <script>
             var swiper = null;
             var lang = 0;
-//            mySwiper.slideTo
 
             function showDetail(el){
                 $("#galery-layout").hide();
                 $(".back-to-menu").removeClass("invisible");
                 let targetUid =  $(el).data(lang == 0 ? "deUid" : "enUid");
                 let sliderindex = $(".swiper-slide[data-uid='" + targetUid + "']").data("swiperSlideIndex");
-                swiper.slideTo(sliderindex);   
+                swiper.slideTo(sliderindex + 1);
             }
             
             function showOverview(){
