@@ -9,81 +9,91 @@ window.threeJsScenes = [];
 $("document").ready(function () {
 
     $(".render3d-container").each(function (index, elm) {
+
         let $elm = $(elm);
 
-        let obj = "/" + $elm.data("object");
-        let objFile = obj.replace(/^.*(\\|\/|\:)/, '');
-        let objPath = obj.substring(0, obj.length - objFile.length);
+        let newScene = new Object();
 
-        let mtl = "/" + $elm.data("material");
-        let mtlFile = mtl.replace(/^.*(\\|\/|\:)/, '');
-        let mtlPath = mtl.substring(0, mtl.length - mtlFile.length);
+        newScene.obj = "/" + $elm.data("object");
+        newScene.objFile = newScene.obj.replace(/^.*(\\|\/|\:)/, '');
+        newScene.objPath = newScene.obj.substring(0, newScene.obj.length - newScene.objFile.length);
 
-        let text = "/" + $elm.data("texture");
-        let textFile = text.replace(/^.*(\\|\/|\:)/, '');
-        let textPath = text.substring(0, text.length - textFile.length);
+        newScene.mtl = "/" + $elm.data("material");
+        newScene.mtlFile = newScene.mtl.replace(/^.*(\\|\/|\:)/, '');
+        newScene.mtlPath = newScene.mtl.substring(0, newScene.mtl.length - newScene.mtlFile.length);
 
-        let height = $(elm).parent().parent().innerHeight();
-        let width =  $(elm).parent().parent().innerWidth();
+        newScene.text = "/" + $elm.data("texture");
+        newScene.textFile = newScene.text.replace(/^.*(\\|\/|\:)/, '');
+        newScene.textPath = newScene.text.substring(0, newScene.text.length - newScene.textFile.length);
+
+        newScene.height = $(elm).parent().parent().innerHeight();
+        newScene.width =  $(elm).parent().parent().innerWidth();
 
         // new scene
-        let scene = new THREE.Scene();
+        newScene.scene = new THREE.Scene();
 
         // create the renderer and append to DOM
-        let renderer = new THREE.WebGLRenderer();
-        renderer.setSize( width, height );
-        renderer.setClearColor( 0xffcc00, 0.8);
+        newScene.renderer = new THREE.WebGLRenderer();
+        newScene.renderer.setSize( newScene.width, newScene.height );
+        newScene.renderer.setClearColor( 0xffcc00, 0.8);
         $(elm).html("");
-        $(elm).append( renderer.domElement );
+        $(elm).append( newScene.renderer.domElement );
 
         // define camera position
-        let camera = new THREE.PerspectiveCamera( 75, width/height, 0.1, 1000 );
-        camera.position.z = 200;
+        newScene.camera = new THREE.PerspectiveCamera( 75, newScene.width / newScene.height, 0.1, 1000 );
+        newScene.camera.position.z = 200;
 
         // add controls
-        let controls = new THREE.OrbitControls(camera, renderer.domElement);
-        controls.enableDamping = true;
-        controls.dampingFactor = 0.25;
-        controls.enableZoom = true;
+        newScene.controls = new THREE.OrbitControls(newScene.camera, newScene.renderer.domElement);
+        newScene.controls.enableDamping = true;
+        newScene.controls.dampingFactor = 0.25;
+        newScene.controls.enableZoom = true;
 
         // add some light
-        scene.add( new THREE.AmbientLight( 0xFFFFFF, 1.5 ) );
+        newScene.scene.add( new THREE.AmbientLight( 0xFFFFFF, 1.5 ) );
 
         // load material
         let mtlLoader = new THREE.MTLLoader();
-        mtlLoader.setTexturePath(textPath);
-        mtlLoader.setPath(mtlPath);
-        mtlLoader.load(mtlFile, function (materials) {
+        mtlLoader.setTexturePath(newScene.textPath);
+        mtlLoader.setPath(newScene.mtlPath);
+        mtlLoader.load(newScene.mtlFile, function (materials) {
 
             materials.preload();
 
             // load Object
             let objLoader = new THREE.OBJLoader();
             objLoader.setMaterials(materials);
-            objLoader.setPath(objPath);
-            objLoader.load(objFile, function (object) {
+            objLoader.setPath(newScene.objPath);
+            objLoader.load(newScene.objFile, function (object) {
 
                 // fits object within a bounding box of 100 max (Change to change object size)
                 let objBox = new THREE.Box3().setFromObject(object);
-                ratio = 100 / Math.max(objBox.getSize().x, objBox.getSize().y, objBox.getSize().z);
+                let ratio = 100 / Math.max(objBox.getSize().x, objBox.getSize().y, objBox.getSize().z);
                 object.scale.x = object.scale.y = object.scale.z = ratio;
 
                 // add Object with material to scene
-                scene.add(object);
+                newScene.meshObject = object;
+                newScene.scene.add(object);
+                console.log(newScene);
+
+                window.threeJsScenes.push(newScene);
 
             });
 
         });
 
-        // animation function
-        let animate = function () {
-            controls.update();
-            requestAnimationFrame( animate );
-            renderer.render(scene, camera);
-        };
-
-        // start animation
-        animate();
     });
+
+    // animation function
+    let animate = function () {
+        window.threeJsScenes.forEach(function (el) {
+            el.controls.update();
+            el.renderer.render(el.scene, el.camera);
+        });
+        requestAnimationFrame( animate );
+    };
+
+    // start animation
+    animate();
 
 });

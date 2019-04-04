@@ -62,6 +62,9 @@
 /*            .back-to-menu{
                 visibility: visible !important;
             }*/
+            .galery-content-layout{
+                overflow: hidden;
+            }
         </style>
         <script>
             var swiper = null;
@@ -93,7 +96,8 @@
                 swiper = new Swiper ('.swiper-container-de', {
                     loop: true,
                     pagination: {
-                      el: '.swiper-pagination',
+                        el: '.swiper-pagination',
+                        noSwipingClass: 'render3d-container'
                     },
                 });
             }
@@ -102,7 +106,8 @@
                 swiper = new Swiper ('.swiper-container-en', {
                     loop: true,
                     pagination: {
-                      el: '.swiper-pagination',
+                        el: '.swiper-pagination',
+                        noSwipingClass: 'render3d-container'
                     },
                 });
             }

@@ -209,4 +209,20 @@ class GaleryTeaserController extends AbstractVisitController  implements IRender
         $this->view->assign('contentElements', $contentElementsLang);
     }
 
+    /**
+     * action deleteImage
+     *
+     * @param \Visit\VisitTablets\Domain\Model\GaleryTeaserElement $teaserElement,  \TYPO3\CMS\Extbase\Domain\Model\FileReference $media
+     * @return void
+     */
+    public function deleteImageAction(GaleryTeaserElement $teaserElement, \TYPO3\CMS\Extbase\Domain\Model\FileReference $media)
+    {
+        $this->addFlashMessage('Media wurde entfernt', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+        $this->removeImageFromModel($teaserElement, $media);
+        $this->galeryTeaserElementRepository->update($teaserElement);
+        $this->redirect("edit", null, null, array("teaserElement" => $teaserElement));
+    }
+
+
+
 }
