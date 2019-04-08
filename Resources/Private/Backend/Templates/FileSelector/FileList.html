@@ -1,0 +1,23 @@
+<div class="isodope-grid row">
+    <f:for each="{files}" as="file" key="uid" iteration="iter">
+        <f:if condition="{iter.cycle} % 2 == 1">
+            <div class="row">
+        </f:if>
+        <div class="file-item col-lg-6 col-xs-6">
+            <a href="#" class="fal-img-holder" title="{file.path}" data-img-uid="{file.uid}">
+                <div class="card m-b-20">
+                    <div class="img-min-height">
+                        <f:image  alt="{file.name}" src="/fileadmin/{file.identifier}" class="card-img-top img-fluid" crop="true" width="150c" height="100c"  />
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{file.name}</h5>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+        <f:if condition="{iter.cycle} % 2 == 0">
+            </div>
+        </f:if>
+    </f:for>
+</div>

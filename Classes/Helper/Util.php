@@ -117,4 +117,36 @@ class Util {
 
     }
 
+    
+    
+    
+    /**
+     * https://wiki.typo3.org/How_to_use_the_Fluid_Standalone_view_to_render_template_based_emails
+     *
+     * @param string $templateName name of template file (Action.html)
+     * @param array $arguments values for template
+     * @param string $subfolder
+     * @param TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext $controllerContext
+     * @return string
+     */
+    public static function renderTemplateWithArguments(string $templateName, array $arguments = array(), $subfolder = "/", $controllerContext = null){
+        
+        /** @var \TYPO3\CMS\Fluid\View\StandaloneView $tempView */
+	    $tempView = self::getInstance('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
+
+	    if($controllerContext != null){
+	        $tempView->setControllerContext($controllerContext);
+        }
+
+        $templatePath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName('EXT:visit_tablets/Resources/Private/Backend' . $subfolder);
+        
+        $tempView->setLayoutRootPaths(array($templatePath . "Layouts"));
+        $tempView->setPartialRootPaths(array($templatePath . "Partials"));
+        $tempView->setTemplateRootPaths(array($templatePath . "Templates"));
+        $tempView->setTemplatePathAndFilename($templatePath . 'Templates/' . $templateName);
+        $tempView->assignMultiple($arguments);
+
+        return $tempView->render();
+    }
+    
 }
