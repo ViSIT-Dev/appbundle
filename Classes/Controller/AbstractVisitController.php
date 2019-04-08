@@ -18,6 +18,7 @@ use \TYPO3\CMS\Backend\View\BackendTemplateView;
 use \TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use \TYPO3\CMS\Backend\Template\Components\Menu\Menu;
 use \TYPO3\CMS\Backend\Template\Components\Menu\MenuItem;
+use Visit\VisitTablets\Helper\Constants;
 use Visit\VisitTablets\Helper\Util;
 
 /**
@@ -65,6 +66,8 @@ abstract class AbstractVisitController extends \TYPO3\CMS\Extbase\Mvc\Controller
         }else{
             $this->settings = \array_merge_recursive($this->settings, $configs);
         }
+
+        $this->settings["visitPublicDbUrl"] = Constants::$VISIT_PUBLIC_URL;
  
         $this->response->addAdditionalHeaderData("<!-- ViSIT APP: {$this->request->getControllerObjectName()} -->");
         
