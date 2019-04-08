@@ -1,0 +1,27 @@
+<div class="left_col scroll-view">
+    <br />
+    <!-- sidebar menu -->
+    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+        <div class="menu_section">
+            <ul class="nav side-menu">
+                <li class="{f:if(condition: "{active} == 'list'", then: 'active')}">
+                    <f:link.action action="list">
+                        <i class="fa fa-list"></i> Datei Liste
+                    </f:link.action>
+                </li>
+                <li class="{f:if(condition: "{active} == 'upload'", then: 'active')}">
+                    <f:link.action action="upload">
+                        <i class="fa fa-plus-circle"></i> Datei hochladen
+                    </f:link.action>
+                </li>
+                <li class="{f:if(condition: "{active} == 'partner'", then: 'active')}">
+                    <f:link.action action="partner">
+                        <i class="fa fa-cog"></i> Partner Verwaltung
+                    </f:link.action>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- /sidebar menu -->
+
+</div>

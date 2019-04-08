@@ -4144,6 +4144,14 @@ ul.notifications {
 #cardPoiMap {
   cursor: crosshair; }
 
+.warenkorb {
+  border: 0;
+  width: 100%; }
+  .warenkorb.side {
+    min-height: 969px; }
+  .warenkorb.upload {
+    min-height: 500px; }
+
 /* Scope POI */
 
 /*# sourceMappingURL=custom.css.map */

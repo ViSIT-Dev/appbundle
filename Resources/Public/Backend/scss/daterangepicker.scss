@@ -2,23 +2,23 @@
   .ranges {
     li {
       color: #73879C;
-      
+
       &.active, &:hover {
         background: #536A7F;
         border: 1px solid #536A7F;
-        color: #fff;  
+        color: #fff;
       }
     }
   }
 
   .input-mini {
-      background-color: #eee;
-      border: 1px solid #ccc;
-      box-shadow: none !important;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    box-shadow: none !important;
 
-      &.active {
-        border: 1px solid #ccc;
-      }
+    &.active {
+      border: 1px solid #ccc;
+    }
   }
 
   select {
@@ -53,7 +53,7 @@
     &.active, &.active:hover {
       background-color: #536A7F;
       color: #fff;
-    }      
+    }
   }
 
   th.available:hover {

@@ -36,6 +36,16 @@ class FileController extends AbstractVisitController  {
     }
 
 
+
+    /**
+     * action create
+     * @return void
+     */
+    public function createdAction(){
+
+    }
+
+
     /**
      * action partner
      * @return void
