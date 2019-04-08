@@ -120,12 +120,16 @@ abstract class AbstractVisitController extends \TYPO3\CMS\Extbase\Mvc\Controller
                 }
                 break;
             case "select3d":
-                if($this->request->hasArgument("selectedObject")){
+                if( 
+                        $this->request->hasArgument("selectedObject") 
+                        && $this->request->hasArgument("selectedObject")){
                     $this->processSelected3dFile($entityWithMedia, $this->request->getArgument("selectedObject"));
                 }
                 break;
             case "selectFile":
-                if($this->request->hasArgument("fal-file-uid")){
+                if(
+                        $this->request->hasArgument("fal-file-uid")
+                        && $this->request->hasArgument("fal-file-uid")){
                     $this->processSelectedFiles($entityWithMedia, $this->request->getArgument("fal-file-uid"));
                 }
                 break;
@@ -142,7 +146,8 @@ abstract class AbstractVisitController extends \TYPO3\CMS\Extbase\Mvc\Controller
         $targetFolder = $this->settings["uploadDir"] ;
         $storage = $resourceFactory->getDefaultStorage();
         $rootFolder = $storage->getRootLevelFolder();
-
+        $path = $this->request->getArgument($inputName);
+        
         if (!$rootFolder->hasFolder($targetFolder)) {
             $rootFolder->createFolder($targetFolder);
         }
