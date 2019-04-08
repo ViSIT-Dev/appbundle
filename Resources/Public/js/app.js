@@ -14,6 +14,8 @@ $("document").ready(function () {
 
         let newScene = new Object();
 
+        newScene.elm = $elm;
+
         newScene.obj = "/" + $elm.data("object");
         newScene.objFile = newScene.obj.replace(/^.*(\\|\/|\:)/, '');
         newScene.objPath = newScene.obj.substring(0, newScene.obj.length - newScene.objFile.length);
@@ -29,13 +31,17 @@ $("document").ready(function () {
         newScene.height = $(elm).parent().parent().innerHeight();
         newScene.width =  $(elm).parent().parent().innerWidth();
 
+        // align the viewbox vertically
+        $(elm).parent().parent().addClass("valign");
+        $(elm).parent().addClass("valign");
+
         // new scene
         newScene.scene = new THREE.Scene();
 
         // create the renderer and append to DOM
-        newScene.renderer = new THREE.WebGLRenderer();
+        newScene.renderer = new THREE.WebGLRenderer({ alpha: true });
         newScene.renderer.setSize( newScene.width, newScene.height );
-        newScene.renderer.setClearColor( 0xffcc00, 0.8);
+        newScene.renderer.setClearColor( 0xffcc00, 0);
         $(elm).html("");
         $(elm).append( newScene.renderer.domElement );
 

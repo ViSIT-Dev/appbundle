@@ -179,6 +179,9 @@
                     </f:if>
                 </f:for>
             </div>
+            <f:comment>
+                
+            </f:comment>
             <div class="video-holder">
                 <f:for each="{pois}" as="datapoint">
                     <f:if condition="{datapoint.fullscreenvideo}">
@@ -193,7 +196,21 @@
         <script src="typo3conf/ext/visit_tablets/Resources/Public/Backend/vendors/encoder/sha256.min.js"></script> 
         <script src="typo3conf/ext/visit_tablets/Resources/Public/Backend/vendors/encoder/phidget22.min.js"></script> 
         <script>
+            // importing the WebCam Video stream
             var video = document.querySelector("#camrtc");
+            
+            if (navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({video: true})
+                    .then(function (stream) {
+                        video.srcObject = stream;
+                    })
+                    .catch(function (err0r) {
+                        console.log("Something went wrong!\n" + err0r);
+                        alert("No Webcam Detected!")
+                    });
+            }
+            
+            // calculating some special values for adjusting pois
             specialIconSize = <f:format.raw>{config.specialIconSize}</f:format.raw>;
             specialIconSizeHalf = specialIconSize / 2;
             specialIconOffset = specialIconSize * 1.7;
@@ -201,20 +218,12 @@
             specialIconX = <f:format.raw>{config.maxxpx - 540 - 50}</f:format.raw>;
             specialIconY = <f:format.raw>{config.maxypx - 960 - 50}</f:format.raw>;
             
-            if (navigator.mediaDevices.getUserMedia) {
-                navigator.mediaDevices.getUserMedia({video: true})
-                        .then(function (stream) {
-                            video.srcObject = stream;
-                        })
-                        .catch(function (err0r) {
-                            console.log("Something went wrong!\n" + err0r);
-                            alert("No Webcam Detected!")
-                        });
-            }
-            
             debugmode = <f:format.raw>{config.debugmode}</f:format.raw>;
             hysteresisFactor = 0.25;
             
+            /**
+             * getting pois from BE and adding special pois for language and impress
+             */
             jsonPois = <f:format.raw>{jsonPois}</f:format.raw>;
             jsonPois.push({
                 'uid': "impress",
@@ -264,6 +273,9 @@
                  });
                 }
                 
+                
+                // initializing the phidget connection and sensor inputs
+                // <editor-fold defaultstate="collapsed" desc="phidget init">
                 
                 var conn = new phidget22.Connection(<f:format.raw>{config.sensorport}</f:format.raw>, '<f:format.raw>{config.sensorhost}</f:format.raw>');
 
@@ -408,12 +420,19 @@
                     gotoPosition();
                 }
             }
+            // </editor-fold>
             
+            /**
+             * ReCalculates the position of the Crosshair
+             */
             function resetCrosshairPosition(){
                 crosshairScreenOffsetX = $("#scopeContainer").width() / 2;
                 crosshairScreenOffsetY = $("#scopeContainer").height() / 2;
             }
             
+            /**
+             * Checks if any POI is within range of Crosshair and displays contents
+             */
             function getTarget(){
                 for(var poi in jsonPois) {
                     distance = Math.sqrt(Math.pow((Math.abs(transformX) + crosshairScreenOffsetX - jsonPois[poi]["y"]), 2) + Math.pow((Math.abs(transformY) + crosshairScreenOffsetY - jsonPois[poi]["x"]), 2));
@@ -445,6 +464,9 @@
                 $("#target").html("none");
             }
             
+            /**
+             * Function gets triggered by changes of sensors and changes display according to view change
+             */
             function gotoPosition() {
                     
                 resetCrosshairPosition();
@@ -461,6 +483,7 @@
                 
                 var target = getTarget();
                 if(target){
+                    // to have a smoother experiance this is the hysterese
                     if(target["distanceFactor"] > hysteresisFactor){
                         if(!target["target"].hasClass("active")){
                             target["target"].addClass("active");
