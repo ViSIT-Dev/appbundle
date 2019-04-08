@@ -2,12 +2,13 @@
 <div class="ln_solid"></div>
 
 <div class="mt-3" role="tabpanel" data-example-id="togglable-tabs" style="margin-top: 40px">
+    <f:form.hidden name="mediaSelectStyle" value="standard" id="mediaSelectStyle" />
     <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#tab_content1" id="standard-media" role="tab" data-toggle="tab" aria-expanded="true">Bilder, Videos</a>
+        <li role="presentation" class="active"><a href="#tab_content1" id="standard-media" role="tab" data-toggle="tab" aria-expanded="true" onclick="javascript: updateMediaSelectStyle('standard')">Bilder, Videos</a>
         </li>
-        <li role="presentation" class=""><a href="#tab_content2" role="tab" id="3d-objects" data-toggle="tab" aria-expanded="false">3D Objekte</a>
+        <li role="presentation" class=""><a href="#tab_content2" role="tab" id="3d-objects" data-toggle="tab" aria-expanded="false" onclick="javascript: updateMediaSelectStyle('select3d')">3D Objekte</a>
         </li>
-        <li role="presentation" class=""><a href="#tab_content3" role="tab" id="file-browser" data-toggle="tab" aria-expanded="false">Dateiexplorer</a>
+        <li role="presentation" class=""><a href="#tab_content3" role="tab" id="file-browser" data-toggle="tab" aria-expanded="false" onclick="javascript: updateMediaSelectStyle('selectFile')">Dateiexplorer</a>
         </li>
     </ul>
     <div id="myTabContent" class="tab-content">
@@ -53,5 +54,8 @@
 </div>
 
 
-
-
+<script>
+    function updateMediaSelectStyle(style){
+        $("#mediaSelectStyle").val(style);
+    }
+</script>
