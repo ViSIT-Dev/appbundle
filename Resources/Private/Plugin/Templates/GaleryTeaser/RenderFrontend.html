@@ -62,18 +62,20 @@
 /*            .back-to-menu{
                 visibility: visible !important;
             }*/
+            .galery-content-layout{
+                overflow: hidden;
+            }
         </style>
         <script>
             var swiper = null;
             var lang = 0;
-//            mySwiper.slideTo
 
             function showDetail(el){
                 $("#galery-layout").hide();
                 $(".back-to-menu").removeClass("invisible");
                 let targetUid =  $(el).data(lang == 0 ? "deUid" : "enUid");
                 let sliderindex = $(".swiper-slide[data-uid='" + targetUid + "']").data("swiperSlideIndex");
-                swiper.slideTo(sliderindex);   
+                swiper.slideTo(sliderindex + 1);
             }
             
             function showOverview(){
@@ -94,7 +96,8 @@
                 swiper = new Swiper ('.swiper-container-de', {
                     loop: true,
                     pagination: {
-                      el: '.swiper-pagination',
+                        el: '.swiper-pagination',
+                        noSwipingClass: 'render3d-container'
                     },
                 });
             }
@@ -103,7 +106,8 @@
                 swiper = new Swiper ('.swiper-container-en', {
                     loop: true,
                     pagination: {
-                      el: '.swiper-pagination',
+                        el: '.swiper-pagination',
+                        noSwipingClass: 'render3d-container'
                     },
                 });
             }

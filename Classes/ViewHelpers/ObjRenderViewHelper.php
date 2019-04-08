@@ -36,7 +36,13 @@ class ObjRenderViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewH
 
         $fileIdentifier = $media->getIdentifier();
 
-        if(substr($fileIdentifier , strrpos($fileIdentifier , '.')) !== ".obj"){
+        if(substr($fileIdentifier , strrpos($fileIdentifier , '.')) === ".mtl"){
+            return;
+        }
+
+        if(
+            substr($fileIdentifier , strrpos($fileIdentifier , '.')) !== ".obj")
+        {
             throw new \Exception('Not a OBJ File', 1554285497);
         }
 

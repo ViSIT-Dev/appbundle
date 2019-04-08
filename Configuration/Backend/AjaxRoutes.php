@@ -7,4 +7,9 @@ return [
       'target' => BackendEndpoints\FileUploadController::class . '::fileUploadAction',
   ],
  
+  'listFilesForBrowser' => [
+      'path' => '/visit/listFilesForBrowser', 
+      'target' => BackendEndpoints\FileController::class . '::listFilesForBrowserAction',
+  ],
+ 
 ];

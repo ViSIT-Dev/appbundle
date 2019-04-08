@@ -187,4 +187,19 @@ class GaleryContentController extends AbstractVisitController  implements IRende
 
     }
     
+    /**
+     * action deleteImage
+     *
+     * @param \Visit\VisitTablets\Domain\Model\GaleryContentElement $contentElement,  \TYPO3\CMS\Extbase\Domain\Model\FileReference $media
+     * @return void
+     */
+    public function deleteImageAction(GaleryContentElement $contentElement, \TYPO3\CMS\Extbase\Domain\Model\FileReference $media)
+    {
+        $this->addFlashMessage('Media wurde entfernt', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+        $this->removeImageFromModel($contentElement, $media);
+        $this->galeryContentElementRepository->update($contentElement);
+        $this->redirect("edit", null, null, array("contentElement" => $contentElement));
+    }
+
+
 }

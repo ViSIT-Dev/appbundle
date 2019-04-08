@@ -90,8 +90,8 @@ call_user_func(
             'galleriebe', // Submodule key
             '', // Position
             [
-                'GaleryTeaser' => 'list, new, create, edit, update, delete, settings, updateSettings',
-                'GaleryContent' => 'list, new, create, edit, update, delete',
+                'GaleryTeaser' => 'list, new, create, edit, update, delete, settings, updateSettings, deleteImage',
+                'GaleryContent' => 'list, new, create, edit, update, delete, deleteImage',
             ], 
             [
                 'access' => 'user,group',
