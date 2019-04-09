@@ -109,39 +109,74 @@ abstract class AbstractVisitController extends \TYPO3\CMS\Extbase\Mvc\Controller
      }
     
     protected function addImageFromTempToModel(AbstractEntityWithMedia $entityWithMedia, $inputName = "fileTempPath"){
-        if(
-                $this->request->hasArgument($inputName) 
-                && \strlen(($path = $this->request->getArgument($inputName))) > 0
-                && \file_exists($path)
-        ){
-             
-            $resourceFactory = \TYPO3\CMS\Core\Resource\ResourceFactory::getInstance();
-            $targetFolder = $this->settings["uploadDir"] ;
-            $storage = $resourceFactory->getDefaultStorage();
-            $rootFolder = $storage->getRootLevelFolder();
-
-            if (!$rootFolder->hasFolder($targetFolder)) {
-                $rootFolder->createFolder($targetFolder);
-            }
-
-            $uploadedFilePath = $path . ".info";
-            
-            //TYPO3\CMS\Core\Http\UploadedFile
-            $uploadedFile = \unserialize(
-                    \file_get_contents($uploadedFilePath)
-                );
-
-            $mediaFile = $storage->addFile($path, $rootFolder->getSubFolder($targetFolder), $uploadedFile->getClientFilename());
-
-            $newFileReference = new \Visit\VisitTablets\Domain\Model\FileReference();
-            $newFileReference->setFile($mediaFile);
-            $entityWithMedia->addMedia($newFileReference);
-            
-            \unlink($path);
-            \unlink($uploadedFilePath);
-
+        switch($this->request->hasArgument($inputName)){
+            case "standard":
+                if(
+                    $this->request->hasArgument($inputName) 
+                    && \strlen(($path = $this->request->getArgument($inputName))) > 0
+                    && \file_exists($path)
+                ){
+                    $this->processStandardUpload($entityWithMedia, $inputName);
+                }
+                break;
+            case "select3d":
+                if( 
+                        $this->request->hasArgument("selectedObject") 
+                        && $this->request->hasArgument("selectedObject")){
+                    $this->processSelected3dFile($entityWithMedia, $this->request->getArgument("selectedObject"));
+                }
+                break;
+            case "selectFile":
+                if(
+                        $this->request->hasArgument("fal-file-uid")
+                        && $this->request->hasArgument("fal-file-uid")){
+                    $this->processSelectedFiles($entityWithMedia, $this->request->getArgument("fal-file-uid"));
+                }
+                break;
+            default:
+                break;
         }
+            
         
+    }
+    
+    private function processStandardUpload(AbstractEntityWithMedia $entityWithMedia, $inputName = "fileTempPath"){
+
+        $resourceFactory = \TYPO3\CMS\Core\Resource\ResourceFactory::getInstance();
+        $targetFolder = $this->settings["uploadDir"] ;
+        $storage = $resourceFactory->getDefaultStorage();
+        $rootFolder = $storage->getRootLevelFolder();
+        $path = $this->request->getArgument($inputName);
+        
+        if (!$rootFolder->hasFolder($targetFolder)) {
+            $rootFolder->createFolder($targetFolder);
+        }
+
+        $uploadedFilePath = $path . ".info";
+
+        //TYPO3\CMS\Core\Http\UploadedFile
+        $uploadedFile = \unserialize(
+                \file_get_contents($uploadedFilePath)
+            );
+
+        $mediaFile = $storage->addFile($path, $rootFolder->getSubFolder($targetFolder), $uploadedFile->getClientFilename());
+
+        $newFileReference = new \Visit\VisitTablets\Domain\Model\FileReference();
+        $newFileReference->setFile($mediaFile);
+        $entityWithMedia->addMedia($newFileReference);
+
+        \unlink($path);
+        \unlink($uploadedFilePath);
+
+    }
+    
+    
+    private function processSelected3dFile($entityWithMedia, $data) {
+        // todo
+    }
+    
+    private function processSelectedFiles($entityWithMedia, $data) {
+        // todo
     }
 
     protected function addSettingsForTablets(){
@@ -156,7 +191,7 @@ abstract class AbstractVisitController extends \TYPO3\CMS\Extbase\Mvc\Controller
     }
 
     
-         /**	
+    /**	
     * Initializes the view before invoking an action method.	
     *	
     * @param ViewInterface $view The view to be initialized	
@@ -197,5 +232,5 @@ abstract class AbstractVisitController extends \TYPO3\CMS\Extbase\Mvc\Controller
 //            $this->view->getModuleTemplate()->getDocHeaderComponent()->getMenuRegistry()->addMenu($menu);	
         }	
     }
-    
+
 }

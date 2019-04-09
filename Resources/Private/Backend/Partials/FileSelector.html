@@ -1,13 +1,10 @@
 <f:form.hidden style="display: none" id="file-uid"  name="fal-file-uid" value="" />
 
 
-<div id="fileBrowser" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+<div id="fileBrowser" class="modal fade" tabindex="-1" role="dialog"  aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <f:comment>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="removeValueFromInput()">×</button>
-                </f:comment>
                 <div class="row" style="width: 100%;">
                     <div class="col-12 text-right" >
                         <button type="button" class="btn btn-warning waves-effect waves-light" data-dismiss="modal" >Auswahl speichern und schließen</button>
@@ -40,19 +37,6 @@
 
     var $grid, qsRegex = 0, defaultFilter, filesLoaded = false;
     
-    defaultFilter = {
-        layoutMode: 'fitRows',
-        itemSelector: '.file-item',
-        filter: function () {
-            if (qsRegex === 0) {
-                return true;
-            }
-            if (qsRegex === -1) {
-                return false;
-            }
-            return $(this).text().match(qsRegex);
-        }
-    };
     function debounce(fn, threshold) {
         var timeout;
         threshold = threshold || 100;
@@ -69,40 +53,6 @@
 
     function loadIsotope() {
         filesLoaded = true;
-
-//        $grid = $('.isodope-grid').
-        //     one( 'arrangeComplete', function( event, filteredItems ) {
-        //     console.log("check height");
-        //     var heigtOfFirst = $(".file-item")[0].clientHeight;
-        //     $(".file-item").each(function (i, e) {
-        //         let top = parseInt(e.style.top, 10);
-        //         console.log(top);
-        //         if (top != 0) {
-        //             console.log(heigtOfFirst);
-        //             if (top < heigtOfFirst) {
-        //                 console.log("re ini isotope");
-        //                 loadIsotope();
-        //             }
-        //             return false;
-        //         }
-        //     });
-        // }).
-//        isotope(defaultFilter);
-
-        var $quicksearch = $('#file-search').keyup(debounce(function () {
-            try {
-                if ($quicksearch.val() === "") {
-                    qsRegex = 0;
-                } else {
-                    qsRegex = new RegExp($quicksearch.val(), 'gi');
-                }
-            } catch (e) {
-                qsRegex = -1;
-            }
-//            $grid.isotope(defaultFilter);
-//            $(".isotope-action li.active").removeClass("active");
-
-        }, 200));
 
         document.querySelectorAll('img').forEach(function (img) {
             img.onerror = function () {
@@ -138,6 +88,7 @@
                 keys += $(e).data("img-uid") + ",";
             });
             $("#file-uid").attr("value", keys);
+            alert(keys);
 
             return false;
         });
