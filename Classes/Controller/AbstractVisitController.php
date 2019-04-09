@@ -109,35 +109,35 @@ abstract class AbstractVisitController extends \TYPO3\CMS\Extbase\Mvc\Controller
      }
 
     protected function addImageFromTempToModel(AbstractEntityWithMedia $entityWithMedia){
-
+        $selectType = "";
         if($this->request->hasArgument("mediaSelectStyle")){
-            switch($this->request->getArgument("mediaSelectStyle")){
-                case "standard":
-                    if(
-                        $this->request->hasArgument("fileTempPath")
-                        && \strlen(($path = $this->request->getArgument("fileTempPath"))) > 0
-                        && \file_exists($path)
-                    ){
-                        $this->processStandardUpload($entityWithMedia, "fileTempPath");
-                    }
-                    break;
-                case "select3d":
-                    if(
-                            $this->request->hasArgument("selectedObject")
-                            && $this->request->hasArgument("selectedObject")){
-                        $this->processSelected3dFile($entityWithMedia, $this->request->getArgument("selectedObject"));
-                    }
-                    break;
-                case "selectFile":
-                    if(
-                            $this->request->hasArgument("fal-file-uid")
-                            && $this->request->hasArgument("fal-file-uid")){
-                        $this->processSelectedFiles($entityWithMedia, $this->request->getArgument("fal-file-uid"));
-                    }
-                    break;
-                default:
-                    break;
-            }
+            $selectType = $this->request->getArgument("mediaSelectStyle");
+        }
+        switch($selectType){
+            default:
+            case "standard":
+                if(
+                    $this->request->hasArgument("fileTempPath")
+                    && \strlen(($path = $this->request->getArgument("fileTempPath"))) > 0
+                    && \file_exists($path)
+                ){
+                    $this->processStandardUpload($entityWithMedia, "fileTempPath");
+                }
+                break;
+            case "select3d":
+                if(
+                        $this->request->hasArgument("selectedObject")
+                        && $this->request->hasArgument("selectedObject")){
+                    $this->processSelected3dFile($entityWithMedia, $this->request->getArgument("selectedObject"));
+                }
+                break;
+            case "selectFile":
+                if(
+                        $this->request->hasArgument("fal-file-uid")
+                        && $this->request->hasArgument("fal-file-uid")){
+                    $this->processSelectedFiles($entityWithMedia, $this->request->getArgument("fal-file-uid"));
+                }
+                break;
         }
     }
 
