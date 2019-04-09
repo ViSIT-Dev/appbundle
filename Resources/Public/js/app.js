@@ -52,7 +52,7 @@ $("document").ready(function () {
         // add controls
         newScene.controls = new THREE.OrbitControls(newScene.camera, newScene.renderer.domElement);
         newScene.controls.enableDamping = true;
-        newScene.controls.dampingFactor = 0.25;
+        newScene.controls.dampingFactor = 0.75;
         newScene.controls.enableZoom = true;
 
         // add some light
