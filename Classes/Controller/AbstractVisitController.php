@@ -18,6 +18,7 @@ use \TYPO3\CMS\Backend\View\BackendTemplateView;
 use \TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use \TYPO3\CMS\Backend\Template\Components\Menu\Menu;
 use \TYPO3\CMS\Backend\Template\Components\Menu\MenuItem;
+use Visit\VisitTablets\Domain\Model\FileReference;
 use Visit\VisitTablets\Helper\Constants;
 use Visit\VisitTablets\Helper\Util;
 
@@ -177,7 +178,20 @@ abstract class AbstractVisitController extends \TYPO3\CMS\Extbase\Mvc\Controller
     }
 
     private function processSelectedFiles($entityWithMedia, $data) {
-        // todo
+        $resourceFactory = \TYPO3\CMS\Core\Resource\ResourceFactory::getInstance();
+        foreach (explode(",", $data) as $fileUid){
+            $fileUid = (int) $fileUid;
+            if(is_int($fileUid) && $fileUid){
+                try{
+                    $imageFile = $resourceFactory->getFileObject((int)$fileUid);
+                    $newFileReference = new FileReference();
+                    $newFileReference->setFile($imageFile);
+                    $entityWithMedia->addMedia($newFileReference);
+                } catch (Exception $ex) {
+                    $this->log_error("Couldn't find or add file with uid: " . (int)$fileUid);
+                }
+            }
+        }
     }
 
     protected function addSettingsForTablets(){

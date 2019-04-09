@@ -23,26 +23,6 @@
 
                 </div>
             </div>
-            <f:if condition="{contentElement.media}">
-
-                <div class="ln_solid"></div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Media</label>
-                    <div class="col-md-9 col-sm-9 col-xs-12">
-                        <f:for each="{contentElement.media}" as="currentMedia">
-                            <div class="figure-action-wrapper">
-                                <div class="action-wrapper">
-                                    <f:link.action action="deleteImage" arguments="{contentElement : contentElement, media: currentMedia}" class="askbeforedelete  btn btn-danger btn-xs">
-                                        <i class="fa fa-trash-o fa-2x" aria-hidden="true"></i>
-                                    </f:link.action>
-                                </div>
-                                <f:render partial="SingleMedia" arguments="{media: currentMedia}"/>
-                            </div>
-                        </f:for>
-                    </div>
-                </div>
-            </f:if>
         </div>
         <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
             <f:render partial="Media3DSelect" arguments="{_all}" />
@@ -51,6 +31,26 @@
             <f:render partial="FileSelector" arguments="{_all}" />
         </div>
     </div>
+    <f:if condition="{contentElement.media}">
+
+        <div class="ln_solid"></div>
+
+        <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Media</label>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+                <f:for each="{contentElement.media}" as="currentMedia">
+                    <div class="figure-action-wrapper">
+                        <div class="action-wrapper">
+                            <f:link.action action="deleteImage" arguments="{contentElement : contentElement, media: currentMedia}" class="askbeforedelete  btn btn-danger btn-xs">
+                                <i class="fa fa-trash-o fa-2x" aria-hidden="true"></i>
+                            </f:link.action>
+                        </div>
+                        <f:render partial="SingleMedia" arguments="{media: currentMedia}"/>
+                    </div>
+                </f:for>
+            </div>
+        </div>
+    </f:if>
 </div>
 
 
