@@ -1,6 +1,8 @@
 <?php
 namespace Visit\VisitTablets\Controller;
 
+use Visit\VisitTablets\Helper\SyncthingHelper;
+
 /***
  *
  * This file is part of the "tablets" Extension for TYPO3 CMS.
@@ -32,7 +34,7 @@ class FileController extends AbstractVisitController  {
      * @return void
      */
     public function uploadAction(){
-
+        $this->view->assign("uploaderID", SyncthingHelper::getSyncthingID());
     }
 
 

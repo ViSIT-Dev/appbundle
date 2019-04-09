@@ -35,12 +35,12 @@ class AbstractInmateMeta extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity 
     protected $nameEn = '';
 
     /**
-     * imates
+     * inmates
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Visit\VisitTablets\Domain\Model\Inmate>
      * @lazy
      */
-    protected $imates = null;
+    protected $inmates = null;
 
 
 
@@ -63,7 +63,7 @@ class AbstractInmateMeta extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity 
      */
     protected function initStorageObjects()
     {
-        $this->imates = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->inmates = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
     }
 
     /**
@@ -108,46 +108,46 @@ class AbstractInmateMeta extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity 
     }
 
     /**
-     * Returns the imates
+     * Returns the inmates
      *
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Visit\VisitTablets\Domain\Model\Inmate>
      */
-    public function getImates()
+    public function getInmates()
     {
-        return $this->imates;
+        return $this->inmates;
     }
 
     /**
-     * Sets the imates
+     * Sets the inmates
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Visit\VisitTablets\Domain\Model\Inmate>
      * @return void
      */
-    public function setImates(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $imates)
+    public function setInmates(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $inmates)
     {
-        $this->imates = $imates;
+        $this->inmates = $inmates;
     }
 
     /**
-     * Adds a imates
+     * Adds a inmates
      *
-     * @param \Visit\VisitTablets\Domain\Model\Inmate $imates
+     * @param \Visit\VisitTablets\Domain\Model\Inmate $inmates
      * @return void
      */
-    public function addInmate(Inmate $imates)
+    public function addInmate(Inmate $inmates)
     {
-        $this->imates->attach($imates);
+        $this->inmates->attach($inmates);
     }
 
     /**
-     * Removes a imates
+     * Removes a inmates
      *
-     * @param \Visit\VisitTablets\Domain\Model\Inmate $imates The PrisonCell to be removed
+     * @param \Visit\VisitTablets\Domain\Model\Inmate $inmates The PrisonCell to be removed
      * @return void
      */
-    public function removeInmate(Inmate $imates)
+    public function removeInmate(Inmate $inmates)
     {
-        $this->imates->detach($imates);
+        $this->inmates->detach($imates);
     }
 
     /**

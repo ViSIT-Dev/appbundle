@@ -136,7 +136,7 @@
             <trans-unit id="tx_visittablets_domain_model_prisoncell.name">
                 <source>Name</source>
             </trans-unit>
-            <trans-unit id="tx_visittablets_domain_model_prisoncell.imates">
+            <trans-unit id="tx_visittablets_domain_model_prisoncell.inmates">
                 <source>Häftlinge</source>
             </trans-unit>
 
@@ -146,7 +146,7 @@
             <trans-unit id="tx_visittablets_domain_model_event.name">
                 <source>Name</source>
             </trans-unit>
-            <trans-unit id="tx_visittablets_domain_model_event.imates">
+            <trans-unit id="tx_visittablets_domain_model_event.inmates">
                 <source>Häftlinge</source>
             </trans-unit>
             

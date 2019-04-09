@@ -9,14 +9,14 @@ return [
         'sortby' => 'sorting',
 		'enablecolumns' => [
         ],
-		'searchFields' => 'name,name_en,imates',
+		'searchFields' => 'name,name_en,inmates',
         'iconfile' => 'EXT:visit_tablets/Resources/Public/Icons/tx_visittablets_domain_model_event.gif'
     ],
     'interface' => [
-		'showRecordFieldList' => 'name, name_en, imates',
+		'showRecordFieldList' => 'name, name_en, inmates',
     ],
     'types' => [
-		'1' => ['showitem' => 'name, name_en, imates'],
+		'1' => ['showitem' => 'name, name_en, inmates'],
     ],
     'columns' => [
         'name' => [
@@ -37,9 +37,9 @@ return [
                 'eval' => 'trim'
             ],
         ],
-        'imates' => [
+        'inmates' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_event.imates',
+            'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_event.inmates',
             'config' => [
                 'type' => 'inline',
                 'foreign_table' => 'tx_visittablets_domain_model_inmate',
