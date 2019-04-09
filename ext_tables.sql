@@ -104,9 +104,9 @@ CREATE TABLE tx_visittablets_domain_model_galerycontentelement (
 	layout int(11) NOT NULL default '0',
 	media int(11) unsigned NOT NULL default '0',
         
-        sorting tinyint(1) unsigned DEFAULT '0' NOT NULL,
-        hidden tinyint(1) unsigned DEFAULT '0' NOT NULL,
-        deleted tinyint(1) unsigned DEFAULT '0' NOT NULL,
+	sorting int(11) DEFAULT '0' NOT NULL,
+  hidden tinyint(1) unsigned DEFAULT '0' NOT NULL,
+  deleted tinyint(1) unsigned DEFAULT '0' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
@@ -132,9 +132,9 @@ CREATE TABLE tx_visittablets_domain_model_galeryteaserelement (
 	galery_content_element int(11) unsigned DEFAULT '0' NOT NULL,
 	galery_content_element_en int(11) unsigned DEFAULT '0' NOT NULL,
 
-        sorting tinyint(1) unsigned DEFAULT '0' NOT NULL,
-        hidden tinyint(1) unsigned DEFAULT '0' NOT NULL,
-        deleted tinyint(1) unsigned DEFAULT '0' NOT NULL,
+	sorting int(11) DEFAULT '0' NOT NULL,
+  hidden tinyint(1) unsigned DEFAULT '0' NOT NULL,
+  deleted tinyint(1) unsigned DEFAULT '0' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
@@ -160,7 +160,7 @@ CREATE TABLE tx_visittablets_domain_model_scopepoi (
 	radius int(11) DEFAULT '0' NOT NULL,
 	sub_title varchar(255) DEFAULT '' NOT NULL,
 	media int(11) unsigned NOT NULL default '0',
-        fullscreenvideo tinyint(1) unsigned DEFAULT '0' NOT NULL,
+  fullscreenvideo tinyint(1) unsigned DEFAULT '0' NOT NULL,
 	description text NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
