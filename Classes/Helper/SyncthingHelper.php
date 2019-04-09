@@ -23,8 +23,13 @@ class SyncthingHelper {
     public static $SYNCTHING_PATH = "/var/www/Syncthing_Control.jar";
 
     public static function getSyncthingID(){
-
-        return null;
+        return self::accessJar();
     }
+
+    private static function accessJar($param = ""){
+        \exec(\sprintf("java -jar %s %s 2>&1", self::$SYNCTHING_PATH, $param), $out);
+        return $out[0];
+    }
+
 
 }

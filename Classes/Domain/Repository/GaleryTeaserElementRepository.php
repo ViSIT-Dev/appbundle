@@ -18,4 +18,9 @@ namespace Visit\VisitTablets\Domain\Repository;
  */
 class GaleryTeaserElementRepository extends AbstractVisitRepository {
 
+    protected $defaultOrderings = array(
+        'sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
+    );
+
+
 }
