@@ -24,8 +24,8 @@
             <trans-unit id="name.description">
                 <source>name</source>
             </trans-unit>
-            <trans-unit id="imates.description">
-                <source>imates</source>
+            <trans-unit id="inmates.description">
+                <source>inmates</source>
             </trans-unit>
         </body>
     </file>

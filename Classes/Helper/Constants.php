@@ -24,7 +24,8 @@ class Constants {
 
     public static $AJAX_UPLOAD_TEMP_DIR = PATH_site . "typo3temp/ajax_upload/";
 
-    public static $VISIT_PUBLIC_URL  = "https://database.visit.uni-passau.de/drupal/wisski/navigate";
+//    public static $VISIT_PUBLIC_URL  = "https://database.visit.uni-passau.de/drupal/wisski/navigate";
+    public static $VISIT_PUBLIC_URL  = "https://database-test.visit.uni-passau.de/drupal/wisski/navigate";
 
     public static $ALLOWED_FILE_TYPES_FOR_UPLOAD = [
         "jpeg",
