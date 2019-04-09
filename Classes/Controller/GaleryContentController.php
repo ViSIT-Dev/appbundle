@@ -87,7 +87,7 @@ class GaleryContentController extends AbstractVisitController  implements IRende
     
     /**
      * action list
-     * @isFrontendAction
+     * @isFrontendActionselectedObject
      * @return void
      */
     public function listAction(){
@@ -118,7 +118,7 @@ class GaleryContentController extends AbstractVisitController  implements IRende
      */
     public function updateAction(GaleryContentElement $contentElement)
     {
-        $this->addImageFromTempToModel($contentElement);
+        $this->addImageFromTempToModel($contentElement, $this->request);
 //        $this->debug($contentElement); die();
         $this->galeryContentElementRepository->update($contentElement);
         $this->redirect('list', null, null, ["contentElement" => $contentElement]);

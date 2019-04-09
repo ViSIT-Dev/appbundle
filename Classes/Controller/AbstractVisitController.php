@@ -70,21 +70,21 @@ abstract class AbstractVisitController extends \TYPO3\CMS\Extbase\Mvc\Controller
         $this->settings["visitPublicDbUrl"] = Constants::$VISIT_PUBLIC_URL;
  
         $this->response->addAdditionalHeaderData("<!-- ViSIT APP: {$this->request->getControllerObjectName()} -->");
-        
+
         //get Action annotation
         $reflector = new \ReflectionClass($this->request->getControllerObjectName());
         $methodAnnotation = $reflector->getMethod($this->request->getControllerActionName()."Action")->getDocComment();
-        
+
         if(isset($GLOBALS["BE_USER"]) && $GLOBALS["BE_USER"]->isAdmin()){
             return;
         }
-        
-        
+
+
         //methods call is allowed by everyone
         if(\strpos($methodAnnotation, "@allowAllUsers") === FALSE){
             throw new \Visit\VisitTablets\Exceptions\PermissionDeniedException('Current user has no permission to perform this action.', 1511424014);
         }
-        
+
     }
 
 
@@ -102,44 +102,45 @@ abstract class AbstractVisitController extends \TYPO3\CMS\Extbase\Mvc\Controller
     protected function makeInstance($class) {
         return Util::makeInstance($class);
     }
-    
+
      protected function removeImageFromModel(AbstractEntityWithMedia $entityWithMedia, \TYPO3\CMS\Extbase\Domain\Model\FileReference $media){
          $entityWithMedia->removeMedia($media);
          //unlink media?
      }
-    
-    protected function addImageFromTempToModel(AbstractEntityWithMedia $entityWithMedia, $inputName = "fileTempPath"){
-        switch($this->request->hasArgument($inputName)){
-            case "standard":
-                if(
-                    $this->request->hasArgument($inputName) 
-                    && \strlen(($path = $this->request->getArgument($inputName))) > 0
-                    && \file_exists($path)
-                ){
-                    $this->processStandardUpload($entityWithMedia, $inputName);
-                }
-                break;
-            case "select3d":
-                if( 
-                        $this->request->hasArgument("selectedObject") 
-                        && $this->request->hasArgument("selectedObject")){
-                    $this->processSelected3dFile($entityWithMedia, $this->request->getArgument("selectedObject"));
-                }
-                break;
-            case "selectFile":
-                if(
-                        $this->request->hasArgument("fal-file-uid")
-                        && $this->request->hasArgument("fal-file-uid")){
-                    $this->processSelectedFiles($entityWithMedia, $this->request->getArgument("fal-file-uid"));
-                }
-                break;
-            default:
-                break;
+
+    protected function addImageFromTempToModel(AbstractEntityWithMedia $entityWithMedia){
+
+        if($this->request->hasArgument("mediaSelectStyle")){
+            switch($this->request->getArgument("mediaSelectStyle")){
+                case "standard":
+                    if(
+                        $this->request->hasArgument("fileTempPath")
+                        && \strlen(($path = $this->request->getArgument("fileTempPath"))) > 0
+                        && \file_exists($path)
+                    ){
+                        $this->processStandardUpload($entityWithMedia, "fileTempPath");
+                    }
+                    break;
+                case "select3d":
+                    if(
+                            $this->request->hasArgument("selectedObject")
+                            && $this->request->hasArgument("selectedObject")){
+                        $this->processSelected3dFile($entityWithMedia, $this->request->getArgument("selectedObject"));
+                    }
+                    break;
+                case "selectFile":
+                    if(
+                            $this->request->hasArgument("fal-file-uid")
+                            && $this->request->hasArgument("fal-file-uid")){
+                        $this->processSelectedFiles($entityWithMedia, $this->request->getArgument("fal-file-uid"));
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
-            
-        
     }
-    
+
     private function processStandardUpload(AbstractEntityWithMedia $entityWithMedia, $inputName = "fileTempPath"){
 
         $resourceFactory = \TYPO3\CMS\Core\Resource\ResourceFactory::getInstance();
@@ -147,7 +148,7 @@ abstract class AbstractVisitController extends \TYPO3\CMS\Extbase\Mvc\Controller
         $storage = $resourceFactory->getDefaultStorage();
         $rootFolder = $storage->getRootLevelFolder();
         $path = $this->request->getArgument($inputName);
-        
+
         if (!$rootFolder->hasFolder($targetFolder)) {
             $rootFolder->createFolder($targetFolder);
         }
@@ -169,12 +170,12 @@ abstract class AbstractVisitController extends \TYPO3\CMS\Extbase\Mvc\Controller
         \unlink($uploadedFilePath);
 
     }
-    
-    
+
+
     private function processSelected3dFile($entityWithMedia, $data) {
         // todo
     }
-    
+
     private function processSelectedFiles($entityWithMedia, $data) {
         // todo
     }
@@ -190,30 +191,30 @@ abstract class AbstractVisitController extends \TYPO3\CMS\Extbase\Mvc\Controller
         $this->view->assign('splash', Util::getConfigForAllLanguages("splash"));
     }
 
-    
-    /**	
-    * Initializes the view before invoking an action method.	
-    *	
-    * @param ViewInterface $view The view to be initialized	
-    * @return void	
-    * @api	
-    */	
-    protected function initializeView(ViewInterface $view)	
-    {	
-        parent::initializeView($view);	
-        if ($view instanceof BackendTemplateView) {	
-            $pageRenderer = $view->getModuleTemplate()->getPageRenderer();	
-            $pageRenderer->loadRequireJsModule('TYPO3/CMS/Examples/Application');	
-//            $pageRenderer->addHeaderData("<!-- asdasdaadsd -->");	
-            // Make localized labels available in JavaScript context	
-//            $pageRenderer->addInlineLanguageLabelFile('EXT:examples/Resources/Private/Language/locallang.xlf');	
-            // Add action menu	
-            /** @var Menu $menu */	
-//            $menu = $this->makeInstance(Menu::class);	
-//            $menu->setIdentifier('_examplesMenu');	
-//            /** @var UriBuilder $uriBuilder */	
-//            $uriBuilder = $this->getUriBuilder();	
-//            $uriBuilder->setRequest($this->request);	
+
+    /**
+    * Initializes the view before invoking an action method.
+    *
+    * @param ViewInterface $view The view to be initialized
+    * @return void
+    * @api
+    */
+    protected function initializeView(ViewInterface $view)
+    {
+        parent::initializeView($view);
+        if ($view instanceof BackendTemplateView) {
+            $pageRenderer = $view->getModuleTemplate()->getPageRenderer();
+            $pageRenderer->loadRequireJsModule('TYPO3/CMS/Examples/Application');
+//            $pageRenderer->addHeaderData("<!-- asdasdaadsd -->");
+            // Make localized labels available in JavaScript context
+//            $pageRenderer->addInlineLanguageLabelFile('EXT:examples/Resources/Private/Language/locallang.xlf');
+            // Add action menu
+            /** @var Menu $menu */
+//            $menu = $this->makeInstance(Menu::class);
+//            $menu->setIdentifier('_examplesMenu');
+//            /** @var UriBuilder $uriBuilder */
+//            $uriBuilder = $this->getUriBuilder();
+//            $uriBuilder->setRequest($this->request);
             // Add menu items	
             /** @var MenuItem $menuItem */	
 //            $menuItem = $this->makeInstance(MenuItem::class);	
