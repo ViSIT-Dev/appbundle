@@ -41,16 +41,23 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" >Beschreibung</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" >Ersteller ID  <span class="required">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <f:form.textfield placeholder="Beschreibung" id="description" name="description" class="form-control col-md-7 col-xs-12" />
+                            <f:form.textfield placeholder="Urheber" name="creatorId" class="form-control col-md-7 col-xs-12" value="{uploaderID}" required="required" additionalAttributes="{readonly: 'readonly'}"/>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="flagText">Beschreibung</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" >Beschreibung</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <f:form.textfield placeholder="Beschreibung" id="description" name="description" class="form-control col-md-7 col-xs-12" />
+                            <f:form.textfield placeholder="Beschreibung" name="description" class="form-control col-md-7 col-xs-12" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" >Beschreibung</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <f:form.textfield placeholder="Beschreibung" name="description" class="form-control col-md-7 col-xs-12" />
                         </div>
                     </div>
 
@@ -68,7 +75,7 @@
             <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                 <h2 title="Das ist das Element in der ViSIT Datenbank, an dem die Medien angehängt werden">Betroffene Entität suchen und auswählen</h2>
                 <p>
-                    Gewählte Entität:
+                    Gewählte Entität <span class="required">*</span>:
                 </p>
                 <f:form.textfield id="parent-entity" name="parent-entity" class="form-control col-md-7 col-xs-12"  required="required" additionalAttributes="{readonly: 'readonly'}"/>
                 <br />
