@@ -173,8 +173,8 @@ abstract class AbstractVisitController extends \TYPO3\CMS\Extbase\Mvc\Controller
     }
 
 
-    private function processSelected3dFile($entityWithMedia, $data) {
-        // todo
+    private function processSelected3dFile($entityWithMedia, $fileUid) {
+        $this->processSelectedFiles($entityWithMedia, $fileUid);
     }
 
     private function processSelectedFiles($entityWithMedia, $data) {
