@@ -39,7 +39,7 @@ return [
         ],
         'sorting' => [
             'exclude' => false,
-            'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:language',
+            'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:sorting',
             'config' => [
                 'type' => 'input',
                 'size' => 10,

@@ -46,6 +46,41 @@ return [
                         'eval' => 'trim'
                     ],
         ],
+        'sorting' => [
+            'exclude' => false,
+            'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:sorting',
+            'config' => [
+                'type' => 'input',
+                'size' => 10,
+                'eval' => 'int'
+            ]
+        ],
+        'hidden' => [
+            'exclude' => false,
+            'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_scopepoi.fullscreenvideo',
+            'config' => [
+                        'type' => 'check',
+                        'items' => [
+                            '1' => [
+                                '0' => 'LLL:EXT:lang/locallang_core.xlf:labels.enabled'
+                            ]
+                        ],
+                        'default' => 0
+                    ]
+        ],
+        'deleted' => [
+            'exclude' => false,
+            'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_scopepoi.fullscreenvideo',
+            'config' => [
+                        'type' => 'check',
+                        'items' => [
+                            '1' => [
+                                '0' => 'LLL:EXT:lang/locallang_core.xlf:labels.enabled'
+                            ]
+                        ],
+                        'default' => 0
+                    ]
+        ],
         'media' => [
             'exclude' => false,
             'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_scopepoi.media',

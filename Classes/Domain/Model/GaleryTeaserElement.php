@@ -97,7 +97,7 @@ class GaleryTeaserElement extends AbstractEntityWithMedia {
     }
 
     public function setSorting($sorting) {
-        $this->sorting = $sorting;
+        $this->sorting = intval($sorting);
     }
     
     public function getTeaserTitle() {

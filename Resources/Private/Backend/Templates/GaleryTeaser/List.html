@@ -15,6 +15,7 @@
             <tr>
                 <th>Überschrift</th>
                 <th>Überschrift EN</th>
+                <th>Medienanzahl</th>
                 <th>Sortierung</th>
                 <th></th>
             </tr>
@@ -24,6 +25,7 @@
                 <tr>
                     <td>{teaser.teaserTitle}</td>
                     <td>{teaser.teaserTitleEn}</td>
+                    <td><f:count>{teaser.media}</f:count></td>
                     <td>{teaser.sorting}</td>
                     <td>
                         <f:link.action action="edit" arguments="{teaserElement : teaser}" class="btn btn-primary btn-xs">
