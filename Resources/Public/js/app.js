@@ -28,12 +28,13 @@ $("document").ready(function () {
         newScene.textFile = newScene.text.replace(/^.*(\\|\/|\:)/, '');
         newScene.textPath = newScene.text.substring(0, newScene.text.length - newScene.textFile.length);
 
-        newScene.height = $(elm).parent().parent().innerHeight();
-        newScene.width =  $(elm).parent().parent().innerWidth();
+        newScene.height = $(elm).parent().parent().parent().innerHeight();
+        newScene.width =  $(elm).parent().parent().parent().innerWidth();
 
         // align the viewbox vertically
         $(elm).parent().parent().addClass("valign");
         $(elm).parent().addClass("valign");
+        $(elm).parent().css("margin", "0");
 
         // new scene
         newScene.scene = new THREE.Scene();
