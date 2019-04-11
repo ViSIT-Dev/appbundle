@@ -18,6 +18,10 @@ namespace Visit\VisitTablets\Domain\Repository;
  */
 class GaleryContentElementRepository extends AbstractVisitRepository {
 
+    protected $defaultOrderings = array(
+        'sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
+    );
+
     public function findAllEager() {
         $query = $this->createQuery();
         return $query->execute(true);
