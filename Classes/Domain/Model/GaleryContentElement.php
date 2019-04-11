@@ -118,7 +118,7 @@ class GaleryContentElement extends AbstractEntityWithMedia implements IHasLangua
     }
 
     public function setSorting($sorting) {
-        $this->sorting = $sorting;
+        $this->sorting = intval($sorting);
     }
     
     public function getTitle() {

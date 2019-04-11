@@ -37,6 +37,15 @@ return [
                 'eval' => 'int'
             ]
         ],
+        'sorting' => [
+            'exclude' => false,
+            'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:language',
+            'config' => [
+                'type' => 'input',
+                'size' => 10,
+                'eval' => 'int'
+            ]
+        ],
         'layout' => [
             'exclude' => false,
             'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:language',
