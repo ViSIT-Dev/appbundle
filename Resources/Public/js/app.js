@@ -8,6 +8,10 @@ window.threeJsScenes = [];
 //init 3d
 $("document").ready(function () {
 
+    // if not all languages active initialization of viewport hight is 0
+    $("body").addClass("lang-de");
+    $("body").addClass("lang-en");
+
     $(".render3d-container").each(function (index, elm) {
 
         let $elm = $(elm);
@@ -28,13 +32,13 @@ $("document").ready(function () {
         newScene.textFile = newScene.text.replace(/^.*(\\|\/|\:)/, '');
         newScene.textPath = newScene.text.substring(0, newScene.text.length - newScene.textFile.length);
 
-        newScene.height = $(elm).parent().parent().parent().innerHeight();
-        newScene.width =  $(elm).parent().parent().parent().innerWidth();
+        newScene.height = $elm.parent().parent().parent().innerHeight();
+        newScene.width =  $elm.parent().parent().parent().innerWidth();
 
         // align the viewbox vertically
-        $(elm).parent().parent().addClass("valign");
-        $(elm).parent().addClass("valign");
-        $(elm).parent().css("margin", "0");
+        $elm.parent().parent().addClass("valign");
+        $elm.parent().addClass("valign");
+        $elm.parent().css("margin", "0");
 
         // new scene
         newScene.scene = new THREE.Scene();
@@ -43,8 +47,8 @@ $("document").ready(function () {
         newScene.renderer = new THREE.WebGLRenderer({ alpha: true });
         newScene.renderer.setSize( newScene.width, newScene.height );
         newScene.renderer.setClearColor( 0xffcc00, 0);
-        $(elm).html("");
-        $(elm).append( newScene.renderer.domElement );
+        $elm.html("");
+        $elm.append( newScene.renderer.domElement );
 
         // define camera position
         newScene.camera = new THREE.PerspectiveCamera( 75, newScene.width / newScene.height, 0.1, 1000 );
@@ -90,6 +94,12 @@ $("document").ready(function () {
         });
 
     });
+
+    // set default language
+    setTimeout(function (){
+        $("body").removeClass("lang-en");
+    }, 1000);
+
 
     // animation function
     let animate = function () {
