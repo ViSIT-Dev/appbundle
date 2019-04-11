@@ -16,6 +16,9 @@
                 <th>Sprache</th>
                 <th>Überschrift</th>
                 <th>Unterüberschrift</th>
+                <th>Medienanzahl</th>
+                <th>Layout</th>
+                <th>Sortierung</th>
                 <th></th>
             </tr>
         </thead>
@@ -25,6 +28,11 @@
                     <td>{element.langTitle}</td>
                     <td>{element.title}</td>
                     <td>{element.subTitle}</td>
+                    <td><f:count>{element.media}</f:count></td>
+                    <td>
+                        <visit:galeryContentLayoutShow layout="{element.layout}">{layoutName}</visit:galeryContentLayoutShow>
+                    </td>
+                    <td>{element.sorting}</td>
                     <td>
                         <f:link.action action="edit" arguments="{contentElement : element}" class="btn btn-primary btn-xs">
                             <i class="fa fa-pencil fa-2x" aria-hidden="true"></i>
