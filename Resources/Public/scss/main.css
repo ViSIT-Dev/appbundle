@@ -2236,6 +2236,10 @@ main#scope {
   #galery-content-holder .galery-content-layout > .row,
   #galery-content-holder .row.media-holder {
     height: 100%; }
+    #galery-content-holder .galery-content-layout > .row video,
+    #galery-content-holder .row.media-holder video {
+      height: 100%;
+      width: 100%; }
   #galery-content-holder .galery-image {
     width: 100%;
     height: 100%;
