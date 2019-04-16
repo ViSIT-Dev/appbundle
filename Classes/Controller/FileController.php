@@ -2,6 +2,8 @@
 namespace Visit\VisitTablets\Controller;
 
 use Visit\VisitTablets\Helper\SyncthingHelper;
+use \TYPO3\CMS\Core\Messaging\AbstractMessage;
+use Visit\VisitTablets\Helper\Util;
 
 /***
  *
@@ -53,6 +55,33 @@ class FileController extends AbstractVisitController  {
      * @return void
      */
     public function partnerAction(){
+
+    }
+    /**
+     * action compressSettings
+     *
+     * @return void
+     */
+    public function compressSettingsAction(){
+
+        $this->view->assign('container-ip', $this->configRepository->get("container-ip"));
+        $this->view->assign('container-port', $this->configRepository->get("container-port"));
+
+    }
+
+    /**
+     * action updateCompressSettings
+     *
+     * @return void
+     */
+    public function updateCompressSettingsAction(){
+
+        $this->configRepository->addOrUpdate("container-ip", $this->request->getArgument("container-ip"));
+        $this->configRepository->addOrUpdate("container-port", $this->request->getArgument("container-port"));
+
+        $this->addFlashMessage("Änderungen gespeichert", '', AbstractMessage::INFO);
+
+        $this->redirect('compressSettings');
 
     }
 
