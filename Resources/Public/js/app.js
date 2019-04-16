@@ -20,20 +20,28 @@ $("document").ready(function () {
 
         newScene.elm = $elm;
 
-        newScene.obj = "/" + $elm.data("object");
+        newScene.obj = ("/" + $elm.data("object")).replace("//", "/");
         newScene.objFile = newScene.obj.replace(/^.*(\\|\/|\:)/, '');
         newScene.objPath = newScene.obj.substring(0, newScene.obj.length - newScene.objFile.length);
 
-        newScene.mtl = "/" + $elm.data("material");
+        newScene.mtl = ("/" + $elm.data("material")).replace("//", "/");
         newScene.mtlFile = newScene.mtl.replace(/^.*(\\|\/|\:)/, '');
         newScene.mtlPath = newScene.mtl.substring(0, newScene.mtl.length - newScene.mtlFile.length);
 
-        newScene.text = "/" + $elm.data("texture");
+        newScene.text = ("/" + $elm.data("texture")).replace("//", "/");
         newScene.textFile = newScene.text.replace(/^.*(\\|\/|\:)/, '');
         newScene.textPath = newScene.text.substring(0, newScene.text.length - newScene.textFile.length);
 
-        newScene.height = $elm.parent().parent().parent().innerHeight();
-        newScene.width =  $elm.parent().parent().parent().innerWidth();
+        newScene.height = Math.max($elm.parent().parent().parent().innerHeight(), 230);
+        newScene.width =  Math.max($elm.parent().parent().parent().innerWidth(), 230);
+
+        console.log([
+            newScene.obj,
+            newScene.mtl,
+            newScene.text,
+            newScene.height,
+            newScene.width
+        ]);
 
         // align the viewbox vertically
         $elm.parent().parent().addClass("valign");
