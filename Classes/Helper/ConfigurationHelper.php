@@ -38,4 +38,20 @@ class ConfigurationHelper implements \TYPO3\CMS\Core\SingletonInterface
         return (bool) $this->configuration["varDump"];
     }
 
+    public function getApiUser(){
+        return $this->configuration["apiUser"];
+    }
+
+    public function getApiUserPassword(){
+        return $this->configuration["apiUserPassword"];
+    }
+
+    public function isCompressionEnabled(){
+        return (bool) $this->configuration["enableCompression"];
+    }
+
+    public function getCompressionApiPort(){
+        return $this->configuration["compressionApiPort"];
+    }
+
 }

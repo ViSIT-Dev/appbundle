@@ -1,6 +1,10 @@
 <?php
 namespace Visit\VisitTablets\Controller;
 
+use Visit\VisitTablets\Domain\Enums\AccessLevel;
+use Visit\VisitTablets\Helper\CachingHelper;
+use Visit\VisitTablets\Helper\Constants;
+use Visit\VisitTablets\Helper\RestApiHelper;
 use Visit\VisitTablets\Helper\SyncthingHelper;
 use \TYPO3\CMS\Core\Messaging\AbstractMessage;
 use Visit\VisitTablets\Helper\Util;
@@ -20,7 +24,6 @@ use Visit\VisitTablets\Helper\Util;
  * FileController
  */
 class FileController extends AbstractVisitController  {
-    
 
     /**
      * action list
@@ -30,7 +33,6 @@ class FileController extends AbstractVisitController  {
 
     }
 
-
     /**
      * action upload
      * @return void
@@ -39,13 +41,108 @@ class FileController extends AbstractVisitController  {
         $this->view->assign("uploaderID", SyncthingHelper::getSyncthingID());
     }
 
-
-
     /**
      * action create
      * @return void
      */
-    public function createdAction(){
+    public function createAction(){
+
+        $data = array();
+
+        $data["description"] = $this->request->getArgument("description");
+        $data["objectTripleURL"] = $this->request->getArgument("parent-entity");
+        $data["objectTripleID"] = $this->getIdFromRdfIdentifier($data["objectTripleURL"]);
+        $data["createDate"] = \time();
+        $data["creator"] = $this->request->getArgument("creator");
+        $data["owner"] = $this->request->getArgument("owner");
+        $data["uploader"] = SyncthingHelper::getSyncthingID();
+        $data["MIMEtype"] = "";
+
+
+        //dig rep via API erzeugen
+        $apiResult = RestApiHelper::accessAPI("https://database-test.visit.uni-passau.de/metadb-rest-api/digrep/object", ["id" => $data["objectTripleURL"]], "POST");
+
+
+        if($apiResult === false){
+            $this->addFlashMessage('Die Visit API kann nicht erreicht werden', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+            $this->redirect('upload');
+            return;
+        }
+
+        $data["mediaTripleURL"] = $apiResult;
+        $data["mediaTripleID"] = $this->getIdFromRdfIdentifier($data["mediaTripleURL"]);
+
+        $fileNameTemplate = $data["objectTripleID"] . "." . $data["mediaTripleID"] . ".0.";
+
+        $data["files"] = array();
+        $data["files"]["0"] = array();
+        $data["files"]["0"]["uploadDate"] = \time();
+        $data["files"]["0"]["accessLevel"] = AccessLevel::AL_PRIVATE;
+        $data["files"]["0"]["license"] = "";
+        $data["files"]["0"]["fileSize"] = 0;
+        $data["files"]["0"]["paths"] = array();
+        $data["files"]["0"]["fileTypeSpecificMeta"] = false;
+
+        $configurationHelper = Util::makeInstance("Visit\VisitTablets\Helper\ConfigurationHelper");
+
+        switch ($this->request->getArgument("uploadMode")){
+            case "obj":
+
+                foreach (["obj" => true, "mtl" => false, "txt" => false] as $fileInfo => $needed){
+                    $currentFile = $this->request->getArgument($fileInfo);
+                    if($needed && $currentFile["size"] == 0){
+                        $this->addFlashMessage('Benötigte Datei wurde nicht angegeben - abbruch', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+                        $this->redirect('upload');
+                        return;
+                    }else if($currentFile["size"] == 0){
+                        continue;
+                    }
+
+                    //sum file size
+                    $data["files"]["0"]["fileSize"] += $currentFile["size"];
+
+                    //move files to private folder
+                    $targetFileName = $fileNameTemplate . $fileInfo;
+                    \move_uploaded_file($currentFile["tmp_name"], Constants::$SYNCTHING_PRIVATE_FOLDER_PATH . '/' . $targetFileName);
+                    \array_push($data["files"]["0"]["paths"], $targetFileName);
+                }
+
+                break;
+
+            case "genericFile":
+                $currentFile = $this->request->getArgument("genericFile");
+                if($currentFile["size"] == 0){
+                    $this->addFlashMessage('Benötigte Datei wurde nicht angegeben - abbruch', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+                    $this->redirect('upload');
+                    return;
+                }
+
+                $data["files"]["0"]["fileSize"] = $currentFile["size"];
+
+                $targetFileName = $fileNameTemplate .  pathinfo($currentFile["name"])["extension"];
+                \move_uploaded_file($currentFile["tmp_name"], Constants::$SYNCTHING_PRIVATE_FOLDER_PATH . '/' . $targetFileName);
+                \array_push($data["files"]["0"]["paths"], $targetFileName);
+
+                break;
+
+            default:
+                $this->addFlashMessage('Dateityp wird nicht unterstützt', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+                $this->redirect('upload');
+                return;
+
+        }
+
+        if($configurationHelper->isCompressionEnabled()){
+            //push to compression container
+            $json = \json_encode($data);
+            //TODO: Flo fragen und implementieren
+        }
+
+        //add name to cache
+        CachingHelper::setCacheByName($data["files"]["0"]["paths"][0], $data);
+
+        $this->addFlashMessage('Datei erfolgreich hinzugefügt', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+        $this->redirect('upload');
 
     }
 
@@ -85,5 +182,8 @@ class FileController extends AbstractVisitController  {
 
     }
 
+    private function getIdFromRdfIdentifier($rdfIdentifier){
+        return \substr ($rdfIdentifier, \strrpos($rdfIdentifier , '/') + 1);
+    }
 
 }

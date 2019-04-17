@@ -2,8 +2,27 @@
 ### Main ###
 ############
 
-# cat=Main; type=boolean; label=Debugging
+# cat=Main; type=string; label=API User
+apiUser = visit-default
+
+# cat=Main; type=string; label=Password for API User
+apiUserPassword =
+
+
+
+# cat=Main; type=boolean; label=Medienobjekte kompriieren
+enableCompression = 1
+
+# cat=Main; type=int; label=Port des Kompressionscontainers
+compressionApiPort = 8899
+
+#############
+### Debug ###
+#############
+
+
+# cat=Debug; type=boolean; label=Debugging
 debugging = 0
 
-# cat=Main; type=boolean; label=Var Dump All
+# cat=Debug; type=boolean; label=Var Dump All
 varDump = 0
