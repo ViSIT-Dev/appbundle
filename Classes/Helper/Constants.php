@@ -34,4 +34,6 @@ class Constants {
         "png"
     ];
 
+    public static $CACHING_TIME = 0;
+
 }
