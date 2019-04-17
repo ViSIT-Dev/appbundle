@@ -4,6 +4,22 @@ defined('TYPO3_MODE') || die('Access denied.');
 //import view helper per default
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['fluid']['namespaces']['visit'] = ['Visit\\VisitTablets\\ViewHelpers'];
 
+if (!is_array($GLOBALS['TYPO3_CONF_VARS'] ['SYS']['caching']['cacheConfigurations'][$_EXTKEY])) {
+    $GLOBALS['TYPO3_CONF_VARS'] ['SYS']['caching']['cacheConfigurations'][$_EXTKEY] = array();
+}
+// Cache von Variablen wird gesetzt!
+if (!isset($GLOBALS['TYPO3_CONF_VARS'] ['SYS']['caching']['cacheConfigurations'][$_EXTKEY]['frontend'])) {
+    $GLOBALS['TYPO3_CONF_VARS'] ['SYS']['caching']['cacheConfigurations'][$_EXTKEY]['frontend'] = 'TYPO3\\CMS\\Core\\Cache\\Frontend\\VariableFrontend';
+}
+
+if (!isset($GLOBALS['TYPO3_CONF_VARS'] ['SYS']['caching']['cacheConfigurations'][$_EXTKEY]['options'])) {
+    $GLOBALS['TYPO3_CONF_VARS'] ['SYS']['caching']['cacheConfigurations'][$_EXTKEY]['options'] = array('defaultLifetime' => \Visit\VisitTablets\Helper\Constants::$CACHING_TIME);
+}
+if (!isset($GLOBALS['TYPO3_CONF_VARS'] ['SYS']['caching']['cacheConfigurations'][$_EXTKEY]['groups'])) {
+    $GLOBALS['TYPO3_CONF_VARS'] ['SYS']['caching']['cacheConfigurations'][$_EXTKEY]['groups'] = array('pages');
+}
+
+
 
 call_user_func(
     function($extKey)

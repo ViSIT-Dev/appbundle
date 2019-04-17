@@ -24,17 +24,20 @@ class CachingHelper
     }
 
     public static function getCacheByName(String $cacheName){
-
-        $cacheInstance = self::getCacheInstance();
-        $cacheContent = $cacheInstance->get(sha1($cacheName));
-
+        $cacheContent = self::getCacheInstance()->get(\sha1($cacheName));
         return \unserialize($cacheContent);
     }
 
     public static function setCacheByName(String $cacheName, $object, $tags = []){
-
-        $cacheInstance = self::getCacheInstance();
-        $cacheInstance->set(sha1($cacheName), \serialize($object), $tags, Constants::$CACHING_TIME);
+        self::getCacheInstance()->set(\sha1($cacheName), \serialize($object), $tags, Constants::$CACHING_TIME);
     }
+
+//    public static function getFileNameCache(){
+//        return self::getCacheByName("fileName");
+//    }
+//
+//    public static function setFileNameCache($object){
+//        self::setCacheByName("fileName", $object);
+//    }
 
 }

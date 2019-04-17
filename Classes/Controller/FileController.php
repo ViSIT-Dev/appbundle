@@ -2,6 +2,7 @@
 namespace Visit\VisitTablets\Controller;
 
 use Visit\VisitTablets\Domain\Enums\AccessLevel;
+use Visit\VisitTablets\Helper\CachingHelper;
 use Visit\VisitTablets\Helper\Constants;
 use Visit\VisitTablets\Helper\RestApiHelper;
 use Visit\VisitTablets\Helper\SyncthingHelper;
@@ -59,11 +60,12 @@ class FileController extends AbstractVisitController  {
         $data["creator"] = $this->request->getArgument("creator");
         $data["owner"] = $this->request->getArgument("owner");
         $data["uploader"] = SyncthingHelper::getSyncthingID();
-        $data["MIMEtype"] = "text/plain";
+//        $data["MIMEtype"] = "text/plain";
 
 
         //dig rep via API erzeugen
-        $apiResult = RestApiHelper::accessAPI("https://database-test.visit.uni-passau.de/metadb-rest-api/digrep/object", ["id" => $data["objectTripleURL"]], "POST");
+//        $apiResult = RestApiHelper::accessAPI("https://database-test.visit.uni-passau.de/metadb-rest-api/digrep/object", ["id" => $data["objectTripleURL"]], "POST");
+        $apiResult = "http://visit.de/metadb/1005a0c5-c2a2-4d1c-9fec-7ef1f2527feb";
 
 
         if($apiResult === false){
@@ -86,33 +88,65 @@ class FileController extends AbstractVisitController  {
         $data["files"]["0"]["paths"] = array();
         $data["files"]["0"]["fileTypeSpecificMeta"] = false;
 
-        foreach (["obj" => true, "mtl" => false, "txt" => false] as $fileInfo => $needed){
-            $currentFile = $this->request->getArgument($fileInfo);
-            if($needed && $currentFile["size"] == 0){
-                $this->addFlashMessage('Benötigte Datei wurde nicht angegeben - abbruch', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+
+        switch ($this->request->getArgument("uploadMode")){
+            case "obj":
+
+                foreach (["obj" => true, "mtl" => false, "txt" => false] as $fileInfo => $needed){
+                    $currentFile = $this->request->getArgument($fileInfo);
+                    if($needed && $currentFile["size"] == 0){
+                        $this->addFlashMessage('Benötigte Datei wurde nicht angegeben - abbruch', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+                        $this->redirect('upload');
+                        return;
+                    }else if($currentFile["size"] == 0){
+                        continue;
+                    }
+
+                    //sum file size
+                    $data["files"]["0"]["fileSize"] += $currentFile["size"];
+
+                    //move files to private folder
+                    $targetFileName = $fileNameTemplate . $fileInfo;
+                    \move_uploaded_file($currentFile["tmp_name"], Constants::$SYNCTHING_PRIVATE_FOLDER_PATH . '/' . $targetFileName);
+                    \array_push($data["files"]["0"]["paths"], $targetFileName);
+                }
+
+                break;
+
+            case "genericFile":
+                $currentFile = $this->request->getArgument("genericFile");
+                if($currentFile["size"] == 0){
+                    $this->addFlashMessage('Benötigte Datei wurde nicht angegeben - abbruch', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+                    $this->redirect('upload');
+                    return;
+                }
+
+                $data["files"]["0"]["fileSize"] = $currentFile["size"];
+
+                $targetFileName = $fileNameTemplate .  pathinfo($currentFile["name"])["extension"];
+                \move_uploaded_file($currentFile["tmp_name"], Constants::$SYNCTHING_PRIVATE_FOLDER_PATH . '/' . $targetFileName);
+                \array_push($data["files"]["0"]["paths"], $targetFileName);
+
+                break;
+
+            default:
+                $this->addFlashMessage('Dateityp wird nicht unterstützt', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
                 $this->redirect('upload');
                 return;
-            }else if($currentFile["size"] == 0){
-                continue;
-            }
 
-            //sum file size
-            $data["files"]["0"]["fileSize"] += $currentFile["size"];
-
-            //move files to private folder
-            $targetFileName = $fileNameTemplate . $fileInfo;
-            \move_uploaded_file($currentFile["tmp_name"], Constants::$SYNCTHING_PRIVATE_FOLDER_PATH . '/' . $targetFileName);
-            \array_push($data["files"]["0"]["paths"], $targetFileName);
         }
+
+
 
         //push to compression container
         $json = \json_encode($data);
 
 
         //add name to cache
+        CachingHelper::setCacheByName($data["files"]["0"]["paths"][0], $data);
 
 
-
+        $this->debug($this->request->getArguments());
         $this->debug($data);
         echo (json_encode($data));
 

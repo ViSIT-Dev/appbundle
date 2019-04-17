@@ -40,6 +40,9 @@ class Constants {
         "png"
     ];
 
-    public static $CACHING_TIME = 0;
+    /**
+     * @var int Zeit in sekunden 8 Mio ca 3 Monate
+     */
+    public static $CACHING_TIME = 8000000;
 
 }
