@@ -4380,12 +4380,16 @@ ul.notifications {
         position: absolute;
         top: 8px;
         left: 8px;
+        z-index: 10;
         a{ 
             
         }
     }
     figure{
         margin: 0;
+        video{
+          max-width: 100%;
+        }
     }
 }
 

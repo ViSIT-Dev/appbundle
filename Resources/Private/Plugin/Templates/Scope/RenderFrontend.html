@@ -36,12 +36,14 @@
                     <div class="poi special" id="poi-lang-de">
                         <div class="inside">
                             <figure>
-                                <f:then>
-                                    <img class="poi-icon" src="{config.langicon_de}" />
-                                </f:then>
-                                <f:else>
-                                    <img class="poi-icon" src="/typo3/sysext/core/Resources/Public/Icons/Flags/PNG/DE.png" />
-                                </f:else>
+                                <f:if condition="{config.langicon_de}">
+                                    <f:then>
+                                        <img class="poi-icon" src="{config.langicon_de}" />
+                                    </f:then>
+                                    <f:else>
+                                        <img class="poi-icon" src="/typo3/sysext/core/Resources/Public/Icons/Flags/PNG/DE.png" />
+                                    </f:else>
+                                </f:if>
                             </figure>
                         </div>
                     </div>

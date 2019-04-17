@@ -4109,9 +4109,12 @@ ul.notifications {
   .figure-action-wrapper .action-wrapper {
     position: absolute;
     top: 8px;
-    left: 8px; }
+    left: 8px;
+    z-index: 10; }
   .figure-action-wrapper figure {
     margin: 0; }
+    .figure-action-wrapper figure video {
+      max-width: 100%; }
 
 .outer-scroll {
   height: 100%;
