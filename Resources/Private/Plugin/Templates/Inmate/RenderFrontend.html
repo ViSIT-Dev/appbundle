@@ -23,9 +23,9 @@
                         <span class="lang-content show-de">Zellen</span>
                         <span class="lang-content show-en">Cells</span>
                     </button>
-                    <div class="dropdown-menu">
+                    <div class="dropdown-menu isotope-filter">
                         <f:for each="{cells}" as="cell">
-                            <a class="dropdown-item" href="#" data-celluid="{cell.uid}">
+                            <a data-filter="cell-{cell.uid}" class="dropdown-item isotope-filter" data-celluid="{cell.uid}">
                                 <span class="lang-content show-de">{cell.name}</span>
                                 <span class="lang-content show-en">{cell.nameEn}</span>
                             </a>
@@ -39,7 +39,7 @@
                     </button>
                     <div class="dropdown-menu">
                         <f:for each="{events}" as="event">
-                            <a class="dropdown-item" href="#" data-eventuid="{event.uid}">
+                            <a data-filter="event-{event.uid}" class="dropdown-item isotope-filter" data-eventuid="{event.uid}">
                                 <span class="lang-content show-de">{event.name}</span>
                                 <span class="lang-content show-en">{event.nameEn}</span>
                             </a>
@@ -61,9 +61,9 @@
                         <div id="scrolllist" class="col-11">
                             <f:for each="{persons}" as="personIndex" key="index">
                                 <div class="data-index-anchor" data-index="{index}">
-                                    <ul>
+                                    <ul class="isotope-container">
                                     <f:for each="{personIndex}" as="person">
-                                        <li data-personuid="{person.uid}">{person.fullName}</li>
+                                        <li data-personuid="{person.uid}" class="element-item cell-{person.prisonCell.uid} event-{person.event.uid}{f:if(condition: '{person.vip}', then: ' vip')}">{person.fullName}</li>
                                     </f:for>
                                     </ul>
                                 </div>
@@ -236,6 +236,7 @@
                     $("#scrolllist").on("scroll" ,setAlphabetScroll);
                     setAlphabetScroll();
 
+
                 }
 
             }
@@ -254,11 +255,29 @@
                         }
                     });
 
-                    $grid = $("#scrolllist");
-                    // $grid.isotope({
-                    //     layoutMode: 'vertical',
-                    //     filter: ['[data-index="B"]', '[data-index="C"]']
-                    // });
+                    $isotope = $(".isotope-container");
+
+                    // start isotope
+                    $isotope.isotope({ filter: '*' });
+
+                    // filter by cell or event or vips
+                    $filterSelector = ".isotope-filter, .filter-action"
+                    $($filterSelector).on( 'click', function() {
+                        var filterValue = $(this).attr('data-filter');
+                        if(filterValue !== undefined){
+                            $isotope.isotope({ filter: "." + filterValue });
+                            $($filterSelector).removeClass("active");
+                            $(this).addClass("active");
+                        }
+                    });
+
+                    // remove filters
+                    $('.remove-filter').on( 'click', function() {
+                        $isotope.isotope({ filter: "*" });
+                        $(".isotope-filter").removeClass("active");
+                        $(this).addClass("active");
+                    });
+
 
                 }
 

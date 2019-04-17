@@ -16,7 +16,12 @@
                 </li>
                 <li class="{f:if(condition: "{active} == 'partner'", then: 'active')}">
                     <f:link.action action="partner">
-                        <i class="fa fa-cog"></i> Partner Verwaltung
+                        <i class="fa fa-users"></i> Partner Verwaltung
+                    </f:link.action>
+                </li>
+                <li class="{f:if(condition: "{active} == 'compress'", then: 'active')}">
+                    <f:link.action action="compressSettings">
+                        <i class="fa fa-compress"></i> Compression Container Verwaltung
                     </f:link.action>
                 </li>
             </ul>

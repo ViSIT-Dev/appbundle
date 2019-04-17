@@ -1,0 +1,19 @@
+<f:layout name="Default" />
+
+<f:section name="title">
+    <h2>Compression Container Verwaltung</h2>
+</f:section>
+
+<f:section name="sideBar">
+    <f:render partial="SideBarFile" arguments="{active: 'list'}"/>
+</f:section>
+
+<f:section name="main">
+
+    <f:form class="form-horizontal form-label-left" action="updateCompressSettings"  >
+        <f:render partial="compressionContainerSettings" arguments="{_all}" />
+
+    </f:form>
+
+</f:section>
+
