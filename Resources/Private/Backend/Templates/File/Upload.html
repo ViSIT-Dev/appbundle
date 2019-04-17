@@ -1,4 +1,4 @@
-<f:layout name="Default" />
+<f:layout name="Default"/>
 
 <f:section name="title">
     <h2>Dateiverwaltung</h2>
@@ -11,109 +11,145 @@
 
 <f:section name="main">
 
-    <f:debug>{_all}</f:debug>
+    <f:comment>
+        <f:debug>{_all}</f:debug>
+    </f:comment>
     <div class="card">
         <h3>Dateien Hinzufügen</h3>
         <p>Sie können hier Medien in die ViSIT Datenbank einpflegen</p>
 
         <div class="ln_solid"></div>
 
+        <f:form class="form-horizontal form-label-left" action="create" onsubmit="return checkForm(this)" enctype="multipart/form-data">
 
-        <div class="row row-eq-height">
-            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+            <div class="row row-eq-height">
+                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
 
-                <f:form class="form-horizontal form-label-left" action="create"  >
-
-
-
+                    <h2 title="Das ist das Element in der ViSIT Datenbank, an dem die Medien angehängt werden">
+                        Daten zum Medienobjekt angeben</h2>
+<br />
+<br />
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" >Beschreibung</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Beschreibung <span class="required">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <f:form.textfield placeholder="Beschreibung" id="description" name="description" class="form-control col-md-7 col-xs-12" />
+                            <f:form.textfield placeholder="Beschreibung bzw. Titel" id="description" name="description" required="required"
+                                              class="form-control col-md-7 col-xs-12"/>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" >Urheber  <span class="required">*</span></label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Urheber <span class="required">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <f:form.textfield placeholder="Urheber" name="owner" class="form-control col-md-7 col-xs-12" required="required"/>
+                            <f:form.textfield placeholder="Urheber" name="owner" id="owner" class="form-control col-md-7 col-xs-12"
+                                              required="required"/>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" >Ersteller ID  <span class="required">*</span></label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Ersteller ID <span
+                                class="required">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <f:form.textfield placeholder="Urheber" name="creatorId" class="form-control col-md-7 col-xs-12" value="{uploaderID}" required="required" additionalAttributes="{readonly: 'readonly'}"/>
+                            <f:form.textfield placeholder="Urheber" name="creatorId" id="creatorId"
+                                              class="form-control col-md-7 col-xs-12" value="{uploaderID}"
+                                              required="required" additionalAttributes="{readonly: 'readonly'}"/>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" >Beschreibung</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Ersteller</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <f:form.textfield placeholder="Beschreibung" name="description" class="form-control col-md-7 col-xs-12" />
+                            <f:form.textfield placeholder="Digitalisator" name="creator"
+                                              class="form-control col-md-7 col-xs-12"/>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" >Beschreibung</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">OBJ Datei <span
+                                class="required">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <f:form.textfield placeholder="Beschreibung" name="description" class="form-control col-md-7 col-xs-12" />
+                            <f:form.upload name="obj" id="obj" class="form-control col-md-7 col-xs-12"
+                                           additionalAttributes="{accept: '.obj', required: 'required'}"/>
                         </div>
                     </div>
 
-
-
-                    <div class="ln_solid"></div>
                     <div class="form-group">
-                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                            <button type="submit" class="btn btn-success">Speichern</button>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">MTL Datei </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <f:form.upload name="mtl" class="form-control col-md-7 col-xs-12"
+                                           additionalAttributes="{accept: '.mtl'}"/>
                         </div>
                     </div>
 
-                </f:form>
-            </div>
-            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                <h2 title="Das ist das Element in der ViSIT Datenbank, an dem die Medien angehängt werden">Betroffene Entität suchen und auswählen</h2>
-                <p>
-                    Gewählte Entität <span class="required">*</span>:
-                </p>
-                <f:form.textfield id="parent-entity" name="parent-entity" class="form-control col-md-7 col-xs-12"  required="required" additionalAttributes="{readonly: 'readonly'}"/>
-                <br />
-                <br />
-                <br />
-                <iframe class="warenkorb side" src="{settings.visitPublicDbUrl}">
-                    Ihr Browser mag keine iFrames :(
-                </iframe>
-                <script>
-                    window.addEventListener("message", function (event) {
-                        let id = event.data.result.id;
-                        if(id){
-                            $("#parent-entity").val(event.data.result.id);
-                        }else{
-                            alert("ID konnte nicht gefunden werden");
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Textur Datei </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <f:form.upload name="txt" class="form-control col-md-7 col-xs-12"
+                                           additionalAttributes="{accept: '.jpeg,.jpg,.png'}"/>
+                        </div>
+                    </div>
+
+
+
+
+
+                </div>
+                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                    <h2 title="Das ist das Element in der ViSIT Datenbank, an dem die Medien angehängt werden">
+                        Betroffene Entität suchen und auswählen</h2>
+                    <p>
+                        Gewählte Entität <span class="required">*</span>:
+                    </p>
+                    <f:form.textfield id="parent-entity" name="parent-entity" class="form-control col-md-7 col-xs-12"
+                                      required="required" additionalAttributes="{readonly: 'readonly'}"/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <iframe class="warenkorb side" src="{settings.visitPublicDbUrl}" style="min-height: 815px;">
+                        Ihr Browser mag keine iFrames :(
+                    </iframe>
+                    <script>
+                        window.addEventListener("message", function (event) {
+                            let id = event.data.result.id;
+                            if (id) {
+                                $("#parent-entity").val(event.data.result.id);
+                            } else {
+                                alert("ID konnte nicht gefunden werden");
+                            }
+                        }, false);
+
+
+
+                        function checkForm(form){
+                            if($("#parent-entity").val() && $("#creatorId").val() && $("#owner").val() &&  $("#obj").val() && $("#obj").files.length === 1){
+                                return true;
+                            }
+                            alert("Bitte füllen Sie das Formular aus");
+                            return false;
                         }
-                    }, false);
-                </script>
+                    </script>
 
+                </div>
             </div>
-        </div>
+            <div class="ln_solid"></div>
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-success btn-lg">Medien Objekt zur ViSIT Datenbank hinzufügen</button>
+            </div>
+        </f:form>
 
 
         <!--<f:form class="form-horizontal form-label-left" action="create"  name="newCardPoi">-->
 
-            <!---->
+        <!---->
 
 
-
-            <!--<div class="ln_solid"></div>-->
-            <!--<div class="form-group">-->
-                <!--<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">-->
-                    <!--<button type="submit" class="btn btn-success">Hinzufügen</button>-->
-                <!--</div>-->
-            <!--</div>-->
+        <!--<div class="ln_solid"></div>-->
+        <!--<div class="form-group">-->
+        <!--<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">-->
+        <!--<button type="submit" class="btn btn-success">Hinzufügen</button>-->
+        <!--</div>-->
+        <!--</div>-->
 
         <!--</f:form>-->
-
 
 
     </div>

@@ -18,7 +18,6 @@ use Visit\VisitTablets\Helper\SyncthingHelper;
  * FileController
  */
 class FileController extends AbstractVisitController  {
-    
 
     /**
      * action list
@@ -43,7 +42,32 @@ class FileController extends AbstractVisitController  {
      * action create
      * @return void
      */
-    public function createdAction(){
+    public function createAction(){
+
+        $data = array();
+        $parentId = $this->getIdFromRdfIdentifier($this->request->getArgument("parent-entity"));
+
+        foreach (["obj" => true, "mtl" => false, "txt" => false] as $fileInfo => $needed){
+            $currentFile = $this->request->getArgument($fileInfo);
+            if($needed && $currentFile["size"] == 0){
+                $this->addFlashMessage('Benötigte Datei wurde nicht angegeben - abbruch', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+                $this->redirect('upload');
+                return;
+            }
+
+            $this->debug($currentFile);
+
+        }
+
+//        $this->debug( $parentId);
+        $this->debug( $this->checkAndGetUploadFolder());
+//        $this->debug( $this->request->getArguments());
+        die();
+
+
+
+        $this->addFlashMessage('Datei erfolgreich hinzugefügt', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+//        $this->redirect('upload');
 
     }
 
@@ -56,5 +80,23 @@ class FileController extends AbstractVisitController  {
 
     }
 
+    private function checkAndGetUploadFolder(){
+        $targetFolder = "/var/www/syncthing_data";
+        
+        //check if folder exists
+        if(! file_exists($targetFolder)){
+            mkdir($targetFolder);
+        }
+        return file_exists($targetFolder);
+
+
+
+
+        return $targetFolder;
+    }
+
+    private function getIdFromRdfIdentifier($rdfIdentifier){
+        return \substr ($rdfIdentifier, \strrpos($rdfIdentifier , '/') + 1);
+    }
 
 }
