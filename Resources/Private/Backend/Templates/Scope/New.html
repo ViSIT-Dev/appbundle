@@ -1,7 +1,11 @@
-<f:layout name="DefaultScope" />
+<f:layout name="Default" />
 
 <f:section name="title">
     <h2>Karten Element hinzufügen</h2>
+</f:section>
+
+<f:section name="sideBar">
+    <f:render partial="SideBarScope" arguments="{active: 'new'}" />
 </f:section>
 
 <f:section name="main">

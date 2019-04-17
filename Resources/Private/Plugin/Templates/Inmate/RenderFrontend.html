@@ -63,7 +63,7 @@
                                 <div class="data-index-anchor" data-index="{index}">
                                     <ul class="isotope-container">
                                     <f:for each="{personIndex}" as="person">
-                                        <li data-personuid="{person.uid}" class="element-item cell-{person.prisonCell.uid} event-{person.event.uid}{f:if(condition: '{person.vip}', then: ' vip')}">{person.fullName}</li>
+                                        <li data-personuid="{person.uid}" class="lang-content{f:if(condition: '{person.language}', then: ' show-en', else:' show-de')} element-item cell-{person.prisonCell.uid} event-{person.event.uid}{f:if(condition: '{person.vip}', then: ' vip')}">{person.fullName}</li>
                                     </f:for>
                                     </ul>
                                 </div>
@@ -255,6 +255,7 @@
                         }
                     });
 
+                    // isotope
                     $isotope = $(".isotope-container");
 
                     // start isotope
@@ -267,6 +268,7 @@
                         if(filterValue !== undefined){
                             $isotope.isotope({ filter: "." + filterValue });
                             $($filterSelector).removeClass("active");
+                            $(".remove-filter").removeClass("active");
                             $(this).addClass("active");
                         }
                     });
@@ -274,7 +276,7 @@
                     // remove filters
                     $('.remove-filter').on( 'click', function() {
                         $isotope.isotope({ filter: "*" });
-                        $(".isotope-filter").removeClass("active");
+                        $($filterSelector).removeClass("active");
                         $(this).addClass("active");
                     });
 

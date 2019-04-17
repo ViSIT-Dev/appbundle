@@ -1,0 +1,18 @@
+<f:layout name="Default" />
+
+<f:section name="title">
+    <h2>Fernrohr Einstellungen</h2>
+</f:section>
+
+<f:section name="sideBar">
+    <f:render partial="SideBarScope" arguments="{active: 'settings'}" />
+</f:section>
+
+<f:section name="main">
+
+    <f:form class="form-horizontal form-label-left" action="updateSettings"  >
+        <f:render partial="scopeSettings" arguments="{_all}" />
+    </f:form>
+
+</f:section>
+

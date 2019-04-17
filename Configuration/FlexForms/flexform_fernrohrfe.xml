@@ -199,11 +199,20 @@
             <TCEforms type="array">
                 <label>Debugmodus aktivieren</label>
                 <config>
-                  <type>check</type>
-                  <default>0</default>
+                    <type>check</type>
+                    <default>0</default>
                 </config>
             </TCEforms>
         </debugmode>
+        <kuratormode>
+            <TCEforms type="array">
+                <label>Kuratormodus aktivieren</label>
+                <config>
+                    <type>check</type>
+                    <default>0</default>
+                </config>
+            </TCEforms>
+        </kuratormode>
     </el>
 </ROOT>
 </T3DataStructure>
