@@ -23,11 +23,11 @@ class RestApiHelper {
     public static function accessAPI($url, $params, $method = "GET"){
 
 
-        // Abhängig von der API, hier json
-        $headers = array(
-            'Accept: application/json',
-            'Content-Type: application/json',
-        );
+//        // Abhängig von der API, hier json
+//        $headers = array(
+//            'Accept: application/json',
+//            'Content-Type: application/json',
+//        );
 
         $curl = curl_init();
         $url .= '?' . http_build_query($params);
@@ -53,7 +53,7 @@ class RestApiHelper {
         curl_setopt($curl, CURLOPT_USERPWD, $configurationHelper->getApiUser() . ":" . $configurationHelper->getApiUserPassword());
 
         curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+//        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
@@ -62,9 +62,6 @@ class RestApiHelper {
         $response = curl_exec($curl);
         $code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
-
-        Util::debug($code);
-        Util::debug($response);
 
         if ($code == 200) {
             if( ($parsedJson = json_decode($response, true)) !== null){

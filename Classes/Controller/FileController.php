@@ -25,7 +25,6 @@ use Visit\VisitTablets\Helper\Util;
  */
 class FileController extends AbstractVisitController  {
 
-
     /**
      * action list
      * @return void
@@ -34,7 +33,6 @@ class FileController extends AbstractVisitController  {
 
     }
 
-
     /**
      * action upload
      * @return void
@@ -42,8 +40,6 @@ class FileController extends AbstractVisitController  {
     public function uploadAction(){
         $this->view->assign("uploaderID", SyncthingHelper::getSyncthingID());
     }
-
-
 
     /**
      * action create
@@ -60,12 +56,11 @@ class FileController extends AbstractVisitController  {
         $data["creator"] = $this->request->getArgument("creator");
         $data["owner"] = $this->request->getArgument("owner");
         $data["uploader"] = SyncthingHelper::getSyncthingID();
-//        $data["MIMEtype"] = "text/plain";
+        $data["MIMEtype"] = "";
 
 
         //dig rep via API erzeugen
-//        $apiResult = RestApiHelper::accessAPI("https://database-test.visit.uni-passau.de/metadb-rest-api/digrep/object", ["id" => $data["objectTripleURL"]], "POST");
-        $apiResult = "http://visit.de/metadb/1005a0c5-c2a2-4d1c-9fec-7ef1f2527feb";
+        $apiResult = RestApiHelper::accessAPI("https://database-test.visit.uni-passau.de/metadb-rest-api/digrep/object", ["id" => $data["objectTripleURL"]], "POST");
 
 
         if($apiResult === false){
@@ -88,6 +83,7 @@ class FileController extends AbstractVisitController  {
         $data["files"]["0"]["paths"] = array();
         $data["files"]["0"]["fileTypeSpecificMeta"] = false;
 
+        $configurationHelper = Util::makeInstance("Visit\VisitTablets\Helper\ConfigurationHelper");
 
         switch ($this->request->getArgument("uploadMode")){
             case "obj":
@@ -136,21 +132,15 @@ class FileController extends AbstractVisitController  {
 
         }
 
-
-
-        //push to compression container
-        $json = \json_encode($data);
-
+        if($configurationHelper->isCompressionEnabled()){
+            //push to compression container
+            $json = \json_encode($data);
+            //TODO: Flo fragen und implementieren
+        }
 
         //add name to cache
         CachingHelper::setCacheByName($data["files"]["0"]["paths"][0], $data);
 
-
-        $this->debug($this->request->getArguments());
-        $this->debug($data);
-        echo (json_encode($data));
-
-        die();
         $this->addFlashMessage('Datei erfolgreich hinzugefügt', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
         $this->redirect('upload');
 
@@ -190,17 +180,6 @@ class FileController extends AbstractVisitController  {
 
         $this->redirect('compressSettings');
 
-    }
-
-    private function checkAndGetUploadFolder(){
-        
-        //check if folder exists
-        if(! file_exists(Constants::$SYNCTHING_DEFAULT_FOLDER_PATH)){
-            mkdir(Constants::$SYNCTHING_DEFAULT_FOLDER_PATH);
-        }
-
-
-        return Constants::$SYNCTHING_DEFAULT_FOLDER_PATH;
     }
 
     private function getIdFromRdfIdentifier($rdfIdentifier){
