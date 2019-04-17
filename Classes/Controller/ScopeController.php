@@ -136,7 +136,6 @@ class ScopeController extends AbstractVisitController  implements IRenderFronten
      */
     public function editAction(ScopePoi $scopePoi)
     {
-        $this->addImageFromTempToModel($newScopePoi);
         $this->view->assign('scopePoi', $scopePoi);
     }
 
