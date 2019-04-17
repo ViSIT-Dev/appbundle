@@ -163,6 +163,12 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Visit\VisitTabl
     'description'      => 'Das kann nicht rückgängig gemacht werden',
 );
 
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Visit\VisitTablets\SchedulerTasks\UpdateNameCacheTask'] = array(
+    'extension'        => $_EXTKEY,
+    'title'            => 'Updated die Dateinamen',
+    'description'      => 'Updated die lokalen Dateinamen mit den vom ViSIT P2P Netzwerk',
+);
+
 
 $GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['map_server'] = 'EXT:visit_tablets/Classes/Eid/MapServer.php';
 

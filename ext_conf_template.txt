@@ -7,3 +7,9 @@ debugging = 0
 
 # cat=Main; type=boolean; label=Var Dump All
 varDump = 0
+
+# cat=Main; type=string; label=API User
+apiUser = visit-default
+
+# cat=Main; type=string; label=Password for API User
+apiUserPassword =

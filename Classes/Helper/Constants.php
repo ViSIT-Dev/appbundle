@@ -27,6 +27,12 @@ class Constants {
 //    public static $VISIT_PUBLIC_URL  = "https://database.visit.uni-passau.de/drupal/wisski/navigate";
     public static $VISIT_PUBLIC_URL  = "https://database-test.visit.uni-passau.de/drupal/wisski/navigate";
 
+
+    static public $SYNCTHING_DEFAULT_FOLDER_PATH = "/var/www/Sync";
+    static public $SYNCTHING_PRIVATE_FOLDER_PATH = "/var/www/Private";
+    static public $SYNCTHING_PARTNER_FOLDER_PATH = "/var/www/Partner";
+
+
     public static $ALLOWED_FILE_TYPES_FOR_UPLOAD = [
         "jpeg",
         "jpg",
