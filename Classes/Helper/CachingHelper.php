@@ -17,27 +17,19 @@ namespace Visit\VisitTablets\Helper;
  * Wrapper for Typo3 Caching Framework
  * @package Visit\VisitTablets\Helper
  */
-class CachingHelper
-{
+class CachingHelper {
+
     private static function getCacheInstance(){
         return Util::makeInstance("TYPO3\\CMS\\Core\\Cache\\CacheManager")->getCache(Constants::$EXTENSION_NAME);
     }
 
     public static function getCacheByName(String $cacheName){
         $cacheContent = self::getCacheInstance()->get(\sha1($cacheName));
-        return \unserialize($cacheContent);
+        return $cacheContent === null ?: \unserialize($cacheContent);
     }
 
     public static function setCacheByName(String $cacheName, $object, $tags = []){
         self::getCacheInstance()->set(\sha1($cacheName), \serialize($object), $tags, Constants::$CACHING_TIME);
     }
-
-//    public static function getFileNameCache(){
-//        return self::getCacheByName("fileName");
-//    }
-//
-//    public static function setFileNameCache($object){
-//        self::setCacheByName("fileName", $object);
-//    }
 
 }

@@ -8,6 +8,7 @@ use Visit\VisitTablets\Helper\RestApiHelper;
 use Visit\VisitTablets\Helper\SyncthingHelper;
 use \TYPO3\CMS\Core\Messaging\AbstractMessage;
 use Visit\VisitTablets\Helper\Util;
+use Visit\VisitTablets\SchedulerTasks\UpdateNameCacheTask;
 
 /***
  *
@@ -31,6 +32,9 @@ class FileController extends AbstractVisitController  {
      */
     public function listAction(){
 
+        $allFiles = UpdateNameCacheTask::getAllVisitFiles();
+//        $this->debug($allFiles);
+        $this->view->assign("files", $allFiles);
     }
 
     /**
@@ -47,6 +51,8 @@ class FileController extends AbstractVisitController  {
      */
     public function createAction(){
 
+        $this->debug("start");
+
         $data = array();
 
         $data["description"] = $this->request->getArgument("description");
@@ -60,7 +66,7 @@ class FileController extends AbstractVisitController  {
 
 
         //dig rep via API erzeugen
-        $apiResult = RestApiHelper::accessAPI("https://database-test.visit.uni-passau.de/metadb-rest-api/digrep/object", ["id" => $data["objectTripleURL"]], "POST");
+        $apiResult = RestApiHelper::accessAPI("digrep/object", $data["objectTripleURL"], null, "POST");
 
 
         if($apiResult === false){
@@ -132,14 +138,18 @@ class FileController extends AbstractVisitController  {
 
         }
 
+
+        //add techmeta to rdf
+        RestApiHelper::accessAPI("digrep/media", $data["mediaTripleURL"], $data, "PUT");
+
+
         if($configurationHelper->isCompressionEnabled()){
             //push to compression container
-            $json = \json_encode($data);
             //TODO: Flo fragen und implementieren
         }
 
         //add name to cache
-        CachingHelper::setCacheByName($data["files"]["0"]["paths"][0], $data);
+        CachingHelper::setCacheByName($data["mediaTripleID"], $data);
 
         $this->addFlashMessage('Datei erfolgreich hinzugefügt', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
         $this->redirect('upload');

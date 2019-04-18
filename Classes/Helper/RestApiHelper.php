@@ -20,7 +20,7 @@ namespace Visit\VisitTablets\Helper;
  */
 class RestApiHelper {
     
-    public static function accessAPI($url, $params, $method = "GET"){
+    public static function accessAPI($url, $targetObjectId, $parameter = null, $method = "GET"){
 
 
 //        // Abhängig von der API, hier json
@@ -30,7 +30,15 @@ class RestApiHelper {
 //        );
 
         $curl = curl_init();
-        $url .= '?' . http_build_query($params);
+
+        $url = Constants::$VISIT_API_URL  . $url . '?' . http_build_query(["id" => $targetObjectId]);
+
+        if($parameter != null && $method != 'GET'){
+            $body = \json_encode($parameter);
+            curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json','Content-Length: ' . \strlen($body)));
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
+        }
+
 
         switch($method) {
             default:
@@ -38,8 +46,8 @@ class RestApiHelper {
                 curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'GET');
                 break;
             case 'POST':
-//                curl_setopt($curl, CURLOPT_POST, true);
                 curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'POST');
+                curl_setopt($curl, CURLOPT_POST, true);
                 break;
             case 'PUT':
                 curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'PUT');

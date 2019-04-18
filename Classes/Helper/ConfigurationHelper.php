@@ -17,8 +17,7 @@ namespace Visit\VisitTablets\Helper;
  *
  * @author RaichKrispin
  */ 
-class ConfigurationHelper implements \TYPO3\CMS\Core\SingletonInterface
-{
+class ConfigurationHelper implements \TYPO3\CMS\Core\SingletonInterface {
 
     private $configuration;
     
