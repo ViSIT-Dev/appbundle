@@ -33,7 +33,7 @@ class FileController extends AbstractVisitController  {
     public function listAction(){
 
         $allFiles = UpdateNameCacheTask::getAllVisitFiles();
-//        $this->debug($allFiles);
+        $this->debug($allFiles);
         $this->view->assign("files", $allFiles);
     }
 
@@ -43,6 +43,13 @@ class FileController extends AbstractVisitController  {
      */
     public function uploadAction(){
         $this->view->assign("uploaderID", SyncthingHelper::getSyncthingID());
+    }
+
+    public function deleteCacheAction(){
+
+        CachingHelper::flushCacheByTag(Constants::$FILE_NAME_CACHE_TAG);
+
+        $this->redirect('list');
     }
 
     /**
@@ -149,9 +156,9 @@ class FileController extends AbstractVisitController  {
         }
 
         //add name to cache
-        CachingHelper::setCacheByName($data["mediaTripleID"], $data);
+        CachingHelper::setCacheByName($data["mediaTripleID"], $data, [Constants::$FILE_NAME_CACHE_TAG]);
 
-        $this->addFlashMessage('Datei erfolgreich hinzugefügt', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+        $this->addFlashMessage("Datei {$data["files"]["0"]["paths"][0]} erfolgreich hinzugefügt", '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
         $this->redirect('upload');
 
     }

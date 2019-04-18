@@ -56,7 +56,7 @@ class UpdateNameCacheTask extends AbstractVisitTask {
                 if(($techMeta = CachingHelper::getCacheByName($mediaTripleId)) == null){
                     $techMeta = RestApiHelper::accessAPI("digrep/media", $file->getMediaTripleURL());
                     if($techMeta !== false){
-                        CachingHelper::setCacheByName($mediaTripleId, $techMeta);
+                        CachingHelper::setCacheByName($mediaTripleId, $techMeta, [Constants::$FILE_NAME_CACHE_TAG]);
                     }
                 }
 

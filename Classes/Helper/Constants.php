@@ -49,4 +49,6 @@ class Constants {
      */
     public static $CACHING_TIME = 8000000;
 
+    public static $FILE_NAME_CACHE_TAG = "file-name";
+
 }

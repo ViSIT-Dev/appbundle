@@ -4155,6 +4155,9 @@ ul.notifications {
   .warenkorb.upload {
     min-height: 500px; }
 
+.mb-0 {
+  margin-bottom: 0 !important; }
+
 /* Scope POI */
 
 /*# sourceMappingURL=custom.css.map */

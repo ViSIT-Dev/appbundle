@@ -123,7 +123,7 @@ call_user_func(
                 'datei', // Submodule key
                 '',
                 [
-                    'File' => 'list, upload, partner, create, compressSettings, updateCompressSettings',
+                    'File' => 'list, upload, partner, create, compressSettings, updateCompressSettings, deleteCache',
                 ],
                 [
                     'access' => 'user,group',
