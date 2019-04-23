@@ -35,7 +35,9 @@ class Constants {
 
     static public $SYNCTHING_DEFAULT_FOLDER_PATH = "/var/www/Sync";
     static public $SYNCTHING_PRIVATE_FOLDER_PATH = "/var/www/Private";
-    static public $SYNCTHING_PARTNER_FOLDER_PATH = "/var/www/Partner";
+    static public $SYNCTHING_PARTNER_FOLDER_PATH = "/var/www/Sync/Partner";
+
+    static public $SYNCTHING_CONFIG_PATH = "/var/www/syncthing/config.xml";
 
     public static $ALLOWED_FILE_TYPES_FOR_UPLOAD = [
         "jpeg",

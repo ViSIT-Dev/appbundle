@@ -2,13 +2,19 @@
 ### Main ###
 ############
 
+
+# cat=Main; type=string; label=Teilnehmer Name
+partnerName =
+
+
 # cat=Main; type=string; label=API User
 apiUser = visit-default
 
 # cat=Main; type=string; label=Password for API User
 apiUserPassword =
 
-
+# cat=Main; type=string; label=Syncthing Master ID
+syncthingMasterId =
 
 # cat=Main; type=boolean; label=Medienobjekte kompriieren
 enableCompression = 1

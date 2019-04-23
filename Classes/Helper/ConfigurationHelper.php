@@ -53,4 +53,12 @@ class ConfigurationHelper implements \TYPO3\CMS\Core\SingletonInterface {
         return $this->configuration["compressionApiPort"];
     }
 
+    public function getSyncthingMasterId(){
+        return $this->configuration["syncthingMasterId"];
+    }
+
+    public function getViSITPartnerName(){
+        return $this->configuration["partnerName"];
+    }
+
 }

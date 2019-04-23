@@ -170,7 +170,33 @@ class FileController extends AbstractVisitController  {
      */
     public function partnerAction(){
 
+        if(empty(Util::makeInstance("Visit\VisitTablets\Helper\ConfigurationHelper")->getSyncthingMasterId())){
+            $this->addFlashMessage('Syncthing Master ID nicht angegeben - abbruch', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+            return;
+        }
+        if(! SyncthingHelper::isAttachedToMaster()){
+            SyncthingHelper::attachedToMaster();
+            $this->addFlashMessage('Sie waren noch nicht mit dem Netzwerk verbunden. Diese Verbindung wurde soeben hergestellt. Es kann eine zeit dauern, bis die Daten synchronisiert sind.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+            return;
+        }
+
+        if(! \file_exists(Constants::$SYNCTHING_DEFAULT_FOLDER_PATH."/ping")){
+            //sync not ready yet
+            $this->addFlashMessage('Daten nicht nicht geladen, bitte versuchen Sie es später noch einmal', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+            return;
+        }
+
+        SyncthingHelper::checkOwnIdFile();
+
     }
+
+    public function addPartnerAction(){
+
+        //add device to syncthing
+
+    }
+
+
     /**
      * action compressSettings
      *
