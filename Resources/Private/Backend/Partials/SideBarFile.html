@@ -1,4 +1,4 @@
-<div class="left_col scroll-view">
+<div class="left_col scroll-view" xmlns:f="http://www.w3.org/1999/html">
     <br />
     <!-- sidebar menu -->
     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
@@ -19,11 +19,13 @@
                         <i class="fa fa-users"></i> Partner Verwaltung
                     </f:link.action>
                 </li>
-                <li class="{f:if(condition: "{active} == 'compress'", then: 'active')}">
-                    <f:link.action action="compressSettings">
-                        <i class="fa fa-compress"></i> Compression Container Verwaltung
-                    </f:link.action>
-                </li>
+                <f:comment>
+                    <li class="{f:if(condition: "{active} == 'compress'", then: 'active')}">
+                        <f:link.action action="compressSettings">
+                            <i class="fa fa-compress"></i> Compression Container Verwaltung
+                        </f:link.action>
+                    </li>
+                </f:comment>
             </ul>
         </div>
     </div>

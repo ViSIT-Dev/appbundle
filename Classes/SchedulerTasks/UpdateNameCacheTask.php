@@ -18,6 +18,7 @@ use Visit\VisitTablets\Domain\Enums\AccessLevel;
 use Visit\VisitTablets\Helper\CachingHelper;
 use Visit\VisitTablets\Helper\Constants;
 use Visit\VisitTablets\Helper\RestApiHelper;
+use Visit\VisitTablets\Helper\SyncthingHelper;
 use Visit\VisitTablets\Helper\Util;
 use Visit\VisitTablets\Helper\VisitFile;
 
@@ -43,15 +44,29 @@ class UpdateNameCacheTask extends AbstractVisitTask {
      */
     public static function getAllVisitFiles(){
         $allMediaTriple = array();
-        //list all files from storage
-        //start with privato chan
-        foreach (\scandir(Constants::$SYNCTHING_PRIVATE_FOLDER_PATH) as $fileName){
-            if($fileName === "." || $fileName === "..") continue;
+        $myId = SyncthingHelper::getSyncthingID();
 
-            $file = new VisitFile($fileName, AccessLevel::AL_PRIVATE);
+        self::processFolder($allMediaTriple, Constants::$SYNCTHING_PRIVATE_FOLDER_PATH, AccessLevel::AL_PRIVATE, $myId);
+
+        foreach (\scandir(Constants::$SYNCTHING_DEFAULT_FOLDER_PATH) as $fileName){
+            if($fileName !== "." && $fileName !== ".." && $fileName !== "public"){
+                self::processFolder($allMediaTriple, Constants::$SYNCTHING_DEFAULT_FOLDER_PATH . "/" . $fileName, AccessLevel::AL_PRIVATE, $myId);
+            }
+        }
+
+        self::processFolder($allMediaTriple, Constants::$SYNCTHING_DEFAULT_FOLDER_PATH . "/public" , AccessLevel::AL_PUBLIC, $myId);
+
+        return $allMediaTriple;
+    }
+
+    private static function processFolder(&$data, $folderPath, $accessLevel, $myId){
+        foreach (\scandir($folderPath) as $fileName){
+            if(\in_array($fileName, [".", "..", "info.json", "ping", ".stignore", ".stfolder"]) || self::endsWith($fileName, ".swp")) continue;
+
+            $file = new VisitFile($fileName, $accessLevel);
             $mediaTripleId = $file->getMediaTripleID();
 
-            if(! \array_key_exists($mediaTripleId)){
+            if(! \array_key_exists($mediaTripleId, $data)){
                 //look in cache
                 if(($techMeta = CachingHelper::getCacheByName($mediaTripleId)) == null){
                     $techMeta = RestApiHelper::accessAPI("digrep/media", $file->getMediaTripleURL());
@@ -59,18 +74,14 @@ class UpdateNameCacheTask extends AbstractVisitTask {
                         CachingHelper::setCacheByName($mediaTripleId, $techMeta, [Constants::$FILE_NAME_CACHE_TAG]);
                     }
                 }
-
-                $allMediaTriple[$mediaTripleId] = $techMeta;
+                $data[$mediaTripleId] = $techMeta;
+                $data[$mediaTripleId]["owner"] = ($techMeta["uploader"] == $myId);
             }
         }
-
-        //todo partner
-
-        return $allMediaTriple;
     }
 
-    private static function getVisitFileObjectFromFileName($fileName){
-
+    private static function endsWith($haystack, $needle) {
+        return substr_compare($haystack, $needle, -strlen($needle)) === 0;
     }
-    
+
 }

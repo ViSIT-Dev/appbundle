@@ -11,44 +11,28 @@
 
 <f:section name="main">
     <div class="card">
-        <h3>Partner verwaltung</h3>
+        <h3>Partner Liste</h3>
     </div>
+
+    <f:debug>{partners}</f:debug>
+
     <table id="datatable" class="table table-striped table-bordered">
         <thead>
             <tr>
-                <th>Überschrift</th>
-                <th>X</th>
-                <th>Y</th>
-                <th>Radius</th>
-                <th>Typ</th>
-                <th>Beschreibung</th>
+                <th>Name</th>
+                <th>ID</th>
+                <th>Synchronisiert</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            <f:for each="{scopePois1}" as="scopePoi">
+            <f:for each="{partners}" as="partner">
                 <tr>
-                    <td>{scopePoi.title}</td>
-                    <td>{scopePoi.x}</td>
-                    <td>{scopePoi.y}</td>
-                    <td>{scopePoi.radius}</td>
+                    <td>{partner.name}</td>
+                    <td>{partner.id}</td>
+                    <td><span title="Selectvie Synchronisation wird später implementiert">Ja</span></td>
                     <td>
-                        <f:if condition="{scopePoi.fullscreenvideo}">
-                            <f:then><i class="fa fa-video-camera fa-2x" aria-hidden="true"></i></f:then>
-                            <f:else><i class="fa fa-image fa-2x" aria-hidden="true"></i></f:else>
-                        </f:if></td>
-                    <td>                            
-                        <f:format.crop maxCharacters="35">
-                            <f:format.stripTags>{scopePoi.description}</f:format.stripTags>
-                        </f:format.crop>
-                    </td>
-                    <td>
-                        <f:link.action action="edit" arguments="{scopePoi : scopePoi}" class="btn btn-primary btn-xs">
-                            <i class="fa fa-pencil fa-2x" aria-hidden="true"></i>
-                        </f:link.action>
-                        <f:link.action action="delete" arguments="{scopePoi : scopePoi}" class="askbeforedelete btn btn-warning btn-xs">
-                            <i class="fa fa-trash-o fa-2x" aria-hidden="true"></i>
-                        </f:link.action>
+
                     </td>
                 </tr>
             </f:for>
