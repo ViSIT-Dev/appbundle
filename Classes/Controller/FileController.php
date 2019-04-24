@@ -3,6 +3,7 @@ namespace Visit\VisitTablets\Controller;
 
 use Visit\VisitTablets\Domain\Enums\AccessLevel;
 use Visit\VisitTablets\Helper\CachingHelper;
+use Visit\VisitTablets\Helper\ConfigurationHelper;
 use Visit\VisitTablets\Helper\Constants;
 use Visit\VisitTablets\Helper\RestApiHelper;
 use Visit\VisitTablets\Helper\SyncthingHelper;
@@ -33,7 +34,7 @@ class FileController extends AbstractVisitController  {
     public function listAction(){
 
         $allFiles = UpdateNameCacheTask::getAllVisitFiles();
-        $this->debug($allFiles);
+//        $this->debug($allFiles);
         $this->view->assign("files", $allFiles);
     }
 
@@ -42,7 +43,9 @@ class FileController extends AbstractVisitController  {
      * @return void
      */
     public function uploadAction(){
-        $this->view->assign("uploaderID", SyncthingHelper::getSyncthingID());
+        $this->view
+            ->assign("uploaderID", SyncthingHelper::getSyncthingID())
+            ->assign("uploaderName",  Util::makeInstance("Visit\VisitTablets\Helper\ConfigurationHelper")->getViSITPartnerName());
     }
 
     public function deleteCacheAction(){
@@ -60,6 +63,8 @@ class FileController extends AbstractVisitController  {
 
         $this->debug("start");
 
+        $configurationHelper = Util::makeInstance("Visit\VisitTablets\Helper\ConfigurationHelper");
+
         $data = array();
 
         $data["description"] = $this->request->getArgument("description");
@@ -69,6 +74,7 @@ class FileController extends AbstractVisitController  {
         $data["creator"] = $this->request->getArgument("creator");
         $data["owner"] = $this->request->getArgument("owner");
         $data["uploader"] = SyncthingHelper::getSyncthingID();
+        $data["uploaderName"] = $configurationHelper->getViSITPartnerName();
         $data["MIMEtype"] = "";
 
 
@@ -95,8 +101,6 @@ class FileController extends AbstractVisitController  {
         $data["files"]["0"]["fileSize"] = 0;
         $data["files"]["0"]["paths"] = array();
         $data["files"]["0"]["fileTypeSpecificMeta"] = false;
-
-        $configurationHelper = Util::makeInstance("Visit\VisitTablets\Helper\ConfigurationHelper");
 
         switch ($this->request->getArgument("uploadMode")){
             case "obj":
@@ -188,13 +192,114 @@ class FileController extends AbstractVisitController  {
 
         SyncthingHelper::checkOwnIdFile();
 
+
+        $partners = array();
+
+
+        foreach (\scandir(Constants::$SYNCTHING_DEFAULT_FOLDER_PATH) as $currentDir){
+            $path = Constants::$SYNCTHING_DEFAULT_FOLDER_PATH . "/" . $currentDir;
+
+            if($currentDir != "." && $currentDir != ".." && $currentDir != ".stfolder" && \is_dir($path)){
+                $partners[$currentDir] = \json_decode(\file_get_contents($path . "/info.json"), true);
+
+                if($currentDir == SyncthingHelper::getSyncthingID()){
+                    $partners[$currentDir]["holder"] = true;
+                }
+            }
+
+        }
+
+        $this->view->assign("partners", $partners);
+
     }
+
 
     public function addPartnerAction(){
 
-        //add device to syncthing
-
     }
+
+    /**
+     * action addFileToLocal
+     *
+     * @param array $file
+     * @param string $compression
+     *
+     * @return void
+     */
+    public function addFileToLocalAction($file, $compression){
+        $this->addFlashMessage('Datei heruntergeladen', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+        $this->redirect('list');
+    }
+
+    /**
+     * action moveFileToViSIT
+     *
+     * @param array $file
+     * @param string $compression
+     *
+     * @return void
+     */
+    public function moveFileToViSITAction($file, $compression){
+
+        Util::debug($file);
+        Util::debug($compression);
+
+        $this->addFlashMessage('Datei für ViSIT Teilnehmer freigegeben', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+        die();
+        $this->redirect('list');
+    }
+
+
+    /**
+     * action moveFileToPublic
+     *
+     * @param array $file
+     * @param string $compression
+     *
+     * @return void
+     */
+    public function moveFileToPublicAction($file, $compression){
+
+        //move file to folder
+        $basePath = ($file["files"][$compression]["accessLevel"] == "private" ? Constants::$SYNCTHING_PRIVATE_FOLDER_PATH : Constants::$SYNCTHING_DEFAULT_FOLDER_PATH . "/" . $file["uploader"]);
+        foreach ($file["files"][$compression]["paths"] as $currentPath){
+            \rename($basePath . "/" . $currentPath, Constants::$SYNCTHING_PUBLIC_FOLDER_PATH . "/" . $currentPath);
+        }
+
+        //update RDF Json
+        $oldData = RestApiHelper::accessAPI("digrep/media", $file["mediaTripleURL"], null, "GET");
+        if($oldData === false){
+            $this->addFlashMessage('API nicht erreichbar - abbruch', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+            $this->redirect('list');
+            return;
+        }
+
+        $oldData["files"][$compression]["accessLevel"] = AccessLevel::AL_PUBLIC;
+
+        RestApiHelper::accessAPI("digrep/media", $oldData["mediaTripleURL"], $oldData, "PUT");
+
+        //update cache
+        CachingHelper::setCacheByName($oldData["mediaTripleID"], $oldData, [Constants::$FILE_NAME_CACHE_TAG]);
+
+        $this->addFlashMessage('Datei veröffentlicht.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+        $this->redirect('list');
+    }
+
+
+    /**
+     * action moveFileToPrivate
+     *
+     * @param array $file
+     * @param string $compression
+     *
+     * @return void
+     */
+    public function moveFileToPrivateAction($file, $compression){
+        $this->addFlashMessage('Datei nach Privat verschoben.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+        $this->redirect('list');
+    }
+
+
 
 
     /**

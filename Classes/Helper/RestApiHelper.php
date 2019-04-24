@@ -72,9 +72,16 @@ class RestApiHelper {
         curl_close($curl);
 
         if ($code == 200) {
+
+            //TODO: Fix properly
+            if(self::startsWith($response, "Response body")){
+                $response = \substr($response, 23);
+            }
+
             if( ($parsedJson = json_decode($response, true)) !== null){
                 return $parsedJson;
             }
+
             return $response;
         }
 
@@ -82,7 +89,10 @@ class RestApiHelper {
 
     }
 
-
-
+    private static function startsWith($haystack, $needle)
+    {
+        $length = strlen($needle);
+        return (substr($haystack, 0, $length) === $needle);
+    }
 
 }
