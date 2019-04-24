@@ -40,6 +40,10 @@ class SyncthingHelper {
         self::restart();
     }
 
+    public static function getPendingDevices(){
+        return \json_decode(self::accessJar('--get-pending-devices'));
+    }
+
     public static function isAttachedToMaster(){
         return \strpos(self::getConfigFile(), '<device compression="always" id="' .  Util::makeInstance("Visit\VisitTablets\Helper\ConfigurationHelper")->getSyncthingMasterId() . '" introducedBy="" introducer="true" name="master" skipIntroductionRemovals="false">') !== false;
 

@@ -185,6 +185,12 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Visit\VisitTabl
     'description'      => 'Updated die lokalen Dateinamen mit den vom ViSIT P2P Netzwerk',
 );
 
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Visit\VisitTablets\SchedulerTasks\CheckSyncthingPendingDevicesTask'] = array(
+    'extension'        => $_EXTKEY,
+    'title'            => 'Syncthing Master - Task',
+    'description'      => 'Akzeptiert alle Wartenden Verbindungen von Syncthing',
+);
+
 
 $GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['map_server'] = 'EXT:visit_tablets/Classes/Eid/MapServer.php';
 
