@@ -30,7 +30,6 @@ class CheckSyncthingPendingDevicesTask extends AbstractVisitTask {
             foreach ( $devices["pendingDevices"] as $device ){
                 $device = (array) $device;
                 $deviceId = $device["deviceID"];
-                Util::debug("Added Syncthing Device to Master: " . $deviceId);
 
                 // add device
                 SyncthingHelper::addDevice($deviceId);
