@@ -48,14 +48,7 @@
                                 <f:for each="{file.files}" as="compression" key="key">
                                     <tr>
                                         <th>
-                                            <f:if condition="{key} == '0'">
-                                                <f:then>
-                                                    Original
-                                                </f:then>
-                                                <f:else>
-                                                    {key}
-                                                </f:else>
-                                            </f:if>
+                                            <visit:compressionName compression="{compression}"/>
                                         </th>
                                         <td>{compression.accessLevel}</td>
                                         <td>

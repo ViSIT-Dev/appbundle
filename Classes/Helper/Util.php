@@ -2,6 +2,8 @@
 
 namespace Visit\VisitTablets\Helper;
 
+use Visit\VisitTablets\Domain\Enums\AccessLevel;
+
 /***
  *
  * This file is part of the "tablets" Extension for TYPO3 CMS.
@@ -147,6 +149,22 @@ class Util {
         $tempView->assignMultiple($arguments);
 
         return $tempView->render();
+    }
+
+
+    public static function getPathFromAccessLevel(string $accessLevel, string $creatorID = null){
+        if($creatorID === null){
+            $creatorID = SyncthingHelper::getSyncthingID();
+        }
+        switch ($accessLevel){
+            case AccessLevel::AL_PUBLIC:
+                return  Constants::$SYNCTHING_PUBLIC_FOLDER_PATH;
+            case AccessLevel::AL_VISIT:
+                return  Constants::$SYNCTHING_DEFAULT_FOLDER_PATH . "/" . $creatorID;
+            case AccessLevel::AL_PRIVATE:
+                return Constants::$SYNCTHING_PRIVATE_FOLDER_PATH;
+            default: throw new \Exception("Unkown source path");
+        }
     }
     
 }

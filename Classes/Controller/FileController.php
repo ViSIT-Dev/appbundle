@@ -268,18 +268,7 @@ class FileController extends AbstractVisitController  {
             $rootFolder->createFolder($targetFolder);
         }
 
-        switch ($file["files"][$compression]["accessLevel"]){
-            case AccessLevel::AL_PUBLIC:
-                $sourcePath = Constants::$SYNCTHING_PUBLIC_FOLDER_PATH;
-                break;
-            case AccessLevel::AL_VISIT:
-                $sourcePath =  Constants::$SYNCTHING_DEFAULT_FOLDER_PATH . "/" . $file["creatorID"];
-                break;
-            case AccessLevel::AL_PRIVATE:
-                $sourcePath = Constants::$SYNCTHING_PRIVATE_FOLDER_PATH;
-                break;
-            default: throw new \Exception("Unkown source path");
-        }
+        $sourcePath = Util::getPathFromAccessLevel($file["files"][$compression]["accessLevel"], $file["creatorID"]);
 
         $metaDataRepository = Util::getInstance('TYPO3\CMS\Core\Resource\Index\MetaDataRepository');
 
@@ -311,32 +300,10 @@ class FileController extends AbstractVisitController  {
         //move file to folder
 
         //source
-        switch ($file["files"][$compression]["accessLevel"]){
-            case AccessLevel::AL_PUBLIC:
-                $sourcePath = Constants::$SYNCTHING_PUBLIC_FOLDER_PATH;
-                break;
-            case AccessLevel::AL_VISIT:
-                $sourcePath =  Constants::$SYNCTHING_DEFAULT_FOLDER_PATH . "/" . $file["creatorID"];
-                break;
-            case AccessLevel::AL_PRIVATE:
-                $sourcePath = Constants::$SYNCTHING_PRIVATE_FOLDER_PATH;
-                break;
-            default: throw new \Exception("Unkown source path");
-        }
+        $sourcePath = Util::getPathFromAccessLevel($file["files"][$compression]["accessLevel"], $file["creatorID"]);
 
         //target
-        switch ($target){
-            case AccessLevel::AL_PUBLIC:
-                $targetPath = Constants::$SYNCTHING_PUBLIC_FOLDER_PATH;
-                break;
-            case AccessLevel::AL_VISIT:
-                $targetPath =  Constants::$SYNCTHING_DEFAULT_FOLDER_PATH . "/" . $file["creatorID"];
-                break;
-            case AccessLevel::AL_PRIVATE:
-                $targetPath = Constants::$SYNCTHING_PRIVATE_FOLDER_PATH;
-                break;
-            default: throw new \Exception("Unkown source path");
-        }
+        $targetPath = Util::getPathFromAccessLevel($target, $file["creatorID"]);
 
         Util::debug([$targetPath, $sourcePath]);
 
@@ -425,7 +392,10 @@ class FileController extends AbstractVisitController  {
      */
     public function deleteAction($file){
 
-        $this->addFlashMessage('Eintrag und alle dazugehörigen Dateien vom ViSIT Netz gelöscht.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+
+
+
+        $this->addFlashMessage('Eintrag vom ViSIT Netz gelöscht.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
         $this->redirect('list');
     }
 
@@ -440,6 +410,16 @@ class FileController extends AbstractVisitController  {
      * @throws \Exception
      */
     public function deleteCompressionAction($file, $compression){
+
+
+        //remove files from disk
+        $sourcePath = Util::getPathFromAccessLevel($file["files"][$compression]["accessLevel"]);
+        foreach ($file["files"][$compression]["paths"] as $currentPath){
+            \unlink($sourcePath . "/" . $currentPath);
+        }
+
+        //remove from db
+        RestApiHelper::accessAPI("digrep/media", $file["mediaTripleURL"], null, "DELETE");
 
         $this->addFlashMessage('Kompression vom ViSIT Netz gelöscht.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
         $this->redirect('list');

@@ -77,8 +77,6 @@ class SyncthingHelper {
                 "created" => \time()
             ]));
         }
-
-
     }
 
     public static function addDevice(string $deviceId) {

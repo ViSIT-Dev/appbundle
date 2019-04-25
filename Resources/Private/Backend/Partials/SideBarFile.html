@@ -19,6 +19,11 @@
                         <i class="fa fa-users"></i> Partner Liste
                     </f:link.action>
                 </li>
+                <li>
+                    <f:link.action action="deleteCache" onclick="return confirm('Cache wirklich leeren, der Aufbau kann etwas Zeit in anspruch nehmen')">
+                        <i class="fa fa-recycle"></i> Cache Leeren
+                    </f:link.action>
+                </li>
                 <f:comment>
                     <li class="{f:if(condition: "{active} == 'compress'", then: 'active')}">
                         <f:link.action action="compressSettings">
