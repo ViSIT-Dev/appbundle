@@ -26,9 +26,13 @@ class SyncthingHelper {
         return self::accessJar();
     }
 
-    private static function accessJar($param = ""){
+    private static function accessJarFully($param = ""){
         \exec(\sprintf("java -jar %s %s 2>&1", self::$SYNCTHING_PATH, $param), $out);
-        return $out[0];
+        return $out;
+    }
+
+    private static function accessJar($param = ""){
+        return self::accessJarFully($param)[0];
     }
 
 
@@ -40,6 +44,10 @@ class SyncthingHelper {
         self::restart();
     }
 
+    public static function getPendingDevices(){
+        return (array) json_decode(implode("",self::accessJarFully('--get-pending-devices')));
+    }
+
     public static function isAttachedToMaster(){
         return \strpos(self::getConfigFile(), '<device compression="always" id="' .  Util::makeInstance("Visit\VisitTablets\Helper\ConfigurationHelper")->getSyncthingMasterId() . '" introducedBy="" introducer="true" name="master" skipIntroductionRemovals="false">') !== false;
 
@@ -49,7 +57,7 @@ class SyncthingHelper {
         return \file_get_contents(Constants::$SYNCTHING_CONFIG_PATH);
     }
 
-    private static function restart(){
+    public static function restart(){
         self::accessJar("--restart");
     }
 
@@ -71,6 +79,14 @@ class SyncthingHelper {
         }
 
 
+    }
+
+    public static function addDevice(string $deviceId) {
+        self::accessJar('--add-device --remote-device-id=' . $deviceId . ' --remote-device-name=master');
+    }
+
+    public static function addDefaultFolderOfDevice(string $deviceId) {
+        self::accessJar('--add-dev-to-folder --remote-device-id=' . $deviceId . ' --folder-id=default');
     }
 
 
