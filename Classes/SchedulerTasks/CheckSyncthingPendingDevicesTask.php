@@ -17,16 +17,25 @@ use Visit\VisitTablets\Helper\SyncthingHelper;
 use Visit\VisitTablets\Helper\Util;
 
 /**
- * Aufgaben: Updated die Extension vom git repo
+ * Aufgaben: Verbindet alle Syncthing Devices
  * 
- * @author Kris
+ * @author Robert
  */
 class CheckSyncthingPendingDevicesTask extends AbstractVisitTask {
 
     public function execute(): bool {
 
-        foreach ( SyncthingHelper::getPendingDevices() as $deviceId => $device ){
-
+        $devices = SyncthingHelper::getPendingDevices();
+        Util::debug( $devices );
+        if( $devices ){
+            foreach ( $devices as $deviceId => $device ){
+                Util::debug($deviceId);
+                Util::debug($device);
+                // add device
+                SyncthingHelper::addDevice($deviceId);
+                // add default folder of device
+                SyncthingHelper::addDefaultFolderOfDevice($deviceId);
+            }
         }
 
         return true;

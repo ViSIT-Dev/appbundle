@@ -77,5 +77,13 @@ class SyncthingHelper {
 
     }
 
+    public static function addDevice(string $deviceId) {
+        //todo
+    }
+
+    public static function addDefaultFolderOfDevice(string $deviceId) {
+        //todo
+    }
+
 
 }
