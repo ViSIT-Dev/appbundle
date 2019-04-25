@@ -218,52 +218,75 @@ class FileController extends AbstractVisitController  {
 
     }
 
+
     /**
      * action addFileToLocal
      *
      * @param array $file
      * @param string $compression
-     *
      * @return void
      */
     public function addFileToLocalAction($file, $compression){
-        $this->addFlashMessage('Datei heruntergeladen', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+
+        
+
+
+        $this->addFlashMessage('Datei Lokal gespeichert.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
         $this->redirect('list');
     }
 
     /**
-     * action moveFileToViSIT
+     * action moveFile
      *
      * @param array $file
      * @param string $compression
+     * @param string $target
      *
      * @return void
+     * @throws \Exception
      */
-    public function moveFileToViSITAction($file, $compression){
-
-        Util::debug($file);
-        Util::debug($compression);
-
-        $this->addFlashMessage('Datei für ViSIT Teilnehmer freigegeben', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
-        die();
-        $this->redirect('list');
-    }
-
-
-    /**
-     * action moveFileToPublic
-     *
-     * @param array $file
-     * @param string $compression
-     *
-     * @return void
-     */
-    public function moveFileToPublicAction($file, $compression){
+    public function moveFileAction($file, $compression, $target){
 
         //move file to folder
-        $basePath = ($file["files"][$compression]["accessLevel"] == "private" ? Constants::$SYNCTHING_PRIVATE_FOLDER_PATH : Constants::$SYNCTHING_DEFAULT_FOLDER_PATH . "/" . $file["uploader"]);
+
+        //source
+        switch ($file["files"][$compression]["accessLevel"]){
+            case AccessLevel::AL_PUBLIC:
+                $sourcePath = Constants::$SYNCTHING_PUBLIC_FOLDER_PATH;
+                break;
+            case AccessLevel::AL_VISIT:
+                $sourcePath =  Constants::$SYNCTHING_DEFAULT_FOLDER_PATH . "/" . $file["uploader"];
+                break;
+            case AccessLevel::AL_PRIVATE:
+                $sourcePath = Constants::$SYNCTHING_PRIVATE_FOLDER_PATH;
+                break;
+            default: throw new \Exception("Unkown source path");
+        }
+
+        //target
+        switch ($target){
+            case AccessLevel::AL_PUBLIC:
+                $targetPath = Constants::$SYNCTHING_PUBLIC_FOLDER_PATH;
+                break;
+            case AccessLevel::AL_VISIT:
+                $targetPath =  Constants::$SYNCTHING_DEFAULT_FOLDER_PATH . "/" . $file["uploader"];
+                break;
+            case AccessLevel::AL_PRIVATE:
+                $targetPath = Constants::$SYNCTHING_PRIVATE_FOLDER_PATH;
+                break;
+            default: throw new \Exception("Unkown source path");
+        }
+
+        Util::debug([$targetPath, $sourcePath]);
+
+        if($targetPath === $sourcePath){
+            $this->addFlashMessage('Nichts zu tun', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+            $this->redirect('list');
+            return;
+        }
+
         foreach ($file["files"][$compression]["paths"] as $currentPath){
-            \rename($basePath . "/" . $currentPath, Constants::$SYNCTHING_PUBLIC_FOLDER_PATH . "/" . $currentPath);
+            \rename($sourcePath . "/" . $currentPath, $targetPath . "/" . $currentPath);
         }
 
         //update RDF Json
@@ -274,7 +297,7 @@ class FileController extends AbstractVisitController  {
             return;
         }
 
-        $oldData["files"][$compression]["accessLevel"] = AccessLevel::AL_PUBLIC;
+        $oldData["files"][$compression]["accessLevel"] = $target;
 
         RestApiHelper::accessAPI("digrep/media", $oldData["mediaTripleURL"], $oldData, "PUT");
 

@@ -51,26 +51,26 @@
                                     <f:if condition="{file.owner}">
                                         <f:switch expression="{compression.accessLevel}">
                                             <f:case value="private">
-                                                <f:link.action action="moveFileToPublic" arguments="{file : file, compression: key}" class="askbeforemove btn btn-warning btn-xs" title="Datei veröffentlichen (jeder hat Zugriff)">
+                                                <f:link.action action="moveFile" arguments="{file : file, compression: key, target: 'public'}" class="askbeforemove btn btn-warning btn-xs" title="Datei veröffentlichen (jeder hat Zugriff)">
                                                     <i class="fa fa-globe fa-2x"></i>
                                                 </f:link.action>
-                                                <f:link.action action="moveFileToViSIT" arguments="{file : file, compression: key}" class="askbeforemove btn btn-success btn-xs" title="Datei mit ViSIT Partner teilen (ViSIT Partner haben Zugriff)">
+                                                <f:link.action action="moveFile" arguments="{file : file, compression: key, target: 'visit'}" class="askbeforemove btn btn-success btn-xs" title="Datei mit ViSIT Partner teilen (ViSIT Partner haben Zugriff)">
                                                     <i class="fa fa-users fa-2x"></i>
                                                 </f:link.action>
                                             </f:case>
                                             <f:case value="visit">
-                                                <f:link.action action="moveFileToPublic" arguments="{file : file, compression: key}" class="askbeforemove btn btn-warning btn-xs" title="Datei veröffentlichen (jeder hat Zugriff)">
+                                                <f:link.action action="moveFile" arguments="{file : file, compression: key, target: 'public'}" class="askbeforemove btn btn-warning btn-xs" title="Datei veröffentlichen (jeder hat Zugriff)">
                                                     <i class="fa fa-globe fa-2x"></i>
                                                 </f:link.action>
-                                                <f:link.action action="moveFileToPrivate" arguments="{file : file, compression: key}" class="askbeforemove btn btn-success btn-xs" title="Datei nach privat verschieben (nur ich habe Zugriff)">
+                                                <f:link.action action="moveFile" arguments="{file : file, compression: key, target: 'private'}" class="askbeforemove btn btn-success btn-xs" title="Datei nach privat verschieben (nur ich habe Zugriff)">
                                                     <i class="fa fa-shield fa-2x"></i>
                                                 </f:link.action>
                                             </f:case>
                                             <f:case value="public">
-                                                <f:link.action action="moveFileToViSIT" arguments="{file : file, compression: key}" class="askbeforemove btn btn-success btn-xs" title="Datei mit ViSIT Partner teilen (ViSIT Partner haben Zugriff)">
+                                                <f:link.action action="moveFile" arguments="{file : file, compression: key, target: 'visit'}" class="askbeforemove btn btn-success btn-xs" title="Datei mit ViSIT Partner teilen (ViSIT Partner haben Zugriff)">
                                                     <i class="fa fa-users fa-2x"></i>
                                                 </f:link.action>
-                                                <f:link.action action="moveFileToPrivate" arguments="{file : file, compression: key}" class="askbeforemove btn btn-success btn-xs" title="Datei nach privat verschieben (nur ich habe Zugriff)">
+                                                <f:link.action action="moveFile" arguments="{file : file, compression: key, target: 'private'}" class="askbeforemove btn btn-success btn-xs" title="Datei nach privat verschieben (nur ich habe Zugriff)">
                                                     <i class="fa fa-shield fa-2x"></i>
                                                 </f:link.action>
                                             </f:case>
