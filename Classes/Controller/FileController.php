@@ -44,8 +44,8 @@ class FileController extends AbstractVisitController  {
      */
     public function uploadAction(){
         $this->view
-            ->assign("uploaderID", SyncthingHelper::getSyncthingID())
-            ->assign("uploaderName",  Util::makeInstance("Visit\VisitTablets\Helper\ConfigurationHelper")->getViSITPartnerName());
+            ->assign("creatorID", SyncthingHelper::getSyncthingID())
+            ->assign("creatorName",  Util::makeInstance("Visit\VisitTablets\Helper\ConfigurationHelper")->getViSITPartnerName());
     }
 
     public function deleteCacheAction(){
@@ -67,16 +67,24 @@ class FileController extends AbstractVisitController  {
 
         $data = array();
 
-        $data["title"] = $this->request->getArgument("title");
-        $data["description"] = $this->request->getArgument("description");
-        $data["objectTripleURL"] = $this->request->getArgument("parent-entity");
-        $data["objectTripleID"] = $this->getIdFromRdfIdentifier($data["objectTripleURL"]);
-        $data["createDate"] = \time();
-        $data["creator"] = $this->request->getArgument("creator");
-        $data["owner"] = $this->request->getArgument("owner");
-        $data["uploader"] = SyncthingHelper::getSyncthingID();
-        $data["uploaderName"] = $configurationHelper->getViSITPartnerName();
+
+        $data["title"] = $this->request->getArgument("title"); //must
+        $data["description"] = $this->request->getArgument("description"); //optional
+
+        $data["objectTripleURL"] = $this->request->getArgument("parent-entity"); //must
+        $data["objectTripleID"] = $this->getIdFromRdfIdentifier($data["objectTripleURL"]); //must
+
+        $data["createDate"] = \time(); //must
+
+        $data["creatorID"] = SyncthingHelper::getSyncthingID(); //must
+        $data["creatorName"] = $configurationHelper->getViSITPartnerName(); //must
+
+        $data["rightholder"] = $this->request->getArgument("rightholder"); //must
+
+        $data["uploader"] = $this->request->getArgument("uploader"); //optional
+
         $data["MIMEtype"] = "";
+
 
 
         //dig rep via API erzeugen
@@ -89,8 +97,27 @@ class FileController extends AbstractVisitController  {
             return;
         }
 
-        $data["mediaTripleURL"] = $apiResult;
-        $data["mediaTripleID"] = $this->getIdFromRdfIdentifier($data["mediaTripleURL"]);
+        $data["mediaTripleURL"] = $apiResult; //must
+        $data["mediaTripleID"] = $this->getIdFromRdfIdentifier($data["mediaTripleURL"]); //must
+
+
+
+        if(
+            empty($data["title"]) ||
+            empty($data["objectTripleURL"]) ||
+            empty($data["objectTripleID"]) ||
+            empty($data["createDate"]) ||
+            empty($data["creatorID"]) ||
+            empty($data["creatorName"]) ||
+            empty($data["rightholder"]) ||
+            empty($data["mediaTripleURL"]) ||
+            empty($data["mediaTripleID"])
+        ){
+            $this->addFlashMessage('Es fehlt eine Information die für diesen Vorgang erforderlich ist - abbruch', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+            $this->redirect('upload');
+            return;
+        }
+
 
         $fileNameTemplate = $data["objectTripleID"] . "." . $data["mediaTripleID"] . ".0.";
 
@@ -246,7 +273,7 @@ class FileController extends AbstractVisitController  {
                 $sourcePath = Constants::$SYNCTHING_PUBLIC_FOLDER_PATH;
                 break;
             case AccessLevel::AL_VISIT:
-                $sourcePath =  Constants::$SYNCTHING_DEFAULT_FOLDER_PATH . "/" . $file["uploader"];
+                $sourcePath =  Constants::$SYNCTHING_DEFAULT_FOLDER_PATH . "/" . $file["creatorID"];
                 break;
             case AccessLevel::AL_PRIVATE:
                 $sourcePath = Constants::$SYNCTHING_PRIVATE_FOLDER_PATH;
@@ -261,7 +288,7 @@ class FileController extends AbstractVisitController  {
             $metaDataRepository->update($newFile->getUid(), [
                 "title" => $file["title"],
                 "description" => $file["description"],
-                "alternative" => $file["uploader"],
+                "alternative" => $file["creatorID"],
             ]);
         }
 
@@ -289,7 +316,7 @@ class FileController extends AbstractVisitController  {
                 $sourcePath = Constants::$SYNCTHING_PUBLIC_FOLDER_PATH;
                 break;
             case AccessLevel::AL_VISIT:
-                $sourcePath =  Constants::$SYNCTHING_DEFAULT_FOLDER_PATH . "/" . $file["uploader"];
+                $sourcePath =  Constants::$SYNCTHING_DEFAULT_FOLDER_PATH . "/" . $file["creatorID"];
                 break;
             case AccessLevel::AL_PRIVATE:
                 $sourcePath = Constants::$SYNCTHING_PRIVATE_FOLDER_PATH;
@@ -303,7 +330,7 @@ class FileController extends AbstractVisitController  {
                 $targetPath = Constants::$SYNCTHING_PUBLIC_FOLDER_PATH;
                 break;
             case AccessLevel::AL_VISIT:
-                $targetPath =  Constants::$SYNCTHING_DEFAULT_FOLDER_PATH . "/" . $file["uploader"];
+                $targetPath =  Constants::$SYNCTHING_DEFAULT_FOLDER_PATH . "/" . $file["creatorID"];
                 break;
             case AccessLevel::AL_PRIVATE:
                 $targetPath = Constants::$SYNCTHING_PRIVATE_FOLDER_PATH;
@@ -339,6 +366,82 @@ class FileController extends AbstractVisitController  {
         CachingHelper::setCacheByName($oldData["mediaTripleID"], $oldData, [Constants::$FILE_NAME_CACHE_TAG]);
 
         $this->addFlashMessage('Datei veröffentlicht.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+        $this->redirect('list');
+    }
+
+
+    /**
+     * action edit
+     *
+     * @param array $file
+     *
+     * @return void
+     */
+    public function editAction($file){
+        $this->view
+            ->assign("file", $file)
+            ->assign("creatorID", SyncthingHelper::getSyncthingID())
+            ->assign("creatorName",  Util::makeInstance("Visit\VisitTablets\Helper\ConfigurationHelper")->getViSITPartnerName());
+
+    }
+
+    /**
+     * action update
+     *
+     * @param array $file
+     *
+     * @return void
+     * @throws \Exception
+     */
+    public function updateAction($file){
+
+        $oldData = RestApiHelper::accessAPI("digrep/media", $file["mediaTripleURL"], null, $file["mediaTripleURL"]);
+
+        foreach (["title", "description", "rightholder", "uploader"] as $currentField){
+            if(!empty($var = $this->request->getArgument($currentField))){
+                $oldData[$currentField] = $var;
+            }
+        }
+
+        RestApiHelper::accessAPI("digrep/media", $oldData["mediaTripleURL"], $oldData, "PUT");
+
+        //update cache
+        CachingHelper::setCacheByName($oldData["mediaTripleID"], $oldData, [Constants::$FILE_NAME_CACHE_TAG]);
+
+
+
+        $this->addFlashMessage('Daten wurden gespeichert', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+        $this->redirect('list');
+    }
+
+
+    /**
+     * action delete
+     *
+     * @param array $file
+     *
+     * @return void
+     * @throws \Exception
+     */
+    public function deleteAction($file){
+
+        $this->addFlashMessage('Eintrag und alle dazugehörigen Dateien vom ViSIT Netz gelöscht.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+        $this->redirect('list');
+    }
+
+
+    /**
+     * action deleteCompression
+     *
+     * @param array $file
+     * @param string $compression
+     *
+     * @return void
+     * @throws \Exception
+     */
+    public function deleteCompressionAction($file, $compression){
+
+        $this->addFlashMessage('Kompression vom ViSIT Netz gelöscht.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
         $this->redirect('list');
     }
 

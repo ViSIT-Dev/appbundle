@@ -75,7 +75,7 @@ class UpdateNameCacheTask extends AbstractVisitTask {
                     }
                 }
                 $data[$mediaTripleId] = $techMeta;
-                $data[$mediaTripleId]["owner"] = ($techMeta["uploader"] == $myId);
+                $data[$mediaTripleId]["owner"] = ($techMeta["creatorID"] == $myId);
             }
         }
     }

@@ -1,0 +1,55 @@
+<div class="form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12">Titel <span class="required">*</span></label>
+    <div class="col-md-9 col-sm-9 col-xs-12">
+        <f:form.textfield placeholder="Titel" id="title" name="title" required="required"
+                          value="{file.title}"
+                          class="form-control col-md-7 col-xs-12"/>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12">Beschreibung </label>
+    <div class="col-md-9 col-sm-9 col-xs-12">
+        <f:form.textfield placeholder="Beschreibung" id="description" name="description"
+                          value="{file.description}"
+                          class="form-control col-md-7 col-xs-12"/>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12">Urheber <span class="required">*</span></label>
+    <div class="col-md-9 col-sm-9 col-xs-12">
+        <f:form.textfield placeholder="Name des Rechteinhabers" name="rightholder" id="rightholder" class="form-control col-md-7 col-xs-12"
+                          value="{file.rightholder}"
+                          required="required"/>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12">Hochgeladen von</label>
+    <div class="col-md-9 col-sm-9 col-xs-12">
+        <f:form.textfield placeholder="Mitarbeiter Name" name="uploader"
+                          value="{file.uploader}"
+                          class="form-control col-md-7 col-xs-12"/>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12">ViSIT Partner ID <span
+            class="required">*</span></label>
+    <div class="col-md-9 col-sm-9 col-xs-12">
+        <f:form.textfield placeholder="Bitte in den Syncthing aktivieren" name="creatorId" id="creatorId"
+                          class="form-control col-md-7 col-xs-12" value="{creatorID}"
+                          required="required" additionalAttributes="{readonly: 'readonly'}"/>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12">ViSIT Partner Name<span
+            class="required">*</span></label>
+    <div class="col-md-9 col-sm-9 col-xs-12">
+        <f:form.textfield placeholder="Bitte in den Einstellungen setzen" name="creatorName" id="creatorName"
+                          class="form-control col-md-7 col-xs-12" value="{creatorName}"
+                          required="required" additionalAttributes="{readonly: 'readonly'}"/>
+    </div>
+</div>
