@@ -109,6 +109,7 @@ module.tx_visittablets {
     settings{
        backendPath = /typo3conf/ext/visit_tablets/Resources/Public/Backend/
        uploadDir = {$plugin.tx_visittablets.application.uploadDir}
+       visitFileDir = {$plugin.tx_visittablets.application.visitFileDir}
     }
     persistence {
         storagePid = {$plugin.tx_visittablets.persistence.storagePid}

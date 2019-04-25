@@ -67,6 +67,7 @@ class FileController extends AbstractVisitController  {
 
         $data = array();
 
+        $data["title"] = $this->request->getArgument("title");
         $data["description"] = $this->request->getArgument("description");
         $data["objectTripleURL"] = $this->request->getArgument("parent-entity");
         $data["objectTripleID"] = $this->getIdFromRdfIdentifier($data["objectTripleURL"]);
@@ -225,11 +226,44 @@ class FileController extends AbstractVisitController  {
      * @param array $file
      * @param string $compression
      * @return void
+     * @throws \Exception
      */
     public function addFileToLocalAction($file, $compression){
 
-        
+        $resourceFactory = \TYPO3\CMS\Core\Resource\ResourceFactory::getInstance();
+        $targetFolder = $this->settings["visitFileDir"] ;
 
+        $storage = $resourceFactory->getDefaultStorage();
+        $rootFolder = $storage->getRootLevelFolder();
+
+
+        if (!$rootFolder->hasFolder($targetFolder)) {
+            $rootFolder->createFolder($targetFolder);
+        }
+
+        switch ($file["files"][$compression]["accessLevel"]){
+            case AccessLevel::AL_PUBLIC:
+                $sourcePath = Constants::$SYNCTHING_PUBLIC_FOLDER_PATH;
+                break;
+            case AccessLevel::AL_VISIT:
+                $sourcePath =  Constants::$SYNCTHING_DEFAULT_FOLDER_PATH . "/" . $file["uploader"];
+                break;
+            case AccessLevel::AL_PRIVATE:
+                $sourcePath = Constants::$SYNCTHING_PRIVATE_FOLDER_PATH;
+                break;
+            default: throw new \Exception("Unkown source path");
+        }
+
+        $metaDataRepository = Util::getInstance('TYPO3\CMS\Core\Resource\Index\MetaDataRepository');
+
+        foreach ($file["files"][$compression]["paths"] as $currentPath){
+            $newFile = $storage->addFile($sourcePath . "/" . $currentPath, $rootFolder->getSubFolder($targetFolder), null, \TYPO3\CMS\Core\Resource\DuplicationBehavior::REPLACE, false);
+            $metaDataRepository->update($newFile->getUid(), [
+                "title" => $file["title"],
+                "description" => $file["description"],
+                "alternative" => $file["uploader"],
+            ]);
+        }
 
         $this->addFlashMessage('Datei Lokal gespeichert.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
         $this->redirect('list');

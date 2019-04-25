@@ -34,4 +34,14 @@ class AccessLevel extends \TYPO3\CMS\Core\Type\Enumeration {
     public function getValue(){
         return $this->value;
     }
+
+
+//    /**
+//     *
+//     * @return type mixed
+//     */
+//    public function getPath(){
+//        $this->value;
+//    }
+
 }

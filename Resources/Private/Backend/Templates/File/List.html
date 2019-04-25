@@ -12,82 +12,86 @@
 
 <f:section name="main">
 
+    <f:comment>
+        <f:debug>{files}</f:debug>
+    </f:comment>
 
     <table id="datatable" class="table table-striped table-bordered">
         <thead>
-        <tr>
-            <th>Beschreibung</th>
-            <th>Ersteller</th>
-            <th>Datum</th>
-            <th>Kompressionen</th>
-        </tr>
+            <tr>
+                <th>Titel</th>
+                <th>Beschreibung</th>
+                <th>Ersteller</th>
+                <th>Datum</th>
+                <th>Kompressionen</th>
+            </tr>
         </thead>
         <tbody>
-        <f:debug>{files}</f:debug>
-        <f:for each="{files}" as="file">
-            <tr>
-                <td>{file.description}</td>
-                <td>{file.creator}</td>
-                <td><f:format.date format="d.m.Y H:i">{file.createDate}</f:format.date></td>
-                <td>
-                    <table class="table table-bordered mb-0">
-                        <thead>
-                        <tr>
-                            <th>Bez.</th>
-                            <th>Zugriff</th>
-                            <th>Erstellt</th>
-                            <th>Lokal</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <f:for each="{file.files}" as="compression" key="key">
-                            <tr>
-                                <th>{key}</th>
-                                <td>{compression.accessLevel}</td>
-                                <td>
-                                    <f:format.date format="d.m.Y H:i">{compression.uploadDate}</f:format.date>
-                                </td>
-                                <td>
-                                    <f:if condition="{file.owner}">
-                                        <f:switch expression="{compression.accessLevel}">
-                                            <f:case value="private">
-                                                <f:link.action action="moveFile" arguments="{file : file, compression: key, target: 'public'}" class="askbeforemove btn btn-warning btn-xs" title="Datei veröffentlichen (jeder hat Zugriff)">
-                                                    <i class="fa fa-globe fa-2x"></i>
-                                                </f:link.action>
-                                                <f:link.action action="moveFile" arguments="{file : file, compression: key, target: 'visit'}" class="askbeforemove btn btn-success btn-xs" title="Datei mit ViSIT Partner teilen (ViSIT Partner haben Zugriff)">
-                                                    <i class="fa fa-users fa-2x"></i>
-                                                </f:link.action>
-                                            </f:case>
-                                            <f:case value="visit">
-                                                <f:link.action action="moveFile" arguments="{file : file, compression: key, target: 'public'}" class="askbeforemove btn btn-warning btn-xs" title="Datei veröffentlichen (jeder hat Zugriff)">
-                                                    <i class="fa fa-globe fa-2x"></i>
-                                                </f:link.action>
-                                                <f:link.action action="moveFile" arguments="{file : file, compression: key, target: 'private'}" class="askbeforemove btn btn-success btn-xs" title="Datei nach privat verschieben (nur ich habe Zugriff)">
-                                                    <i class="fa fa-shield fa-2x"></i>
-                                                </f:link.action>
-                                            </f:case>
-                                            <f:case value="public">
-                                                <f:link.action action="moveFile" arguments="{file : file, compression: key, target: 'visit'}" class="askbeforemove btn btn-success btn-xs" title="Datei mit ViSIT Partner teilen (ViSIT Partner haben Zugriff)">
-                                                    <i class="fa fa-users fa-2x"></i>
-                                                </f:link.action>
-                                                <f:link.action action="moveFile" arguments="{file : file, compression: key, target: 'private'}" class="askbeforemove btn btn-success btn-xs" title="Datei nach privat verschieben (nur ich habe Zugriff)">
-                                                    <i class="fa fa-shield fa-2x"></i>
-                                                </f:link.action>
-                                            </f:case>
-                                        </f:switch>
-                                    </f:if>
+            <f:for each="{files}" as="file">
+                <tr>
+                    <td>{file.title}</td>
+                    <td>{file.description}</td>
+                    <td>{file.creator}</td>
+                    <td><f:format.date format="d.m.Y H:i">{file.createDate}</f:format.date></td>
+                    <td>
+                        <table class="table table-bordered mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Bez.</th>
+                                    <th>Zugriff</th>
+                                    <th>Erstellt</th>
+                                    <th>Lokal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <f:for each="{file.files}" as="compression" key="key">
+                                    <tr>
+                                        <th>{key}</th>
+                                        <td>{compression.accessLevel}</td>
+                                        <td>
+                                            <f:format.date format="d.m.Y H:i">{compression.uploadDate}</f:format.date>
+                                        </td>
+                                        <td>
+                                            <f:if condition="{file.owner}">
+                                                <f:switch expression="{compression.accessLevel}">
+                                                    <f:case value="private">
+                                                        <f:link.action action="moveFile" arguments="{file : file, compression: key, target: 'public'}" class="askbeforemove btn btn-warning btn-xs" title="Datei veröffentlichen (jeder hat Zugriff)">
+                                                            <i class="fa fa-globe fa-2x"></i>
+                                                        </f:link.action>
+                                                        <f:link.action action="moveFile" arguments="{file : file, compression: key, target: 'visit'}" class="askbeforemove btn btn-success btn-xs" title="Datei mit ViSIT Partner teilen (ViSIT Partner haben Zugriff)">
+                                                            <i class="fa fa-users fa-2x"></i>
+                                                        </f:link.action>
+                                                    </f:case>
+                                                    <f:case value="visit">
+                                                        <f:link.action action="moveFile" arguments="{file : file, compression: key, target: 'public'}" class="askbeforemove btn btn-warning btn-xs" title="Datei veröffentlichen (jeder hat Zugriff)">
+                                                            <i class="fa fa-globe fa-2x"></i>
+                                                        </f:link.action>
+                                                        <f:link.action action="moveFile" arguments="{file : file, compression: key, target: 'private'}" class="askbeforemove btn btn-success btn-xs" title="Datei nach privat verschieben (nur ich habe Zugriff)">
+                                                            <i class="fa fa-shield fa-2x"></i>
+                                                        </f:link.action>
+                                                    </f:case>
+                                                    <f:case value="public">
+                                                        <f:link.action action="moveFile" arguments="{file : file, compression: key, target: 'visit'}" class="askbeforemove btn btn-success btn-xs" title="Datei mit ViSIT Partner teilen (ViSIT Partner haben Zugriff)">
+                                                            <i class="fa fa-users fa-2x"></i>
+                                                        </f:link.action>
+                                                        <f:link.action action="moveFile" arguments="{file : file, compression: key, target: 'private'}" class="askbeforemove btn btn-success btn-xs" title="Datei nach privat verschieben (nur ich habe Zugriff)">
+                                                            <i class="fa fa-shield fa-2x"></i>
+                                                        </f:link.action>
+                                                    </f:case>
+                                                </f:switch>
+                                            </f:if>
 
-                                    <f:link.action action="addFileToLocal" arguments="{file : file, compression: key}" class="btn btn-primary btn-xs" title="In für Verwendung in App herunterladen">
-                                        <i class="fa fa-download fa-2x"></i>
-                                    </f:link.action>
-                                </td>
-                            </tr>
-                        </f:for>
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-        </f:for>
+                                            <f:link.action action="addFileToLocal" arguments="{file : file, compression: key}" class="btn btn-primary btn-xs" title="In für Verwendung in App herunterladen">
+                                                <i class="fa fa-download fa-2x"></i>
+                                            </f:link.action>
+                                        </td>
+                                    </tr>
+                                </f:for>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </f:for>
         </tbody>
     </table>
 </f:section>
