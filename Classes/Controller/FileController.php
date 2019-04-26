@@ -61,7 +61,7 @@ class FileController extends AbstractVisitController  {
      */
     public function createAction(){
 
-        $this->debug("start");
+//        $this->debug("start");
 
         $configurationHelper = Util::makeInstance("Visit\VisitTablets\Helper\ConfigurationHelper");
 
@@ -83,7 +83,7 @@ class FileController extends AbstractVisitController  {
 
         $data["uploader"] = $this->request->getArgument("uploader"); //optional
 
-        $data["MIMEtype"] = "";
+
 
 
 
@@ -119,20 +119,19 @@ class FileController extends AbstractVisitController  {
         }
 
 
-        $fileNameTemplate = $data["objectTripleID"] . "." . $data["mediaTripleID"] . ".0.";
+        $fileNameTemplate = $data["objectTripleID"] . "." . $data["mediaTripleID"] . ".origin.";
 
         $data["files"] = array();
-        $data["files"]["0"] = array();
-        $data["files"]["0"]["uploadDate"] = \time();
-        $data["files"]["0"]["accessLevel"] = AccessLevel::AL_PRIVATE;
-        $data["files"]["0"]["license"] = "";
-        $data["files"]["0"]["fileSize"] = 0;
-        $data["files"]["0"]["paths"] = array();
-        $data["files"]["0"]["fileTypeSpecificMeta"] = false;
+        $data["files"]["origin"] = array();
+        $data["files"]["origin"]["uploadDate"] = \time();
+        $data["files"]["origin"]["accessLevel"] = AccessLevel::AL_PRIVATE;
+        $data["files"]["origin"]["license"] = "";
+        $data["files"]["origin"]["fileSize"] = 0;
+        $data["files"]["origin"]["paths"] = array();
+        $data["files"]["origin"]["fileTypeSpecificMeta"] = false;
 
         switch ($this->request->getArgument("uploadMode")){
             case "obj":
-
                 foreach (["obj" => true, "mtl" => false, "txt" => false] as $fileInfo => $needed){
                     $currentFile = $this->request->getArgument($fileInfo);
                     if($needed && $currentFile["size"] == 0){
@@ -144,12 +143,12 @@ class FileController extends AbstractVisitController  {
                     }
 
                     //sum file size
-                    $data["files"]["0"]["fileSize"] += $currentFile["size"];
+                    $data["files"]["origin"]["fileSize"] += $currentFile["size"];
 
                     //move files to private folder
                     $targetFileName = $fileNameTemplate . $fileInfo;
                     \move_uploaded_file($currentFile["tmp_name"], Constants::$SYNCTHING_PRIVATE_FOLDER_PATH . '/' . $targetFileName);
-                    \array_push($data["files"]["0"]["paths"], $targetFileName);
+                    \array_push($data["files"]["origin"]["paths"], $targetFileName);
                 }
 
                 break;
@@ -162,11 +161,11 @@ class FileController extends AbstractVisitController  {
                     return;
                 }
 
-                $data["files"]["0"]["fileSize"] = $currentFile["size"];
+                $data["files"]["origin"]["fileSize"] = $currentFile["size"];
 
                 $targetFileName = $fileNameTemplate .  pathinfo($currentFile["name"])["extension"];
                 \move_uploaded_file($currentFile["tmp_name"], Constants::$SYNCTHING_PRIVATE_FOLDER_PATH . '/' . $targetFileName);
-                \array_push($data["files"]["0"]["paths"], $targetFileName);
+                \array_push($data["files"]["origin"]["paths"], $targetFileName);
 
                 break;
 
@@ -177,6 +176,7 @@ class FileController extends AbstractVisitController  {
 
         }
 
+        $data["MIMEtype"] = \mime_content_type(Util::getPathFromAccessLevel(AccessLevel::AL_PRIVATE) . "/" . $data["files"]["origin"]["paths"][0]);
 
         //add techmeta to rdf
         RestApiHelper::accessAPI("digrep/media", $data["mediaTripleURL"], $data, "PUT");
@@ -190,7 +190,7 @@ class FileController extends AbstractVisitController  {
         //add name to cache
         CachingHelper::setCacheByName($data["mediaTripleID"], $data, [Constants::$FILE_NAME_CACHE_TAG]);
 
-        $this->addFlashMessage("Datei {$data["files"]["0"]["paths"][0]} erfolgreich hinzugefügt", '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+        $this->addFlashMessage("Datei {$data["files"]["origin"]["paths"][0]} erfolgreich hinzugefügt", '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
         $this->redirect('upload');
 
     }
@@ -272,6 +272,8 @@ class FileController extends AbstractVisitController  {
 
         $metaDataRepository = Util::getInstance('TYPO3\CMS\Core\Resource\Index\MetaDataRepository');
 
+
+
         foreach ($file["files"][$compression]["paths"] as $currentPath){
             $newFile = $storage->addFile($sourcePath . "/" . $currentPath, $rootFolder->getSubFolder($targetFolder), null, \TYPO3\CMS\Core\Resource\DuplicationBehavior::REPLACE, false);
             $metaDataRepository->update($newFile->getUid(), [
@@ -305,7 +307,7 @@ class FileController extends AbstractVisitController  {
         //target
         $targetPath = Util::getPathFromAccessLevel($target, $file["creatorID"]);
 
-        Util::debug([$targetPath, $sourcePath]);
+//        Util::debug([$targetPath, $sourcePath]);
 
         if($targetPath === $sourcePath){
             $this->addFlashMessage('Nichts zu tun', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
@@ -382,22 +384,23 @@ class FileController extends AbstractVisitController  {
     }
 
 
-    /**
-     * action delete
-     *
-     * @param array $file
-     *
-     * @return void
-     * @throws \Exception
-     */
-    public function deleteAction($file){
-
-
-
-
-        $this->addFlashMessage('Eintrag vom ViSIT Netz gelöscht.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
-        $this->redirect('list');
-    }
+//    /**
+//     * action delete
+//     *
+//     * @param array $file
+//     *
+//     * @return void
+//     * @throws \Exception
+//     */
+//    private function deleteAction($file){
+//
+//        //remove from db
+//        RestApiHelper::accessAPI("digrep/media", $file["mediaTripleURL"], null, "DELETE");
+//
+//
+//        $this->addFlashMessage('Eintrag vom ViSIT Netz gelöscht.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+//        $this->redirect('list');
+//    }
 
 
     /**
@@ -412,34 +415,28 @@ class FileController extends AbstractVisitController  {
     public function deleteCompressionAction($file, $compression){
 
 
+        $oldData = RestApiHelper::accessAPI("digrep/media", $file["mediaTripleURL"], null, $file["mediaTripleURL"]);
+
         //remove files from disk
-        $sourcePath = Util::getPathFromAccessLevel($file["files"][$compression]["accessLevel"]);
-        foreach ($file["files"][$compression]["paths"] as $currentPath){
+        $sourcePath = Util::getPathFromAccessLevel($oldData["files"][$compression]["accessLevel"]);
+        foreach ($oldData["files"][$compression]["paths"] as $currentPath){
             \unlink($sourcePath . "/" . $currentPath);
         }
 
-        //remove from db
-        RestApiHelper::accessAPI("digrep/media", $file["mediaTripleURL"], null, "DELETE");
+        unset($oldData["files"][$compression]);
+
+        if(\count($oldData["files"]) == 0){
+            RestApiHelper::accessAPI("digrep/media", $oldData["mediaTripleURL"], null, "DELETE");
+        }else{
+            RestApiHelper::accessAPI("digrep/media", $oldData["mediaTripleURL"], $oldData, "PUT");
+        }
+
+        //update cache
+        CachingHelper::setCacheByName($oldData["mediaTripleID"], $oldData, [Constants::$FILE_NAME_CACHE_TAG]);
 
         $this->addFlashMessage('Kompression vom ViSIT Netz gelöscht.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
         $this->redirect('list');
     }
-
-
-    /**
-     * action moveFileToPrivate
-     *
-     * @param array $file
-     * @param string $compression
-     *
-     * @return void
-     */
-    public function moveFileToPrivateAction($file, $compression){
-        $this->addFlashMessage('Datei nach Privat verschoben.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
-        $this->redirect('list');
-    }
-
-
 
 
     /**

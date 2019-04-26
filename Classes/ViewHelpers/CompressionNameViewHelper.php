@@ -8,6 +8,7 @@ use Visit\VisitTablets\Helper\VisitFile;
 
 /**
  * Class CompressionNameViewHelper
+ * not used
  */
 class CompressionNameViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 

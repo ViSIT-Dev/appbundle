@@ -63,12 +63,12 @@ class SyncthingHelper {
 
     public static function checkOwnIdFile() {
         $syncThingID = self::getSyncthingID();
-        $idFileName = Constants::$SYNCTHING_DEFAULT_FOLDER_PATH . "/" . $syncThingID . "/" ;
+        $idFileName = Constants::$SYNCTHING_DEFAULT_FOLDER_PATH . "/" . $syncThingID;
 
         if (!\is_dir($idFileName)) {
             \mkdir($idFileName, 0750, true);
         }
-        $idFileName .= "info.json" ;
+        $idFileName .= "/info.json" ;
 
         if(!\file_exists($idFileName)){
             \file_put_contents($idFileName, \json_encode([
