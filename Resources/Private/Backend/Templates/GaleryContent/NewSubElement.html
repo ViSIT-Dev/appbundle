@@ -1,0 +1,44 @@
+<f:layout name="Default" />
+
+<f:section name="title">
+    <h2>Neues Sub-Inhaltselement</h2>
+</f:section>
+
+<f:section name="sideBar">
+    <f:render partial="SideBarGalery" arguments="{active: 'co-newSubContent'}"/>
+</f:section>
+
+<f:section name="main">
+
+    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+        <f:render partial="FormErrors" arguments="{object:Inmate}" />
+
+        <f:form class="form-horizontal form-label-left" action="createSubElement" name="newContentSubElement">
+
+            <f:form.hidden property="galeryContentElement" name="galeryContentElement" id="galeryContentElement" value="{contentElement.uid}" />
+            <f:render partial="GalerySubContentFormFields" arguments="{_all}" />
+            
+            <div class="ln_solid"></div>
+            <div class="form-group">
+                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                    <button type="submit" class="btn btn-success">Anlegen</button>
+                </div>
+            </div>
+
+        </f:form>
+    </div>
+
+    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+
+        <iframe class="warenkorb side" src="{settings.visitPublicDbUrl}">
+            Ihr Browser mag keine iFrames :( 
+        </iframe>
+
+    </div>
+
+</f:section>
+
+<f:section name="footer">
+    <f:render partial="Dropzone" />
+    <f:render partial="RTEjs" />
+</f:section>
