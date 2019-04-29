@@ -27,9 +27,4 @@ class GaleryContentSubElementRepository extends AbstractVisitRepository {
         return $query->execute(true);
     }
 
-    public function findByContentElementUid(){
-        $query = $this->createQuery();
-        return $query->execute(true);
-    }
-
 }

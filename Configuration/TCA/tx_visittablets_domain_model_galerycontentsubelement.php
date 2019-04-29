@@ -107,14 +107,14 @@ return [
             'exclude' => false,
             'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_scopepoi.fullscreenvideo',
             'config' => [
-                        'type' => 'check',
-                        'items' => [
-                            '1' => [
-                                '0' => 'LLL:EXT:lang/locallang_core.xlf:labels.enabled'
-                            ]
-                        ],
-                        'default' => 0
+                'type' => 'check',
+                'items' => [
+                    '1' => [
+                        '0' => 'LLL:EXT:lang/locallang_core.xlf:labels.enabled'
                     ]
+                ],
+                'default' => 0
+            ]
         ],
         'deleted' => [
             'exclude' => false,
@@ -128,6 +128,19 @@ return [
                         ],
                         'default' => 0
                     ]
+        ],
+        'light_theme' => [
+            'exclude' => false,
+            'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_scopepoi.fullscreenvideo',
+            'config' => [
+                'type' => 'check',
+                'items' => [
+                    '1' => [
+                        '0' => 'LLL:EXT:lang/locallang_core.xlf:labels.enabled'
+                    ]
+                ],
+                'default' => 0
+            ]
         ],
         'galery_content_element' => [
             'exclude' => false,

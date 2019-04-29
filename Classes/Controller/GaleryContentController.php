@@ -116,7 +116,7 @@ class GaleryContentController extends AbstractVisitController  implements IRende
     {
         $this->view
             ->assign('contentElement', $contentElement)
-            ->assign('contentSubElements', $this->galeryContentSubElementRepository->findByContentElementUid($contentElement->getUid()));
+            ->assign('contentSubElements', $this->galeryContentSubElementRepository->findByGaleryContentElement($contentElement));
     }
     
     
@@ -176,6 +176,31 @@ class GaleryContentController extends AbstractVisitController  implements IRende
     {
         $this->view
             ->assign('subElement', $contentSubElement);
+    }
+
+    /**
+     * action updateSubElement
+     *
+     * @param GaleryContentSubElement $contentSubElement
+     * @return void
+     */
+    public function updateSubElementAction(GaleryContentSubElement $contentSubElement)
+    {
+        $this->galeryContentSubElementRepository->update($contentSubElement);
+        $this->redirect("edit", null, null, array("contentElement" => $contentSubElement->getGaleryContentElement()));
+    }
+
+    /**
+     * action updateSubElement
+     *
+     * @param GaleryContentSubElement $contentSubElement
+     * @return void
+     */
+    public function deleteSubElementAction(GaleryContentSubElement $contentSubElement)
+    {
+        $redirectObject =  $contentSubElement->getGaleryContentElement();
+        $this->galeryContentSubElementRepository->remove($contentSubElement);
+        $this->redirect("edit", null, null, array("contentElement" => $redirectObject));
     }
 
     /**
