@@ -161,6 +161,7 @@ class GaleryContentController extends AbstractVisitController  implements IRende
      */
     public function createSubElementAction(GaleryContentSubElement $newContentSubElement)
     {
+        $this->addImageFromTempToModel($newContentSubElement, $this->request);
         $this->galeryContentSubElementRepository->add($newContentSubElement);
         $this->redirect("edit", null, null, array("contentElement" => $newContentSubElement->getGaleryContentElement()));
     }
@@ -186,6 +187,7 @@ class GaleryContentController extends AbstractVisitController  implements IRende
      */
     public function updateSubElementAction(GaleryContentSubElement $contentSubElement)
     {
+        $this->addImageFromTempToModel($contentSubElement, $this->request);
         $this->galeryContentSubElementRepository->update($contentSubElement);
         $this->redirect("edit", null, null, array("contentElement" => $contentSubElement->getGaleryContentElement()));
     }
