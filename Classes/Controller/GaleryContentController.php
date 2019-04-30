@@ -269,7 +269,7 @@ class GaleryContentController extends AbstractVisitController  implements IRende
         $this->redirect('settings');
 
     }
-    
+
     /**
      * action deleteImage
      *
@@ -282,6 +282,20 @@ class GaleryContentController extends AbstractVisitController  implements IRende
         $this->removeImageFromModel($contentElement, $media);
         $this->galeryContentElementRepository->update($contentElement);
         $this->redirect("edit", null, null, array("contentElement" => $contentElement));
+    }
+
+    /**
+     * action deleteImageFromSubContent
+     *
+     * @param \Visit\VisitTablets\Domain\Model\GaleryContentSubElement $contentElement,  \TYPO3\CMS\Extbase\Domain\Model\FileReference $media
+     * @return void
+     */
+    public function deleteImageFromSubContentAction(GaleryContentSubElement $contentElement, \TYPO3\CMS\Extbase\Domain\Model\FileReference $media)
+    {
+        $this->addFlashMessage('Media wurde entfernt', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+        $this->removeImageFromModel($contentElement, $media);
+        $this->galeryContentSubElementRepository->update($contentElement);
+        $this->redirect("editSubElement", null, null, array("contentSubElement" => $contentElement));
     }
 
 

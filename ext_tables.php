@@ -92,7 +92,7 @@ call_user_func(
             [
                 'GaleryTeaser' => 'list, new, create, edit, update, delete, settings, updateSettings, deleteImage',
                 'GaleryContent' => 'list, new, create, edit, update, delete, deleteImage,'
-                    . 'newSubElement, editSubElement, deleteSubElement, createSubElement, updateSubElement',
+                    . 'newSubElement, editSubElement, deleteSubElement, createSubElement, updateSubElement, deleteImageFromSubContent',
             ], 
             [
                 'access' => 'user,group',

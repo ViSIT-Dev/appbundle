@@ -1,6 +1,5 @@
 
 <div class="ln_solid"></div>
-
 <div class="mt-3" role="tabpanel" data-example-id="togglable-tabs" style="margin-top: 40px">
     <f:form.hidden name="mediaSelectStyle" value="standard" id="mediaSelectStyle" />
     <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
@@ -41,7 +40,7 @@
                 <f:for each="{contentElement.media}" as="currentMedia">
                     <div class="figure-action-wrapper">
                         <div class="action-wrapper">
-                            <f:link.action action="deleteImage" arguments="{contentElement : contentElement, media: currentMedia}" class="askbeforedelete  btn btn-danger btn-xs">
+                            <f:link.action action="{f:if(condition:'{deleteAction}', then:'{deleteAction}', else: 'deleteImage')}" arguments="{contentElement : contentElement, media: currentMedia}" class="askbeforedelete  btn btn-danger btn-xs">
                                 <i class="fa fa-trash-o fa-2x" aria-hidden="true"></i>
                             </f:link.action>
                         </div>
