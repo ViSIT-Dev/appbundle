@@ -12,6 +12,7 @@ namespace Visit\VisitTablets\Controller;
  *
  ***/
 
+use Visit\VisitTablets\Domain\Model\GaleryContentSubElement;
 use Visit\VisitTablets\Helper\Util;
 use \TYPO3\CMS\Core\Messaging\AbstractMessage;
 use Visit\VisitTablets\Domain\Model\GaleryContentElement;
@@ -22,13 +23,21 @@ class GaleryContentController extends AbstractVisitController  implements IRende
 
 
     /**
-     * inmateRepository
+     * galeryContentElementRepository
      *
      * @var \Visit\VisitTablets\Domain\Repository\GaleryContentElementRepository
      * @inject
      */
     protected $galeryContentElementRepository = null;
-    
+
+    /**
+     * galeryContentElementSubRepository
+     *
+     * @var \Visit\VisitTablets\Domain\Repository\GaleryContentSubElementRepository
+     * @inject
+     */
+    protected $galeryContentSubElementRepository = null;
+
     /**
      * Displays a page tree
      *
@@ -69,8 +78,8 @@ class GaleryContentController extends AbstractVisitController  implements IRende
                 'tree', $tree->tree
         );
     }
-    
-    
+
+
     /**
      * action renderFrontend
      * @allowAllUsers
@@ -106,7 +115,8 @@ class GaleryContentController extends AbstractVisitController  implements IRende
     public function editAction(GaleryContentElement $contentElement)
     {
         $this->view
-            ->assign('contentElement', $contentElement);
+            ->assign('contentElement', $contentElement)
+            ->assign('contentSubElements', $this->galeryContentSubElementRepository->findByGaleryContentElement($contentElement));
     }
     
     
@@ -123,17 +133,78 @@ class GaleryContentController extends AbstractVisitController  implements IRende
         $this->galeryContentElementRepository->update($contentElement);
         $this->redirect('edit', null, null, ["contentElement" => $contentElement]);
     }
-    
+
     /**
      * action new
      *
      * @return void
      */
-    public function newAction()
-    {
+    public function newAction() {
 
     }
-    
+
+    /**
+     * action newSubElement
+     *
+     * @param \Visit\VisitTablets\Domain\Model\GaleryContentElement $contentElement
+     * @return void
+     */
+    public function newSubElementAction(GaleryContentElement $contentElement) {
+        $this->view->assign("contentElement", $contentElement);
+    }
+
+    /**
+     * action new
+     *
+     * @param GaleryContentSubElement $newContentSubElement
+     * @return void
+     */
+    public function createSubElementAction(GaleryContentSubElement $newContentSubElement)
+    {
+        $this->addImageFromTempToModel($newContentSubElement, $this->request);
+        $this->galeryContentSubElementRepository->add($newContentSubElement);
+        $this->redirect("edit", null, null, array("contentElement" => $newContentSubElement->getGaleryContentElement()));
+    }
+
+
+    /**
+     * action edit
+     *
+     * @param GaleryContentSubElement $contentSubElement
+     * @return void
+     */
+    public function editSubElementAction(GaleryContentSubElement $contentSubElement)
+    {
+        $this->view
+            ->assign('subElement', $contentSubElement);
+    }
+
+    /**
+     * action updateSubElement
+     *
+     * @param GaleryContentSubElement $contentSubElement
+     * @return void
+     */
+    public function updateSubElementAction(GaleryContentSubElement $contentSubElement)
+    {
+        $this->addImageFromTempToModel($contentSubElement, $this->request);
+        $this->galeryContentSubElementRepository->update($contentSubElement);
+        $this->redirect("edit", null, null, array("contentElement" => $contentSubElement->getGaleryContentElement()));
+    }
+
+    /**
+     * action updateSubElement
+     *
+     * @param GaleryContentSubElement $contentSubElement
+     * @return void
+     */
+    public function deleteSubElementAction(GaleryContentSubElement $contentSubElement)
+    {
+        $redirectObject =  $contentSubElement->getGaleryContentElement();
+        $this->galeryContentSubElementRepository->remove($contentSubElement);
+        $this->redirect("edit", null, null, array("contentElement" => $redirectObject));
+    }
+
     /**
      * action new
      *
@@ -146,9 +217,21 @@ class GaleryContentController extends AbstractVisitController  implements IRende
         $this->galeryContentElementRepository->add($newContentElement);
         $this->redirect('list');
     }
-    
 
-    
+    /**
+     * action delete
+     *
+     * @param GaleryContentElement $contentElement
+     * @return void
+     */
+    public function deleteAction(GaleryContentElement $contentElement)
+    {
+        $this->galeryContentElementRepository->remove($contentElement);
+        $this->redirect('list');
+    }
+
+
+
     /**
      * action settings
      *
@@ -186,7 +269,7 @@ class GaleryContentController extends AbstractVisitController  implements IRende
         $this->redirect('settings');
 
     }
-    
+
     /**
      * action deleteImage
      *
@@ -199,6 +282,20 @@ class GaleryContentController extends AbstractVisitController  implements IRende
         $this->removeImageFromModel($contentElement, $media);
         $this->galeryContentElementRepository->update($contentElement);
         $this->redirect("edit", null, null, array("contentElement" => $contentElement));
+    }
+
+    /**
+     * action deleteImageFromSubContent
+     *
+     * @param \Visit\VisitTablets\Domain\Model\GaleryContentSubElement $contentElement,  \TYPO3\CMS\Extbase\Domain\Model\FileReference $media
+     * @return void
+     */
+    public function deleteImageFromSubContentAction(GaleryContentSubElement $contentElement, \TYPO3\CMS\Extbase\Domain\Model\FileReference $media)
+    {
+        $this->addFlashMessage('Media wurde entfernt', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+        $this->removeImageFromModel($contentElement, $media);
+        $this->galeryContentSubElementRepository->update($contentElement);
+        $this->redirect("editSubElement", null, null, array("contentSubElement" => $contentElement));
     }
 
 

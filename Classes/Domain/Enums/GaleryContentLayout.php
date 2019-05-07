@@ -33,9 +33,12 @@ class GaleryContentLayout extends \TYPO3\CMS\Core\Type\Enumeration
 
    /** @var int Use wildcard on both sides */
    const TEXT_RIGHT_TWO_MEDIA = 3;
-   
-   /** @var int Use wildcard on both sides */
-   const FULLSCREEN_MEDIA = 4;
+
+    /** @var int Use wildcard on both sides */
+    const FULLSCREEN_MEDIA = 4;
+
+    /** @var int Use wildcard on both sides */
+    const CONTENT_ELEMENT_LIST = 5;
 
     public static function getValues() {
         return [
@@ -43,7 +46,8 @@ class GaleryContentLayout extends \TYPO3\CMS\Core\Type\Enumeration
             self::TEXT_RIGHT_ONE_MEDIA =>   "Ein Medienobjekt, Text rechts",
             self::TEXT_LEFT_TWO_MEDIA =>    "Zwei Medienobjekte, Text links",
             self::TEXT_RIGHT_TWO_MEDIA =>   "Zwei Medienobjekte, Text rechts",
-            self::FULLSCREEN_MEDIA =>       "Vollbild-Medienobjekt"
+            self::FULLSCREEN_MEDIA =>       "Vollbild-Medienobjekt",
+            self::CONTENT_ELEMENT_LIST =>   "Liste von Inhaltselementen"
         ];
     }
 

@@ -91,7 +91,8 @@ call_user_func(
             '', // Position
             [
                 'GaleryTeaser' => 'list, new, create, edit, update, delete, settings, updateSettings, deleteImage',
-                'GaleryContent' => 'list, new, create, edit, update, delete, deleteImage',
+                'GaleryContent' => 'list, new, create, edit, update, delete, deleteImage,'
+                    . 'newSubElement, editSubElement, deleteSubElement, createSubElement, updateSubElement, deleteImageFromSubContent',
             ], 
             [
                 'access' => 'user,group',

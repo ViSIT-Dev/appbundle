@@ -1,0 +1,36 @@
+<div class="galery-content-layout swiper-slide layout-id-5" data-uid="{element.uid}">
+    <div class="row intro">
+        <div class="col-6 no-gutters">
+            <f:render partial="SingleMedia" arguments="{element.media}" />
+        </div>
+        <div class="col-6 no-gutters">
+            {element.title}
+        </div>
+    </div>
+    <visit:galerySubContent galeryContentElement="{element}">
+        <f:for each="{galerySubContentElements}" as="subElement">
+            <f:if condition="{subElement.lightTheme}">
+                <f:then>
+                    <div class="row light">
+                        <div class="col-4"><f:render partial="SingleMedia" arguments="{subElement.media}" /></div>
+                        <div class="col-8">
+                            <h2>&rsaquo;&rsaquo;{subElement.title}&lsaquo;&lsaquo;</h2>
+                            {subElement.text}
+                            <p>Read More</p>
+                        </div>
+                    </div>
+                </f:then>
+                <f:else>
+                    <div class="row dark">
+                        <div class="col-4"><h2>{subElement.title}</h2><f:render partial="SingleMedia" arguments="{subElement.media}" /></div>
+                        <div class="col-8">
+                            {subElement.text}
+                            <p>Read More</p>
+                        </div>
+                    </div>
+                </f:else>
+            </f:if>
+        </f:for>
+    </visit:galerySubContent>
+
+</div>

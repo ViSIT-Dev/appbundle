@@ -1,4 +1,11 @@
 
+<f:if condition="{contentElement.layout} == 5">
+    <div class="ln_solid"></div>
+    <h2>Sub - Inhaltselemente</h2>
+    <f:render partial="GalleryContentSubElementList" arguments="{_all}" />
+</f:if>
+
+
 <div class="ln_solid"></div>
 <div class="form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="teaserText">Teaser Text</label>

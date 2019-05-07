@@ -1,0 +1,33 @@
+
+
+<div class="form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">Titel</label>
+    <div class="col-md-9 col-sm-9 col-xs-12">
+        <f:form.textfield id="title" property="title" class="form-control col-md-7 col-xs-12"/>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="text">Text</label>
+    <div class="col-md-9 col-sm-9 col-xs-12">
+        <f:form.textarea id="text" property="text" class="col-md-7 col-sm-7 col-xs-12 rte" />
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lightTheme">Light Theme</label>
+    <div class="col-md-9 col-sm-9 col-xs-12">
+        <f:form.checkbox  id="lightTheme" property="lightTheme" value="Light Theme" class="form-control" />
+    </div>
+</div>
+
+<div class="ln_solid"></div>
+
+<div class="form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="sorting">Sortierung</label>
+
+    <div class="col-md-9 col-sm-9 col-xs-12">
+        <f:form.textfield id="sorting" property="sorting" type="number" class="form-control col-md-7 col-xs-12"/>
+    </div>
+</div>
+<f:render partial="MediaFormField" arguments="{contentElement : subElement, deleteAction: 'deleteImageFromSubContent'}" />
