@@ -27,6 +27,22 @@ use Visit\VisitTablets\SchedulerTasks\UpdateNameCacheTask;
  */
 class FileController extends AbstractVisitController  {
 
+    protected function initializeAction(){
+        parent::initializeAction();
+
+
+        if(empty(Util::makeInstance("Visit\VisitTablets\Helper\ConfigurationHelper")->getSyncthingMasterId())){
+            $this->addFlashMessage('Syncthing Master ID nicht angegeben - abbruch', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+            die('Syncthing Master ID nicht angegeben - abbruch');
+        }
+        if(! SyncthingHelper::isAttachedToMaster()){
+            SyncthingHelper::attachedToMaster();
+            die('Sie waren noch nicht mit dem Netzwerk verbunden. Diese Verbindung wurde soeben hergestellt. Es kann eine zeit dauern, bis die Daten synchronisiert sind.');
+        }
+
+    }
+
+
     /**
      * action list
      * @return void
@@ -202,15 +218,6 @@ class FileController extends AbstractVisitController  {
      */
     public function partnerAction(){
 
-        if(empty(Util::makeInstance("Visit\VisitTablets\Helper\ConfigurationHelper")->getSyncthingMasterId())){
-            $this->addFlashMessage('Syncthing Master ID nicht angegeben - abbruch', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
-            return;
-        }
-        if(! SyncthingHelper::isAttachedToMaster()){
-            SyncthingHelper::attachedToMaster();
-            $this->addFlashMessage('Sie waren noch nicht mit dem Netzwerk verbunden. Diese Verbindung wurde soeben hergestellt. Es kann eine zeit dauern, bis die Daten synchronisiert sind.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
-            return;
-        }
 
         if(! \file_exists(Constants::$SYNCTHING_DEFAULT_FOLDER_PATH."/ping")){
             //sync not ready yet
@@ -423,16 +430,15 @@ class FileController extends AbstractVisitController  {
             \unlink($sourcePath . "/" . $currentPath);
         }
 
-        unset($oldData["files"][$compression]);
 
-        if(\count($oldData["files"]) == 0){
+        if(\count($oldData["files"]) <= 1){
             RestApiHelper::accessAPI("digrep/media", $oldData["mediaTripleURL"], null, "DELETE");
         }else{
+            unset($oldData["files"][$compression]);
             RestApiHelper::accessAPI("digrep/media", $oldData["mediaTripleURL"], $oldData, "PUT");
+            //update cache
+            CachingHelper::setCacheByName($oldData["mediaTripleID"], $oldData, [Constants::$FILE_NAME_CACHE_TAG]);
         }
-
-        //update cache
-        CachingHelper::setCacheByName($oldData["mediaTripleID"], $oldData, [Constants::$FILE_NAME_CACHE_TAG]);
 
         $this->addFlashMessage('Kompression vom ViSIT Netz gelöscht.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
         $this->redirect('list');
