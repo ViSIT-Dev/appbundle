@@ -37,7 +37,7 @@ class FileController extends AbstractVisitController  {
         }
         if(! SyncthingHelper::isAttachedToMaster()){
             SyncthingHelper::attachedToMaster();
-            die('Sie waren noch nicht mit dem Netzwerk verbunden. Diese Verbindung wurde soeben hergestellt. Es kann eine zeit dauern, bis die Daten synchronisiert sind.');
+//            die('Sie waren noch nicht mit dem Netzwerk verbunden. Diese Verbindung wurde soeben hergestellt. Es kann eine zeit dauern, bis die Daten synchronisiert sind.');
         }
 
     }
@@ -49,6 +49,10 @@ class FileController extends AbstractVisitController  {
      */
     public function listAction(){
 
+        if(! SyncthingHelper::isAttachedToMaster()){
+            $this->addFlashMessage('Sie waren noch nicht mit dem Netzwerk verbunden. Diese Verbindung wurde soeben hergestellt. Es kann eine zeit dauern, bis die Daten synchronisiert sind.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+        }
+
         $allFiles = UpdateNameCacheTask::getAllVisitFiles();
 //        $this->debug($allFiles);
         $this->view->assign("files", $allFiles);
@@ -59,6 +63,10 @@ class FileController extends AbstractVisitController  {
      * @return void
      */
     public function uploadAction(){
+        if(! SyncthingHelper::isAttachedToMaster()){
+            $this->addFlashMessage('Sie waren noch nicht mit dem Netzwerk verbunden. Diese Verbindung wurde soeben hergestellt. Es kann eine zeit dauern, bis die Daten synchronisiert sind.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+        }
+
         $this->view
             ->assign("creatorID", SyncthingHelper::getSyncthingID())
             ->assign("creatorName",  Util::makeInstance("Visit\VisitTablets\Helper\ConfigurationHelper")->getViSITPartnerName());
@@ -218,10 +226,13 @@ class FileController extends AbstractVisitController  {
      */
     public function partnerAction(){
 
+        if(! SyncthingHelper::isAttachedToMaster()){
+            $this->addFlashMessage('Sie waren noch nicht mit dem Netzwerk verbunden. Diese Verbindung wurde soeben hergestellt. Es kann eine zeit dauern, bis die Daten synchronisiert sind.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+        }
 
         if(! \file_exists(Constants::$SYNCTHING_DEFAULT_FOLDER_PATH."/ping")){
             //sync not ready yet
-            $this->addFlashMessage('Daten nicht nicht geladen, bitte versuchen Sie es später noch einmal', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+            $this->addFlashMessage('Daten nicht geladen, bitte versuchen Sie es später noch einmal', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
             return;
         }
 
