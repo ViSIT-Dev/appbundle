@@ -65,9 +65,14 @@ class Select3dObjectViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abstract
             }
         }
 
-        $this->templateVariableContainer->add($varName, $out);
-        $renderedChild = $this->renderChildren();
-        $this->templateVariableContainer->remove($varName);
+        if(empty($out)){
+            $renderedChild = "Es sind keine 3D Objekte auf dem System vorhanden. Bitte legen Sie diese in der Dateiverwaltung an";
+        }else{
+            $this->templateVariableContainer->add($varName, $out);
+            $renderedChild = $this->renderChildren();
+            $this->templateVariableContainer->remove($varName);
+        }
+
         return $renderedChild;
     }
 
