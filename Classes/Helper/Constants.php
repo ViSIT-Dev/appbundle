@@ -53,4 +53,6 @@ class Constants {
 
     public static $FILE_NAME_CACHE_TAG = "file-name";
 
+    public static $FILE_DEFAULT_FOLDER = "/user_upload/";
+
 }

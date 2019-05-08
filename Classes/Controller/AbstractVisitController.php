@@ -140,7 +140,7 @@ abstract class AbstractVisitController extends \TYPO3\CMS\Extbase\Mvc\Controller
     private function processStandardUpload(AbstractEntityWithMedia $entityWithMedia, $inputName = "fileTempPath"){
 
         $resourceFactory = \TYPO3\CMS\Core\Resource\ResourceFactory::getInstance();
-        $targetFolder = $this->settings["uploadDir"] ;
+        $targetFolder = Constants::$FILE_DEFAULT_FOLDER ;
         $storage = $resourceFactory->getDefaultStorage();
         $rootFolder = $storage->getRootLevelFolder();
         $path = $this->request->getArgument($inputName);

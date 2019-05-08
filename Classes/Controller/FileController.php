@@ -156,13 +156,22 @@ class FileController extends AbstractVisitController  {
 
         switch ($this->request->getArgument("uploadMode")){
             case "obj":
+
+                //check files
                 foreach (["obj" => true, "mtl" => false, "txt" => false] as $fileInfo => $needed){
                     $currentFile = $this->request->getArgument($fileInfo);
                     if($needed && $currentFile["size"] == 0){
                         $this->addFlashMessage('Benötigte Datei wurde nicht angegeben - abbruch', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
                         $this->redirect('upload');
                         return;
-                    }else if($currentFile["size"] == 0){
+                    }
+                }
+
+
+                foreach (["obj" => true, "mtl" => false, "txt" => false] as $fileInfo => $needed){
+                    $currentFile = $this->request->getArgument($fileInfo);
+
+                    if($currentFile["size"] == 0){
                         continue;
                     }
 
@@ -171,7 +180,13 @@ class FileController extends AbstractVisitController  {
 
                     //move files to private folder
                     $targetFileName = $fileNameTemplate . $fileInfo;
-                    \move_uploaded_file($currentFile["tmp_name"], Constants::$SYNCTHING_PRIVATE_FOLDER_PATH . '/' . $targetFileName);
+                    $fullPath = Constants::$SYNCTHING_PRIVATE_FOLDER_PATH . '/' . $targetFileName;
+                    \move_uploaded_file($currentFile["tmp_name"], $fullPath);
+
+                    if($fileInfo == 'mtl') {
+                        $this->changeTextureInFile($fullPath);
+                    }
+
                     \array_push($data["files"]["origin"]["paths"], $targetFileName);
                 }
 
@@ -275,8 +290,21 @@ class FileController extends AbstractVisitController  {
      */
     public function addFileToLocalAction($file, $compression){
 
+
+        $is3D = false;
+        foreach ($file["files"][$compression]["paths"] as $currentPath){
+            if(Util::endsWith($currentPath, ".obj")){
+                $is3D = true;
+                break;
+            }
+        }
+
         $resourceFactory = \TYPO3\CMS\Core\Resource\ResourceFactory::getInstance();
-        $targetFolder = $this->settings["visitFileDir"] ;
+        if($is3D){
+            $targetFolder = Util::makeInstance("Visit\VisitTablets\Helper\ConfigurationHelper")->getVisitLocalFileDir();
+        }else{
+            $targetFolder = Constants::$FILE_DEFAULT_FOLDER;
+        }
 
         $storage = $resourceFactory->getDefaultStorage();
         $rootFolder = $storage->getRootLevelFolder();
@@ -291,9 +319,20 @@ class FileController extends AbstractVisitController  {
         $metaDataRepository = Util::getInstance('TYPO3\CMS\Core\Resource\Index\MetaDataRepository');
 
 
-
         foreach ($file["files"][$compression]["paths"] as $currentPath){
-            $newFile = $storage->addFile($sourcePath . "/" . $currentPath, $rootFolder->getSubFolder($targetFolder), null, \TYPO3\CMS\Core\Resource\DuplicationBehavior::REPLACE, false);
+
+            if($is3D){
+                $newFileName = null;
+                $fileNameStrategy = \TYPO3\CMS\Core\Resource\DuplicationBehavior::REPLACE ;
+            }else{
+                $filename = \strrpos($currentPath, '.');
+                $filename = \substr($currentPath, $filename);
+                $newFileName = $file["title"] . $filename;
+                $fileNameStrategy = \TYPO3\CMS\Core\Resource\DuplicationBehavior::RENAME ;
+            }
+
+            $newFile = $storage->addFile($sourcePath . "/" . $currentPath, $rootFolder->getSubFolder($targetFolder), $newFileName, $fileNameStrategy, false);
+
             $metaDataRepository->update($newFile->getUid(), [
                 "title" => $file["title"],
                 "description" => $file["description"],
@@ -324,8 +363,6 @@ class FileController extends AbstractVisitController  {
 
         //target
         $targetPath = Util::getPathFromAccessLevel($target, $file["creatorID"]);
-
-//        Util::debug([$targetPath, $sourcePath]);
 
         if($targetPath === $sourcePath){
             $this->addFlashMessage('Nichts zu tun', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
@@ -402,25 +439,6 @@ class FileController extends AbstractVisitController  {
     }
 
 
-//    /**
-//     * action delete
-//     *
-//     * @param array $file
-//     *
-//     * @return void
-//     * @throws \Exception
-//     */
-//    private function deleteAction($file){
-//
-//        //remove from db
-//        RestApiHelper::accessAPI("digrep/media", $file["mediaTripleURL"], null, "DELETE");
-//
-//
-//        $this->addFlashMessage('Eintrag vom ViSIT Netz gelöscht.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
-//        $this->redirect('list');
-//    }
-
-
     /**
      * action deleteCompression
      *
@@ -487,5 +505,29 @@ class FileController extends AbstractVisitController  {
     private function getIdFromRdfIdentifier($rdfIdentifier){
         return \substr ($rdfIdentifier, \strrpos($rdfIdentifier , '/') + 1);
     }
+
+    private function changeTextureInFile($mtlFilePath) {
+        $this->debug($mtlFilePath);
+
+        preg_match('/Private\/(.*)\.mtl/', $mtlFilePath, $output_array);
+        $txtFile = $output_array[1] . ".txt";
+
+        $handle = \fopen($mtlFilePath, "r");
+        if ($handle) {
+            $lines = array();
+            while (($line = fgets($handle)) !== false) {
+                if(Util::startsWith($line, 'map_Kd')){
+                    $lines[] = 'map_Kd ' . $txtFile;
+                }else{
+                    $lines[] = $line;
+                }
+            }
+            \fclose($handle);
+            \file_put_contents($mtlFilePath, \implode(PHP_EOL, $lines));
+
+        }
+    }
+
+
 
 }

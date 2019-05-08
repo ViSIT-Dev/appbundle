@@ -17,10 +17,7 @@ plugin.tx_visittablets {
   }
 
   application{
-         # cat=plugin.tx_visittablets/app/0000; type=string; label=Upload Verzeichnis für Dateien
-        uploadDir = /user_upload/
 
-        visitFileDir = /visit/
   }
 
 }

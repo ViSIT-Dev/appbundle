@@ -22,6 +22,9 @@ enableCompression = 1
 # cat=Main; type=int; label=Port des Kompressionscontainers
 compressionApiPort = 8899
 
+# cat=Main; type=string; label=Verzeichnis für lokale ViSIT Dateien
+visitFileDir = /visit/
+
 #############
 ### Debug ###
 #############

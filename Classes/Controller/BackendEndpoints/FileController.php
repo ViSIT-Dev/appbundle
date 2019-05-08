@@ -35,12 +35,12 @@ class FileController extends AbstractBackendController{
         $res = $queryBuilder
             ->select('*')
             ->from('sys_file')
-//            ->where(
-//                $queryBuilder->expr()->like(
-//                    'identifier',
-//                    $queryBuilder->createNamedParameter('/%')
-//                )
-//            )
+            ->where(
+                $queryBuilder->expr()->like(
+                    'identifier',
+                    $queryBuilder->createNamedParameter('/user_upload/%')
+                )
+            )
             ->orderBy('identifier')
             ->execute();
 

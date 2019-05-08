@@ -61,4 +61,8 @@ class ConfigurationHelper implements \TYPO3\CMS\Core\SingletonInterface {
         return $this->configuration["partnerName"];
     }
 
+    public function getVisitLocalFileDir(){
+        return $this->configuration["visitFileDir"];
+    }
+
 }
