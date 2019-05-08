@@ -76,7 +76,8 @@ abstract class AbstractVisitController extends \TYPO3\CMS\Extbase\Mvc\Controller
         $reflector = new \ReflectionClass($this->request->getControllerObjectName());
         $methodAnnotation = $reflector->getMethod($this->request->getControllerActionName()."Action")->getDocComment();
 
-        if(isset($GLOBALS["BE_USER"]) && $GLOBALS["BE_USER"]->isAdmin()){
+
+        if(isset($GLOBALS["BE_USER"]) /* && $GLOBALS["BE_USER"]->isAdmin() */){
             return;
         }
 
