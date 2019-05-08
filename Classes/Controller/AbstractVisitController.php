@@ -77,7 +77,7 @@ abstract class AbstractVisitController extends \TYPO3\CMS\Extbase\Mvc\Controller
         $methodAnnotation = $reflector->getMethod($this->request->getControllerActionName()."Action")->getDocComment();
 
         //methods call is allowed by everyone
-        if(! isset($GLOBALS["BE_USER"] && \strpos($methodAnnotation, "@allowAllUsers") === FALSE){
+        if(! isset($GLOBALS["BE_USER"]) && (\strpos($methodAnnotation, "@allowAllUsers") === FALSE)) {
             throw new \Visit\VisitTablets\Exceptions\PermissionDeniedException('Current user has no permission to perform this action.', 1511424014);
         }
 
