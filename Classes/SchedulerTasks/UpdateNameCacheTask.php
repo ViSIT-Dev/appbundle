@@ -17,7 +17,7 @@ namespace Visit\VisitTablets\SchedulerTasks;
 use Visit\VisitTablets\Domain\Enums\AccessLevel;
 use Visit\VisitTablets\Helper\CachingHelper;
 use Visit\VisitTablets\Helper\Constants;
-use Visit\VisitTablets\Helper\RestApiHelper;
+use Visit\VisitTablets\Helper\VisitDBApiHelper;
 use Visit\VisitTablets\Helper\SyncthingHelper;
 use Visit\VisitTablets\Helper\Util;
 use Visit\VisitTablets\Helper\VisitFile;
@@ -30,11 +30,7 @@ use Visit\VisitTablets\Helper\VisitFile;
 class UpdateNameCacheTask extends AbstractVisitTask {
 
     public function execute(): bool {
-//        $names = $apiResult = RestApiHelper::accessAPI("https://database-test.visit.uni-passau.de/metadb-rest-api/digrep/object", ["id" => $data["objectTripleURL"]]);
-
-        //update cache
         self::getAllVisitFiles();
-
         return true;
     }
 
@@ -69,7 +65,7 @@ class UpdateNameCacheTask extends AbstractVisitTask {
             if(! \array_key_exists($mediaTripleId, $data)){
                 //look in cache
                 if(($techMeta = CachingHelper::getCacheByName($mediaTripleId)) == null){
-                    $techMeta = RestApiHelper::accessAPI("digrep/media", $file->getMediaTripleURL());
+                    $techMeta = VisitDBApiHelper::accessAPI("digrep/media", $file->getMediaTripleURL());
                     if($techMeta !== false){
                         CachingHelper::setCacheByName($mediaTripleId, $techMeta, [Constants::$FILE_NAME_CACHE_TAG]);
                     }

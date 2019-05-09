@@ -14,11 +14,11 @@ namespace Visit\VisitTablets\Helper;
  ***/
 
 /**
- * Description of RestApiHelper
+ * Description of VisitDBApiHelper
  *
  * @author RaichKrispin
  */
-class RestApiHelper {
+class VisitDBApiHelper {
     
     public static function accessAPI($url, $targetObjectId, $parameter = null, $method = "GET"){
 
@@ -74,7 +74,7 @@ class RestApiHelper {
         if ($code == 200) {
 
             //TODO: Fix properly
-            if(self::startsWith($response, "Response body")){
+            if(Util::startsWith($response, "Response body")){
                 $response = \substr($response, 23);
             }
 
@@ -89,10 +89,5 @@ class RestApiHelper {
 
     }
 
-    private static function startsWith($haystack, $needle)
-    {
-        $length = strlen($needle);
-        return (substr($haystack, 0, $length) === $needle);
-    }
 
 }

@@ -2,6 +2,8 @@
 namespace Visit\VisitTablets\Controller\BackendEndpoints;
 
 
+use Visit\VisitTablets\Helper\Util;
+
 /***
  *
  * This file is part of the "tablets" Extension for TYPO3 CMS.
@@ -21,7 +23,7 @@ namespace Visit\VisitTablets\Controller\BackendEndpoints;
 abstract class AbstractBackendController  {
 
     public static function debug($var, $die = false) {
-        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($var);
+        Util::debug($var, 2);
         $die && die();
     }
     

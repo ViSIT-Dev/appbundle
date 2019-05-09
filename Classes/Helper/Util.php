@@ -87,9 +87,11 @@ class Util {
         return $objectManager->get($className);
     }
 
-    public static function debug($var) {
+    public static function debug($var, $removeCallStack = 1) {
         $bt = debug_backtrace();
-        $caller = array_shift($bt);
+        for (; $removeCallStack > 0; $removeCallStack--){
+            $caller = array_shift($bt);
+        }
         \TYPO3\CMS\Core\Utility\DebugUtility::debug($var, 'Debug: ' . $caller['file'] . ' in Line: ' . $caller['line']);
     }
 

@@ -33,9 +33,9 @@ class Constants {
     public static $VISIT_RDF_PREFIX_OBJECT_TRIPLE_URL = "http://visit.de/data/";
 
 
-    static public $SYNCTHING_DEFAULT_FOLDER_PATH = "/var/www/Sync";
-    static public $SYNCTHING_PUBLIC_FOLDER_PATH =  "/var/www/Sync/public";
-    static public $SYNCTHING_PRIVATE_FOLDER_PATH = "/var/www/Private";
+    static public $SYNCTHING_DEFAULT_FOLDER_PATH = "/var/www/sync";
+    static public $SYNCTHING_PUBLIC_FOLDER_PATH =  "/var/www/sync/public";
+    static public $SYNCTHING_PRIVATE_FOLDER_PATH = "/var/www/private";
 
     static public $SYNCTHING_CONFIG_PATH = "/var/www/syncthing/config.xml";
 

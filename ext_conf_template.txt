@@ -20,7 +20,10 @@ syncthingMasterId =
 enableCompression = 1
 
 # cat=Main; type=int; label=Port des Kompressionscontainers
-compressionApiPort = 8899
+compressionApiPort = 1613
+
+# cat=Main; type=string; label=IP Adresse des Kompressionscontainers
+compressionApiIP = 172.17.0.3
 
 # cat=Main; type=string; label=Verzeichnis für lokale ViSIT Dateien
 visitFileDir = /visit/

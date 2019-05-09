@@ -3,9 +3,9 @@ namespace Visit\VisitTablets\Controller;
 
 use Visit\VisitTablets\Domain\Enums\AccessLevel;
 use Visit\VisitTablets\Helper\CachingHelper;
-use Visit\VisitTablets\Helper\ConfigurationHelper;
+use Visit\VisitTablets\Helper\CompressionAPIHelper;
 use Visit\VisitTablets\Helper\Constants;
-use Visit\VisitTablets\Helper\RestApiHelper;
+use Visit\VisitTablets\Helper\VisitDBApiHelper;
 use Visit\VisitTablets\Helper\SyncthingHelper;
 use \TYPO3\CMS\Core\Messaging\AbstractMessage;
 use Visit\VisitTablets\Helper\Util;
@@ -32,9 +32,9 @@ class FileController extends AbstractVisitController  {
 
 
         if(empty(Util::makeInstance("Visit\VisitTablets\Helper\ConfigurationHelper")->getSyncthingMasterId())){
-            $this->addFlashMessage('Syncthing Master ID nicht angegeben - abbruch', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
             die('Syncthing Master ID nicht angegeben - abbruch');
         }
+
         if(! SyncthingHelper::isAttachedToMaster()){
             SyncthingHelper::attachedToMaster();
 //            die('Sie waren noch nicht mit dem Netzwerk verbunden. Diese Verbindung wurde soeben hergestellt. Es kann eine zeit dauern, bis die Daten synchronisiert sind.');
@@ -50,7 +50,7 @@ class FileController extends AbstractVisitController  {
     public function listAction(){
 
         if(! SyncthingHelper::isAttachedToMaster()){
-            $this->addFlashMessage('Sie waren noch nicht mit dem Netzwerk verbunden. Diese Verbindung wurde soeben hergestellt. Es kann eine zeit dauern, bis die Daten synchronisiert sind.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+            $this->addFlashMessage('Sie waren noch nicht mit dem Netzwerk verbunden. Diese Verbindung wurde soeben hergestellt. Es kann eine zeit dauern, bis die Daten synchronisiert sind.', '', AbstractMessage::INFO);
         }
 
         $allFiles = UpdateNameCacheTask::getAllVisitFiles();
@@ -64,7 +64,7 @@ class FileController extends AbstractVisitController  {
      */
     public function uploadAction(){
         if(! SyncthingHelper::isAttachedToMaster()){
-            $this->addFlashMessage('Sie waren noch nicht mit dem Netzwerk verbunden. Diese Verbindung wurde soeben hergestellt. Es kann eine zeit dauern, bis die Daten synchronisiert sind.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+            $this->addFlashMessage('Sie waren noch nicht mit dem Netzwerk verbunden. Diese Verbindung wurde soeben hergestellt. Es kann eine zeit dauern, bis die Daten synchronisiert sind.', '', AbstractMessage::INFO);
         }
 
         $this->view
@@ -112,11 +112,11 @@ class FileController extends AbstractVisitController  {
 
 
         //dig rep via API erzeugen
-        $apiResult = RestApiHelper::accessAPI("digrep/object", $data["objectTripleURL"], null, "POST");
+        $apiResult = VisitDBApiHelper::accessAPI("digrep/object", $data["objectTripleURL"], null, "POST");
 
 
         if($apiResult === false){
-            $this->addFlashMessage('Die Visit API kann nicht erreicht werden', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+            $this->addFlashMessage('Die Visit API kann nicht erreicht werden', '', AbstractMessage::ERROR);
             $this->redirect('upload');
             return;
         }
@@ -137,7 +137,7 @@ class FileController extends AbstractVisitController  {
             empty($data["mediaTripleURL"]) ||
             empty($data["mediaTripleID"])
         ){
-            $this->addFlashMessage('Es fehlt eine Information die für diesen Vorgang erforderlich ist - abbruch', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+            $this->addFlashMessage('Es fehlt eine Information die für diesen Vorgang erforderlich ist - abbruch', '', AbstractMessage::ERROR);
             $this->redirect('upload');
             return;
         }
@@ -161,7 +161,7 @@ class FileController extends AbstractVisitController  {
                 foreach (["obj" => true, "mtl" => false, "txt" => false] as $fileInfo => $needed){
                     $currentFile = $this->request->getArgument($fileInfo);
                     if($needed && $currentFile["size"] == 0){
-                        $this->addFlashMessage('Benötigte Datei wurde nicht angegeben - abbruch', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+                        $this->addFlashMessage('Benötigte Datei wurde nicht angegeben - abbruch', '', AbstractMessage::ERROR);
                         $this->redirect('upload');
                         return;
                     }
@@ -195,7 +195,7 @@ class FileController extends AbstractVisitController  {
             case "genericFile":
                 $currentFile = $this->request->getArgument("genericFile");
                 if($currentFile["size"] == 0){
-                    $this->addFlashMessage('Benötigte Datei wurde nicht angegeben - abbruch', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+                    $this->addFlashMessage('Benötigte Datei wurde nicht angegeben - abbruch', '', AbstractMessage::ERROR);
                     $this->redirect('upload');
                     return;
                 }
@@ -209,7 +209,7 @@ class FileController extends AbstractVisitController  {
                 break;
 
             default:
-                $this->addFlashMessage('Dateityp wird nicht unterstützt', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+                $this->addFlashMessage('Dateityp wird nicht unterstützt', '', AbstractMessage::ERROR);
                 $this->redirect('upload');
                 return;
 
@@ -218,18 +218,22 @@ class FileController extends AbstractVisitController  {
         $data["MIMEtype"] = \mime_content_type(Util::getPathFromAccessLevel(AccessLevel::AL_PRIVATE) . "/" . $data["files"]["origin"]["paths"][0]);
 
         //add techmeta to rdf
-        RestApiHelper::accessAPI("digrep/media", $data["mediaTripleURL"], $data, "PUT");
+        VisitDBApiHelper::accessAPI("digrep/media", $data["mediaTripleURL"], $data, "PUT");
 
 
         if($configurationHelper->isCompressionEnabled()){
             //push to compression container
-            //TODO: Flo fragen und implementieren
+            if(CompressionAPIHelper::triggerCompression($data)){
+                $this->addFlashMessage('Die Kompression des Medien Objektes wurde erfolgreich gestartet!', '', AbstractMessage::INFO);
+            }else{
+                $this->addFlashMessage('Die Kompression des Medien Objektes konnte nicht gestartet werden!', '', AbstractMessage::ERROR);
+            }
         }
 
         //add name to cache
         CachingHelper::setCacheByName($data["mediaTripleID"], $data, [Constants::$FILE_NAME_CACHE_TAG]);
 
-        $this->addFlashMessage("Datei {$data["files"]["origin"]["paths"][0]} erfolgreich hinzugefügt", '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+        $this->addFlashMessage("Datei {$data["files"]["origin"]["paths"][0]} erfolgreich hinzugefügt", '', AbstractMessage::INFO);
         $this->redirect('upload');
 
     }
@@ -242,17 +246,16 @@ class FileController extends AbstractVisitController  {
     public function partnerAction(){
 
         if(! SyncthingHelper::isAttachedToMaster()){
-            $this->addFlashMessage('Sie waren noch nicht mit dem Netzwerk verbunden. Diese Verbindung wurde soeben hergestellt. Es kann eine zeit dauern, bis die Daten synchronisiert sind.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
-        }
-
-        if(! \file_exists(Constants::$SYNCTHING_DEFAULT_FOLDER_PATH."/ping")){
-            //sync not ready yet
-            $this->addFlashMessage('Daten nicht geladen, bitte versuchen Sie es später noch einmal', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
-            return;
+            $this->addFlashMessage('Sie waren noch nicht mit dem Netzwerk verbunden. Diese Verbindung wurde soeben hergestellt. Es kann eine zeit dauern, bis die Daten synchronisiert sind.', '', AbstractMessage::INFO);
         }
 
         SyncthingHelper::checkOwnIdFile();
 
+        if(! \file_exists(Constants::$SYNCTHING_DEFAULT_FOLDER_PATH."/ping")){
+            //sync not ready yet
+            $this->addFlashMessage('Daten nicht geladen, bitte versuchen Sie es später noch einmal', '', AbstractMessage::INFO);
+            return;
+        }
 
         $partners = array();
 
@@ -340,7 +343,7 @@ class FileController extends AbstractVisitController  {
             ]);
         }
 
-        $this->addFlashMessage('Datei Lokal gespeichert.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+        $this->addFlashMessage('Datei Lokal gespeichert.', '', AbstractMessage::INFO);
         $this->redirect('list');
     }
 
@@ -365,7 +368,7 @@ class FileController extends AbstractVisitController  {
         $targetPath = Util::getPathFromAccessLevel($target, $file["creatorID"]);
 
         if($targetPath === $sourcePath){
-            $this->addFlashMessage('Nichts zu tun', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+            $this->addFlashMessage('Nichts zu tun', '', AbstractMessage::INFO);
             $this->redirect('list');
             return;
         }
@@ -375,21 +378,21 @@ class FileController extends AbstractVisitController  {
         }
 
         //update RDF Json
-        $oldData = RestApiHelper::accessAPI("digrep/media", $file["mediaTripleURL"], null, "GET");
+        $oldData = VisitDBApiHelper::accessAPI("digrep/media", $file["mediaTripleURL"], null, "GET");
         if($oldData === false){
-            $this->addFlashMessage('API nicht erreichbar - abbruch', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+            $this->addFlashMessage('API nicht erreichbar - abbruch', '', AbstractMessage::ERROR);
             $this->redirect('list');
             return;
         }
 
         $oldData["files"][$compression]["accessLevel"] = $target;
 
-        RestApiHelper::accessAPI("digrep/media", $oldData["mediaTripleURL"], $oldData, "PUT");
+        VisitDBApiHelper::accessAPI("digrep/media", $oldData["mediaTripleURL"], $oldData, "PUT");
 
         //update cache
         CachingHelper::setCacheByName($oldData["mediaTripleID"], $oldData, [Constants::$FILE_NAME_CACHE_TAG]);
 
-        $this->addFlashMessage('Datei veröffentlicht.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+        $this->addFlashMessage('Datei veröffentlicht.', '', AbstractMessage::INFO);
         $this->redirect('list');
     }
 
@@ -419,7 +422,7 @@ class FileController extends AbstractVisitController  {
      */
     public function updateAction($file){
 
-        $oldData = RestApiHelper::accessAPI("digrep/media", $file["mediaTripleURL"], null, $file["mediaTripleURL"]);
+        $oldData = VisitDBApiHelper::accessAPI("digrep/media", $file["mediaTripleURL"], null, $file["mediaTripleURL"]);
 
         foreach (["title", "description", "rightholder", "uploader"] as $currentField){
             if(!empty($var = $this->request->getArgument($currentField))){
@@ -427,14 +430,14 @@ class FileController extends AbstractVisitController  {
             }
         }
 
-        RestApiHelper::accessAPI("digrep/media", $oldData["mediaTripleURL"], $oldData, "PUT");
+        VisitDBApiHelper::accessAPI("digrep/media", $oldData["mediaTripleURL"], $oldData, "PUT");
 
         //update cache
         CachingHelper::setCacheByName($oldData["mediaTripleID"], $oldData, [Constants::$FILE_NAME_CACHE_TAG]);
 
 
 
-        $this->addFlashMessage('Daten wurden gespeichert', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+        $this->addFlashMessage('Daten wurden gespeichert', '', AbstractMessage::INFO);
         $this->redirect('list');
     }
 
@@ -451,7 +454,7 @@ class FileController extends AbstractVisitController  {
     public function deleteCompressionAction($file, $compression){
 
 
-        $oldData = RestApiHelper::accessAPI("digrep/media", $file["mediaTripleURL"], null, $file["mediaTripleURL"]);
+        $oldData = VisitDBApiHelper::accessAPI("digrep/media", $file["mediaTripleURL"], null, $file["mediaTripleURL"]);
 
         //remove files from disk
         $sourcePath = Util::getPathFromAccessLevel($oldData["files"][$compression]["accessLevel"]);
@@ -461,15 +464,15 @@ class FileController extends AbstractVisitController  {
 
 
         if(\count($oldData["files"]) <= 1){
-            RestApiHelper::accessAPI("digrep/media", $oldData["mediaTripleURL"], null, "DELETE");
+            VisitDBApiHelper::accessAPI("digrep/media", $oldData["mediaTripleURL"], null, "DELETE");
         }else{
             unset($oldData["files"][$compression]);
-            RestApiHelper::accessAPI("digrep/media", $oldData["mediaTripleURL"], $oldData, "PUT");
+            VisitDBApiHelper::accessAPI("digrep/media", $oldData["mediaTripleURL"], $oldData, "PUT");
             //update cache
             CachingHelper::setCacheByName($oldData["mediaTripleID"], $oldData, [Constants::$FILE_NAME_CACHE_TAG]);
         }
 
-        $this->addFlashMessage('Kompression vom ViSIT Netz gelöscht.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+        $this->addFlashMessage('Kompression vom ViSIT Netz gelöscht.', '', AbstractMessage::INFO);
         $this->redirect('list');
     }
 
@@ -507,7 +510,6 @@ class FileController extends AbstractVisitController  {
     }
 
     private function changeTextureInFile($mtlFilePath) {
-        $this->debug($mtlFilePath);
 
         preg_match('/Private\/(.*)\.mtl/', $mtlFilePath, $output_array);
         $txtFile = $output_array[1] . ".txt";
@@ -524,7 +526,6 @@ class FileController extends AbstractVisitController  {
             }
             \fclose($handle);
             \file_put_contents($mtlFilePath, \implode(PHP_EOL, $lines));
-
         }
     }
 

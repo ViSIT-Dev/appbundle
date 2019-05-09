@@ -89,7 +89,7 @@ abstract class AbstractVisitController extends \TYPO3\CMS\Extbase\Mvc\Controller
     }
 
     protected function debug($var) {
-        Util::debug($var);
+        Util::debug($var, 2);
     }
     protected function getInstance($class){
         return Util::getInstance($class);
