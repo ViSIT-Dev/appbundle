@@ -17,7 +17,7 @@ apiUserPassword =
 syncthingMasterId =
 
 # cat=Main; type=boolean; label=Medienobjekte kompriieren
-enableCompression = 1
+enableCompression = 0
 
 # cat=Main; type=int; label=Port des Kompressionscontainers
 compressionApiPort = 1613

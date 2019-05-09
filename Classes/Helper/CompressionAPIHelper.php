@@ -23,7 +23,7 @@ class CompressionAPIHelper {
     public static function triggerCompression($data){
 
 
-        if(!\in_array($data["MIMEtype"], ["text/plain", "text/jpeg", "text/png"])){
+        if(!\in_array($data["MIMEtype"], Constants::$ALLOWED_MIME_TYPES_FOR_COMPRESSION)){
             return false;
         }
 
@@ -39,7 +39,7 @@ class CompressionAPIHelper {
         $visitFile = new VisitFile($data["files"]["origin"]["paths"][0], "");
 
         $body = \json_encode([
-            "basePath" => "/root/models/" . $visitFile->getFileName(),
+            "basePath" => Constants::$SYNCTHING_PRIVATE_FOLDER_PATH . "/" . $visitFile->getFileName(),
             "objectUid" => $visitFile->getObjectTripleID(),
             "mediaUid" => $visitFile->getMediaTripleID(),
             "title" => $data["title"],

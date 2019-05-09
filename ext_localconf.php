@@ -187,7 +187,7 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Visit\VisitTabl
 
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Visit\VisitTablets\SchedulerTasks\CheckSyncthingPendingDevicesTask'] = array(
     'extension'        => $_EXTKEY,
-    'title'            => 'Syncthing Master - Task',
+    'title'            => 'Akzeptiert neue P2P Teilnehmer',
     'description'      => 'Akzeptiert alle Wartenden Verbindungen von Syncthing',
 );
 
