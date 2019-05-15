@@ -48,8 +48,8 @@ class Constants {
 
     public static $ALLOWED_MIME_TYPES_FOR_COMPRESSION = [
         "text/plain",
-        "text/jpeg",
-        "text/png"
+        "image/jpeg",
+        "image/png"
     ];
 
     /**
@@ -58,6 +58,8 @@ class Constants {
     public static $CACHING_TIME = 8000000;
 
     public static $FILE_NAME_CACHE_TAG = "file-name";
+
+    public static $PARENT_TITLE_CACHE_TAG = "parent-title";
 
     public static $FILE_DEFAULT_FOLDER = "/user_upload/";
 

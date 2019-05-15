@@ -44,7 +44,7 @@ class VisitFile {
     }
 
     public function getObjectTripleURL(){
-        return Constants::$VISIT_RDF_PREFIX_OBJECT_TRIPLE_URL . $this->getObjectTripleURL();
+        return Constants::$VISIT_RDF_PREFIX_OBJECT_TRIPLE_URL . $this->getObjectTripleID();
     }
 
     public function getMediaTripleID(){

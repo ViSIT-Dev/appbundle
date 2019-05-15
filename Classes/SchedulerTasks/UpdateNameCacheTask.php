@@ -57,7 +57,7 @@ class UpdateNameCacheTask extends AbstractVisitTask {
 
     private static function processFolder(&$data, $folderPath, $accessLevel, $myId){
         foreach (\scandir($folderPath) as $fileName){
-            if(\in_array($fileName, [".", "..", "info.json", "ping", ".stignore", ".stfolder"]) || self::endsWith($fileName, ".swp")) continue;
+            if(\in_array($fileName, [".", "..", "info.json", "ping", ".stignore", ".stfolder"]) || Util::endsWith($fileName, ".swp")) continue;
 
             $file = new VisitFile($fileName, $accessLevel);
             $mediaTripleId = $file->getMediaTripleID();
@@ -70,14 +70,35 @@ class UpdateNameCacheTask extends AbstractVisitTask {
                         CachingHelper::setCacheByName($mediaTripleId, $techMeta, [Constants::$FILE_NAME_CACHE_TAG]);
                     }
                 }
+
+                $objectTripleID = $file->getObjectTripleID();
+                if(($objectTripleTitle = CachingHelper::getCacheByName($objectTripleID)) == null){
+
+                    $parentObject = VisitDBApiHelper::accessAPI("object", $file->getObjectTripleURL());
+
+                    if($parentObject !== false){
+                        $objectTripleTitle = self::getTitleFromObject($parentObject);
+                        CachingHelper::setCacheByName($objectTripleID, $objectTripleTitle, [Constants::$PARENT_TITLE_CACHE_TAG]);
+                    }
+                }
+//
+                $techMeta["objectTripleTitle"] = $objectTripleTitle;
+
+                $techMeta["owner"] = ($techMeta["creatorID"] == $myId);
+
                 $data[$mediaTripleId] = $techMeta;
-                $data[$mediaTripleId]["owner"] = ($techMeta["creatorID"] == $myId);
+
             }
         }
     }
 
-    private static function endsWith($haystack, $needle) {
-        return substr_compare($haystack, $needle, -strlen($needle)) === 0;
+    static private function getTitleFromObject($parentObject){
+        foreach (\array_keys($parentObject) as $currentKey){
+            if(Util::endsWith($currentKey, "idby_titles")){
+                return $parentObject[$currentKey];
+            }
+        }
+        return false;
     }
 
 }

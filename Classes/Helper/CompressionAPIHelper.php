@@ -24,7 +24,7 @@ class CompressionAPIHelper {
 
 
         if(!\in_array($data["MIMEtype"], Constants::$ALLOWED_MIME_TYPES_FOR_COMPRESSION)){
-            return false;
+            return true;
         }
 
         $curl = curl_init();
@@ -39,7 +39,7 @@ class CompressionAPIHelper {
         $visitFile = new VisitFile($data["files"]["origin"]["paths"][0], "");
 
         $body = \json_encode([
-            "basePath" => Constants::$SYNCTHING_PRIVATE_FOLDER_PATH . "/" . $visitFile->getFileName(),
+            "basePath" => "./" . $visitFile->getFileName(),
             "objectUid" => $visitFile->getObjectTripleID(),
             "mediaUid" => $visitFile->getMediaTripleID(),
             "title" => $data["title"],
@@ -48,6 +48,9 @@ class CompressionAPIHelper {
                 "Automatisch"
             ],
         ]);
+
+//        Util::debug($body);
+
         curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json','Content-Length: ' . \strlen($body)));
         curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
         curl_setopt($curl, CURLOPT_POST, true);
@@ -61,6 +64,9 @@ class CompressionAPIHelper {
         $response = curl_exec($curl);
         $code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
+
+//        Util::debug($code);
+//        Util::debug($response);
 
         if ($code == 200) {
 

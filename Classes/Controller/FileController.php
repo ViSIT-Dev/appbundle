@@ -55,7 +55,13 @@ class FileController extends AbstractVisitController  {
 
         $allFiles = UpdateNameCacheTask::getAllVisitFiles();
 //        $this->debug($allFiles);
-        $this->view->assign("files", $allFiles);
+        $this->view
+            ->assign("files", $allFiles)
+//            ->assign("res", VisitDBApiHelper::accessAPI("object", "http://visit.de/data/5bbcbd9a34d9b"))
+//            ->assign("res1", VisitDBApiHelper::accessAPI("object", "http://visit.de/data/5bab75474d51b"))
+//            ->assign("res2", VisitDBApiHelper::accessAPI("object", "http://visit.de/data/5bbb58df100af"))
+//            ->assign("res3", VisitDBApiHelper::accessAPI("object", "http://visit.de/data/5c0f5a68c8b09"))
+        ;
     }
 
     /**

@@ -22,13 +22,6 @@ class VisitDBApiHelper {
     
     public static function accessAPI($url, $targetObjectId, $parameter = null, $method = "GET"){
 
-
-//        // Abhängig von der API, hier json
-//        $headers = array(
-//            'Accept: application/json',
-//            'Content-Type: application/json',
-//        );
-
         $curl = curl_init();
 
         $url = Constants::$VISIT_API_URL  . $url . '?' . http_build_query(["id" => $targetObjectId]);
@@ -61,7 +54,10 @@ class VisitDBApiHelper {
         curl_setopt($curl, CURLOPT_USERPWD, $configurationHelper->getApiUser() . ":" . $configurationHelper->getApiUserPassword());
 
         curl_setopt($curl, CURLOPT_URL, $url);
-//        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        //        // Abhängig von der API, hier json
+
+//        curl_setopt($curl, CURLOPT_HTTPHEADER, [ 'Accept: application/json', 'Content-Type: application/json']);
+
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);

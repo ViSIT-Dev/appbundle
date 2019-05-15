@@ -13,7 +13,7 @@
 <f:section name="main">
 
     <f:comment>
-        <f:debug>{files}</f:debug>
+        <f:debug>{_all}</f:debug>
     </f:comment>
 
     <table id="datatable" class="table table-striped table-bordered">
@@ -22,7 +22,7 @@
                 <th>Titel</th>
                 <th>Beschreibung</th>
                 <th>Urheber</th>
-                <th>Dateityp</th>
+                <th>Datenbank Objekt</th>
                 <th>Kompressionen</th>
                 <th style="width: 75px;"></th>
             </tr>
@@ -33,7 +33,7 @@
                     <td>{file.title}</td>
                     <td>{file.description}</td>
                     <td>{file.rightholder}</td>
-                    <td>{file.MIMEtype}</td>
+                    <td>{file.objectTripleTitle}</td>
                     <td>
                         <table class="table table-bordered mb-0">
                             <thead>
