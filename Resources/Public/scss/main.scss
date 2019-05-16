@@ -347,7 +347,7 @@ iframe.warenkorb{
     }
 
 
-    $inmateHeaderHeight: 45px;
+    $inmateHeaderHeight: 50px;
 
     #inmateHeader{
         height: $inmateHeaderHeight;
@@ -359,8 +359,10 @@ iframe.warenkorb{
         .menue-item {
             line-height: $inmateHeaderHeight;
             cursor: pointer;
-            padding: 0 #{$inmateHeaderHeight / 2};
+            padding: 0 #{$inmateHeaderHeight / 1.5};
             color: #4a4a4a;
+            font-weight: bold;
+            font-size: 1.4rem;
             &.btn{
                 margin-top: 1px;
             }
@@ -406,7 +408,7 @@ iframe.warenkorb{
                 li{
                     padding: 3px 0;
                     color: #d6d6d6;
-                    font-size: 16px;
+                    font-size: 22px;
                     font-weight: bold;
                     text-transform: uppercase;
                     line-height: 26px;
@@ -478,12 +480,13 @@ iframe.warenkorb{
                     list-style-type: none;
                     padding: 0;
                     margin: 0;
+                    min-height: 3.5rem;
 
                     li{
                         border-bottom: 1px solid #D6D6D6;
                         padding: 5px 0;
                         line-height: 40px;
-                        font-size: 18px;
+                        font-size: 25px;
                         font-weight: 500;
                         color: #303030;
                         cursor: pointer;
@@ -523,12 +526,13 @@ iframe.warenkorb{
             h1{
                 font-family: "Rum Serif";
                 font-weight: 700;
-                font-size: 35px;
+                font-size: 45px;
                 font-weight: 600;
                 line-height: 1.09em;
             }
             h2{
-                font-size: 22px;
+            	font-family: "Rum Sans"; 
+                font-size: 27px;
                 font-weight: 600;
                 margin-bottom: 1em;
             }
@@ -539,7 +543,7 @@ iframe.warenkorb{
                 margin: 0;
                 padding: 0;
                 li{
-                    font-size: 16px;
+                    font-size: 22px;
                     font-weight: 500;
                     line-height: 1.38;
                 }
@@ -556,7 +560,7 @@ iframe.warenkorb{
                 width: 100%;
             }
             p{
-                font-size: 16px;
+                font-size: 22px;
                 font-weight: 500;
                 line-height: 1.38;
             }
