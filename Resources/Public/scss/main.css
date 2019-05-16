@@ -1581,7 +1581,7 @@ iframe.warenkorb {
       padding: 0px 9px;
       position: absolute;
       background-color: #303030;
-      border: solid 1px #6a6a6a;
+      /*border: solid 1px #6a6a6a;*/
       border-radius: 50%; }
     #mapAppWrapper #cardPoiContent .datapoint {
       display: none; }
@@ -1594,7 +1594,8 @@ iframe.warenkorb {
       max-height: 100%; }
       #mapAppWrapper #cardPoiContent .content-holder h1 {
         font-size: 35px;
-        line-height: 1.09; }
+        line-height: 1.09;
+        padding-bottom: 0.4em; }
       #mapAppWrapper #cardPoiContent .content-holder h2 {
         font-size: 22px;
         font-weight: 600; }
@@ -1612,8 +1613,8 @@ iframe.warenkorb {
         width: calc(100% + 30px);
         /* Adjust as needed */ }
       #mapAppWrapper #cardPoiContent .content-holder p {
-        font-size: 16px;
-        line-height: 22px; }
+        font-size: 18px;
+        line-height: 25px; }
   #mapAppWrapper #inmateHeader {
     height: 50px;
     background-color: #f0f0f0; }
