@@ -470,10 +470,10 @@ class FileController extends AbstractVisitController  {
 
         if(\count($oldData["files"]) <= 1){
             VisitDBApiHelper::accessAPI("digrep/media", $oldData["mediaTripleURL"], null, "DELETE");
+            CachingHelper::flushCacheByTags([Constants::$FILE_NAME_CACHE_TAG]);
         }else{
             unset($oldData["files"][$compression]);
             VisitDBApiHelper::accessAPI("digrep/media", $oldData["mediaTripleURL"], $oldData, "PUT");
-            //update cache
             CachingHelper::setCacheByName($oldData["mediaTripleID"], $oldData, [Constants::$FILE_NAME_CACHE_TAG]);
         }
 

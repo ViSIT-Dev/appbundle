@@ -165,7 +165,7 @@ class Util {
                 return  Constants::$SYNCTHING_DEFAULT_FOLDER_PATH . "/" . $creatorID;
             case AccessLevel::AL_PRIVATE:
                 return Constants::$SYNCTHING_PRIVATE_FOLDER_PATH;
-            default: throw new \Exception("Unkown source path");
+            default: throw new \Exception("Unknown source path");
         }
     }
 
