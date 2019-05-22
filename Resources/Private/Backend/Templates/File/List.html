@@ -62,45 +62,46 @@
                                             <f:format.date format="d.m.Y H:i">{compression.uploadDate}</f:format.date>
                                         </td>
                                         <td>
+
                                             <f:if condition="{file.owner}">
                                                 <f:then>
                                                     <f:switch expression="{compression.accessLevel}">
                                                         <f:case value="private">
-                                                            <f:link.action action="moveFile" arguments="{file : file, compression: key, target: 'public'}" class="askbeforemove btn btn-warning btn-xs" title="Datei veröffentlichen (jeder hat Zugriff)">
+                                                            <f:link.action action="moveFile" arguments="{mediaTripleID : file.mediaTripleID, compression: key, target: 'public'}" class="askbeforemove btn btn-warning btn-xs" title="Datei veröffentlichen (jeder hat Zugriff)">
                                                                 <i class="fa fa-globe fa-2x"></i>
                                                             </f:link.action>
-                                                            <f:link.action action="moveFile" arguments="{file : file, compression: key, target: 'visit'}" class="askbeforemove btn btn-success btn-xs" title="Datei mit ViSIT Partner teilen (ViSIT Partner haben Zugriff)">
+                                                            <f:link.action action="moveFile" arguments="{mediaTripleID : file.mediaTripleID, compression: key, target: 'visit'}" class="askbeforemove btn btn-success btn-xs" title="Datei mit ViSIT Partner teilen (ViSIT Partner haben Zugriff)">
                                                                 <i class="fa fa-users fa-2x"></i>
                                                             </f:link.action>
                                                         </f:case>
                                                         <f:case value="visit">
-                                                            <f:link.action action="moveFile" arguments="{file : file, compression: key, target: 'public'}" class="askbeforemove btn btn-warning btn-xs" title="Datei veröffentlichen (jeder hat Zugriff)">
+                                                            <f:link.action action="moveFile" arguments="{mediaTripleID : file.mediaTripleID, compression: key, target: 'public'}" class="askbeforemove btn btn-warning btn-xs" title="Datei veröffentlichen (jeder hat Zugriff)">
                                                                 <i class="fa fa-globe fa-2x"></i>
                                                             </f:link.action>
-                                                            <f:link.action action="moveFile" arguments="{file : file, compression: key, target: 'private'}" class="askbeforemove btn btn-success btn-xs" title="Datei nach privat verschieben (nur ich habe Zugriff)">
+                                                            <f:link.action action="moveFile" arguments="{mediaTripleID : file.mediaTripleID, compression: key, target: 'private'}" class="askbeforemove btn btn-success btn-xs" title="Datei nach privat verschieben (nur ich habe Zugriff)">
                                                                 <i class="fa fa-shield fa-2x"></i>
                                                             </f:link.action>
                                                         </f:case>
                                                         <f:case value="public">
-                                                            <f:link.action action="moveFile" arguments="{file : file, compression: key, target: 'visit'}" class="askbeforemove btn btn-success btn-xs" title="Datei mit ViSIT Partner teilen (ViSIT Partner haben Zugriff)">
+                                                            <f:link.action action="moveFile" arguments="{mediaTripleID : file.mediaTripleID, compression: key, target: 'visit'}" class="askbeforemove btn btn-success btn-xs" title="Datei mit ViSIT Partner teilen (ViSIT Partner haben Zugriff)">
                                                                 <i class="fa fa-users fa-2x"></i>
                                                             </f:link.action>
-                                                            <f:link.action action="moveFile" arguments="{file : file, compression: key, target: 'private'}" class="askbeforemove btn btn-success btn-xs" title="Datei nach privat verschieben (nur ich habe Zugriff)">
+                                                            <f:link.action action="moveFile" arguments="{mediaTripleID : file.mediaTripleID, compression: key, target: 'private'}" class="askbeforemove btn btn-success btn-xs" title="Datei nach privat verschieben (nur ich habe Zugriff)">
                                                                 <i class="fa fa-shield fa-2x"></i>
                                                             </f:link.action>
                                                         </f:case>
                                                     </f:switch>
 
-                                                    <f:link.action action="addFileToLocal" arguments="{file : file, compression: key}" class="btn btn-primary btn-xs" title="In für Verwendung in App herunterladen">
+                                                    <f:link.action action="addFileToLocal" arguments="{mediaTripleID : file.mediaTripleID, compression: key}" class="btn btn-primary btn-xs" title="In für Verwendung in App herunterladen">
                                                         <i class="fa fa-download fa-2x"></i>
                                                     </f:link.action>
-                                                    <f:link.action action="deleteCompression" arguments="{file : file, compression: key}" class="askbeforedelete btn btn-warning btn-xs">
+                                                    <f:link.action action="deleteCompression" arguments="{mediaTripleID : file.mediaTripleID, compression: key}" class="askbeforedelete btn btn-warning btn-xs">
                                                         <i class="fa fa-trash-o fa-2x" aria-hidden="true"></i>
                                                     </f:link.action>
                                                 </f:then>
                                                 <f:else>
                                                     <f:if condition="{compression.accessLevel} !== 'private'">
-                                                        <f:link.action action="addFileToLocal" arguments="{file : file, compression: key}" class="btn btn-primary btn-xs" title="In für Verwendung in App herunterladen">
+                                                        <f:link.action action="addFileToLocal" arguments="{mediaTripleID : file.mediaTripleID, compression: key}" class="btn btn-primary btn-xs" title="In für Verwendung in App herunterladen">
                                                             <i class="fa fa-download fa-2x"></i>
                                                         </f:link.action>
                                                     </f:if>

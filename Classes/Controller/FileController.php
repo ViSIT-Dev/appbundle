@@ -54,13 +54,7 @@ class FileController extends AbstractVisitController  {
         }
 
         $allFiles = UpdateNameCacheTask::getAllVisitFiles();
-//        $this->debug($allFiles);
-        $this->view
-            ->assign("files", $allFiles)
-//            ->assign("res", VisitDBApiHelper::accessAPI("object", "http://visit.de/data/5bbcbd9a34d9b"))
-//            ->assign("res1", VisitDBApiHelper::accessAPI("object", "http://visit.de/data/5bab75474d51b"))
-//            ->assign("res2", VisitDBApiHelper::accessAPI("object", "http://visit.de/data/5bbb58df100af"))
-//            ->assign("res3", VisitDBApiHelper::accessAPI("object", "http://visit.de/data/5c0f5a68c8b09"))
+        $this->view->assign("files", $allFiles)
         ;
     }
 
@@ -240,8 +234,6 @@ class FileController extends AbstractVisitController  {
         //add name to cache
         CachingHelper::setCacheByName($data["mediaTripleID"], $data, [Constants::$FILE_NAME_CACHE_TAG]);
 
-        die();
-
         $this->addFlashMessage("Datei {$data["files"]["origin"]["paths"][0]} erfolgreich hinzugefügt", '', AbstractMessage::INFO);
         $this->redirect('upload');
 
@@ -295,13 +287,14 @@ class FileController extends AbstractVisitController  {
     /**
      * action addFileToLocal
      *
-     * @param array $file
+     * @param string $mediaTripleID
      * @param string $compression
      * @return void
      * @throws \Exception
      */
-    public function addFileToLocalAction($file, $compression){
+    public function addFileToLocalAction($mediaTripleID, $compression){
 
+        $file = CachingHelper::getCacheByName($mediaTripleID);
 
         $is3D = false;
         foreach ($file["files"][$compression]["paths"] as $currentPath){
@@ -344,7 +337,7 @@ class FileController extends AbstractVisitController  {
             $newFile = $storage->addFile($sourcePath . "/" . $currentPath, $rootFolder->getSubFolder($targetFolder), $newFileName, $fileNameStrategy, false);
 
             $metaDataRepository->update($newFile->getUid(), [
-                "title" => $file["title"],
+                "title" => $file["title"] . " ({$compression})",
                 "description" => $file["description"],
                 "alternative" => $file["creatorID"],
             ]);
@@ -357,16 +350,17 @@ class FileController extends AbstractVisitController  {
     /**
      * action moveFile
      *
-     * @param array $file
+     * @param string $mediaTripleID
      * @param string $compression
      * @param string $target
      *
      * @return void
      * @throws \Exception
      */
-    public function moveFileAction($file, $compression, $target){
+    public function moveFileAction($mediaTripleID, $compression, $target){
 
         //move file to folder
+        $file = CachingHelper::getCacheByName($mediaTripleID);
 
         //source
         $sourcePath = Util::getPathFromAccessLevel($file["files"][$compression]["accessLevel"], $file["creatorID"]);
@@ -407,11 +401,14 @@ class FileController extends AbstractVisitController  {
     /**
      * action edit
      *
-     * @param array $file
+     * @param string $mediaTripleID
      *
      * @return void
      */
-    public function editAction($file){
+    public function editAction($mediaTripleID){
+
+        $file = CachingHelper::getCacheByName($mediaTripleID);
+
         $this->view
             ->assign("file", $file)
             ->assign("creatorID", SyncthingHelper::getSyncthingID())
@@ -422,12 +419,14 @@ class FileController extends AbstractVisitController  {
     /**
      * action update
      *
-     * @param array $file
+     * @param string $mediaTripleID
      *
      * @return void
      * @throws \Exception
      */
-    public function updateAction($file){
+    public function updateAction($mediaTripleID){
+
+        $file = CachingHelper::getCacheByName($mediaTripleID);
 
         $oldData = VisitDBApiHelper::accessAPI("digrep/media", $file["mediaTripleURL"], null, $file["mediaTripleURL"]);
 
@@ -452,14 +451,15 @@ class FileController extends AbstractVisitController  {
     /**
      * action deleteCompression
      *
-     * @param array $file
+     * @param string $mediaTripleID
      * @param string $compression
      *
      * @return void
      * @throws \Exception
      */
-    public function deleteCompressionAction($file, $compression){
+    public function deleteCompressionAction($mediaTripleID, $compression){
 
+        $file = CachingHelper::getCacheByName($mediaTripleID);
 
         $oldData = VisitDBApiHelper::accessAPI("digrep/media", $file["mediaTripleURL"], null, $file["mediaTripleURL"]);
 
@@ -528,6 +528,7 @@ class FileController extends AbstractVisitController  {
                     $lines[] = $line;
                 }
             }
+            $lines[] = ""; //add last line
             \fclose($handle);
             \file_put_contents($mtlFilePath, \implode(PHP_EOL, $lines));
         }
