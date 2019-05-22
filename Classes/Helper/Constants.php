@@ -59,7 +59,7 @@ class Constants {
 
     public static $FILE_NAME_CACHE_TAG = "file-name";
 
-    public static $PARENT_TITLE_CACHE_TAG = "parent-title";
+    public static $PARENT_OBJECT_CACHE_TAG = "parent-title";
 
     public static $FILE_DEFAULT_FOLDER = "/user_upload/";
 

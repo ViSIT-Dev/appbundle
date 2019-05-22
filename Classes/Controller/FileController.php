@@ -79,15 +79,14 @@ class FileController extends AbstractVisitController  {
     }
 
     public function deleteCacheAction(){
-
-        CachingHelper::flushCacheByTag(Constants::$FILE_NAME_CACHE_TAG);
-
+        CachingHelper::flushCacheByTags([Constants::$FILE_NAME_CACHE_TAG, Constants::$PARENT_OBJECT_CACHE_TAG]);
         $this->redirect('list');
     }
 
     /**
      * action create
      * @return void
+     * @throws \Exception
      */
     public function createAction(){
 
@@ -112,9 +111,6 @@ class FileController extends AbstractVisitController  {
         $data["rightholder"] = $this->request->getArgument("rightholder"); //must
 
         $data["uploader"] = $this->request->getArgument("uploader"); //optional
-
-
-
 
 
         //dig rep via API erzeugen
@@ -173,8 +169,7 @@ class FileController extends AbstractVisitController  {
                     }
                 }
 
-
-                foreach (["obj" => true, "mtl" => false, "txt" => false] as $fileInfo => $needed){
+                 foreach (["obj", "txt", "mtl"] as $fileInfo){
                     $currentFile = $this->request->getArgument($fileInfo);
 
                     if($currentFile["size"] == 0){
@@ -184,13 +179,19 @@ class FileController extends AbstractVisitController  {
                     //sum file size
                     $data["files"]["origin"]["fileSize"] += $currentFile["size"];
 
+                    $currentExtension = Util::getFileExtensionFromName($currentFile["name"]);
+
                     //move files to private folder
-                    $targetFileName = $fileNameTemplate . $fileInfo;
+                    $targetFileName = $fileNameTemplate . $currentExtension;
                     $fullPath = Constants::$SYNCTHING_PRIVATE_FOLDER_PATH . '/' . $targetFileName;
                     \move_uploaded_file($currentFile["tmp_name"], $fullPath);
 
+                     if($fileInfo == 'txt') {
+                         $fileTxtName = $targetFileName;
+                     }
+
                     if($fileInfo == 'mtl') {
-                        $this->changeTextureInFile($fullPath);
+                        $this->changeTextureInFile($fullPath, $fileTxtName);
                     }
 
                     \array_push($data["files"]["origin"]["paths"], $targetFileName);
@@ -238,6 +239,8 @@ class FileController extends AbstractVisitController  {
 
         //add name to cache
         CachingHelper::setCacheByName($data["mediaTripleID"], $data, [Constants::$FILE_NAME_CACHE_TAG]);
+
+        die();
 
         $this->addFlashMessage("Datei {$data["files"]["origin"]["paths"][0]} erfolgreich hinzugefügt", '', AbstractMessage::INFO);
         $this->redirect('upload');
@@ -334,9 +337,7 @@ class FileController extends AbstractVisitController  {
                 $newFileName = null;
                 $fileNameStrategy = \TYPO3\CMS\Core\Resource\DuplicationBehavior::REPLACE ;
             }else{
-                $filename = \strrpos($currentPath, '.');
-                $filename = \substr($currentPath, $filename);
-                $newFileName = $file["title"] . $filename;
+                $newFileName = $file["title"] . "." .  Util::getFileExtensionFromName($currentPath);
                 $fileNameStrategy = \TYPO3\CMS\Core\Resource\DuplicationBehavior::RENAME ;
             }
 
@@ -515,17 +516,14 @@ class FileController extends AbstractVisitController  {
         return \substr ($rdfIdentifier, \strrpos($rdfIdentifier , '/') + 1);
     }
 
-    private function changeTextureInFile($mtlFilePath) {
-
-        preg_match('/Private\/(.*)\.mtl/', $mtlFilePath, $output_array);
-        $txtFile = $output_array[1] . ".txt";
+    private function changeTextureInFile($mtlFilePath, $fileTxtName) {
 
         $handle = \fopen($mtlFilePath, "r");
         if ($handle) {
             $lines = array();
             while (($line = fgets($handle)) !== false) {
                 if(Util::startsWith($line, 'map_Kd')){
-                    $lines[] = 'map_Kd ' . $txtFile;
+                    $lines[] = 'map_Kd ' . $fileTxtName;
                 }else{
                     $lines[] = $line;
                 }

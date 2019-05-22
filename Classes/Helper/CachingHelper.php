@@ -32,8 +32,8 @@ class CachingHelper {
         self::getCacheInstance()->set(\sha1($cacheName), \serialize($object), $tags, Constants::$CACHING_TIME);
     }
 
-    public static function flushCacheByTag($tag){
-        self::getCacheInstance()->flushByTag($tag);
+    public static function flushCacheByTags($tags){
+        self::getCacheInstance()->flushByTags($tags);
     }
 
 }

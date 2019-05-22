@@ -72,17 +72,19 @@ class UpdateNameCacheTask extends AbstractVisitTask {
                 }
 
                 $objectTripleID = $file->getObjectTripleID();
-                if(($objectTripleTitle = CachingHelper::getCacheByName($objectTripleID)) == null){
+                if(($parentObject = CachingHelper::getCacheByName($objectTripleID)) == null){
 
                     $parentObject = VisitDBApiHelper::accessAPI("object", $file->getObjectTripleURL());
 
                     if($parentObject !== false){
-                        $objectTripleTitle = self::getTitleFromObject($parentObject);
-                        CachingHelper::setCacheByName($objectTripleID, $objectTripleTitle, [Constants::$PARENT_TITLE_CACHE_TAG]);
+                        CachingHelper::setCacheByName($objectTripleID, $parentObject, [Constants::$PARENT_OBJECT_CACHE_TAG]);
                     }
                 }
-//
-                $techMeta["objectTripleTitle"] = $objectTripleTitle;
+
+                if($parentObject){
+                    $techMeta["objectTripleTitle"] = self::getTitleFromObject($parentObject);
+                    $techMeta["wisskiviewpath"] = $parentObject["wisskiviewpath"];
+                }
 
                 $techMeta["owner"] = ($techMeta["creatorID"] == $myId);
 

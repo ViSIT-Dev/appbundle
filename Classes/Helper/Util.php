@@ -183,4 +183,9 @@ class Util {
         return (substr($haystack, -$length) === $needle);
     }
 
+    public static function getFileExtensionFromName($fileName) {
+        $pos = \strrpos($fileName, '.') + 1;
+        return \substr($fileName, $pos);
+    }
+
 }

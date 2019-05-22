@@ -20,7 +20,6 @@ if (!isset($GLOBALS['TYPO3_CONF_VARS'] ['SYS']['caching']['cacheConfigurations']
 }
 
 
-
 call_user_func(
     function($extKey)
 	{
