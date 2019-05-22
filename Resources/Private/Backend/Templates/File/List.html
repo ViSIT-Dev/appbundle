@@ -118,11 +118,11 @@
                     <td style="width: 75px;">
 
                         <f:if condition="{file.owner}">
-                            <f:link.action action="edit" arguments="{file : file}" class="btn btn-primary btn-xs">
+                            <f:link.action action="edit" arguments="{mediaTripleID : file.mediaTripleID}" class="btn btn-primary btn-xs">
                                 <i class="fa fa-pencil fa-2x" aria-hidden="true"></i>
                             </f:link.action>
                             <f:if condition="{file.files -> f:count()} == 0">
-                                <f:link.action action="delete" arguments="{file : file}" class="askbeforedelete btn btn-warning btn-xs">
+                                <f:link.action action="delete" arguments="{mediaTripleID : file.mediaTripleID}" class="askbeforedelete btn btn-warning btn-xs">
                                     <i class="fa fa-trash-o fa-2x" aria-hidden="true"></i>
                                 </f:link.action>
                             </f:if>

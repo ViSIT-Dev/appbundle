@@ -294,7 +294,7 @@ class FileController extends AbstractVisitController  {
      */
     public function addFileToLocalAction($mediaTripleID, $compression){
 
-        $file = CachingHelper::getCacheByName($mediaTripleID);
+        $file = $this->getFileFromMediaTripleID($mediaTripleID);
 
         $is3D = false;
         foreach ($file["files"][$compression]["paths"] as $currentPath){
@@ -360,7 +360,7 @@ class FileController extends AbstractVisitController  {
     public function moveFileAction($mediaTripleID, $compression, $target){
 
         //move file to folder
-        $file = CachingHelper::getCacheByName($mediaTripleID);
+        $file = $this->getFileFromMediaTripleID($mediaTripleID);
 
         //source
         $sourcePath = Util::getPathFromAccessLevel($file["files"][$compression]["accessLevel"], $file["creatorID"]);
@@ -407,7 +407,7 @@ class FileController extends AbstractVisitController  {
      */
     public function editAction($mediaTripleID){
 
-        $file = CachingHelper::getCacheByName($mediaTripleID);
+        $file = $this->getFileFromMediaTripleID($mediaTripleID);
 
         $this->view
             ->assign("file", $file)
@@ -419,14 +419,12 @@ class FileController extends AbstractVisitController  {
     /**
      * action update
      *
-     * @param string $mediaTripleID
+     * @param array $file
      *
      * @return void
      * @throws \Exception
      */
-    public function updateAction($mediaTripleID){
-
-        $file = CachingHelper::getCacheByName($mediaTripleID);
+    public function updateAction($file){
 
         $oldData = VisitDBApiHelper::accessAPI("digrep/media", $file["mediaTripleURL"], null, $file["mediaTripleURL"]);
 
@@ -459,7 +457,7 @@ class FileController extends AbstractVisitController  {
      */
     public function deleteCompressionAction($mediaTripleID, $compression){
 
-        $file = CachingHelper::getCacheByName($mediaTripleID);
+        $file = $this->getFileFromMediaTripleID($mediaTripleID);
 
         $oldData = VisitDBApiHelper::accessAPI("digrep/media", $file["mediaTripleURL"], null, $file["mediaTripleURL"]);
 
@@ -534,6 +532,19 @@ class FileController extends AbstractVisitController  {
         }
     }
 
+    private function getFileFromMediaTripleID($mediaTripleID){
+        $file = CachingHelper::getCacheByName($mediaTripleID);
+
+        if($file == null){
+            $file = VisitDBApiHelper::accessAPI("digrep/media",  Constants::$VISIT_RDF_PREFIX_MEDIA_TRIPLE_URL  . $mediaTripleID);
+            if($file === false){
+                die("Meta daten konnten nicht von der Datenbank geladen werden.");
+            }else{
+                CachingHelper::setCacheByName($mediaTripleID, $file, [Constants::$FILE_NAME_CACHE_TAG]);
+            }
+        }
+        return $file;
+    }
 
 
 }
