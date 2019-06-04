@@ -1,7 +1,19 @@
 
-<div class="ln_solid"></div>
-<h2>Sub - Inhaltselemente</h2>
-<f:render partial="GalleryContentSubElementList" arguments="{_all}" />
+
+    <div class="ln_solid"></div>
+    <h2>Sub - Inhaltselemente</h2>
+<f:if condition="{contentElement}" >
+    <f:then>
+        <f:render partial="GalleryContentSubElementList" arguments="{_all}" />
+    </f:then>
+    <f:else>
+        <div class="alert alert-info">
+            Sie können erst unterinhaltselemente anlegen, wenn Sie das neue Inhaltselement gespeichert haben.
+        </div>
+
+    </f:else>
+</f:if>
+
 
 
 <div class="ln_solid"></div>
