@@ -225,9 +225,9 @@ class FileController extends AbstractVisitController  {
         if($configurationHelper->isCompressionEnabled()){
             //push to compression container
             if(CompressionAPIHelper::triggerCompression($data)){
-                $this->addFlashMessage('Die Kompression des Medien Objektes wurde erfolgreich gestartet!', '', AbstractMessage::INFO);
+                $this->addFlashMessage('Die Kompression des Medienobjektes wurde erfolgreich gestartet!', '', AbstractMessage::INFO);
             }else{
-                $this->addFlashMessage('Die Kompression des Medien Objektes konnte nicht gestartet werden!', '', AbstractMessage::ERROR);
+                $this->addFlashMessage('Die Kompression des Medienobjektes konnte nicht gestartet werden!', '', AbstractMessage::ERROR);
             }
         }
 
