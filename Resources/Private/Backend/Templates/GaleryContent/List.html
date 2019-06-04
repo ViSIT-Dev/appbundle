@@ -16,8 +16,10 @@
                 <th>Sprache</th>
                 <th>Überschrift</th>
                 <th>Unterüberschrift</th>
-                <th>Medienanzahl</th>
-                <th>Layout</th>
+                <f:comment>
+                    <th>Medienanzahl</th>
+                    <th>Layout</th>
+                </f:comment>
                 <th>Sortierung</th>
                 <th></th>
             </tr>
@@ -28,10 +30,14 @@
                     <td>{element.langTitle}</td>
                     <td>{element.title}</td>
                     <td>{element.subTitle}</td>
-                    <td><f:count>{element.media}</f:count></td>
-                    <td>
-                        <visit:galeryContentLayoutShow layout="{element.layout}">{layoutName}</visit:galeryContentLayoutShow>
-                    </td>
+                    <f:comment>
+                        <td>
+                            <f:count>{element.media}</f:count>
+                        </td>
+                        <td>
+                            <visit:galeryContentLayoutShow layout="{element.layout}">{layoutName}</visit:galeryContentLayoutShow>
+                        </td>
+                    </f:comment>
                     <td>{element.sorting}</td>
                     <td>
                         <f:link.action action="edit" arguments="{contentElement : element}" class="btn btn-primary btn-xs">

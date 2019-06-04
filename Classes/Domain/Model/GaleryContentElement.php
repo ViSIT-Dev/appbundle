@@ -71,7 +71,7 @@ class GaleryContentElement extends AbstractEntityWithMedia implements IHasLangua
      * 
      * @var int
      */
-    protected $layout;
+    protected $layout = GaleryContentLayout::CONTENT_ELEMENT_LIST;
     
     /**
      * language
@@ -181,7 +181,6 @@ class GaleryContentElement extends AbstractEntityWithMedia implements IHasLangua
     }
 
     public function setLayout($galeryContentLayoutId) {
-//        $galeryContentLayout = GaleryContentLayout::getValues()[$galeryContentLayoutId];
         $this->layout = $galeryContentLayoutId;
     }
     
