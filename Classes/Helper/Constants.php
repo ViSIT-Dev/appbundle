@@ -27,8 +27,6 @@ class Constants {
 //    public static $VISIT_PUBLIC_URL  = "https://database.visit.uni-passau.de/drupal/wisski/navigate";
     public static $VISIT_PUBLIC_URL  = "https://database-test.visit.uni-passau.de/drupal/wisski/navigate";
 
-    public static $VISIT_API_URL  = "https://database-test.visit.uni-passau.de/metadb-rest-api/";
-
     public static $VISIT_RDF_PREFIX_MEDIA_TRIPLE_URL = "http://visit.de/metadb/";
     public static $VISIT_RDF_PREFIX_OBJECT_TRIPLE_URL = "http://visit.de/data/";
 

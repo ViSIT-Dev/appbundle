@@ -69,4 +69,8 @@ class ConfigurationHelper implements \TYPO3\CMS\Core\SingletonInterface {
         return $this->configuration["visitFileDir"];
     }
 
+    public function getDatabaseApiUrl(){
+        return $this->configuration["databaseApiUrl"];
+    }
+
 }

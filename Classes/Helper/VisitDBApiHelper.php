@@ -24,7 +24,9 @@ class VisitDBApiHelper {
 
         $curl = curl_init();
 
-        $url = Constants::$VISIT_API_URL  . $url . '?' . http_build_query(["id" => $targetObjectId]);
+        $configurationHelper = Util::makeInstance("Visit\VisitTablets\Helper\ConfigurationHelper");
+
+        $url = $configurationHelper->getDatabaseApiUrl()  . $url . '?' . http_build_query(["id" => $targetObjectId]);
 
         if($parameter != null && $method != 'GET'){
             $body = \json_encode($parameter);
