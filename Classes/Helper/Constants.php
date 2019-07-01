@@ -24,8 +24,9 @@ class Constants {
 
     public static $AJAX_UPLOAD_TEMP_DIR = PATH_site . "typo3temp/ajax_upload/";
 
-//    public static $VISIT_PUBLIC_URL  = "https://database.visit.uni-passau.de/drupal/wisski/navigate";
-    public static $VISIT_PUBLIC_URL  = "https://database-test.visit.uni-passau.de/drupal/wisski/navigate";
+    public static $VISIT_PUBLIC_URL  = "drupal/wisski/navigate";
+
+    public static $VISIT_API_URL  = "metadb-rest-api/";
 
     public static $VISIT_RDF_PREFIX_MEDIA_TRIPLE_URL = "http://visit.de/metadb/";
     public static $VISIT_RDF_PREFIX_OBJECT_TRIPLE_URL = "http://visit.de/data/";

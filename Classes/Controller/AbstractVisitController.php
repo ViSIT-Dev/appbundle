@@ -68,7 +68,7 @@ abstract class AbstractVisitController extends \TYPO3\CMS\Extbase\Mvc\Controller
             $this->settings = \array_merge_recursive($this->settings, $configs);
         }
 
-        $this->settings["visitPublicDbUrl"] = Constants::$VISIT_PUBLIC_URL;
+        $this->settings["visitPublicDbUrl"] = Util::makeInstance("Visit\VisitTablets\Helper\ConfigurationHelper")->getDatabaseApiUrl() .  Constants::$VISIT_PUBLIC_URL;
  
         $this->response->addAdditionalHeaderData("<!-- ViSIT APP: {$this->request->getControllerObjectName()} -->");
 
