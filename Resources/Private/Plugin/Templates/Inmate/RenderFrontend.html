@@ -100,11 +100,11 @@
                                             <li>† {person.dateOfPassing}</li>
                                         </f:if>
 
-                                        <f:if condition="{person.dateOfImprisonment}">
-                                            <li>{person.dateOfImprisonment}</li>
+                                        <f:if condition="{person.subtitle}">
+                                            <li>{person.subtitle}</li>
                                         </f:if>
-                                        <f:if condition="{person.dateOfRelease}">
-                                            <li>{person.dateOfRelease}</li>
+                                        <f:if condition="{person.dateOfImprisonment} && {person.dateOfRelease}">
+                                            <li>Haftdauer: {person.dateOfImprisonment} - {person.dateOfRelease}</li>
                                         </f:if>
                                         <f:if condition="{person.profession}">
                                             <li>{person.profession}</li>
