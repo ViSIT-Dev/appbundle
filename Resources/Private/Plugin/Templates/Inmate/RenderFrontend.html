@@ -13,6 +13,11 @@
 
     <f:section name="main">
 
+        <f:comment>
+            <f:debug>{personIndex}</f:debug>
+        </f:comment>
+
+
         <div id="mapAppWrapper">
 
             <div id="inmateHeader">
@@ -63,7 +68,13 @@
                                 <div class="data-index-anchor" data-index="{index}">
                                     <ul class="isotope-container">
                                     <f:for each="{personIndex}" as="person">
-                                        <li data-personuid="{person.uid}" class="lang-content{f:if(condition: '{person.language}', then: ' show-en', else:' show-de')} element-item cell-{person.prisonCell.uid} event-{person.event.uid}{f:if(condition: '{person.vip}', then: ' vip')}">{person.fullName}</li>
+                                        <li data-personuid="{person.uid}" class="lang-content {f:if(condition: '{person.language}', then: 'show-en', else:' show-de')} element-item cell-{person.prisonCell.uid} event-{person.event.uid}{f:if(condition: '{person.vip}', then: ' vip')}">
+
+                                            {person.fullName},
+                                            <span class="lang-content show-de">{person.prisonCell.name}</span>
+                                            <span class="lang-content show-en">{person.prisonCell.nameEn}</span>,
+                                            {person.prisonTime}
+                                        </li>
                                     </f:for>
                                     </ul>
                                 </div>

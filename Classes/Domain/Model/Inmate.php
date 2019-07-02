@@ -518,4 +518,13 @@ class Inmate extends AbstractEntityWithMedia implements IHasLanguage {
     public function getLangTitle(){
         return Util::getLanguageNameById($this->getLanguage());
     }
+
+    /**
+     * Returns the prison time
+     *
+     * @return date
+     */
+    public function getPrisonTime(){
+        return $this->dateOfImprisonment."-".$this->dateOfRelease;
+    }
 }
