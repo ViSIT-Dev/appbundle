@@ -200,6 +200,8 @@ class InmateController extends AbstractVisitController  implements IRenderFronte
             $out[$current][] = $inmate;
         }
 
+        //Util::debug($out);
+
         $this->view
             ->assign('persons', $out)
             ->assign('events', $this->eventRepository->findAll())

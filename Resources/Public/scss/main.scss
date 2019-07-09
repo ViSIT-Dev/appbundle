@@ -364,6 +364,7 @@ iframe.warenkorb{
             color: #4a4a4a;
             font-weight: bold;
             font-size: 1.4rem;
+
             &.btn{
                 margin-top: 1px;
             }
@@ -373,6 +374,11 @@ iframe.warenkorb{
             }
         }
 
+        .dropdown-item{
+            &.active{
+                background-color: #d1880f;
+            }
+        }
     }
     #inmateContent{
         height: calc(100% - #{$inmateHeaderHeight});
