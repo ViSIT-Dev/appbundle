@@ -20,20 +20,6 @@
 
                 <div class="dropdown">
                     <button class="btn btn-transparent dropdown-toggle menue-item" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="lang-content show-de">Zellen</span>
-                        <span class="lang-content show-en">Cells</span>
-                    </button>
-                    <div class="dropdown-menu isotope-filter">
-                        <f:for each="{cells}" as="cell">
-                            <a data-filter="cell-{cell.uid}" class="dropdown-item isotope-filter" data-celluid="{cell.uid}">
-                                <span class="lang-content show-de">{cell.name}</span>
-                                <span class="lang-content show-en">{cell.nameEn}</span>
-                            </a>
-                        </f:for>
-                    </div>
-                </div>
-                <div class="dropdown">
-                    <button class="btn btn-transparent dropdown-toggle menue-item" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="lang-content show-de">Ereignis</span>
                         <span class="lang-content show-en">Event</span>
                     </button>
@@ -46,6 +32,21 @@
                         </f:for>
                     </div>
                 </div>
+                <div class="dropdown">
+                    <button class="btn btn-transparent dropdown-toggle menue-item" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="lang-content show-de">Zellen</span>
+                        <span class="lang-content show-en">Cells</span>
+                    </button>
+                    <div class="dropdown-menu isotope-filter">
+                        <f:for each="{cells}" as="cell">
+                            <a data-filter="cell-{cell.uid}" class="dropdown-item isotope-filter" data-celluid="{cell.uid}">
+                                <span class="lang-content show-de">{cell.name}</span>
+                                <span class="lang-content show-en">{cell.nameEn}</span>
+                            </a>
+                        </f:for>
+                    </div>
+                </div>
+
                 <div class="filter-action menue-item" data-filter="vip">VIP</div>
             </div>
             <div id="inmateContent" class="row no-gutters justify-content-center">
