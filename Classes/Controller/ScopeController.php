@@ -214,18 +214,10 @@ class ScopeController extends AbstractVisitController  implements IRenderFronten
      * @return void
      */
     public function settingsAction(){
-
-
         // Get the data object (contains the tt_content fields)
         $data = $this->configurationManager->getContentObject()->data;
-        var_dump($data);
         // Append flexform values
         $this->configurationManager->getContentObject()->readFlexformIntoConf($data['pi_flexform'], $data);
-
-        var_dump($data['pi_flexform']);
-        var_dump($data);
-        die();
-
     }
 
     /**
