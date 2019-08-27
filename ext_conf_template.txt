@@ -16,7 +16,7 @@ apiUserPassword =
 # cat=Main; type=string; label=Syncthing Master ID
 syncthingMasterId =
 
-# cat=Main; type=boolean; label=Medienobjekte kompriieren
+# cat=Main; type=boolean; label=Medienobjekte komprimieren
 enableCompression = 0
 
 # cat=Main; type=int; label=Port des Kompressionscontainers
@@ -29,7 +29,7 @@ compressionApiIP = 172.17.0.3
 visitFileDir = /visit/
 
 # cat=Main; type=string; label=ViSIT DB API URL
-databaseApiUrl = https://database-test.visit.uni-passau.de/
+databaseApiUrl = https://database.visit.uni-passau.de/
 
 #############
 ### Debug ###
