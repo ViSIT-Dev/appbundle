@@ -35,8 +35,11 @@ return [
                 'type' => 'inline',
                 'foreign_table' => 'tx_visittablets_domain_model_galerycontentsubelement',
                 'foreign_field' => 'galery_content_element',
-                'minitems' => 0,
-                'maxitems' => 9999,
+                'maxitems' => 20,
+                'appearance' => [
+                    'collapseAll' => 1,
+                    'expandSingle' => 1,
+                ],
             ],
         ],
         'language' => [
