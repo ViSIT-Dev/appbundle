@@ -116,6 +116,7 @@ class GaleryContentElement extends AbstractEntityWithMedia implements IHasLangua
      */
     protected function initStorageObjects()
     {
+        parent::initStorageObjects();
         $this->subElements = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
     }
 
@@ -136,7 +137,25 @@ class GaleryContentElement extends AbstractEntityWithMedia implements IHasLangua
     }
 
 
+    /**
+     * Adds a FileReference
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $media
+     * @return void
+     */
+    public function addSubElements(\Visit\VisitTablets\Domain\Model\GaleryContentSubElemente $subElements) {
+        $this->subElements->attach($subElements);
+    }
 
+    /**
+     * Removes a FileReference
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $subElementsToRemove The FileReference to be removed
+     * @return void
+     */
+    public function removeSubElements(\Visit\VisitTablets\Domain\Model\GaleryContentSubElement $subElementsToRemove) {
+        $this->subElements->detach($subElementsToRemove);
+    }
 
     /**
      * Returns the language

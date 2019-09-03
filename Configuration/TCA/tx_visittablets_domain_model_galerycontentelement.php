@@ -28,6 +28,17 @@ return [
 		'1' => ['showitem' => ''],
     ],
     'columns' => [
+        'sub_elements' => [
+            'exclude' => false,
+            'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:tx_visittablets_domain_model_scopepoi.sub_elements',
+            'config' => [
+                'type' => 'inline',
+                'foreign_table' => 'tx_visittablets_domain_model_galerycontentsubelement',
+                'foreign_field' => 'galery_content_element',
+                'minitems' => 0,
+                'maxitems' => 9999,
+            ],
+        ],
         'language' => [
             'exclude' => false,
             'label' => 'LLL:EXT:visit_tablets/Resources/Private/Language/locallang_db.xlf:language',
@@ -156,17 +167,5 @@ return [
                         'default' => 0
                     ]
         ],
-        'sub_elements' => [
-            'exclude' => false,
-            'label' => 'Sub Elements',
-            'config' => [
-                'type' => 'inline',
-                'foreign_table' => 'tx_visittablets_domain_model_galerycontentsubelement',
-                'foreign_field' => 'galery_content_element',
-                'minitems' => 0,
-                'maxitems' => 9999,
-            ],
-        ],
-
     ],
 ];

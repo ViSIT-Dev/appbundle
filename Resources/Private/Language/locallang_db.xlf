@@ -162,6 +162,11 @@
             <trans-unit id="tx_visittablets_domain_model_galeryteaserelement">
                 <source>Galerie Teaser</source>
             </trans-unit>
+
+            <!-- Galery Element -->
+            <trans-unit id="tx_visittablets_domain_model_scopepoi.sub_elements">
+                <source>Sub elements</source>
+            </trans-unit>
             
             <!-- Scope -->
             <trans-unit id="tx_visittablets_domain_model_scopepoi">
