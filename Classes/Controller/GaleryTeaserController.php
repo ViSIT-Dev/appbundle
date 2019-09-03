@@ -219,9 +219,9 @@ class GaleryTeaserController extends AbstractVisitController  implements IRender
     public function deleteImageAction(AbstractEntityWithMedia $contentElement, \TYPO3\CMS\Extbase\Domain\Model\FileReference $media)
     {
         $this->addFlashMessage('Media wurde entfernt', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
-        $this->removeImageFromModel($teaserElement, $media);
-        $this->galeryTeaserElementRepository->update($teaserElement);
-        $this->redirect("edit", null, null, array("teaserElement" => $teaserElement));
+        $this->removeImageFromModel($contentElement, $media);
+        $this->galeryTeaserElementRepository->update($contentElement);
+        $this->redirect("edit", null, null, array("teaserElement" => $contentElement));
     }
 
 
