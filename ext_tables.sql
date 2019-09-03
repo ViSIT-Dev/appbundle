@@ -96,6 +96,7 @@ CREATE TABLE tx_visittablets_domain_model_galerycontentelement (
 	pid int(11) DEFAULT '0' NOT NULL,
 
 	language int(11) DEFAULT '0' NOT NULL,
+	sub_elements int(11) DEFAULT '0' NOT NULL,
 
 	title varchar(255) DEFAULT '' NOT NULL,
 	sub_title varchar(255) DEFAULT '' NOT NULL,
@@ -118,7 +119,7 @@ CREATE TABLE tx_visittablets_domain_model_galerycontentelement (
 );
 
 #
-# Table structure for table 'tx_visittablets_domain_model_galerycontentelement'
+# Table structure for table 'tx_visittablets_domain_model_galerycontentsubelement'
 #
 CREATE TABLE tx_visittablets_domain_model_galerycontentsubelement (
 
