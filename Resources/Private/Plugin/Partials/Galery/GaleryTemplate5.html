@@ -14,8 +14,8 @@
             <div class="col-4"><f:render partial="SingleMedia" arguments="{media: subElement.media.0}" /></div>
             <div class="col-8">
                 <h2>&rsaquo;&rsaquo;{subElement.title}&lsaquo;&lsaquo;</h2>
-                {subElement.text}
-                <p>Read More</p>
+                <f:format.raw>{subElement.text}</f:format.raw>
+                <a>Read More</a>
             </div>
         </div>
     </f:for>
