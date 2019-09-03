@@ -12,6 +12,7 @@ namespace Visit\VisitTablets\Controller;
  *
  ***/
 
+use Visit\VisitTablets\Domain\Model\AbstractEntityWithMedia;
 use Visit\VisitTablets\Helper\Util;
 use \TYPO3\CMS\Core\Messaging\AbstractMessage;
 use Visit\VisitTablets\Domain\Model\GaleryContentElement;
@@ -212,10 +213,10 @@ class GaleryTeaserController extends AbstractVisitController  implements IRender
     /**
      * action deleteImage
      *
-     * @param \Visit\VisitTablets\Domain\Model\GaleryTeaserElement $teaserElement,  \TYPO3\CMS\Extbase\Domain\Model\FileReference $media
+     * @param \Visit\VisitTablets\Domain\Model\AbstractEntityWithMedia $contentElement,  \TYPO3\CMS\Extbase\Domain\Model\FileReference $media
      * @return void
      */
-    public function deleteImageAction(GaleryTeaserElement $teaserElement, \TYPO3\CMS\Extbase\Domain\Model\FileReference $media)
+    public function deleteImageAction(AbstractEntityWithMedia $contentElement, \TYPO3\CMS\Extbase\Domain\Model\FileReference $media)
     {
         $this->addFlashMessage('Media wurde entfernt', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
         $this->removeImageFromModel($teaserElement, $media);
