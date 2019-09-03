@@ -21,7 +21,7 @@ return [
         'enablecolumns' => [
             'disabled' => 'hidden',
         ],
-        'searchFields' => 'title,sub_title,teaser_title',
+        'searchFields' => 'title,sub_title,teaser_title,sub_elements',
         'iconfile' => 'EXT:visit_tablets/Resources/Public/Icons/tx_visittablets_domain_model_scopepoi.gif'
     ],
     'types' => [
@@ -161,8 +161,8 @@ return [
             'label' => 'Sub Elements',
             'config' => [
                 'type' => 'inline',
-                'foreign_field' => 'galery_content_element',
                 'foreign_table' => 'tx_visittablets_domain_model_galerycontentsubelement',
+                'foreign_field' => 'galery_content_element',
                 'minitems' => 0,
                 'maxitems' => 9999,
             ],
