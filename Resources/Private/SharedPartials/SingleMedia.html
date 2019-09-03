@@ -1,42 +1,43 @@
-<figure>
-    <f:switch expression="{media.originalResource.originalFile.properties.mime_type}">
+<f:if condition="{media}">
+    <figure>
+        <f:switch expression="{media.originalResource.originalFile.properties.mime_type}">
 
-        <f:case value="image/jpeg">
-            <f:image src="{media.uid}" treatIdAsReference="1" class="img-fluid" />
-        </f:case>
+            <f:case value="image/jpeg">
+                <f:image src="{media.uid}" treatIdAsReference="1" class="img-fluid" />
+            </f:case>
 
 
-        <f:case value="image/png">
-            <f:image src="{media.uid}" treatIdAsReference="1" class="img-fluid" />
-        </f:case>
-        
-        
-        <f:case value="video/mp4">
-            <video muted="" controls="" controlslist="nodownload" >
-                <source src="{f:uri.image(image: media)}" type="video/mp4">
-                Your browser does not support HTML5 video.
-            </video>
-        </f:case>
-        
-        <f:case value="video/webm">
-            <video muted="" controls="" controlslist="nodownload" >
-                <source src="{f:uri.image(image: media)}" type="video/webm">
-                Your browser does not support HTML5 video.
-            </video>
-        </f:case>
+            <f:case value="image/png">
+                <f:image src="{media.uid}" treatIdAsReference="1" class="img-fluid" />
+            </f:case>
 
-        <f:case value="text/plain">
-            <f:render partial="Render3D" arguments="{media: media}"/>
-        </f:case>
-        
-        <f:defaultCase>
-            <f:comment>
-                <f:debug>{media.originalResource.originalFile}</f:debug>
-            </f:comment>
-            <img src="https://via.placeholder.com/350x150&text=Not+supported+{media.originalResource.originalFile.properties.mime_type}">
-        </f:defaultCase>
 
-    </f:switch>
-</figure>
+            <f:case value="video/mp4">
+                <video muted="" controls="" controlslist="nodownload" >
+                    <source src="{f:uri.image(image: media)}" type="video/mp4">
+                    Your browser does not support HTML5 video.
+                </video>
+            </f:case>
 
+            <f:case value="video/webm">
+                <video muted="" controls="" controlslist="nodownload" >
+                    <source src="{f:uri.image(image: media)}" type="video/webm">
+                    Your browser does not support HTML5 video.
+                </video>
+            </f:case>
+
+            <f:case value="text/plain">
+                <f:render partial="Render3D" arguments="{media: media}"/>
+            </f:case>
+
+            <f:defaultCase>
+                <f:comment>
+                    <f:debug>{media.originalResource.originalFile}</f:debug>
+                </f:comment>
+                <img src="https://via.placeholder.com/350x150&text=Not+supported+{media.originalResource.originalFile.properties.mime_type}">
+            </f:defaultCase>
+
+        </f:switch>
+    </figure>
+</f:if>
 
