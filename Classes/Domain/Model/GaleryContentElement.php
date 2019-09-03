@@ -87,7 +87,57 @@ class GaleryContentElement extends AbstractEntityWithMedia implements IHasLangua
      * @var int
      */
     protected $sorting;
-    
+
+    /**
+     * subElements
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Visit\VisitTablets\Domain\Model\GaleryContentSubElement>
+     */
+    protected $subElements;
+
+
+
+    /**
+     * __construct
+     */
+    public function __construct()
+    {
+        //Do not remove the next line: It would break the functionality
+        $this->initStorageObjects();
+    }
+
+    /**
+     * Initializes all ObjectStorage properties
+     * Do not modify this method!
+     * It will be rewritten on each save in the extension builder
+     * You may modify the constructor of this class instead
+     *
+     * @return void
+     */
+    protected function initStorageObjects()
+    {
+        $this->subElements = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+    }
+
+    /**
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+     */
+    public function getSubElements()
+    {
+        return $this->subElements;
+    }
+
+    /**
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $subElements
+     */
+    public function setSubElements($subElements)
+    {
+        $this->subElements = $subElements;
+    }
+
+
+
+
     /**
      * Returns the language
      *

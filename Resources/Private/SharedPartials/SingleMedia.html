@@ -1,10 +1,4 @@
-<f:comment>
-    <f:debug>{media.originalResource.originalFile.identifier}</f:debug>
-    
-</f:comment>
-
 <figure>
-
     <f:switch expression="{media.originalResource.originalFile.properties.mime_type}">
 
         <f:case value="image/jpeg">
@@ -36,6 +30,9 @@
         </f:case>
         
         <f:defaultCase>
+            <f:comment>
+                <f:debug>{media.originalResource.originalFile}</f:debug>
+            </f:comment>
             <img src="https://via.placeholder.com/350x150&text=Not+supported+{media.originalResource.originalFile.properties.mime_type}">
         </f:defaultCase>
 

@@ -11,7 +11,7 @@
         <f:for each="{galerySubContentElements}" as="subElement">
 
             <div class="row {f:if(condition: '{subElement.lightTheme}', then: 'light', else: 'dark')}">
-                <div class="col-4"><f:render partial="SingleMedia" arguments="{subElement.media}" /></div>
+                <div class="col-4"><f:render partial="SingleMedia" arguments="{media: subElement.media}" /></div>
                 <div class="col-8">
                     <h2>&rsaquo;&rsaquo;{subElement.title}&lsaquo;&lsaquo;</h2>
                     {subElement.text}
