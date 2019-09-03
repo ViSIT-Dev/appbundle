@@ -156,12 +156,12 @@ return [
                         'default' => 0
                     ]
         ],
-        'subElements' => [
+        'sub_elements' => [
             'exclude' => false,
             'label' => 'Sub Elements',
             'config' => [
                 'type' => 'inline',
-                'foreign_table' => 'tx_visittablets_domain_model_galeryteaserelement',
+                'foreign_table' => 'tx_visittablets_domain_model_galerycontentsubelement',
                 'minitems' => 0,
                 'maxitems' => 9999,
             ],
