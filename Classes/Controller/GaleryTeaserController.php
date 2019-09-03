@@ -227,12 +227,12 @@ class GaleryTeaserController extends AbstractVisitController  implements IRender
     /**
      * action delete
      *
-     * @param \Visit\VisitTablets\Domain\Model\GaleryTeaserElement $galeryTeaserElement
+     * @param \Visit\VisitTablets\Domain\Model\GaleryTeaserElement $teaserElement
      * @return void
      */
-    public function deleteAction(GaleryTeaserElement $galeryTeaserElement)
+    public function deleteAction(GaleryTeaserElement $teaserElement)
     {
-        $this->galeryTeaserElementRepository->remove($galeryTeaserElement);
+        $this->galeryTeaserElementRepository->remove($teaserElement);
         $this->redirect('list');
     }
 
