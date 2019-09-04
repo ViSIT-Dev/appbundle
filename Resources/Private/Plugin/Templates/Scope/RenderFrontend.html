@@ -262,192 +262,83 @@
             var phid;
 
             $(document).ready(function () {
-                
+
                 // setup the pois
-                for(var poi in jsonPois) {
+                for (var poi in jsonPois) {
                     console.log((jsonPois[poi]['y'] - jsonPois[poi]['radius'] / 2));
                     $("#poi-" + jsonPois[poi]["uid"])
-                            .css({'transform': 
-                    'translate(' + (jsonPois[poi]['y'] - jsonPois[poi]['radius'] / 2) + 'px' + 
-                             ',' + (jsonPois[poi]['x'] - jsonPois[poi]['radius'] / 2) + 'px' + ')'
-                 });
+                        .css({
+                            'transform':
+                                'translate(' + (jsonPois[poi]['y'] - jsonPois[poi]['radius'] / 2) + 'px' +
+                                ',' + (jsonPois[poi]['x'] - jsonPois[poi]['radius'] / 2) + 'px' + ')'
+                        });
                 }
-                
-                
+
+
                 // initializing the phidget connection and sensor inputs
                 // <editor-fold defaultstate="collapsed" desc="phidget init">
-                
-                var conn = new phidget22.Connection(<f:format.raw>{config.sensorport}</f:format.raw>, '<f:format.raw>{config.sensorhost}</f:format.raw>');
 
-                var encoderX = new phidget22.Encoder();
-                encoderX.onError = onError;
-                encoderX.name = "X-Channel";
-                encoderX.onStateChange = posXChange;
-                encoderX.onPropertyChange = posXChange;
-                encoderX.onPositionChange = posXChange;
-                encoderX.onAttach = onEncoderAttach;
+                let socket = new WebSocket("ws://192.168.111.16:8765");
 
-                var encoderY = new phidget22.Encoder();
-                encoderY.onError = onError;
-                encoderY.name = "Y-Channel";
-                encoderY.onStateChange = posYChange;
-                encoderY.onPropertyChange = posYChange;
-                encoderY.onPositionChange = posYChange;
-                encoderY.onAttach = onEncoderAttach;
-                
-                var endXTop = new phidget22.DigitalInput();
-                endXTop.onError = onError;
-                endXTop.name = "X Endstop Top";
-                endXTop.onStateChange = endXTopReached;
-                endXTop.onPropertyChange = endXTopReached;
-                endXTop.onAttach = onButtonAttach;
-
-                var endXBottom = new phidget22.DigitalInput();
-                endXBottom.onError = onError;
-                endXBottom.name = "X Endstop Bottom";
-                endXBottom.onStateChange = endXBottomReached;
-                endXBottom.onPropertyChange = endXBottomReached;
-                endXBottom.onAttach = onButtonAttach;
-
-                var endYTop = new phidget22.DigitalInput();
-                endYTop.onError = onError;
-                endYTop.name = "Y Endstop Top";
-                endYTop.onStateChange = endYTopReached;
-                endYTop.onPropertyChange = endYTopReached;
-                endYTop.onAttach = onButtonAttach;
-
-                var endYBottom = new phidget22.DigitalInput();
-                endYBottom.onError = onError;
-                endYBottom.name = "X Endstop Bottom";
-                endYBottom.onStateChange = endYBottomReached;
-                endYBottom.onPropertyChange = endYBottomReached;
-                endYBottom.onAttach = onButtonAttach;
-
-                encoderX.onDetach = function (ch) {
-                    console.log("detached - " + ch)
+                socket.onopen = function (e) {
+                    console.log("opened Connection");
                 }
+                const startValue = 34738; // most left / ccw
+                const maxValue = 2**16-1; // see encoder settings within python settings
+                socket.onmessage = function (e) {
+                    let res = JSON.parse(e.data);
+                    console.log("data received:", res);
+                    if (res) {
+                        let apos = res.pivot - startValue;
+                        if ( apos < 0 ){
+                            apos += maxValue;
+                        }
+                        console.log("APOS:" , apos);
+                        //document.getElementById("tilt").innerHTML = res.tilt;
+                        //document.getElementById("pivot").innerHTML = res.pivot;
+                    }
 
-                conn.connect().then(function () {
-                    console.log('connected');
-                    encoderX.open().then(function (encoderX) {
-                        console.log('channel X open');
-                    }).catch(function (err) {
-                        console.log('failed to open the channel:' + err);
-                    });
-                    encoderY.open().then(function (encoderY) {
-                        console.log('channel Y open');
-                    }).catch(function (err) {
-                        console.log('failed to open the channel:' + err);
-                    });
-                    endXTop.open().then(function (endXTop) {
-                        console.log('endstop x + open');
-                    }).catch(function (err) {
-                        console.log('failed to open the channel:' + err);
-                    });
-                    endXBottom.open().then(function (endXBottom) {
-                        console.log('endstop x - open');
-                    }).catch(function (err) {
-                        console.log('failed to open the channel:' + err);
-                    });
-                    endYTop.open().then(function (endYTop) {
-                        console.log('endstop y + open');
-                    }).catch(function (err) {
-                        console.log('failed to open the channel:' + err);
-                    });
-                    endYBottom.open().then(function (endYBottom) {
-                        console.log('endstop y - open');
-                    }).catch(function (err) {
-                        console.log('failed to open the channel:' + err);
-                    });
-                }).catch(function (err) {
-                    alert('failed to connect to server:' + err);
-                });
-                ;
+                }
             });
 
-            function onEncoderAttach(ch) {
-                console.log(ch.name + ' attached');
-
-                ch.data.elapsedTime = 0;
-                ch.setDataInterval(10);
-                ch.setEnabled(true);
-                ch.onError = onError;
-            }
-            function onButtonAttach(ch) {
-                console.log(ch.name + ' attached');
-                ch.onError = onError;
-            }
-
-            function stateChange(state) {
-                console.log(state);
-            }
-
-            function valYChange(prop) {
-                console.log(prop);
-            }
-            function valXChange(prop) {
-                console.log(prop);
-            }
             function posXChange(posChange, timeChange, indexTriggered) {
                 currentX = Math.min(Math.max(currentX + posChange, 0), xMax);
                 gotoPosition();
             }
+
             function posYChange(posChange, timeChange, indexTriggered) {
                 currentY = Math.min(Math.max(currentY + posChange, 0), yMax);
                 gotoPosition();
             }
-            function endXTopReached(prop) {
-                if (prop === true) {
-                    currentX = 0;
-                    gotoPosition();
-                }
-            }
-            function endYTopReached(prop) {
-                if (prop === true) {
-                    currentY = 0;
-                    gotoPosition();
-                }
-            }
-            function endXBottomReached(prop) {
-                if (prop === true) {
-                    currentX = xMax;
-                    gotoPosition();
-                }
-            }
-            function endYBottomReached(prop) {
-                if (prop === true) {
-                    currentY = yMax;
-                    gotoPosition();
-                }
-            }
+
             // </editor-fold>
-            
+
             /**
              * ReCalculates the position of the Crosshair
              */
-            function resetCrosshairPosition(){
+            function resetCrosshairPosition() {
                 crosshairScreenOffsetX = $("#scopeContainer").width() / 2;
                 crosshairScreenOffsetY = $("#scopeContainer").height() / 2;
             }
-            
+
             /**
              * Checks if any POI is within range of Crosshair and displays contents
              */
-            function getTarget(){
-                for(var poi in jsonPois) {
+            function getTarget() {
+                for (var poi in jsonPois) {
                     distance = Math.sqrt(Math.pow((Math.abs(transformX) + crosshairScreenOffsetX - jsonPois[poi]["y"]), 2) + Math.pow((Math.abs(transformY) + crosshairScreenOffsetY - jsonPois[poi]["x"]), 2));
-                    if(distance < jsonPois[poi]["radius"] / 2){
+                    if (distance < jsonPois[poi]["radius"] / 2) {
                         $("#target").html(jsonPois[poi]["uid"]);
-                        if(jsonPois[poi]["lang"]){
+                        if (jsonPois[poi]["lang"]) {
                             $("body").removeClass("lang-en");
                             $("body").removeClass("lang-de");
                             $("body").addClass("lang-" + jsonPois[poi]["lang"]);
                             language = jsonPois[poi]["lang"];
                             return null;
                         }
-                        if(
-                                jsonPois[poi]["language"] != (language === "de" ? 0 : 1) && jsonPois[poi]["displayAllways"] != true
-                                ){
+                        if (
+                            jsonPois[poi]["language"] != (language === "de" ? 0 : 1) && jsonPois[poi]["displayAllways"] != true
+                        ) {
                             continue;
                         }
                         console.log({"target": $("#poi-" + jsonPois[poi]["uid"])});
@@ -463,39 +354,39 @@
                 }
                 $("#target").html("none");
             }
-            
+
             /**
              * Function gets triggered by changes of sensors and changes display according to view change
              */
             function gotoPosition() {
-                    
+
                 resetCrosshairPosition();
-                
+
                 mapYmax = $("#overlay").height() - $("#scopeContainer").height() * 1;
                 mapXmax = $("#overlay").width() - $("#scopeContainer").width() * 1;
-                
+
                 transformY = (currentY / yMax * mapYmax * -1);
                 transformX = (currentX / xMax * mapXmax * -1);
-                
+
                 $("#overlay").css({
                     'transform': 'translate(' + transformX + 'px,' + transformY + 'px)'
                 });
-                
+
                 var target = getTarget();
-                if(target){
+                if (target) {
                     // to have a smoother experiance this is the hysterese
-                    if(target["distanceFactor"] > hysteresisFactor){
-                        if(!target["target"].hasClass("active")){
+                    if (target["distanceFactor"] > hysteresisFactor) {
+                        if (!target["target"].hasClass("active")) {
                             target["target"].addClass("active");
                             target["datapoint"].addClass("active");
                             $(".content-holder").addClass("active");
-                            
-                            if(target["fullscreenvideo"] == 0){
+
+                            if (target["fullscreenvideo"] == 0) {
                                 $(".scroller").addClass("active");
                             }
 
                             // start video
-                            target["datapoint"].find("video").each(function(i, video){
+                            target["datapoint"].find("video").each(function (i, video) {
                                 $(video)[0].autoplay = true;
                                 $(video)[0].controls = false;
                                 $(video)[0].loop = true;
@@ -503,28 +394,24 @@
                             });
                         }
                     }
-                }else{
+                } else {
                     $(".poi.active").removeClass("active");
                     $(".datapoint.active").removeClass("active");
                     $(".content-holder").removeClass("active");
                     $(".scroller").removeClass("active");
-                    
+
                     // stop video
-                    $(".content-holder video").each(function(i, video){
+                    $(".content-holder video").each(function (i, video) {
                         $(video)[0].pause();
                         $(video)[0].currentTime = 0;
                     });
-                    
+
                 }
-                
-                if(debugmode){
+
+                if (debugmode) {
                     $("#currentY").html(Math.abs(transformX) + crosshairScreenOffsetX);
                     $("#currentX").html(Math.abs(transformY) + crosshairScreenOffsetY);
                 }
-            }
-
-            function onError(arg0, arg1) {
-                console.log("ERROR: " + arg0 + " - " + arg1);
             }
 
         </script>
