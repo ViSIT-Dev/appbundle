@@ -2032,13 +2032,13 @@ iframe.warenkorb {
           background: linear-gradient(to bottom, rgba(225, 255, 255, 0) 0%, white 100%);
           /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
           filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00e1ffff', endColorstr='#ffffff',GradientType=0 );
-          /* IE6-9 */ }
+          /* IE6-9 */
+          z-index: 1; }
         #mapAppWrapper #inmateContent .inmateList #scrolllist ul {
           list-style: none;
           list-style-type: none;
           padding: 0;
-          margin: 0;
-          min-height: 3.5rem; }
+          margin: 0; }
           #mapAppWrapper #inmateContent .inmateList #scrolllist ul li {
             border-bottom: 1px solid #D6D6D6;
             padding: 5px 0;
@@ -2047,7 +2047,8 @@ iframe.warenkorb {
             font-weight: 500;
             color: #303030;
             cursor: pointer;
-            width: calc(100% - 40px); }
+            width: calc(100% - 40px);
+            min-height: 51px; }
             #mapAppWrapper #inmateContent .inmateList #scrolllist ul li.active {
               color: #d1880f;
               font-weight: 600; }
@@ -2058,7 +2059,9 @@ iframe.warenkorb {
     #mapAppWrapper #inmateContent #inmateDetail {
       background-color: #303030;
       padding: 75px;
-      min-height: 100%; }
+      min-height: 100%;
+      z-index: 2;
+      position: relative; }
       #mapAppWrapper #inmateContent #inmateDetail .inmate-card {
         display: none; }
         #mapAppWrapper #inmateContent #inmateDetail .inmate-card.active {

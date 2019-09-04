@@ -522,9 +522,16 @@ class Inmate extends AbstractEntityWithMedia implements IHasLanguage {
     /**
      * Returns the prison time
      *
-     * @return date
+     * @return string
      */
     public function getPrisonTime(){
-        return $this->dateOfImprisonment."-".$this->dateOfRelease;
+        if($this->dateOfImprisonment && $this->dateOfRelease){
+            return $this->dateOfImprisonment."-".$this->dateOfRelease;
+        }else if($this->dateOfImprisonment){
+            return $this->dateOfImprisonment;
+        }else if($this->dateOfRelease) {
+            return $this->dateOfRelease;
+        }
+        return "";
     }
 }

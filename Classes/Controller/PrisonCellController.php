@@ -60,6 +60,30 @@ class PrisonCellController extends AbstractVisitController {
     }
 
     /**
+     * action edit
+     *
+     * @param \Visit\VisitTablets\Domain\Model\PrisonCell $prisonCell
+     * @return void
+     */
+    public function editAction(PrisonCell $prisonCell)
+    {
+        $this->view->assign('prisonCell', $prisonCell);
+    }
+
+    /**
+     * action update
+     *
+     * @param \Visit\VisitTablets\Domain\Model\PrisonCell $prisonCell
+     * @return void
+     */
+    public function updateAction(PrisonCell $prisonCell)
+    {
+        $this->addFlashMessage('Änderungen wurden gespeichert', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+        $this->prisonCellRepository->update($prisonCell);
+        $this->redirect("edit", null, null, array("prisonCell" => $prisonCell));
+    }
+
+    /**
      * action delete
      *
      * @param \Visit\VisitTablets\Domain\Model\PrisonCell $prisonCell

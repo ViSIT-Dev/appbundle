@@ -179,28 +179,31 @@ class InmateController extends AbstractVisitController  implements IRenderFronte
     {
         $this->addSettingsForTablets();
 
-//        $persons = json_decode(
-//            file_get_contents("typo3conf/ext/visit_tablets/Resources/Public/SampleData/MOCK_DATA.json"),
-//            true
-//        );
-//
-//        \usort($persons, function($a, $b){
-//            return \strcmp($a["first_name"], $b["first_name"]);
-//        });
-
-
-
         $out = [];
         /** @var Inmate $inmate */
         foreach ($this->inmateRepository->findAll() as $inmate){
-            $current =  \strtoupper($inmate->getFullName()[0]);
+            $current =  \strtoupper($inmate->getFirstName()[0]);
+
+
+            if(empty($current)){
+                $current = \strtoupper($inmate->getLastName()[0]);
+            }
+            if(empty($current)){
+                //if no name skip
+                continue;
+            }
+//            $current = iconv("utf-8","ascii//TRANSLIT",$current);
+            $current = utf8_encode($current);
+
             if(! \array_key_exists($current, $out)){
                 $out[$current] = array();
             }
             $out[$current][] = $inmate;
         }
 
-        //Util::debug($out);
+        \ksort($out);
+
+//        Util::debug($out);
 
         $this->view
             ->assign('persons', $out)

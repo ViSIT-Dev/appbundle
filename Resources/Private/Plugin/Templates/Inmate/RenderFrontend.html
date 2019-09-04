@@ -21,7 +21,7 @@
         <div id="mapAppWrapper">
 
             <div id="inmateHeader">
-                <div class="remove-filter menue-item">A-Z</div>
+                <div class="remove-filter menue-item" data-filter="*">A-Z</div>
 
                 <div class="dropdown">
                     <button class="btn btn-transparent dropdown-toggle menue-item" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -30,7 +30,7 @@
                     </button>
                     <div class="dropdown-menu">
                         <f:for each="{events}" as="event">
-                            <a data-filter="event-{event.uid}" class="dropdown-item isotope-filter" data-eventuid="{event.uid}">
+                            <a data-filter=".event-{event.uid}" class="dropdown-item isotope-filter" data-eventuid="{event.uid}">
                                 <span class="lang-content show-de">{event.name}</span>
                                 <span class="lang-content show-en">{event.nameEn}</span>
                             </a>
@@ -44,7 +44,7 @@
                     </button>
                     <div class="dropdown-menu isotope-filter">
                         <f:for each="{cells}" as="cell">
-                            <a data-filter="cell-{cell.uid}" class="dropdown-item isotope-filter" data-celluid="{cell.uid}">
+                            <a data-filter=".cell-{cell.uid}" class="dropdown-item isotope-filter" data-celluid="{cell.uid}">
                                 <span class="lang-content show-de">{cell.name}</span>
                                 <span class="lang-content show-en">{cell.nameEn}</span>
                             </a>
@@ -52,7 +52,7 @@
                     </div>
                 </div>
 
-                <div class="filter-action menue-item" data-filter="vip">VIP</div>
+                <div class="filter-action menue-item" data-filter=".vip">VIP</div>
             </div>
             <div id="inmateContent" class="row no-gutters justify-content-center">
                 <div class="col-6 inmateList">
@@ -65,21 +65,19 @@
                             </ul>
                         </div>
                         <div id="scrolllist" class="col-11">
-                            <f:for each="{persons}" as="personIndex" key="index">
-                                <div class="data-index-anchor" data-index="{index}">
-                                    <ul class="isotope-container">
-                                    <f:for each="{personIndex}" as="person">
-                                        <li data-personuid="{person.uid}" class="lang-content {f:if(condition: '{person.language}', then: 'show-en', else:' show-de')} element-item cell-{person.prisonCell.uid} event-{person.event.uid}{f:if(condition: '{person.vip}', then: ' vip')}">
-
-                                            {person.fullName},
-                                            <span class="lang-content show-de">{person.prisonCell.name}</span>
-                                            <span class="lang-content show-en">{person.prisonCell.nameEn}</span>,
-                                            {person.prisonTime}
-                                        </li>
-                                    </f:for>
-                                    </ul>
-                                </div>
-                            </f:for>
+                            <div id="isotope-container">
+                                <f:for each="{persons}" as="personIndex" key="index">
+                                    <div class="data-index-anchor" data-index="{index}">
+                                        <ul class="isotope-container">
+                                            <f:for each="{personIndex}" as="person">
+                                                <li data-personuid="{person.uid}" class="lang-content {f:if(condition: '{person.language}', then: 'show-en', else:' show-de')} element-item cell-{person.prisonCell.uid} event-{person.event.uid}{f:if(condition: '{person.vip}', then: ' vip')}">
+                                                    {person.fullName}<f:if condition="{person.prisonCell.name}">, <span class="lang-content show-de">{person.prisonCell.nameEn}</span></f:if><f:if condition="{person.prisonCell.name}">, <span class="lang-content show-en">{person.prisonCell.nameEn}</span></f:if><f:if condition="{person.prisonTime}">, {person.prisonTime}</f:if>
+                                                </li>
+                                            </f:for>
+                                        </ul>
+                                    </div>
+                                </f:for>
+                            </div>
                         </div>
 
                     </div>
@@ -162,9 +160,7 @@
                 }
 
                 function initScroll(){
-
-
-                    var currentElement, currentPosition, listGroupContainerMaxHeight = 0, touching = false, $scrolllist = $('#scrolllist'), marignTop = 50;
+                    let currentElement, currentPosition, listGroupContainerMaxHeight = 0, touching = false, $scrolllist = $('#scrolllist'), marignTop = 50;
 
                     $(".data-index-anchor").each(function (i, e) {
                         let h = $(e).height();
@@ -256,7 +252,8 @@
             //content
             {
 
-                var currentActiveEntry, $grid;;
+                let currentActiveEntry;
+
                 function initContent() {
                     $("#scrolllist li").click(function () {
                         if(currentActiveEntry !== ($s = $(this))) {
@@ -266,33 +263,6 @@
                             loadContent();
                         }
                     });
-
-                    // isotope
-                    $isotope = $(".isotope-container");
-
-                    // start isotope
-                    $isotope.isotope({ filter: '*' });
-
-                    // filter by cell or event or vips
-                    $filterSelector = ".isotope-filter, .filter-action"
-                    $($filterSelector).on( 'click', function() {
-                        var filterValue = $(this).attr('data-filter');
-                        if(filterValue !== undefined){
-                            $isotope.isotope({ filter: "." + filterValue });
-                            $($filterSelector).removeClass("active");
-                            $(".remove-filter").removeClass("active");
-                            $(this).addClass("active");
-                        }
-                    });
-
-                    // remove filters
-                    $('.remove-filter').on( 'click', function() {
-                        $isotope.isotope({ filter: "*" });
-                        $($filterSelector).removeClass("active");
-                        $(this).addClass("active");
-                    });
-
-
                 }
 
                 function loadContent(){
@@ -301,6 +271,22 @@
                     content.addClass("active").show();
                 }
 
+            }
+
+            //filter
+            {
+                function initFilter() {
+                    $("*[data-filter]").click(function () {
+                        let filterValue = $(this).data("filter");
+                        if(filterValue === "*"){
+                            $("#scrolllist li").show();
+                        }else{
+                            $("#scrolllist li").hide();
+                            $("#scrolllist li" + filterValue).show();
+                        }
+                    });
+
+                }
             }
 
             function initLang(lang){
@@ -315,11 +301,13 @@
 
             document.addEventListener('DOMContentLoaded', function(){
                 initContent();
-                initScroll();
                 $("#scrolllist .data-index-anchor:first-of-type li:first-of-type").trigger("click");
                 $('#startModal').modal({
                     keyboard: false,
                     backdrop: "static"
+                }).on('hidden.bs.modal', function () {
+                    initScroll();
+                    initFilter();
                 });
 
             });

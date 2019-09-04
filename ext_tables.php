@@ -73,8 +73,8 @@ call_user_func(
             '', // Position
             [
                 'Inmate' => 'list, new, create, edit, update, delete, settings, updateSettings',
-                'PrisonCell' => 'list, new, create, delete',
-                'Event' => 'list, new, create, delete',
+                'PrisonCell' => 'list, new, create, delete, edit, update',
+                'Event' => 'list, new, create, delete, edit, update',
             ],
             [
                 'access' => 'user,group',

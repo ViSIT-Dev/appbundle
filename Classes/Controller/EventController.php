@@ -61,6 +61,32 @@ class EventController extends AbstractVisitController {
         $this->redirect('list');
     }
 
+
+
+    /**
+     * action edit
+     *
+     * @param \Visit\VisitTablets\Domain\Model\Event $event
+     * @return void
+     */
+    public function editAction(Event $event)
+    {
+        $this->view->assign('event', $event);
+    }
+
+    /**
+     * action update
+     *
+     * @param \Visit\VisitTablets\Domain\Model\Event $event
+     * @return void
+     */
+    public function updateAction(Event $event)
+    {
+        $this->addFlashMessage('Änderungen wurden gespeichert', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+        $this->eventRepository->update($event);
+        $this->redirect("edit", null, null, array("event" => $event));
+    }
+
     /**
      * action delete
      *
