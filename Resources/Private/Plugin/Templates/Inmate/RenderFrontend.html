@@ -277,12 +277,15 @@
             {
                 function initFilter() {
                     $("*[data-filter]").click(function () {
+                        $("#inmateHeader .active").removeClass("active");
+
                         let filterValue = $(this).data("filter");
                         if(filterValue === "*"){
                             $("#scrolllist li").show();
                         }else{
                             $("#scrolllist li").hide();
                             $("#scrolllist li" + filterValue).show();
+                            $(this).addClass("active").parents(".dropdown ").find(".menue-item").addClass("active");
                         }
                     });
 

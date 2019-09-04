@@ -357,6 +357,10 @@ iframe.warenkorb{
             display: inline-block;
         }
 
+        *[data-filter]{
+            cursor: pointer;
+        }
+
         .menue-item {
             line-height: $inmateHeaderHeight;
             cursor: pointer;

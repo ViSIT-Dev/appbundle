@@ -1929,6 +1929,8 @@ iframe.warenkorb {
     background-color: #f0f0f0; }
     #mapAppWrapper #inmateHeader > * {
       display: inline-block; }
+    #mapAppWrapper #inmateHeader *[data-filter] {
+      cursor: pointer; }
     #mapAppWrapper #inmateHeader .menue-item {
       line-height: 50px;
       cursor: pointer;
