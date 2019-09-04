@@ -71,7 +71,7 @@
                                         <ul class="isotope-container">
                                             <f:for each="{personIndex}" as="person">
                                                 <li data-personuid="{person.uid}" class="lang-content {f:if(condition: '{person.language}', then: 'show-en', else:' show-de')} element-item cell-{person.prisonCell.uid} event-{person.event.uid}{f:if(condition: '{person.vip}', then: ' vip')}">
-                                                    {person.fullName}<f:if condition="{person.prisonCell.name}">, <span class="lang-content show-de">{person.prisonCell.nameEn}</span></f:if><f:if condition="{person.prisonCell.name}">, <span class="lang-content show-en">{person.prisonCell.nameEn}</span></f:if><f:if condition="{person.prisonTime}">, {person.prisonTime}</f:if>
+                                                    {person.fullName}<f:if condition="{person.prisonCell.name}">, <span class="lang-content show-de">{person.prisonCell.name}</span></f:if><f:if condition="{person.prisonCell.nameEn}">, <span class="lang-content show-en">{person.prisonCell.nameEn}</span></f:if><f:if condition="{person.prisonTime}">, {person.prisonTime}</f:if>
                                                 </li>
                                             </f:for>
                                         </ul>
@@ -144,6 +144,8 @@
 
 
         <script>
+
+            var currentLang;
 
             //alphabet scroll
             {
@@ -281,7 +283,11 @@
 
                         let filterValue = $(this).data("filter");
                         if(filterValue === "*"){
-                            $("#scrolllist li").show();
+                            if(currentLang == 0){
+                                $("#scrolllist li.lang-content.show-de").show();
+                            }else{
+                                $("#scrolllist li.lang-content.show-en").show();
+                            }
                         }else{
                             $("#scrolllist li").hide();
                             $("#scrolllist li" + filterValue).show();
@@ -293,6 +299,7 @@
             }
 
             function initLang(lang){
+                currentLang = lang;
                 $(".lang-content").hide();
                 if(lang == 0){
                     $(".lang-content.show-de").show();
