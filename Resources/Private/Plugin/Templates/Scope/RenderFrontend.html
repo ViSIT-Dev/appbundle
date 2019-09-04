@@ -196,8 +196,26 @@
         <script src="typo3conf/ext/visit_tablets/Resources/Public/Backend/vendors/encoder/sha256.min.js"></script> 
         <script src="typo3conf/ext/visit_tablets/Resources/Public/Backend/vendors/encoder/phidget22.min.js"></script> 
         <script>
+
+            //vars from be
+            // const specialIconSize = {config.specialIconSize -> f:format.raw()};
+            const specialIconSize = {config.specialIconSize};
+            const specialIconX = {config.maxxpx - 540 - 50};
+            const specialIconY = {config.maxypx - 960 - 50};
+            const debugmode = {config.debugmode};
+
+            const jsonPois = {jsonPois -> f:format.raw()};
+
+            const xMax = {config.maxx};
+            const yMax = {config.maxy};
+
+
+            // calculating some special values for adjusting pois
+            let specialIconSizeHalf = specialIconSize / 2;
+            let specialIconOffset = specialIconSize * 1.7;
+
             // importing the WebCam Video stream
-            var video = document.querySelector("#camrtc");
+            const video = document.querySelector("#camrtc");
             
             if (navigator.mediaDevices.getUserMedia) {
                 navigator.mediaDevices.getUserMedia({video: true})
@@ -210,21 +228,13 @@
                     });
             }
             
-            // calculating some special values for adjusting pois
-            specialIconSize = <f:format.raw>{config.specialIconSize}</f:format.raw>;
-            specialIconSizeHalf = specialIconSize / 2;
-            specialIconOffset = specialIconSize * 1.7;
-            
-            specialIconX = <f:format.raw>{config.maxxpx - 540 - 50}</f:format.raw>;
-            specialIconY = <f:format.raw>{config.maxypx - 960 - 50}</f:format.raw>;
-            
-            debugmode = <f:format.raw>{config.debugmode}</f:format.raw>;
+
             hysteresisFactor = 0.25;
             
             /**
              * getting pois from BE and adding special pois for language and impress
              */
-            jsonPois = <f:format.raw>{jsonPois}</f:format.raw>;
+
             jsonPois.push({
                 'uid': "impress",
                 'x': specialIconX - specialIconSizeHalf,
@@ -249,8 +259,7 @@
             });
             console.log(jsonPois);
             
-            xMax = <f:format.raw>{config.maxx}</f:format.raw>;
-            yMax = <f:format.raw>{config.maxy}</f:format.raw>;
+
             currentX = 0;
             currentY = 0;
             crosshairScreenOffsetX = 0;
@@ -282,7 +291,7 @@
 
                 socket.onopen = function (e) {
                     console.log("opened Connection");
-                }
+                };
                 const startValue = 34738; // most left / ccw
                 const maxValue = 2**16-1; // see encoder settings within python settings
                 socket.onmessage = function (e) {

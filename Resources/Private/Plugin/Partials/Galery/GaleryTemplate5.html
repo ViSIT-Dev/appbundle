@@ -4,7 +4,7 @@
             <f:render partial="SingleMedia" arguments="{media: element.media.0}" />
         </div>
         <div class="col-6 no-gutters">
-            {element.title}
+            <f:format.raw>{element.text}</f:format.raw>
         </div>
     </div>
 
