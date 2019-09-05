@@ -4,22 +4,27 @@
             <f:render partial="SingleMedia" arguments="{media: element.media.0}" />
         </div>
         <div class="col-6 no-gutters">
-            <f:format.raw>{element.text}</f:format.raw>
+            <h1><f:format.raw>{element.text}</f:format.raw></h1>
         </div>
     </div>
 
     <f:for each="{element.subElements}" as="subElement">
 
-        <div class="row {f:if(condition: '{subElement.lightTheme}', then: 'light', else: 'dark')}">
-            <div class="col-4"><f:render partial="SingleMedia" arguments="{media: subElement.media.0}" /></div>
+        <div class="row {f:if(condition: '{subElement.lightTheme}', then: 'light', else: 'dark')} subs">
+            <div class="col-4">
+                <h2 class="left-title">{subElement.title}</h2>
+                <f:render partial="SingleMedia" arguments="{media: subElement.media.0}" />
+            </div>
             <div class="col-8">
-                <h2>&rsaquo;&rsaquo;{subElement.title}&lsaquo;&lsaquo;</h2>
+                <h2 class="right-title">&rsaquo;&rsaquo;{subElement.title}&lsaquo;&lsaquo;</h2>
                 <f:format.raw>{subElement.text}</f:format.raw>
                 <a>Read More</a>
             </div>
         </div>
     </f:for>
 </div>
+
+
 
 
 
