@@ -792,7 +792,8 @@ main#scope{
 
           .img-fluid{
             height: 40vh !important;
-            object-fit: contain;
+            width: 50vw !important;
+            object-fit: cover;
             object-position: left;
           }
         }
@@ -823,6 +824,10 @@ main#scope{
             .left-title{
                 display: block !important;
             }
+
+            .img-fluid{
+                object-fit: contain !important;
+            }
         }
 
         .light{
@@ -839,6 +844,15 @@ main#scope{
 
             .col-4{
                 padding: 0;
+            }
+
+            .col-8{
+                padding: 0 4em;
+            }
+
+            .img-fluid{
+                object-fit: cover !important;
+                width: 40vw;
             }
 
             .right-title{
