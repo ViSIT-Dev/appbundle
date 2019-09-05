@@ -829,6 +829,9 @@ main#scope{
             background-color: white;
             margin: 0 !important;
             color: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
             h2{
                 color: #CA8B11;

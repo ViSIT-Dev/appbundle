@@ -1972,7 +1972,10 @@ main#scope {
     #galery-content-holder .galery-content-layout .light {
       background-color: white;
       margin: 0 !important;
-      color: black; }
+      color: black;
+      display: flex;
+      align-items: center;
+      justify-content: center; }
       #galery-content-holder .galery-content-layout .light h2 {
         color: #CA8B11; }
       #galery-content-holder .galery-content-layout .light .col-4 {
