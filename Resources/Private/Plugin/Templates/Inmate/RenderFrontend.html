@@ -70,8 +70,8 @@
                                     <div class="data-index-anchor" data-index="{index}">
                                         <ul class="isotope-container">
                                             <f:for each="{personIndex}" as="person">
-                                                <li data-personuid="{person.uid}" class="lang-content {f:if(condition: '{person.language}', then: 'show-en', else:' show-de')} element-item cell-{person.prisonCell.uid} event-{person.event.uid}{f:if(condition: '{person.vip}', then: ' vip')}">
-                                                    {person.fullName}<f:if condition="{person.prisonCell.name}">, <span class="lang-content show-de">{person.prisonCell.name}</span></f:if><f:if condition="{person.prisonCell.nameEn}">, <span class="lang-content show-en">{person.prisonCell.nameEn}</span></f:if><f:if condition="{person.prisonTime}">, {person.prisonTime}</f:if>
+                                                <li data-personuid="{person.uid}" class="lang-content {f:if(condition: '{person.language}', then: 'show-en', else:' show-de')} element-item cell-{person.prisonCell.uid} event-{person.event.uid} {f:if(condition: '{person.vip}', then: ' vip')}">
+                                                    {person.fullName}<f:if condition="{person.prisonCell.name}"><span class="lang-content show-de">, {person.prisonCell.name}</span></f:if><f:if condition="{person.prisonCell.nameEn}"><span class="lang-content show-en">, {person.prisonCell.nameEn}</span></f:if><f:if condition="{person.prisonTime}">, {person.prisonTime}</f:if>
                                                 </li>
                                             </f:for>
                                         </ul>
@@ -290,7 +290,11 @@
                             }
                         }else{
                             $("#scrolllist li").hide();
-                            $("#scrolllist li" + filterValue).show();
+                            if(currentLang == 0){
+                                $("#scrolllist li.lang-content.show-de" + filterValue).show();
+                            }else{
+                                $("#scrolllist li.lang-content.show-en" + filterValue).show();
+                            }
                             $(this).addClass("active").parents(".dropdown ").find(".menue-item").addClass("active");
                         }
                     });
