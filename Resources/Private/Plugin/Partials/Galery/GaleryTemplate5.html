@@ -17,8 +17,13 @@
             </div>
             <div class="col-8">
                 <h2 class="right-title">&rsaquo;&rsaquo;{subElement.title}&lsaquo;&lsaquo;</h2>
+                <!--
                 <f:format.raw>{subElement.text}</f:format.raw>
                 <a>Read More</a>
+                -->
+                <div class="addReadMore showlesscontent">
+                    <f:format.raw>{subElement.text}</f:format.raw>
+                </div>
             </div>
         </div>
     </f:for>
