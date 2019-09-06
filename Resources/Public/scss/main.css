@@ -1927,7 +1927,7 @@ main#scope {
         opacity: 1; }
 
 #galery-content-holder {
-  background: #4a4a4a;
+  background: #303030;
   color: #ffffff;
   height: 100%;
   position: relative; }
@@ -1939,8 +1939,7 @@ main#scope {
   #galery-content-holder figure {
     margin: 0; }
   #galery-content-holder .galery-content-layout {
-    overflow-y: scroll;
-    /*----------------------------------------------------------------------DEV*/ }
+    overflow-y: scroll; }
     #galery-content-holder .galery-content-layout .row.intro {
       background-color: black;
       max-height: 40vh;
@@ -1966,9 +1965,10 @@ main#scope {
         object-fit: contain;
         object-position: left; }
       #galery-content-holder .galery-content-layout .row.subs a {
-        color: #CA8B11; }
+        color: #D1880F; }
     #galery-content-holder .galery-content-layout .dark {
-      margin: 3%; }
+      padding: 3%;
+      border-bottom: 2px solid #4a4a4a; }
       #galery-content-holder .galery-content-layout .dark .left-title {
         display: block !important; }
       #galery-content-holder .galery-content-layout .dark figure {
@@ -1976,6 +1976,7 @@ main#scope {
         align-items: center;
         justify-content: center; }
       #galery-content-holder .galery-content-layout .dark .img-fluid {
+        padding-top: 2em;
         object-fit: contain !important; }
     #galery-content-holder .galery-content-layout .light {
       background-color: white;
@@ -1985,7 +1986,7 @@ main#scope {
       align-items: center;
       justify-content: center; }
       #galery-content-holder .galery-content-layout .light h2 {
-        color: #CA8B11; }
+        color: #D1880F; }
       #galery-content-holder .galery-content-layout .light .col-4 {
         padding: 0; }
       #galery-content-holder .galery-content-layout .light .col-8 {
@@ -2001,7 +2002,7 @@ main#scope {
     #galery-content-holder .galery-content-layout .addReadMore .readLess {
       font-weight: bold;
       letter-spacing: 0.1em;
-      color: #CA8B11;
+      color: #D1880F;
       cursor: pointer; }
       #galery-content-holder .galery-content-layout .addReadMore .readMore i,
       #galery-content-holder .galery-content-layout .addReadMore .readLess i {

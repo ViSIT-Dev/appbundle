@@ -757,7 +757,7 @@ main#scope{
 
 // Galery
 #galery-content-holder{
-    background: #4a4a4a;
+    background: #303030;
     color: #ffffff;
     height: 100%;
     position: relative;
@@ -814,13 +814,14 @@ main#scope{
             }
 
             a{
-                color: #CA8B11;
+                color: #D1880F;
             }
 
         }
 
         .dark{
-            margin: 3%;
+            padding: 3%;
+            border-bottom: 2px solid #4a4a4a;
 
             .left-title{
                 display: block !important;
@@ -833,6 +834,7 @@ main#scope{
             }
 
             .img-fluid{
+                padding-top: 2em;
                 object-fit: contain !important;
             }
         }
@@ -846,7 +848,7 @@ main#scope{
             justify-content: center;
 
             h2{
-                color: #CA8B11;
+                color: #D1880F;
             }
 
             .col-4{
@@ -869,12 +871,11 @@ main#scope{
             }
         }
 
-        /*----------------------------------------------------------------------DEV*/
         .addReadMore .readMore,
         .addReadMore .readLess {
             font-weight: bold;
             letter-spacing: 0.1em;
-            color: #CA8B11;
+            color: #D1880F;
             cursor: pointer;
 
             i{
