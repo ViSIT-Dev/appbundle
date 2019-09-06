@@ -8,11 +8,8 @@ window.threeJsScenes = [];
 //init 3d
 $("document").ready(function () {
 
-    //-----------------------------------------------------------------------------DEV
-
+    // readmore
     AddReadMore();
-
-    //-----------------------------------------------------------------------------DEV
 
     // if not all languages active initialization of viewport hight is 0
     $("body").addClass("lang-de");
@@ -127,18 +124,13 @@ $("document").ready(function () {
     // start animation
     animate();
 
-    //-----------------------------------------------------------------------------DEV
-
+    // read more
     function AddReadMore() {
-        //This limit you can set after how much characters you want to show Read More.
-        var carLmt = 200;
-        // Text to show when text is collapsed
+        // basic settings
+        var carLmt = 1000;
         var readMoreTxt = "Mehr lesen";
-        // Text to show when text is expanded
         var readLessTxt = "Weniger";
-     
-     
-        //Traverse all selectors with this class and manupulate HTML part to show Read More
+        
         $(".addReadMore").each(function() {
             if ($(this).find(".firstSec").length)
                 return;
@@ -147,7 +139,7 @@ $("document").ready(function () {
             if (allstr.length > carLmt) {
                 var firstSet = allstr.substring(0, carLmt);
                 var secdHalf = allstr.substring(carLmt, allstr.length);
-                var strtoadd = firstSet + "<span class='SecSec'>" + secdHalf + "</span><span class='readMore'  title='Click to Show More'>" + readMoreTxt + "</span><span class='readLess' title='Click to Show Less'>" + readLessTxt + "</span>";
+                var strtoadd = firstSet + "<span class='SecSec'>" + secdHalf + "</span><span class='readMore'  title='Click to Show More'></br></br><i class='mdi mdi-plus-circle'></i>" + readMoreTxt + "</span><span class='readLess' title='Click to Show Less'></br></br><i class='mdi mdi-minus-circle'></i>" + readLessTxt + "</span>";
                 $(this).html(strtoadd);
             }
      
