@@ -130,10 +130,12 @@ $("document").ready(function () {
         var carLmt = 1000;
         var readMoreTxt = "Mehr lesen";
         var readLessTxt = "Weniger";
-        
+
+        // logic
         $(".addReadMore").each(function() {
-            if ($(this).find(".firstSec").length)
+            if ($(this).find(".firstSec").length){
                 return;
+            }
      
             var allstr = $(this).text();
             if (allstr.length > carLmt) {
@@ -144,12 +146,11 @@ $("document").ready(function () {
             }
      
         });
-        //Read More and Read Less Click Event binding
+
+        // click event
         $(document).on("click", ".readMore,.readLess", function() {
             $(this).closest(".addReadMore").toggleClass("showlesscontent showmorecontent");
         });
     }
-
-    //-----------------------------------------------------------------------------DEV
 
 });
