@@ -14,9 +14,9 @@
         <thead>
             <tr>
                 <th>Sprache</th>
-                <th>Überschrift</th>
-                <th>Unterüberschrift</th>
+                <th>Inhalt</th>
                 <f:comment>
+                    <th>Unterüberschrift</th>
                     <th>Medienanzahl</th>
                     <th>Layout</th>
                 </f:comment>
@@ -28,9 +28,9 @@
             <f:for each="{contentElements}" as="element">
                 <tr>
                     <td>{element.langTitle}</td>
-                    <td>{element.title}</td>
-                    <td>{element.subTitle}</td>
+                    <td>{element.text}</td>
                     <f:comment>
+                        <td>{element.subTitle}</td>
                         <td>
                             <f:count>{element.media}</f:count>
                         </td>
