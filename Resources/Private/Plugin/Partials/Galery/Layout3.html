@@ -5,7 +5,7 @@
                 <div class="col-4" data-de-uid="{currentElement.galeryContentElement.uid}" data-en-uid="{currentElement.galeryContentElementEn.uid}" onclick="javascript: showDetail(this)">
                     <f:if condition="{currentElement.media.0}">
                         <f:then>
-                            <div class="teaser-image" style="background-image: url('{f:uri.image(src: currentElement.media.0.uid, treatIdAsReference: true, width: '340c', height: '254c')}')"></div>
+                            <div class="teaser-image" style="background-image: url('{f:uri.image(src: currentElement.media.0, width: '340c', height: '254c')}')"></div>
                         </f:then>
                         <f:else>
                             <div class="teaser-image" style="background-image: url('https://placehold.it/340x254&text=no Media')"></div>
