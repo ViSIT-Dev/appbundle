@@ -5,14 +5,18 @@
     <f:section name="title">Titel Sektion</f:section>
     <f:section name="main">
         <style type="text/css">
-            #scopeContainer #overlay{
-                width: <f:format.raw>{config.maxxpx}</f:format.raw>px;
-                height: <f:format.raw>{config.maxypx}</f:format.raw>px;
-            }
             .poi.special{
                 width: <f:format.raw>{config.specialIconSize}</f:format.raw>px;
                 height: <f:format.raw>{config.specialIconSize}</f:format.raw>px;
             }
+
+            <f:if condition="{config.debugmode}">
+                    #overlay{
+                        background-color: #ff0000b5;
+                    }
+
+            </f:if>
+
         </style>
         <f:comment>WHAT?! For some reason we need to address config via this to access it afterwards?</f:comment>
         <div class="full">
@@ -85,13 +89,17 @@
                 <f:if condition="{config.debugmode}">
                     <div id="debug">
                         <p>
-                            maxx: {config.maxx}
-                            <br />maxy: {config.maxy}
-                            <br />maxxpx: {config.maxxpx}
-                            <br />maxypx: {config.maxypx}
+                            encoderOffsetX: {config.encoderOffsetX}
+                            <br />encoderOffsetY: {config.encoderOffsetY}
+                            <br />app start x: {config.xstart}
+                            <br />app start y: {config.ystart}
+                            <br />app end x: {config.xend}
+                            <br />app end y: {config.yend}
                             <br />icon: {config.poiicon}
                             <br />CurrentX: <span id="currentX"></span>
                             <br />CurrentY: <span id="currentY"></span>
+                            <br />RawX: <span id="tilt"></span>
+                            <br />RawY: <span id="pivot"></span>
                             <br />Target: <span id="target">-</span>
                         </p>
                         <h3>POIs</h3>
@@ -197,22 +205,66 @@
         <script src="typo3conf/ext/visit_tablets/Resources/Public/Backend/vendors/encoder/phidget22.min.js"></script> 
         <script>
 
+            const socket = new WebSocket("{config.sensorhost}");
+
+            // see encoder settings within python settings
+            const maxValue = 2**16-1;
+            const hysteresisFactor = 1.5;
+
+            //encoder offset -> raw to 0
+            const encoderOffsetX = {config.encoderOffsetX};
+            const encoderOffsetY = {config.encoderOffsetY};
+
+
+            //min app enc values
+            const startValueX = {config.xstart};
+            const startValueY = {config.ystart};
+
+            //max app enc values
+            const endValueX = {config.xend};
+            const endValueY = {config.yend};
+
+            //app range
+            const appRangeX = endValueX - startValueX;
+            const appRangeY = endValueY - startValueY;
+
+            const boardSizeX = {config.boardSizeX};
+            const boardSizeY = {config.boardSizeY};
+
+            const encToPixelRatioX = endValueX / appRangeX;
+            const encToPixelRatioY = endValueX / appRangeY;
+
+           //screen
+            const screenHalfx = window.innerWidth / 2;
+            const screenHalfy = window.innerHeight / 2;
+
+
             //vars from be
             // const specialIconSize = {config.specialIconSize -> f:format.raw()};
             const specialIconSize = {config.specialIconSize};
-            const specialIconX = {config.maxxpx - 540 - 50};
-            const specialIconY = {config.maxypx - 960 - 50};
+
+            const specialIconSizeHalf = specialIconSize / 2;
+            const specialIconOffset = specialIconSize * 3;
+
+            const specialIconX =  {config.navIconPosX};
+            const specialIconY =  {config.navIconPosY};
+
+            //set plane size
+            $("#overlay")
+                .css("width", boardSizeX + "px")
+                .css("height", boardSizeY + "px")
+                .css("top", screenHalfy)
+                .css("left", screenHalfx);
+
             const debugmode = {config.debugmode};
 
             const jsonPois = {jsonPois -> f:format.raw()};
 
-            const xMax = {config.maxx};
-            const yMax = {config.maxy};
 
-
-            // calculating some special values for adjusting pois
-            let specialIconSizeHalf = specialIconSize / 2;
-            let specialIconOffset = specialIconSize * 1.7;
+            let currentX = 0;
+            let currentY = 0;
+            let itemShowing = false;
+            let language;
 
             // importing the WebCam Video stream
             const video = document.querySelector("#camrtc");
@@ -224,144 +276,158 @@
                     })
                     .catch(function (err0r) {
                         console.log("Something went wrong!\n" + err0r);
-                        alert("No Webcam Detected!")
+                        //alert("No Webcam Detected!")
                     });
             }
             
 
-            hysteresisFactor = 0.25;
+
             
             /**
              * getting pois from BE and adding special pois for language and impress
              */
 
+
+            let count = 0;
             jsonPois.push({
                 'uid': "impress",
-                'x': specialIconX - specialIconSizeHalf,
-                'y': specialIconY - specialIconSizeHalf,
+                'x': specialIconX - specialIconSizeHalf - specialIconOffset * count++,
+                'y': specialIconY,
                 'radius': specialIconSize,
                 'fullscreenvideo': 0,
                 'displayAllways': true
             });
             jsonPois.push({
                 'uid': "lang-de",
-                'x': specialIconX - specialIconSizeHalf,
-                'y': specialIconY - specialIconSizeHalf - specialIconOffset,
+                'x': specialIconX - specialIconSizeHalf - specialIconOffset * count++,
+                'y': specialIconY,
                 'radius': specialIconSize,
                 'lang':'de'
             });
             jsonPois.push({
                 'uid': "lang-en",
-                'x': specialIconX - specialIconSizeHalf,
-                'y': specialIconY - specialIconSizeHalf - specialIconOffset * 2,
+                'x': specialIconX - specialIconSizeHalf - specialIconOffset * count++,
+                'y': specialIconY,
                 'radius': specialIconSize,
                 'lang':'en',
             });
-            console.log(jsonPois);
-            
 
-            currentX = 0;
-            currentY = 0;
-            crosshairScreenOffsetX = 0;
-            crosshairScreenOffsetY = 0;
-            resetCrosshairPosition();
+
+            //crosshairScreenOffsetX = 0;
+            //crosshairScreenOffsetY = 0;
+
+            //resetCrosshairPosition();
             language = "de";
             $("body").addClass("lang-de");
-            
-            var phid;
 
             $(document).ready(function () {
 
                 // setup the pois
-                for (var poi in jsonPois) {
-                    console.log((jsonPois[poi]['y'] - jsonPois[poi]['radius'] / 2));
-                    $("#poi-" + jsonPois[poi]["uid"])
+                $.each(jsonPois, function (i, poi) {
+                    console.log("poi",poi);
+                    $("#poi-" + poi.uid)
                         .css({
                             'transform':
-                                'translate(' + (jsonPois[poi]['y'] - jsonPois[poi]['radius'] / 2) + 'px' +
-                                ',' + (jsonPois[poi]['x'] - jsonPois[poi]['radius'] / 2) + 'px' + ')'
+                                'translate(' + (( (poi.x-startValueX) / encToPixelRatioX) - poi.radius / 2) + 'px' +
+                                ',' + (( (poi.y - startValueY) / encToPixelRatioY) - poi.radius / 2) + 'px' + ')'
                         });
-                }
+                });
 
 
                 // initializing the phidget connection and sensor inputs
                 // <editor-fold defaultstate="collapsed" desc="phidget init">
 
-                let socket = new WebSocket("ws://192.168.111.16:8765");
-
                 socket.onopen = function (e) {
                     console.log("opened Connection");
                 };
-                const startValue = 34738; // most left / ccw
-                const maxValue = 2**16-1; // see encoder settings within python settings
+
+
                 socket.onmessage = function (e) {
                     let res = JSON.parse(e.data);
-                    console.log("data received:", res);
+                    //console.log("data received:", res);
                     if (res) {
-                        let apos = res.pivot - startValue;
-                        if ( apos < 0 ){
-                            apos += maxValue;
+                        // process currentX
+                        let aposx = res.pivot - encoderOffsetX;
+                        if ( aposx < 0 ){
+                            aposx += maxValue;
                         }
-                        console.log("APOS:" , apos);
-                        //document.getElementById("tilt").innerHTML = res.tilt;
-                        //document.getElementById("pivot").innerHTML = res.pivot;
+                        //console.log("APOS:" , aposx);
+                        currentX = aposx;
+
+                        // process currentX
+                        let aposy = res.tilt - encoderOffsetY;
+                        if ( aposy < 0 ){
+                            aposy += maxValue;
+                        }
+                        //console.log("APOSy:" , aposy);
+                        currentY = aposy;
+
+                        gotoPosition();
+                        if (debugmode) {
+                            $("#pivot").html(res.pivot);
+                            $("#tilt").html(res.tilt);
+                            $("#currentX").html(currentX);
+                            $("#currentY").html(currentY);
+                        }
                     }
 
                 }
             });
 
-            function posXChange(posChange, timeChange, indexTriggered) {
-                currentX = Math.min(Math.max(currentX + posChange, 0), xMax);
-                gotoPosition();
-            }
-
-            function posYChange(posChange, timeChange, indexTriggered) {
-                currentY = Math.min(Math.max(currentY + posChange, 0), yMax);
-                gotoPosition();
-            }
-
             // </editor-fold>
 
             /**
              * ReCalculates the position of the Crosshair
-             */
             function resetCrosshairPosition() {
                 crosshairScreenOffsetX = $("#scopeContainer").width() / 2;
                 crosshairScreenOffsetY = $("#scopeContainer").height() / 2;
             }
+             */
 
             /**
              * Checks if any POI is within range of Crosshair and displays contents
              */
             function getTarget() {
-                for (var poi in jsonPois) {
-                    distance = Math.sqrt(Math.pow((Math.abs(transformX) + crosshairScreenOffsetX - jsonPois[poi]["y"]), 2) + Math.pow((Math.abs(transformY) + crosshairScreenOffsetY - jsonPois[poi]["x"]), 2));
-                    if (distance < jsonPois[poi]["radius"] / 2) {
-                        $("#target").html(jsonPois[poi]["uid"]);
+                for (let poi in jsonPois) {
+                    let currentPoi = jsonPois[poi];
+
+                    let distance = Math.sqrt(
+                        Math.pow(currentX / encToPixelRatioX - currentPoi["x"] / encToPixelRatioX, 2) +
+                        Math.pow(currentY / encToPixelRatioY - currentPoi["y"] / encToPixelRatioY, 2)
+                    );
+
+                    if (
+                        itemShowing === false && distance <= currentPoi["radius"] / 2 ||
+                        itemShowing === true && distance <= currentPoi["radius"] / 2 * hysteresisFactor
+                    ) {
+                        itemShowing = true;
+
+                        //debug
+                        $("#target").html(currentPoi["uid"]);
+
+
                         if (jsonPois[poi]["lang"]) {
                             $("body").removeClass("lang-en");
                             $("body").removeClass("lang-de");
-                            $("body").addClass("lang-" + jsonPois[poi]["lang"]);
-                            language = jsonPois[poi]["lang"];
+                            $("body").addClass("lang-" + currentPoi["lang"]);
+                            language = currentPoi["lang"];
                             return null;
                         }
                         if (
-                            jsonPois[poi]["language"] != (language === "de" ? 0 : 1) && jsonPois[poi]["displayAllways"] != true
+                            currentPoi["language"] != (language === "de" ? 0 : 1) && currentPoi["displayAllways"] != true
                         ) {
                             continue;
                         }
-                        console.log({"target": $("#poi-" + jsonPois[poi]["uid"])});
-                        return {
-                            "language": jsonPois[poi]["language"],
-                            "distanceFactor": 1 - (distance / (jsonPois[poi]["radius"] / 2)),
-                            "target": $("#poi-" + jsonPois[poi]["uid"]),
-                            "datapoint": $("#datapoint-id-" + jsonPois[poi]["uid"]),
-                            "fullscreenvideo": jsonPois[poi]["fullscreenvideo"],
-                            "displayAllways": jsonPois[poi]["displayAllways"]
-                        };
+                        //console.log({"target": $("#poi-" + currentPoi["uid"])});
+                        currentPoi["target"] = $("#poi-" + currentPoi["uid"]);
+                        //currentPoi["distanceFactor"] = 1 - (distance / (currentPoi["radius"]));
+                        currentPoi["datapoint"] = $("#datapoint-id-" + jsonPois[poi]["uid"]);
+                        return currentPoi;
                     }
                 }
                 $("#target").html("none");
+                itemShowing = false;
+                return false;
             }
 
             /**
@@ -369,39 +435,34 @@
              */
             function gotoPosition() {
 
-                resetCrosshairPosition();
+                transformY = - (currentY - startValueY) / encToPixelRatioY;
+                //console.log(currentY, startValueY, currentY - startValueY);
 
-                mapYmax = $("#overlay").height() - $("#scopeContainer").height() * 1;
-                mapXmax = $("#overlay").width() - $("#scopeContainer").width() * 1;
-
-                transformY = (currentY / yMax * mapYmax * -1);
-                transformX = (currentX / xMax * mapXmax * -1);
+                transformX = - (currentX - startValueX) / encToPixelRatioX;
+                //console.log(currentX, startValueX, currentX - startValueX);
 
                 $("#overlay").css({
-                    'transform': 'translate(' + transformX + 'px,' + transformY + 'px)'
+                  'transform': 'translate(' + transformX + 'px,' + transformY + 'px)'
                 });
 
-                var target = getTarget();
+                let target = getTarget();
                 if (target) {
-                    // to have a smoother experiance this is the hysterese
-                    if (target["distanceFactor"] > hysteresisFactor) {
-                        if (!target["target"].hasClass("active")) {
-                            target["target"].addClass("active");
-                            target["datapoint"].addClass("active");
-                            $(".content-holder").addClass("active");
+                    if (!target["target"].hasClass("active")) {
+                        target["target"].addClass("active");
+                        target["datapoint"].addClass("active");
+                        $(".content-holder").addClass("active");
 
-                            if (target["fullscreenvideo"] == 0) {
-                                $(".scroller").addClass("active");
-                            }
-
-                            // start video
-                            target["datapoint"].find("video").each(function (i, video) {
-                                $(video)[0].autoplay = true;
-                                $(video)[0].controls = false;
-                                $(video)[0].loop = true;
-                                $(video)[0].play();
-                            });
+                        if (target["fullscreenvideo"] == 0) {
+                            $(".scroller").addClass("active");
                         }
+
+                        // start video
+                        target["datapoint"].find("video").each(function (i, video) {
+                            $(video)[0].autoplay = true;
+                            $(video)[0].controls = false;
+                            $(video)[0].loop = true;
+                            $(video)[0].play();
+                        });
                     }
                 } else {
                     $(".poi.active").removeClass("active");
@@ -417,10 +478,7 @@
 
                 }
 
-                if (debugmode) {
-                    $("#currentY").html(Math.abs(transformX) + crosshairScreenOffsetX);
-                    $("#currentX").html(Math.abs(transformY) + crosshairScreenOffsetY);
-                }
+
             }
 
         </script>

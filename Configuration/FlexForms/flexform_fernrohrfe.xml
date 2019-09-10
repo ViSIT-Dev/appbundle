@@ -14,90 +14,140 @@
                 <defaultExtras>richtext[*]:rte_transform[flag=rte_enabled|mode=ts_css]</defaultExtras>
             </TCEforms>
         </imprint>
-        <maxx>
+        <encoderOffsetX>
             <TCEforms type="array">
-                <label>x-max Endstop</label>
+                <label>Encoder Offset X (RawX)</label>
+                <config>
+                    <type>input</type>
+                    <size>10</size>
+                    <eval>int,required,trim</eval>
+                    <range>
+                        <lower>0</lower>
+                        <upper>65536</upper>
+                    </range>
+                </config>
+            </TCEforms>
+        </encoderOffsetX>
+        <encoderOffsetY>
+            <TCEforms type="array">
+                <label>Encoder Offset Y (RawY)</label>
                 <config>
                     <type>input</type>
                     <size>10</size>
                     <eval>int,required,trim</eval>
                     <range>
                       <lower>0</lower>
+                        <upper>65536</upper>
                     </range>
-                    <default>5000</default>
                 </config>
             </TCEforms>
-        </maxx>
-        <maxy>
+        </encoderOffsetY>
+       <xstart>
             <TCEforms type="array">
-                <label>y-max Endstop</label>
+                <label>App Start X (CurrentX)</label>
                 <config>
                     <type>input</type>
                     <size>10</size>
                     <eval>int,required,trim</eval>
                     <range>
-                      <lower>0</lower>
+                        <lower>0</lower>
                     </range>
-                    <default>5000</default>
                 </config>
             </TCEforms>
-        </maxy>
-        <maxxpx>
+        </xstart>
+        <ystart>
             <TCEforms type="array">
-                <label>x Pixel</label>
+                <label>App Start Y (CurrentY)</label>
                 <config>
                     <type>input</type>
                     <size>10</size>
                     <eval>int,required,trim</eval>
                     <range>
-                      <lower>0</lower>
+                        <lower>0</lower>
                     </range>
-                    <default>5000</default>
                 </config>
             </TCEforms>
-        </maxxpx>
-        <maxypx>
+        </ystart>
+        <xend>
             <TCEforms type="array">
-                <label>y Pixel</label>
+                <label>App End X (CurrentX)</label>
                 <config>
                     <type>input</type>
                     <size>10</size>
                     <eval>int,required,trim</eval>
                     <range>
-                      <lower>0</lower>
+                        <lower>0</lower>
                     </range>
-                    <default>5000</default>
                 </config>
             </TCEforms>
-        </maxypx>
-        <screenSizeWidth>
+        </xend>
+        <yend>
             <TCEforms type="array">
-                <label>Bildschirmbreite</label>
+                <label>App End Y (CurrentY)</label>
                 <config>
                     <type>input</type>
                     <size>10</size>
                     <eval>int,required,trim</eval>
                     <range>
-                      <lower>0</lower>
+                        <lower>0</lower>
                     </range>
-                    <default>1940</default>
                 </config>
             </TCEforms>
-        </screenSizeWidth>
-        <screenSizeHight>
+        </yend>
+        <navIconPosX>
             <TCEforms type="array">
-                <label>Bildschirmhöhe</label>
+                <label>Nav Icon Pos X (CurrentY)</label>
                 <config>
                     <type>input</type>
                     <size>10</size>
                     <eval>int,required,trim</eval>
                     <range>
-                      <lower>0</lower>
+                        <lower>0</lower>
                     </range>
-                    <default>1080</default>
                 </config>
             </TCEforms>
-        </screenSizeHight>
+        </navIconPosX>
+        <navIconPosY>
+            <TCEforms type="array">
+                <label>Nav Icon Pos Y (CurrentY)</label>
+                <config>
+                    <type>input</type>
+                    <size>10</size>
+                    <eval>int,required,trim</eval>
+                    <range>
+                        <lower>0</lower>
+                    </range>
+                </config>
+            </TCEforms>
+        </navIconPosY>
+        <boardSizeX>
+            <TCEforms type="array">
+                <label>Board Size X (px)</label>
+                <config>
+                    <type>input</type>
+                    <size>10</size>
+                    <eval>int,required,trim</eval>
+                    <range>
+                        <lower>0</lower>
+                    </range>
+                    <default>8000</default>
+                </config>
+            </TCEforms>
+        </boardSizeX>
+        <boardSizeY>
+            <TCEforms type="array">
+                <label>Board Size Y (px)</label>
+                <config>
+                    <type>input</type>
+                    <size>10</size>
+                    <eval>int,required,trim</eval>
+                    <range>
+                        <lower>0</lower>
+                    </range>
+                    <default>4200</default>
+                </config>
+            </TCEforms>
+        </boardSizeY>
         <sensorhost>
             <TCEforms type="array">
                 <label>Encoder-Server URL</label>
@@ -109,17 +159,6 @@
                 </config>
             </TCEforms>
         </sensorhost>
-        <sensorport>
-            <TCEforms type="array">
-                <label>Encoder-Server Port</label>
-                <config>
-                    <type>input</type>
-                    <size>4</size>
-                    <eval>int,required,trim</eval>
-                    <default>8080</default>
-                </config>
-            </TCEforms>
-        </sensorport>
         <poiicon>
             <TCEforms type="array">
                 <label>POI Icon</label>
