@@ -56,7 +56,6 @@ class ScopePoi extends AbstractEntityWithMedia implements IHasLanguage {
 
     /**
      * description
-     * @validate NotEmpty
      * @var string
      */
     protected $description = '';
