@@ -54,6 +54,19 @@
 
     </div>
 </div>
+
+
+<br />
+
+<div class="form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">Textinhalt</label>
+    <div class="col-md-9 col-sm-9 col-xs-12">
+        <f:form.textarea id="description" property="description" />
+    </div>
+</div>
+
+<br />
+
 <div class="form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="subTitle">Fullscreen Video</label>
     <div class="col-md-9 col-sm-9 col-xs-12">
@@ -61,21 +74,18 @@
     </div>
 </div>
 
-<br />
-
-<div class="form-group">
-    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">Beschreibung</label>
-    <div class="col-md-9 col-sm-9 col-xs-12">
-        <f:form.textarea id="description" property="description" />
-    </div>
-</div>
 
 <div class="form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fileTempPath">Media hinzufügen</label>
     <div class="col-md-9 col-sm-9 col-xs-12">
-        <div class="dropzone" style="min-height: auto;"></div>
-        <f:form.hidden name="fileTempPath" id="fileTempPath" />
+        <f:render partial="mediaFormField" arguments="{_all}" />
+
+        <f:comment>
+            <div class="dropzone" style="min-height: auto;"></div>
+            <f:form.hidden name="fileTempPath" id="fileTempPath" />
+        </f:comment>
     </div>
 </div>
+
 
 <f:render partial="Dropzone" />
