@@ -343,10 +343,6 @@
             });
 
 
-            //crosshairScreenOffsetX = 0;
-            //crosshairScreenOffsetY = 0;
-
-            //resetCrosshairPosition();
             language = "de";
             $("body").addClass("lang-de");
 
@@ -364,9 +360,6 @@
                 });
 
 
-                // initializing the phidget connection and sensor inputs
-                // <editor-fold defaultstate="collapsed" desc="phidget init">
-
                 socket.onopen = function (e) {
                     console.log("opened Connection");
                 };
@@ -374,14 +367,13 @@
 
                 socket.onmessage = function (e) {
                     let res = JSON.parse(e.data);
-                    //console.log("data received:", res);
+
                     if (res) {
                         // process currentX
                         let aposx = res.pivot - encoderOffsetX;
                         if ( aposx < 0 ){
                             aposx += maxValue;
                         }
-                        //console.log("APOS:" , aposx);
                         currentX = aposx;
 
                         // process currentX
@@ -389,7 +381,6 @@
                         if ( aposy < 0 ){
                             aposy += maxValue;
                         }
-                        //console.log("APOSy:" , aposy);
                         currentY = aposy;
 
                         gotoPosition();
@@ -408,15 +399,6 @@
                 }
             });
 
-            // </editor-fold>
-
-            /**
-             * ReCalculates the position of the Crosshair
-            function resetCrosshairPosition() {
-                crosshairScreenOffsetX = $("#scopeContainer").width() / 2;
-                crosshairScreenOffsetY = $("#scopeContainer").height() / 2;
-            }
-             */
 
             /**
              * Checks if any POI is within range of Crosshair and displays contents
@@ -470,10 +452,8 @@
             function gotoPosition() {
 
                 transformY = - (currentY - startValueY) / encToPixelRatioY;
-                //console.log(currentY, startValueY, currentY - startValueY);
 
                 transformX = - (currentX - startValueX) / encToPixelRatioX;
-                //console.log(currentX, startValueX, currentX - startValueX);
 
                 $("#overlay").css({
                   'transform': 'translate(' + transformX + 'px,' + transformY + 'px)'
@@ -509,10 +489,7 @@
                         $(video)[0].pause();
                         $(video)[0].currentTime = 0;
                     });
-
                 }
-
-
             }
 
         </script>
