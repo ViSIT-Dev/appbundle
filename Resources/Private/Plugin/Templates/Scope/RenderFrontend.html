@@ -23,15 +23,15 @@
             <div id="scopeContainer">
                 <video autoplay="true" id="camrtc" class="full"></video>
                 <div id="overlay" class="full">
-                    <div class="poi special" id="poi-impress">
+                    <div class="poi special" id="poi-imprint">
                         <div class="inside">
                             <figure>
-                                <f:if condition="{config.langicon_impress}">
+                                <f:if condition="{config.langicon_imprint}">
                                     <f:then>
                                         <img class="poi-icon" src="{config.langicon_impress}" />
                                     </f:then>
                                     <f:else>
-                                        <img class="poi-icon" src="/typo3/sysext/core/Resources/Public/Icons/Flags/PNG/GB.png" />
+                                        Impressum
                                     </f:else>
                                 </f:if>
                             </figure>
@@ -125,6 +125,38 @@
                         </table>
                     </div>
                 </f:if>
+                <f:if condition="{settings.kuratormode}">
+                    <div id="debug">
+                        <br /><br /><br />
+                        <h2>Aktuelle Position</h2>
+                        <p>
+                            X: <span id="currentXKurator"></span><br />
+                            Y: <span id="currentYKurator"></span><br />
+                        </p>
+                        <h2>Bestehende Punkte</h2>
+                            <table>
+                            <tr>
+                                <th>Titel</th>
+                                <th>Radius</th>
+                                <th>X</th>
+                                <th>Y</th>
+                                <th>Sprache</th>
+                            </tr>
+                            <f:for each="{pois}" as="poi">
+                                <tr>
+                                    <td>{poi.title}</td>
+                                    <td>{poi.radius}</td>
+                                    <td>{poi.x}</td>
+                                    <td>{poi.y}</td>
+                                    <td>
+                                        <f:if condition="{poi.language} == 0">DE</f:if>
+                                        <f:if condition="{poi.language} == 1">EN</f:if>
+                                    </td>
+                                </tr>
+                            </f:for>
+                        </table>
+                    </div>
+                </f:if>
                 <div id="crosshair"></div>
                 <div id="lang-indicator">
                     <figure class="lang-content lang-de">
@@ -152,22 +184,19 @@
         </div>
         <div class="content-holder {f:if(condition:'{config.debugmode}', then:' debug')}">
             <div class="scroller">
-                <div class="datapoint lang-de lang-en" id="datapoint-id-impress" data-id="impress" data-withBG="true" >
-                    <h1 class="modal-title">Impressum</h1>
-                    <p>
-                        {imprint}
-                        <div class="row imprint-logos">
-                            <div class="col-3">
-                                <img src="/typo3conf/ext/visit_tablets/Resources/Public/Backend/images/ViSIT_Logo_web.png"  class="img-fluid" />
-                            </div>
-                            <div class="col-6">
-                                <img src="/typo3conf/ext/visit_tablets/Resources/Public/Backend/images/interreg.png"  class="img-fluid" />
-                            </div>
-                            <div class="col-3">
-                                <img src="/typo3conf/ext/visit_tablets/Resources/Public/fh-kufstein.svg"  class="img-fluid" />
-                            </div>
-                        </div>
-                    </p>
+                <div class="datapoint lang-de lang-en" id="datapoint-id-imprint" data-id="imprint" data-withBG="true" >
+                    <div class="lang-de lang-content">
+                        <h1 class="modal-title" class="">Impressum</h1>
+                        <p class="">
+                            {settings.imprint.0}
+                        </p>
+                    </div>
+                    <div class="lang-en lang-content">
+                        <h1 class="modal-title" class="">Imprint</h1>
+                        <p class="">
+                            {settings.imprint.1}
+                        </p>
+                    </div>
                 </div>
                 <f:for each="{pois}" as="datapoint">
                     <f:if condition="!{datapoint.fullscreenvideo}">
@@ -257,6 +286,7 @@
                 .css("left", screenHalfx);
 
             const debugmode = {config.debugmode};
+            const kuratormode = {settings.kuratormode};
 
             const jsonPois = {jsonPois -> f:format.raw()};
 
@@ -284,13 +314,13 @@
 
             
             /**
-             * getting pois from BE and adding special pois for language and impress
+             * getting pois from BE and adding special pois for language and imprint
              */
 
 
             let count = 0;
             jsonPois.push({
-                'uid': "impress",
+                'uid': "imprint",
                 'x': specialIconX - specialIconSizeHalf - specialIconOffset * count++,
                 'y': specialIconY,
                 'radius': specialIconSize,
@@ -368,6 +398,10 @@
                             $("#tilt").html(res.tilt);
                             $("#currentX").html(currentX);
                             $("#currentY").html(currentY);
+                        }
+                        if (kuratormode){
+                            $("#currentXKurator").html(currentX);
+                            $("#currentYKurator").html(currentY);
                         }
                     }
 

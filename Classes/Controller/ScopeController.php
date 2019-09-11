@@ -204,6 +204,10 @@ class ScopeController extends AbstractVisitController  implements IRenderFronten
         
         // Assign to template
         $this->view->assign("config", $data);
+        $this->view->assign("settings", [
+            "imprint" => Util::getConfigForAllLanguages("imprint"),
+            "kuratormode" => Util::getConfig("kuratormode")
+        ]);
         $this->view->assign("pois", $pois);
         $this->view->assign("jsonPois", \json_encode($this->scopePoiRepository->findAllEager()));
     }

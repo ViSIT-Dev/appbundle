@@ -174,7 +174,7 @@
                 </config>
             </TCEforms>
         </poiicon>
-        <langicon_impress>
+        <langicon_imprint>
             <TCEforms type="array">
                 <label>Icon Impressum</label>
                 <config type="array">
@@ -188,7 +188,7 @@
                     <maxitems>1</maxitems>
                 </config>
             </TCEforms>
-        </langicon_impress>
+        </langicon_imprint>
         <langicon_de>
             <TCEforms type="array">
                 <label>Icon Deutsch</label>
