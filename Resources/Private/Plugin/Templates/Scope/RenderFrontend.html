@@ -278,6 +278,10 @@
             const specialIconX =  {config.navIconPosX};
             const specialIconY =  {config.navIconPosY};
 
+            const fullHdConstraints = {
+                video: {width: {exact: 1920}, height: {exact: 1080}}
+            };
+
             //set plane size
             $("#overlay")
                 .css("width", boardSizeX + "px")
@@ -300,7 +304,7 @@
             const video = document.querySelector("#camrtc");
             
             if (navigator.mediaDevices.getUserMedia) {
-                navigator.mediaDevices.getUserMedia({video: true})
+                navigator.mediaDevices.getUserMedia(fullHdConstraints)
                     .then(function (stream) {
                         video.srcObject = stream;
                     })
