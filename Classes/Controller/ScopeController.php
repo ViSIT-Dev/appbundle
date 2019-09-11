@@ -13,6 +13,9 @@ namespace Visit\VisitTablets\Controller;
  ***/
 
 use \Visit\VisitTablets\Domain\Model\ScopePoi;
+use \TYPO3\CMS\Core\Messaging\AbstractMessage;
+use Visit\VisitTablets\Helper\Util;
+
 
 /**
  * CardPoiController
@@ -214,10 +217,8 @@ class ScopeController extends AbstractVisitController  implements IRenderFronten
      * @return void
      */
     public function settingsAction(){
-        // Get the data object (contains the tt_content fields)
-        $data = $this->configurationManager->getContentObject()->data;
-        // Append flexform values
-        $this->configurationManager->getContentObject()->readFlexformIntoConf($data['pi_flexform'], $data);
+        $this->view->assign('imprint', Util::getConfigForAllLanguages("imprint"));
+        $this->view->assign('kuratormode', Util::getConfig("kuratormode"));
     }
 
     /**
@@ -226,7 +227,10 @@ class ScopeController extends AbstractVisitController  implements IRenderFronten
      * @return void
      */
     public function updateSettingsAction(){
-
+        $this->configRepository->processRequest($this->request, "imprint");
+        $this->configRepository->addOrUpdate("kuratormode", $this->request->getArgument("kuratormode"));
+        $this->addFlashMessage("Änderungen gespeichert", '', AbstractMessage::INFO);
+        $this->redirect('settings');
     }
 
 }
