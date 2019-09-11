@@ -1939,7 +1939,7 @@ iframe.warenkorb {
       font-weight: bold;
       font-size: 1.4rem; }
       #mapAppWrapper #inmateHeader .menue-item.btn {
-        margin-top: 1px; }
+        margin-top: -8px; }
       #mapAppWrapper #inmateHeader .menue-item.active {
         color: #d1880f; }
     #mapAppWrapper #inmateHeader .dropdown-item.active {
@@ -1953,7 +1953,8 @@ iframe.warenkorb {
     #mapAppWrapper #inmateContent .inmateList {
       background-color: #ffffff;
       max-height: 100%;
-      height: 100%; }
+      height: 100%;
+      overflow: hidden; }
       #mapAppWrapper #inmateContent .inmateList > .row {
         max-height: 100%;
         height: 100%; }
@@ -2000,7 +2001,9 @@ iframe.warenkorb {
         max-height: 100%;
         overflow: hidden;
         overflow-y: auto;
-        osition: relative; }
+        osition: relative;
+        /* hide scrollbar*/
+        right: -20px; }
         #mapAppWrapper #inmateContent .inmateList #scrolllist .data-index-anchor {
           width: 100%; }
           #mapAppWrapper #inmateContent .inmateList #scrolllist .data-index-anchor:first-of-type {

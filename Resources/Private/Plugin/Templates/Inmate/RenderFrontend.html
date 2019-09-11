@@ -37,6 +37,8 @@
                         </f:for>
                     </div>
                 </div>
+                <f:comment>
+
                 <div class="dropdown">
                     <button class="btn btn-transparent dropdown-toggle menue-item" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="lang-content show-de">Zellen</span>
@@ -53,6 +55,7 @@
                 </div>
 
                 <div class="filter-action menue-item" data-filter=".vip">VIP</div>
+                </f:comment>
             </div>
             <div id="inmateContent" class="row no-gutters justify-content-center">
                 <div class="col-6 inmateList">
@@ -71,7 +74,8 @@
                                         <ul class="isotope-container">
                                             <f:for each="{personIndex}" as="person">
                                                 <li data-personuid="{person.uid}" class="lang-content {f:if(condition: '{person.language}', then: 'show-en', else:' show-de')} element-item cell-{person.prisonCell.uid} event-{person.event.uid} {f:if(condition: '{person.vip}', then: ' vip')}">
-                                                    {person.fullName}<f:if condition="{person.prisonCell.name}"><span class="lang-content show-de">, {person.prisonCell.name}</span></f:if><f:if condition="{person.prisonCell.nameEn}"><span class="lang-content show-en">, {person.prisonCell.nameEn}</span></f:if><f:if condition="{person.prisonTime}">, {person.prisonTime}</f:if>
+                                                    {person.fullName}<f:if condition="{person.prisonTime}">, {person.prisonTime}</f:if>
+                                                    <f:comment><f:if condition="{person.prisonCell.name}"><span class="lang-content show-de">, {person.prisonCell.name}</span></f:if><f:if condition="{person.prisonCell.nameEn}"><span class="lang-content show-en">, {person.prisonCell.nameEn}</span></f:if></f:comment>
                                                 </li>
                                             </f:for>
                                         </ul>
