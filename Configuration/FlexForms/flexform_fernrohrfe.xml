@@ -3,17 +3,15 @@
 <ROOT type="array">
     <type>array</type>
     <el type="array">
-        <imprint>
+        <debugmode>
             <TCEforms type="array">
-                <config type="array">
-                    <type>text</type>
-                    <cols>48</cols>
-                    <rows>5</rows>
+                <label>Debugmodus aktivieren</label>
+                <config>
+                    <type>check</type>
+                    <default>0</default>
                 </config>
-                <label>Impressum</label>
-                <defaultExtras>richtext[*]:rte_transform[flag=rte_enabled|mode=ts_css]</defaultExtras>
             </TCEforms>
-        </imprint>
+        </debugmode>
         <encoderOffsetX>
             <TCEforms type="array">
                 <label>Encoder Offset X (RawX)</label>
@@ -155,7 +153,7 @@
                     <type>input</type>
                     <size>50</size>
                     <eval>required,trim</eval>
-                    <default>localhost</default>
+                    <default>ws://localhost:8765</default>
                 </config>
             </TCEforms>
         </sensorhost>
@@ -234,24 +232,7 @@
                 </config>
             </TCEforms>
         </specialIconSize>
-        <debugmode>
-            <TCEforms type="array">
-                <label>Debugmodus aktivieren</label>
-                <config>
-                    <type>check</type>
-                    <default>0</default>
-                </config>
-            </TCEforms>
-        </debugmode>
-        <!-- kuratormode>
-            <TCEforms type="array">
-                <label>Kuratormodus aktivieren</label>
-                <config>
-                    <type>check</type>
-                    <default>0</default>
-                </config>
-            </TCEforms>
-        </kuratormode -->
+
     </el>
 </ROOT>
 </T3DataStructure>

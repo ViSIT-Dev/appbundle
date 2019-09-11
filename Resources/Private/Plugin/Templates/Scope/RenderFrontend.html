@@ -98,8 +98,8 @@
                             <br />icon: {config.poiicon}
                             <br />CurrentX: <span id="currentX"></span>
                             <br />CurrentY: <span id="currentY"></span>
-                            <br />RawX: <span id="tilt"></span>
-                            <br />RawY: <span id="pivot"></span>
+                            <br />RawX: <span id="pivot"></span>
+                            <br />RawY: <span id="tilt"></span>
                             <br />Target: <span id="target">-</span>
                         </p>
                         <h3>POIs</h3>
@@ -286,7 +286,7 @@
                 .css("left", screenHalfx);
 
             const debugmode = {config.debugmode};
-            const kuratormode = {settings.kuratormode};
+            const kuratormode = !!"{settings.kuratormode}";
 
             const jsonPois = {jsonPois -> f:format.raw()};
 
