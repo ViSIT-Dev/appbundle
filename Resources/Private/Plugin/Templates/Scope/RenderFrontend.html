@@ -22,70 +22,73 @@
         <div class="full">
             <div id="scopeContainer">
                 <video autoplay="true" id="camrtc" class="full"></video>
-                <div id="overlay" class="full">
-                    <div class="poi special" id="poi-imprint">
-                        <div class="inside">
-                            <figure>
-                                <f:if condition="{config.langicon_imprint}">
-                                    <f:then>
-                                        <img class="poi-icon" src="{config.langicon_impress}" />
-                                    </f:then>
-                                    <f:else>
-                                        Impressum
-                                    </f:else>
-                                </f:if>
-                            </figure>
-                        </div>
-                    </div>
-                    <div class="poi special" id="poi-lang-de">
-                        <div class="inside">
-                            <figure>
-                                <f:if condition="{config.langicon_de}">
-                                    <f:then>
-                                        <img class="poi-icon" src="{config.langicon_de}" />
-                                    </f:then>
-                                    <f:else>
-                                        <img class="poi-icon" src="/typo3/sysext/core/Resources/Public/Icons/Flags/PNG/DE.png" />
-                                    </f:else>
-                                </f:if>
-                            </figure>
-                        </div>
-                    </div>
-                    <div class="poi special" id="poi-lang-en">
-                        <div class="inside">
-                            <figure>
-                                <f:if condition="{config.langicon_en}">
-                                    <f:then>
-                                        <img class="poi-icon" src="{config.langicon_en}" />
-                                    </f:then>
-                                    <f:else>
-                                        <img class="poi-icon" src="/typo3/sysext/core/Resources/Public/Icons/Flags/PNG/GB.png" />
-                                    </f:else>
-                                </f:if>
-                            </figure>
-                        </div>
-                    </div>
-                    <f:for each="{pois}" as="poi">
-                        <div class="poi lang-content {f:if(condition:'{poi.language} == 0', then:' lang-de', else:' lang-en')}" id="poi-{poi.uid}" style=height:{poi.radius}px;width:{poi.radius}px;">
+                <f:if condition="{config.showOverlay}">
+                    <div id="overlay" class="full">
+                        <div class="poi special" id="poi-imprint">
                             <div class="inside">
-                                <f:if condition="{config.debugmode}">
-                                    <f:then>
-                                        {poi.title}
-                                        <br />X: {poi.x}
-                                        <br />Y: {poi.y}
-                                        <br />UID: {poi.uid}
-                                        <br />FS: {poi.language}
-                                    </f:then>
-                                    <f:else>
-                                        <figure>
-                                            <img class="poi-icon" src="{config.poiicon}" />
-                                        </figure>
-                                    </f:else>
-                                </f:if>
+                                <figure>
+                                    <f:if condition="{config.langicon_imprint}">
+                                        <f:then>
+                                            <img class="poi-icon" src="{config.langicon_impress}" />
+                                        </f:then>
+                                        <f:else>
+                                            Impressum
+                                        </f:else>
+                                    </f:if>
+                                </figure>
                             </div>
                         </div>
-                    </f:for>
-                </div>
+                        <div class="poi special" id="poi-lang-de">
+                            <div class="inside">
+                                <figure>
+                                    <f:if condition="{config.langicon_de}">
+                                        <f:then>
+                                            <img class="poi-icon" src="{config.langicon_de}" />
+                                        </f:then>
+                                        <f:else>
+                                            <img class="poi-icon" src="/typo3/sysext/core/Resources/Public/Icons/Flags/PNG/DE.png" />
+                                        </f:else>
+                                    </f:if>
+                                </figure>
+                            </div>
+                        </div>
+                        <div class="poi special" id="poi-lang-en">
+                            <div class="inside">
+                                <figure>
+                                    <f:if condition="{config.langicon_en}">
+                                        <f:then>
+                                            <img class="poi-icon" src="{config.langicon_en}" />
+                                        </f:then>
+                                        <f:else>
+                                            <img class="poi-icon" src="/typo3/sysext/core/Resources/Public/Icons/Flags/PNG/GB.png" />
+                                        </f:else>
+                                    </f:if>
+                                </figure>
+                            </div>
+                        </div>
+                        <f:for each="{pois}" as="poi">
+                            <div class="poi lang-content {f:if(condition:'{poi.language} == 0', then:' lang-de', else:' lang-en')}" id="poi-{poi.uid}" style=height:{poi.radius}px;width:{poi.radius}px;">
+                                <div class="inside">
+                                    <f:if condition="{config.debugmode}">
+                                        <f:then>
+                                            {poi.title}
+                                            <br />X: {poi.x}
+                                            <br />Y: {poi.y}
+                                            <br />UID: {poi.uid}
+                                            <br />FS: {poi.language}
+                                        </f:then>
+                                        <f:else>
+                                            <figure>
+                                                <img class="poi-icon" src="{config.poiicon}" />
+                                            </figure>
+                                        </f:else>
+                                    </f:if>
+                                </div>
+                            </div>
+                        </f:for>
+                    </div>
+
+                </f:if>
                 <f:if condition="{config.debugmode}">
                     <div id="debug">
                         <p>
@@ -182,6 +185,7 @@
                 </div>
             </div>
         </div>
+
         <div class="content-holder {f:if(condition:'{config.debugmode}', then:' debug')}">
             <div class="scroller">
                 <div class="datapoint lang-de lang-en" id="datapoint-id-imprint" data-id="imprint" data-withBG="true" >
@@ -260,8 +264,8 @@
             const boardSizeX = {config.boardSizeX};
             const boardSizeY = {config.boardSizeY};
 
-            const encToPixelRatioX = endValueX / appRangeX;
-            const encToPixelRatioY = endValueX / appRangeY;
+            const encToPixelRatioX = appRangeX / boardSizeX;
+            const encToPixelRatioY = appRangeY / boardSizeY;
 
            //screen
             const screenHalfx = window.innerWidth / 2;
@@ -354,7 +358,6 @@
 
                 // setup the pois
                 $.each(jsonPois, function (i, poi) {
-                    console.log("poi",poi);
                     $("#poi-" + poi.uid)
                         .css({
                             'transform':
@@ -438,9 +441,7 @@
                         ) {
                             continue;
                         }
-                        //console.log({"target": $("#poi-" + currentPoi["uid"])});
                         currentPoi["target"] = $("#poi-" + currentPoi["uid"]);
-                        //currentPoi["distanceFactor"] = 1 - (distance / (currentPoi["radius"]));
                         currentPoi["datapoint"] = $("#datapoint-id-" + jsonPois[poi]["uid"]);
                         return currentPoi;
                     }

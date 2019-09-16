@@ -97,6 +97,15 @@
                 </config>
             </TCEforms>
         </yend>
+        <showOverlay>
+            <TCEforms type="array">
+                <label>Überblendende Ebene aktivieren</label>
+                <config>
+                    <type>check</type>
+                    <default>0</default>
+                </config>
+            </TCEforms>
+        </showOverlay>
         <navIconPosX>
             <TCEforms type="array">
                 <label>Nav Icon Pos X (CurrentY)</label>
