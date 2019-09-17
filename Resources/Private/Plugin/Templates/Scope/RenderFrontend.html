@@ -276,8 +276,7 @@
             // const specialIconSize = {config.specialIconSize -> f:format.raw()};
             const specialIconSize = {config.specialIconSize};
 
-            const specialIconSizeHalf = specialIconSize / 2;
-            const specialIconOffset = specialIconSize * 3;
+            const specialIconOffset = specialIconSize * 2 * encToPixelRatioX;
 
             const specialIconX =  {config.navIconPosX};
             const specialIconY =  {config.navIconPosY};
@@ -328,26 +327,26 @@
 
             let count = 0;
             jsonPois.push({
-                'uid': "imprint",
-                'x': specialIconX - specialIconSizeHalf - specialIconOffset * count++,
-                'y': specialIconY,
-                'radius': specialIconSize,
-                'fullscreenvideo': 0,
-                'displayAllways': true
-            });
-            jsonPois.push({
                 'uid': "lang-de",
-                'x': specialIconX - specialIconSizeHalf - specialIconOffset * count++,
+                'x': specialIconX + specialIconOffset * count++,
                 'y': specialIconY,
                 'radius': specialIconSize,
                 'lang':'de'
             });
             jsonPois.push({
                 'uid': "lang-en",
-                'x': specialIconX - specialIconSizeHalf - specialIconOffset * count++,
+                'x': specialIconX + specialIconOffset * count++,
                 'y': specialIconY,
                 'radius': specialIconSize,
                 'lang':'en',
+            });
+            jsonPois.push({
+                'uid': "imprint",
+                'x': specialIconX + specialIconOffset * count++,
+                'y': specialIconY,
+                'radius': specialIconSize,
+                'fullscreenvideo': 0,
+                'displayAllways': true
             });
 
 
