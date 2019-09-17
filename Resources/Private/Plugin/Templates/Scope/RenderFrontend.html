@@ -29,10 +29,10 @@
                                 <figure>
                                     <f:if condition="{config.langicon_imprint}">
                                         <f:then>
-                                            <img class="poi-icon" src="{config.langicon_impress}" />
+                                            <f:image class="poi-icon" src="{config.langicon_imprint}" width="{config.specialIconSize}" height="{config.specialIconSize}" />
                                         </f:then>
                                         <f:else>
-                                            Impressum
+                                            <f:image class="poi-icon" src="EXT:visit_tablets/Resources/Public/Icons/Question_mark.png" width="{config.specialIconSize}" height="{config.specialIconSize}" />
                                         </f:else>
                                     </f:if>
                                 </figure>
@@ -43,10 +43,10 @@
                                 <figure>
                                     <f:if condition="{config.langicon_de}">
                                         <f:then>
-                                            <img class="poi-icon" src="{config.langicon_de}" />
+                                            <f:image class="poi-icon" src="{config.langicon_de}" width="{config.specialIconSize}" height="{config.specialIconSize}" />
                                         </f:then>
                                         <f:else>
-                                            <img class="poi-icon" src="/typo3/sysext/core/Resources/Public/Icons/Flags/PNG/DE.png" />
+                                            <f:image class="poi-icon" src="/typo3/sysext/core/Resources/Public/Icons/Flags/PNG/DE.png" width="{config.specialIconSize}" height="{config.specialIconSize}" />
                                         </f:else>
                                     </f:if>
                                 </figure>
@@ -57,10 +57,10 @@
                                 <figure>
                                     <f:if condition="{config.langicon_en}">
                                         <f:then>
-                                            <img class="poi-icon" src="{config.langicon_en}" />
+                                            <f:image class="poi-icon" src="{config.langicon_en}" width="{config.specialIconSize}" height="{config.specialIconSize}" />
                                         </f:then>
                                         <f:else>
-                                            <img class="poi-icon" src="/typo3/sysext/core/Resources/Public/Icons/Flags/PNG/GB.png" />
+                                            <f:image class="poi-icon" src="/typo3/sysext/core/Resources/Public/Icons/Flags/PNG/GB.png" width="{config.specialIconSize}" height="{config.specialIconSize}" />
                                         </f:else>
                                     </f:if>
                                 </figure>
@@ -78,8 +78,16 @@
                                             <br />FS: {poi.language}
                                         </f:then>
                                         <f:else>
+
                                             <figure>
-                                                <img class="poi-icon" src="{config.poiicon}" />
+                                                <f:if condition="{config.poiicon}">
+                                                    <f:then>
+                                                        <f:image class="poi-icon" src="{config.poiicon}" width="{poi.radius}" height="{poi.radius}" />
+                                                    </f:then>
+                                                    <f:else>
+                                                        <f:image class="poi-icon" src="EXT:visit_tablets/Resources/Public/Icons/Scope/Festung_ICON.svg" width="{poi.radius}" height="{poi.radius}" />
+                                                    </f:else>
+                                                </f:if>
                                             </figure>
                                         </f:else>
                                     </f:if>

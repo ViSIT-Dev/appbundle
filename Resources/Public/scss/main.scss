@@ -655,7 +655,6 @@ main#scope{
                     position: relative;
                     top: 50%;
                     left: 50%;
-                    height: 50%;
                     text-align: center;
                     -moz-transform: translateX(-50%) translateY(-50%);
                     -webkit-transform: translateX(-50%) translateY(-50%);
@@ -663,7 +662,8 @@ main#scope{
                     figure {
                         height: 100%;
                         img.poi-icon{
-                            height: 100%;
+                            height: auto;
+                            max-width: 65%;
                         }
                     }
                 }

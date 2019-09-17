@@ -2158,7 +2158,6 @@ main#scope {
           position: relative;
           top: 50%;
           left: 50%;
-          height: 50%;
           text-align: center;
           -moz-transform: translateX(-50%) translateY(-50%);
           -webkit-transform: translateX(-50%) translateY(-50%);
@@ -2166,7 +2165,8 @@ main#scope {
           main#scope #scopeContainer #overlay .poi .inside figure {
             height: 100%; }
             main#scope #scopeContainer #overlay .poi .inside figure img.poi-icon {
-              height: 100%; }
+              height: auto;
+              max-width: 65%; }
     main#scope #scopeContainer #debug {
       position: absolute;
       top: 20px;
