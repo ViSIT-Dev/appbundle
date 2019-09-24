@@ -108,7 +108,7 @@
         </showOverlay>
         <navIconPosX>
             <TCEforms type="array">
-                <label>Nav Icon Pos X (CurrentY)</label>
+                <label>Nav Icon Pos X (CurrentX)</label>
                 <config>
                     <type>input</type>
                     <size>10</size>
