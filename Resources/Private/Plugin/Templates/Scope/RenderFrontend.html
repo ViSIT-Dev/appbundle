@@ -14,7 +14,15 @@
                     #overlay{
                         background-color: #ff0000b5;
                     }
-
+            </f:if>
+            <f:if condition="{config.crosshairIcon}">
+                    main#scope #scopeContainer #crosshair{
+                        background-image: url("<f:format.raw>{config.crosshairIcon}</f:format.raw>");
+                        width: <f:format.raw>{config.crosshairIconWidth}</f:format.raw>px;
+                        height: <f:format.raw>{config.crosshairIconHeight}</f:format.raw>px;
+                        left: -webkit-calc(50% - <f:format.raw>{config.crosshairIconWidth / 2}</f:format.raw>px);
+                        top: -webkit-calc(50% - <f:format.raw>{config.crosshairIconHeight / 2}</f:format.raw>px);
+                    }
             </f:if>
 
         </style>
@@ -289,6 +297,16 @@
             const specialIconX =  {config.navIconPosX};
             const specialIconY =  {config.navIconPosY};
 
+
+            const imprintIconX =  {config.imprintIconPosX};
+            const imprintIconY =  {config.imprintIconPosY};
+
+            const langDEIconX =  {config.langDEIconPosX};
+            const langDEIconY =  {config.langDEIconPosY};
+
+            const langENIconX =  {config.langENIconPosX};
+            const langENIconY =  {config.langENIconPosY};
+
             const fullHdConstraints = {
                 video: {width: {exact: 1920}, height: {exact: 1080}}
             };
@@ -336,22 +354,22 @@
             let count = 0;
             jsonPois.push({
                 'uid': "lang-de",
-                'x': specialIconX + specialIconOffset * count++,
-                'y': specialIconY,
+                'x': langDEIconX == 0 ? specialIconX + specialIconOffset * count++ : langDEIconX,
+                'y': langDEIconY == 0 ? specialIconY : langDEIconY,
                 'radius': specialIconSize,
                 'lang':'de'
             });
             jsonPois.push({
                 'uid': "lang-en",
-                'x': specialIconX + specialIconOffset * count++,
-                'y': specialIconY,
+                'x': langENIconX == 0 ? specialIconX + specialIconOffset * count++ : langENIconX,
+                'y': langENIconY == 0 ? specialIconY : langENIconY,
                 'radius': specialIconSize,
                 'lang':'en',
             });
             jsonPois.push({
                 'uid': "imprint",
-                'x': specialIconX + specialIconOffset * count++,
-                'y': specialIconY,
+                'x': imprintIconX == 0 ? specialIconX + specialIconOffset * count++ : imprintIconX,
+                'y': imprintIconY == 0 ? specialIconY : imprintIconY,
                 'radius': specialIconSize,
                 'fullscreenvideo': 0,
                 'displayAllways': true
