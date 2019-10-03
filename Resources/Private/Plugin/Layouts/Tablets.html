@@ -24,9 +24,20 @@
                  <i class="mdi mdi-reply"></i>
             </span>
 
-            <span class="spacer-left" data-toggle="modal" data-target="#startModal">
-                 <i class="mdi mdi-comment-processing-outline"></i> Sprache | Language
-            </span>
+            <f:if condition="{showLangSwitch}">
+                <f:then>
+                    <span class="spacer-left" data-toggle="modal" data-target="#startModal">
+                         <i class="mdi mdi-comment-processing-outline"></i> Sprache | Language
+                    </span>
+                </f:then>
+                <f:else>
+                    <style>
+                        .enLangBtn{
+                            display: none;
+                        }
+                    </style>
+                </f:else>
+            </f:if>
 
 
             <span class="spacer-left" data-toggle="modal" data-target="#imprint">
