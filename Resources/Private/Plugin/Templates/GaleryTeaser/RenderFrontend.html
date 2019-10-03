@@ -1,6 +1,6 @@
 <html  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 
-    <f:layout name="Tablets" />
+    <f:layout name="TabletsGalery" />
 
     
     <f:comment>
@@ -135,6 +135,11 @@
                 $(".back-to-menu").on("click", function(){
                     showOverview();
                 });
+
+                $("i.mdi.mdi-home").click(function (event) {
+                    showOverview();
+                });
+
             });
             
         </script>
