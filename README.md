@@ -14,7 +14,7 @@ Typo3 Extension that contains all applications
             </p>
             </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-primary lang-btn btn-lg" data-dismiss="modal" onclick="initLang('1')"><img src="/typo3/sysext/core/Resources/Public/Icons/Flags/en_us-gb.png">Start in English</button>
+            <button type="button" class="btn btn-primary lang-btn btn-lg enLangBtn" data-dismiss="modal" onclick="initLang('1')"><img src="/typo3/sysext/core/Resources/Public/Icons/Flags/en_us-gb.png">Start in English</button>
             <button type="button" class="btn btn-primary lang-btn btn-lg" data-dismiss="modal" onclick="initLang('0')"><img src="/typo3/sysext/core/Resources/Public/Icons/Flags/PNG/DE.png"> Starten mit Deutsch</button>
         </div>
     </div>
