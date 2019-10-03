@@ -13,14 +13,14 @@
 
 
             <f:case value="video/mp4">
-                <video muted="" controls="" controlslist="nodownload" >
+                <video muted="" controls="" controlslist="nodownload"  >
                     <source src="{f:uri.image(image: media)}" type="video/mp4">
                     Your browser does not support HTML5 video.
                 </video>
             </f:case>
 
             <f:case value="video/webm">
-                <video muted="" controls="" controlslist="nodownload" >
+                <video muted="" controls="" controlslist="nodownload" preload="auto">
                     <source src="{f:uri.image(image: media)}" type="video/webm">
                     Your browser does not support HTML5 video.
                 </video>
