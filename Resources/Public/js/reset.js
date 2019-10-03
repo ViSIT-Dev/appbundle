@@ -38,5 +38,13 @@ try{
     }
 }catch (e) {}
 
-
-
+// document.addEventListener("DOMContentLoaded", function(event) {
+//     try{
+//         $.ajax({
+//             url: "/fileadmin/reload",
+//         }).done(function() {
+//             console.log("reload");
+//             location.reload();
+//         });
+//     }catch(e){}
+// });
