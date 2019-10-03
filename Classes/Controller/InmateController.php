@@ -149,7 +149,7 @@ class InmateController extends AbstractVisitController  implements IRenderFronte
         $this->view->assign('title', Util::getConfigForAllLanguages("title"));
         $this->view->assign('imprint', Util::getConfigForAllLanguages("imprint"));
         $this->view->assign('splash', Util::getConfigForAllLanguages("splash"));
-
+        $this->view->assign('showLangSwitch', Util::getConfig("showLangSwitch"));
     }
 
     /**
@@ -162,7 +162,7 @@ class InmateController extends AbstractVisitController  implements IRenderFronte
         $this->configRepository->processRequest($this->request, "title");
         $this->configRepository->processRequest($this->request, "imprint");
         $this->configRepository->processRequest($this->request, "splash");
-
+        $this->configRepository->addOrUpdate("showLangSwitch", $this->request->getArgument("showLangSwitch"));
         $this->addFlashMessage("Änderungen gespeichert", '', AbstractMessage::INFO);
 
         $this->redirect('settings');

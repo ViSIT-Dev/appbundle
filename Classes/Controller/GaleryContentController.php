@@ -231,45 +231,6 @@ class GaleryContentController extends AbstractVisitController  implements IRende
     }
 
 
-
-    /**
-     * action settings
-     *
-     * @return void
-     */
-    public function settingsAction(){
-        
-        
-        $this->view->assign('title', Util::getConfigForAllLanguages("title"));
-        $this->view->assign('imprint', Util::getConfigForAllLanguages("imprint"));
-        $this->view->assign('splash', Util::getConfigForAllLanguages("splash"));
-        $this->view->assign('startUpLayout', $this->configRepository->get("startUpLayout"));
-        
-        $this->view->assign('startUpLayoutOptions', [
-            0 => "3er (3 Spalten, 1 Zeile)",
-            1 => "6er (3 Spalten, 2 Zeilen)"
-        ]);
-
-    }
-
-    /**
-     * action updateSettings
-     *
-     * @return void
-     */
-    public function updateSettingsAction(){
-
-        $this->configRepository->processRequest($this->request, "title");
-        $this->configRepository->processRequest($this->request, "imprint");
-        $this->configRepository->processRequest($this->request, "splash");
-        $this->configRepository->addOrUpdate("startUpLayout", $this->request->getArgument("startUpLayout"));
-
-        $this->addFlashMessage("Änderungen gespeichert", '', AbstractMessage::INFO);
-
-        $this->redirect('settings');
-
-    }
-
     /**
      * action deleteImage
      *
