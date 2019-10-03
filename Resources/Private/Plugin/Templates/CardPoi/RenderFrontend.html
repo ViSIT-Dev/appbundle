@@ -74,8 +74,7 @@
 
 
         <script>
-        	//test
-            var iconScale = 0.9;
+            var iconScale = 0.75;
 
             var inactiveColor = "#4A4A4A";
             var activeColor = "#D1880F";
@@ -87,6 +86,8 @@
 
             var mapMarkers = [];
             var markerCache = [];
+
+            var groupBounds;
 
             var mymap, currentLanguage, markerSVGtemplate, lastAciveMarker = lastInAciveMarker= false;
             {
@@ -105,6 +106,7 @@
                     mymap.addLayer(lastInAciveMarker);
                 }
                 lastInAciveMarker = false;
+                // fitBounds();
             }
             
             function getSvgFlagFromItem(item, active){
@@ -179,6 +181,7 @@
                 $(".datapoint.active").removeClass("active");
                 $("#datapoint-id-" + item.uid).addClass("active");
                 $("#cardPoiContent").removeClass("hidden");
+                // fitBounds();
             }
 
             function removeAllMarkers(){
@@ -203,23 +206,41 @@
                     currentLanguage = lang;
                     console.log("init with: " + languages[lang].title);
                     removeAllMarkers();
+
+                    let markers = [];
                     $.each(poiData[lang], function(key, item) {
-                        addMarkerFromItemToMap(item, false);
+                        markers.push(addMarkerFromItemToMap(item, false));
                     });
+                    groupBounds = new L.featureGroup(markers).getBounds();
+
+                    fitBounds();
+                    mymap.setMaxBounds(groupBounds.pad(0.5));
+
                 }
 
+            }
+
+            function fitBounds(){
+                if(groupBounds){
+                    mymap.fitBounds(groupBounds,{
+                        paddingTopLeft: [0, 0],
+                        // paddingBottomRight: [$('#cardPoiContent').hasClass("hidden") ? 0 : 400, 0],
+                        paddingBottomRight: [0, 0],
+                        padding: [30, 30],
+                    });
+                }
             }
 
     
             document.addEventListener('DOMContentLoaded', function(){
 
-                var bounds = new L.LatLngBounds(new L.LatLng(46.186, 13.881), new L.LatLng(49.7209, 8.686));
+                // const bounds = new L.LatLngBounds(new L.LatLng(46.186, 13.881), new L.LatLng(49.7209, 8.686));
                 mymap = L.map('cardPoiMap', {
                     zoomControl: false,
                     minZoom: 8,
                     maxZoom: 10,
-                    maxBounds: bounds,
-                }).setView([47.5793, 12.1687], 8);
+                    // maxBounds: bounds,
+                }).setView([48.08978515, 12.84013965], 8);
                 L.tileLayer('/index.php?eID=map_server&x={' + 'x}&y={' + 'y}&z={' + 'z}').addTo(mymap);
 
                 //we have to remove this link to make the app tempering safe
