@@ -190,7 +190,8 @@ abstract class AbstractVisitController extends \TYPO3\CMS\Extbase\Mvc\Controller
     }
 
     protected function addCacheToHeader(){
-        $this->response->addAdditionalHeaderData('<script src="/typo3conf/ext/visit_tablets/Resources/Public/js/cache.js" type="text/javascript"></script>');
+        //https only
+        //$this->response->addAdditionalHeaderData('<script src="/typo3conf/ext/visit_tablets/Resources/Public/js/cache.js" type="text/javascript"></script>');
     }
 
     protected function addSettingsForTablets(){
