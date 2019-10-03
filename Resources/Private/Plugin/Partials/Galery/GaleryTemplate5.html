@@ -1,7 +1,10 @@
 <div class="galery-content-layout swiper-slide layout-id-5" data-uid="{element.uid}">
     <div class="row intro">
         <div class="col-6 no-gutters">
-            <f:render partial="SingleMedia" arguments="{media: element.media.0}" />
+            <f:comment>
+                <f:render partial="SingleMedia" arguments="{media: element.media.0}" />
+            </f:comment>
+            <f:image src="{element.media.0.uid}" treatIdAsReference="1" class="img-fluid" maxWidth="1920" maxHeight="1080" />
         </div>
         <div class="col-6 no-gutters">
             <h1><f:format.raw>{element.text}</f:format.raw></h1>
