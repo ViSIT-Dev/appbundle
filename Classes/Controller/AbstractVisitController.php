@@ -189,11 +189,16 @@ abstract class AbstractVisitController extends \TYPO3\CMS\Extbase\Mvc\Controller
         }
     }
 
+    protected function addCacheToHeader(){
+        $this->response->addAdditionalHeaderData('<script src="/typo3conf/ext/visit_tablets/Resources/Public/js/cache.js" type="text/javascript"></script>');
+    }
+
     protected function addSettingsForTablets(){
         //add pwa manifest
         $this->response->addAdditionalHeaderData('<link rel="manifest" href="/typo3conf/ext/visit_tablets/Resources/Public/manifest.json" />');
-        $this->response->addAdditionalHeaderData('<script href="/typo3conf/ext/visit_tablets/Resources/Public/js/cache.js" type="text/javascript"></script>');
         $this->response->addAdditionalHeaderData('<meta name="apple-mobile-web-app-capable" content="yes">');
+
+//        $this->addCacheToHeader();
 
         $this->view
             ->assign('title', Util::getConfigForAllLanguages("title"))

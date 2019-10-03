@@ -195,6 +195,8 @@ class ScopeController extends AbstractVisitController  implements IRenderFronten
      */
     public function renderFrontendAction()
     {
+        $this->addCacheToHeader();
+
         // Get the data object (contains the tt_content fields)
         $data = $this->configurationManager->getContentObject()->data;
         // Append flexform values
