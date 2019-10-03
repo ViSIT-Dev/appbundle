@@ -171,7 +171,8 @@ class GaleryTeaserController extends AbstractVisitController  implements IRender
         $this->view->assign('title', Util::getConfigForAllLanguages("title"));
         $this->view->assign('imprint', Util::getConfigForAllLanguages("imprint"));
         $this->view->assign('splash', Util::getConfigForAllLanguages("splash"));
-        $this->view->assign('startUpLayout', $this->configRepository->get("startUpLayout"));
+        $this->view->assign('startUpLayout', Util::getConfig("startUpLayout"));
+        $this->view->assign('showLangSwitch', Util::getConfig("showLangSwitch"));
         
         $this->view->assign('startUpLayoutOptions', [
             0 => "3er (3 Spalten, 1 Zeile)",
@@ -191,6 +192,7 @@ class GaleryTeaserController extends AbstractVisitController  implements IRender
         $this->configRepository->processRequest($this->request, "imprint");
         $this->configRepository->processRequest($this->request, "splash");
         $this->configRepository->addOrUpdate("startUpLayout", $this->request->getArgument("startUpLayout"));
+        $this->configRepository->addOrUpdate("showLangSwitch", $this->request->getArgument("showLangSwitch"));
 
         $this->addFlashMessage("Änderungen gespeichert", '', AbstractMessage::INFO);
 
