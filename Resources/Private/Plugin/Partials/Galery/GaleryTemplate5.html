@@ -13,7 +13,10 @@
         <div class="row {f:if(condition: '{subElement.lightTheme}', then: 'light', else: 'dark')} subs">
             <div class="col-4">
                 <h2 class="left-title">{subElement.title}</h2>
-                <f:render partial="SingleMedia" arguments="{media: subElement.media.0}" />
+                <f:comment>
+                    <f:render partial="SingleMedia" arguments="{media: subElement.media.0}" />
+                </f:comment>
+                <f:image src="{subElement.media.0.uid}" treatIdAsReference="1" class="img-fluid" maxWidth="1000" maxHeight="1000" />
             </div>
             <div class="col-8">
                 <h2 class="right-title">&rsaquo;&rsaquo;{subElement.title}&lsaquo;&lsaquo;</h2>
