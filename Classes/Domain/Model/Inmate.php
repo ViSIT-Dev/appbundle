@@ -490,7 +490,7 @@ class Inmate extends AbstractEntityWithMedia implements IHasLanguage {
      */
     public function getFullName()
     {
-        return $this->firstName . " " . $this->lastName;
+        return $this->lastName . " " . $this->firstName;
     }
 
 

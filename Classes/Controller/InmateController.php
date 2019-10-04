@@ -182,11 +182,11 @@ class InmateController extends AbstractVisitController  implements IRenderFronte
         $out = [];
         /** @var Inmate $inmate */
         foreach ($this->inmateRepository->findAll() as $inmate){
-            $current =  \strtoupper($inmate->getFirstName()[0]);
+            $current =  \strtoupper($inmate->getLastName()[0]);
 
 
             if(empty($current)){
-                $current = \strtoupper($inmate->getLastName()[0]);
+                $current = \strtoupper($inmate->getFirstName()[0]);
             }
             if(empty($current)){
                 //if no name skip
@@ -195,6 +195,10 @@ class InmateController extends AbstractVisitController  implements IRenderFronte
 //            $current = iconv("utf-8","ascii//TRANSLIT",$current);
             $current = utf8_encode($current);
 
+            if(\ord($current) < 65 || \ord($current) > 90){
+                $current = "#";
+            }
+
             if(! \array_key_exists($current, $out)){
                 $out[$current] = array();
             }
@@ -202,6 +206,10 @@ class InmateController extends AbstractVisitController  implements IRenderFronte
         }
 
         \ksort($out);
+        if($out['#']){
+            $specialLang = \array_shift($out);
+            $out['#'] = $specialLang;
+        }
 
 //        Util::debug($out);
 

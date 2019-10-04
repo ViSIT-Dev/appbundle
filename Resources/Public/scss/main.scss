@@ -413,17 +413,16 @@ iframe.warenkorb{
                 -khtml-user-select: none; /* Konqueror HTML */
                 -moz-user-select: none; /* Firefox */
                 -ms-user-select: none; /* Internet Explorer/Edge */
-                user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome and Opera */
+                user-select: none;
 
 
                 li{
                     padding: 3px 0;
                     color: #d6d6d6;
-                    font-size: 22px;
                     font-weight: bold;
                     text-transform: uppercase;
-                    line-height: 26px;
+                    font-size: 18px;
+                    line-height: 18px;
                     position: relative;
                     &.active{
                         color: #d1880f;

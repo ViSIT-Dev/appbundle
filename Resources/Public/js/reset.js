@@ -5,7 +5,7 @@ const IDLE_TIMEOUT = 600;
 let idle = 0;
 
 setInterval(function () {
-    if(idle++ === IDLE_TIMEOUT){
+    if(idle++ === IDLE_TIMEOUT && ! $("#startModal").hasClass("show")){
         $('#startModal').modal('show');
     }
 }, 1000);
