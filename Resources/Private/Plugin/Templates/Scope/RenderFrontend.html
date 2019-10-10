@@ -24,6 +24,12 @@
                         top: -webkit-calc(50% - <f:format.raw>{config.crosshairIconHeight / 2}</f:format.raw>px);
                     }
             </f:if>
+            <f:if condition="{config.poi_shaddow}">
+               main#scope #scopeContainer #overlay .poi{
+                  background-color: <f:format.raw>{config.poi_shaddow_color}</f:format.raw>;
+                  box-shadow: 0px 0px 20px 20px <f:format.raw>{config.poi_shaddow_color}</f:format.raw>;
+               }
+            </f:if>
 
         </style>
         <f:comment>WHAT?! For some reason we need to address config via this to access it afterwards?</f:comment>

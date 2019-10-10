@@ -177,9 +177,9 @@
             <TCEforms type="array">
                 <label>POI Icon</label>
                 <config type="array">
-                    <type>group</type>    
+                    <type>group</type>
                     <internal_type>file</internal_type>
-                    <allowed>png</allowed>                   
+                    <allowed>png</allowed>
                     <max_size>2000</max_size>
                     <show_thumbs>1</show_thumbs>
                     <size>3</size>
@@ -188,6 +188,26 @@
                 </config>
             </TCEforms>
         </poiicon>
+        <poi_shaddow>
+            <TCEforms type="array">
+                <label>POI Schatten</label>
+                <config>
+                    <type>check</type>
+                    <default>1</default>
+                </config>
+            </TCEforms>
+        </poi_shaddow>
+        <poi_shaddow_color>
+            <TCEforms type="array">
+                <label>POI Schatten</label>
+                <config>
+                    <type>input</type>
+                    <size>50</size>
+                    <eval>required,trim</eval>
+                    <default>#FFF</default>
+                </config>
+            </TCEforms>
+        </poi_shaddow_color>
         <langicon_imprint>
             <TCEforms type="array">
                 <label>Icon Impressum</label>
