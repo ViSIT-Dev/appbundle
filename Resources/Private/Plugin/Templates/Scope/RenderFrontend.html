@@ -33,7 +33,7 @@
 
         </style>
         <f:comment>WHAT?! For some reason we need to address config via this to access it afterwards?</f:comment>
-        <div class="full">
+        <div class="full {config.specialLayoutClass}">
             <div id="scopeContainer">
                 <video autoplay="true" id="camrtc" class="full"></video>
                 <f:if condition="{config.showOverlay}">
@@ -182,7 +182,7 @@
                         </table>
                     </div>
                 </f:if>
-                <div id="crosshair"></div>
+                <div id="crosshair" class="{config.specialLayoutClass}"></div>
                 <div id="lang-indicator">
                     <figure class="lang-content lang-de">
                         <f:if condition="{config.langicon_de}">
@@ -208,7 +208,7 @@
             </div>
         </div>
 
-        <div class="content-holder {f:if(condition:'{config.debugmode}', then:' debug')}">
+        <div class="content-holder {config.specialLayoutClass} {f:if(condition:'{config.debugmode}', then:' debug')}">
             <div class="scroller">
                 <div class="datapoint lang-de lang-en" id="datapoint-id-imprint" data-id="imprint" data-withBG="true" >
                     <div class="lang-de lang-content">

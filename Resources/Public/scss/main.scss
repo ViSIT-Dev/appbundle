@@ -667,7 +667,7 @@ main#scope{
                     }
                 }
                 &.active{
-                    
+
                 }
             }
         }
@@ -693,6 +693,9 @@ main#scope{
             top: -webkit-calc(50% - 20px);
             left: -moz-calc(50% - 20px);
             top: -moz-calc(50% - 20px);
+            &.veste-oberhaus{
+                display: block !important;
+            }
         }
         #lang-indicator{
             position: fixed;
@@ -754,6 +757,15 @@ main#scope{
             &.active{
                 display: inline-block;
                 opacity: 1;
+            }
+        }
+        &.veste-oberhaus{
+            .scroller{
+                margin-left: 50%;
+                margin-bottom: 200px;
+                min-height: 200px;
+                width: 35%;
+                background: rgba(12,23,23,0.1);
             }
         }
     }

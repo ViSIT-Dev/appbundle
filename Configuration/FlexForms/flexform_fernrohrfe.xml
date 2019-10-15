@@ -397,6 +397,26 @@
                 </config>
             </TCEforms>
         </crosshairIconHeight>
+        <!--<crosshairInvisibleOnTarget>
+            <TCEforms type="array">
+                <label>Fadenkreuz bei Ziel Ausblenden</label>
+                <config>
+                    <type>check</type>
+                    <default>0</default>
+                </config>
+            </TCEforms>
+        </crosshairInvisibleOnTarget>-->
+        <specialLayoutClass>
+            <TCEforms type="array">
+                <label>Spezial Layout ID</label>
+                <config>
+                    <type>input</type>
+                    <size>15</size>
+                    <eval>trim</eval>
+                    <default></default>
+                </config>
+            </TCEforms>
+        </specialLayoutClass>
     </el>
 </ROOT>
 </T3DataStructure>
