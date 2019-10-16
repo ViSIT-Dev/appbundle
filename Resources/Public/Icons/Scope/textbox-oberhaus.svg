@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 675 255">
+  <title>Textbox</title>
+  <g>
+    <polygon points="75 5 5 255 100 220 615 220 675 5 75 5" style="opacity: 0.1"/>
+    <polygon points="70 0 0 250 95 215 610 215 670 0 70 0" style="fill: #ff4e00;opacity: 0.5"/>
+  </g>
+</svg>

@@ -2231,6 +2231,56 @@ template {
   src: local("Rum Serif Bold"), url("../fonts/RumSerif-Bold.ttf") format("truetype");
   font-weight: 700;
 }
+@font-face {
+  font-family: "Titillium Sans";
+  src: local("Titillium Extralight"), url("../fonts/oberhaus/Titillium_Web-ExtraLight.ttf") format("truetype");
+  font-weight: 300;
+}
+@font-face {
+  font-family: "Titillium Sans";
+  src: local("Titillium Light"), url("../fonts/oberhaus/Titillium_Web-Light.ttf") format("truetype");
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Titillium Sans";
+  src: local("Titillium Regular"), url("../fonts/oberhaus/Titillium_Web-Regular.ttf") format("truetype");
+  font-weight: 500;
+}
+@font-face {
+  font-family: "Titillium Sans";
+  src: local("Titillium SemiBold"), url("../fonts/oberhaus/Titillium_Web-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+}
+@font-face {
+  font-family: "Titillium Sans";
+  src: local("Titillium Bold"), url("../fonts/oberhaus/Titillium_Web-Bold.ttf") format("truetype");
+  font-weight: 700;
+}
+@font-face {
+  font-family: "Titillium Serif";
+  src: local("Titillium Extralight"), url("../fonts/oberhaus/Titillium_Web-ExtraLightItalic.ttf") format("truetype");
+  font-weight: 300;
+}
+@font-face {
+  font-family: "Titillium Serif";
+  src: local("Titillium Light"), url("../fonts/oberhaus/Titillium_Web-LightItalic.ttf") format("truetype");
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Titillium Serif";
+  src: local("Titillium Regular"), url("../fonts/oberhaus/Titillium_Web-italic.ttf") format("truetype");
+  font-weight: 500;
+}
+@font-face {
+  font-family: "Titillium Serif";
+  src: local("Titillium SemiBold"), url("../fonts/oberhaus/Titillium_Web-SemiBoldItalic.ttf") format("truetype");
+  font-weight: 600;
+}
+@font-face {
+  font-family: "Titillium Serif";
+  src: local("Titillium Bold"), url("../fonts/oberhaus/Titillium_Web-BoldItalic.ttf") format("truetype");
+  font-weight: 700;
+}
 .extbase-debugger {
   position: fixed;
   min-width: 33%;
@@ -2874,12 +2924,36 @@ main#scope .content-holder .datapoint.active {
   display: inline-block;
   opacity: 1;
 }
+main#scope .content-holder.veste-oberhaus {
+  height: 100%;
+}
 main#scope .content-holder.veste-oberhaus .scroller {
-  margin-left: 50%;
-  margin-bottom: 200px;
-  min-height: 200px;
-  width: 35%;
-  background: rgba(12, 23, 23, 0.1);
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  width: 40%;
+  background-image: url("/typo3conf/ext/visit_tablets/Resources/Public/Icons/Scope/textbox-oberhaus.svg");
+  background-color: transparent;
+  background-size: cover;
+  padding: 0.5em 4em 5em 5em;
+  margin: 0;
+  min-height: auto;
+  text-align: left;
+  font-family: "Titillium Sans";
+}
+main#scope .content-holder.veste-oberhaus .scroller .datapoint {
+  color: white;
+  margin-top: 5px;
+}
+main#scope .content-holder.veste-oberhaus .scroller .datapoint div.desc-text {
+  font-size: 18px;
+  display: inline;
+}
+main#scope .content-holder.veste-oberhaus .scroller .datapoint h1, main#scope .content-holder.veste-oberhaus .scroller .datapoint h2 {
+  font-size: 20px;
+}
+main#scope .content-holder.veste-oberhaus .scroller .datapoint img {
+  max-width: 100%;
 }
 
 #galery-content-holder {
