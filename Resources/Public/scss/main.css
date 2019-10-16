@@ -2935,7 +2935,7 @@ main#scope .content-holder.veste-oberhaus .scroller {
   background-image: url("/typo3conf/ext/visit_tablets/Resources/Public/Icons/Scope/textbox-oberhaus.svg");
   background-color: transparent;
   background-size: cover;
-  padding: 0.5em 4em 5em 5em;
+  padding: 1em 5em 5em 6em;
   margin: 0;
   min-height: auto;
   text-align: left;
