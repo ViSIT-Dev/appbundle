@@ -495,7 +495,7 @@
 
                 let target = getTarget();
                 if (target) {
-                    if (!target["target"].hasClass("active") && $(".datapoint.active").length > 1) {
+                    if (!target["target"].hasClass("active") && $(".datapoint.active").length <= 1) {
                         target["target"].addClass("active");
                         target["datapoint"].addClass("active");
                         $(".content-holder").addClass("active");
