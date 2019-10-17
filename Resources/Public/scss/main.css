@@ -2948,13 +2948,13 @@ main#scope .content-holder.veste-oberhaus .scroller .datapoint {
   color: white;
   margin-top: 5px;
 }
-main#scope .content-holder.veste-oberhaus .scroller .datapoint div.desc-text {
-  font-size: 18px;
+main#scope .content-holder.veste-oberhaus .scroller .datapoint h1, main#scope .content-holder.veste-oberhaus .scroller .datapoint h2, main#scope .content-holder.veste-oberhaus .scroller .datapoint div.desc-text {
+  font-size: 22px;
+  font-family: "Titillium Sans";
   display: inline;
 }
 main#scope .content-holder.veste-oberhaus .scroller .datapoint h1, main#scope .content-holder.veste-oberhaus .scroller .datapoint h2 {
-  font-size: 20px;
-  font-family: "Titillium Sans";
+  font-size: 23px;
 }
 main#scope .content-holder.veste-oberhaus .scroller .datapoint img {
   max-width: 100%;

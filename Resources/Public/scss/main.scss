@@ -824,13 +824,13 @@ main#scope{
                 .datapoint{
                     color: white;
                     margin-top: 5px;
-                    div.desc-text{
-                        font-size: 18px;
+                    h1, h2, div.desc-text{
+                        font-size: 22px;
+                        font-family: "Titillium Sans";
                         display:inline;
                     }
                     h1, h2{
-                        font-size: 20px;
-                        font-family: "Titillium Sans";
+                        font-size: 23px;
                     }
                     img{
                         max-width: 100%;
