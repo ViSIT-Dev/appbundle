@@ -2951,6 +2951,7 @@ main#scope .content-holder.veste-oberhaus .scroller .datapoint div.desc-text {
 }
 main#scope .content-holder.veste-oberhaus .scroller .datapoint h1, main#scope .content-holder.veste-oberhaus .scroller .datapoint h2 {
   font-size: 20px;
+  font-family: "Titillium Sans";
 }
 main#scope .content-holder.veste-oberhaus .scroller .datapoint img {
   max-width: 100%;
