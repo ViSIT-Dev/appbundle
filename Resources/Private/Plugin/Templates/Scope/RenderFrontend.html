@@ -495,6 +495,9 @@
 
                 let target = getTarget();
                 if (target) {
+                    if( $(".poi.active").length > 1){
+                        $(".poi.active").removeClass("active");
+                    }
                     if (!target["target"].hasClass("active")) {
                         target["target"].addClass("active");
                         target["datapoint"].addClass("active");
