@@ -677,8 +677,14 @@ main#scope{
         width: 100%;
         height: 100%;
         &.veste-oberhaus{
-            #scopeContainer #overlay .poi .inside figure img.poi-icon{
-                max-width: unset;
+            #scopeContainer {
+                #overlay .poi .inside figure img.poi-icon{
+                    max-width: unset;
+                }
+                #lang-indicator{
+                    height: 180px;
+                    width: 180px;
+                }
             }
         }
     }
@@ -827,7 +833,8 @@ main#scope{
                     h1, h2, div.desc-text{
                         font-size: 22px;
                         font-family: "Titillium Sans";
-                        display:inline;
+                        margin: 0;
+                        //display:inline;
                     }
                     h1, h2{
                         font-size: 23px;

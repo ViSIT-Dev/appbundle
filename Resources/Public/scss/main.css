@@ -2807,6 +2807,10 @@ main#scope .full {
 main#scope .full.veste-oberhaus #scopeContainer #overlay .poi .inside figure img.poi-icon {
   max-width: unset;
 }
+main#scope .full.veste-oberhaus #scopeContainer #lang-indicator {
+  height: 180px;
+  width: 180px;
+}
 main#scope #scopeContainer {
   position: relative;
   overflow: hidden;
@@ -2951,7 +2955,7 @@ main#scope .content-holder.veste-oberhaus .scroller .datapoint {
 main#scope .content-holder.veste-oberhaus .scroller .datapoint h1, main#scope .content-holder.veste-oberhaus .scroller .datapoint h2, main#scope .content-holder.veste-oberhaus .scroller .datapoint div.desc-text {
   font-size: 22px;
   font-family: "Titillium Sans";
-  display: inline;
+  margin: 0;
 }
 main#scope .content-holder.veste-oberhaus .scroller .datapoint h1, main#scope .content-holder.veste-oberhaus .scroller .datapoint h2 {
   font-size: 23px;
